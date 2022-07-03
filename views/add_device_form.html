@@ -1,0 +1,259 @@
+<!doctype html>
+<html>
+
+<head>
+    <title> Add device form</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a website to manage IOT devices.">
+    <meta name="author" content="Susanna Ventafridda - Databases, networks, and the web - 2021/2022">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="refresh" content="600">
+    <meta name="keywords" content="'IOT devices', 'smart home', 'manage IOT devices'">
+    <!-- Common and page specific CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/add_device.css">
+
+    <!-- Bootstrap and jquery -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/javascripts/add_device.js"></script>
+    <script type="text/javascript" src="/my_js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/my_js/bootstrap.js"></script>
+    <script type="text/javascript" src="/my_js/jquery.min.js"></script>
+    <script type="text/javascript" src="/my_js/jquery.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+
+<body>
+    <header>
+        <!-- Header with navbar -->
+        <div class="navbar-custom-container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand"><img style=" width: 64px;" src="/logo/home_logo.png"
+                                alt="Home Connect logo">Home Connect
+                        </a>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+    
+        </div>
+    </header>
+    <nav id="breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <% if (read_mode == 'add') { %>
+                <li class="breadcrumb-item"><a href="/add_device">Add device</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%= device %></li>
+            <% } else if (read_mode == 'edit') { %>
+                <li class="breadcrumb-item"><a href="/edit_device">Edit device</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%= selectedDeviceProperties.name %></li>
+            <% } else if (read_mode == 'read') { %>
+                <li class="breadcrumb-item"><a href="/device_status">Device status</a></li>
+                <li class="breadcrumb-item active" aria-current="page"><%= selectedDeviceProperties.name %></li>
+            <% } %>
+            
+        </ol>
+    </nav>
+    <main>
+        <div class="first-container-add-device">
+            <div class="second-container-form">
+                <% if (read_mode == 'add') { %>
+                    <h1> Add new <%= device %> </h1>
+                <% } else if (read_mode == 'edit') { %>
+                    <h1> Edit <%= selectedDeviceProperties.name %> </h1>
+                <% } else if (read_mode == 'read') { %>
+                    <h1> Status of <%= selectedDeviceProperties.name %> </h1>
+                <% } %>
+                
+                <% if (read_mode == 'add') { %>
+                    <form id="initial-parameters-form" method="POST" action="/add_device/<%= device %>">
+                <% } else if (read_mode == 'edit') { %>
+                    <% var deviceAndName = device + '/' + selectedDeviceProperties.name; %>
+                    <form id="initial-parameters-form" method="POST" action="/update_device/<%= deviceAndName %>">
+                <% } else if (read_mode == 'read') { %>
+                    <form id="initial-parameters-form" method="GET" action="/device_status">
+                <% } %>
+                    <div class="form-top">
+                        <% if (read_mode == 'add') { %>
+                            <input input type="hidden" id="device" type="text" name="device" value="<%= device %>" />
+                            <div class="label-and-input-block">
+                                <label for="device-name">Choose a name for your device</label>
+                                <input id="device-name" type="text" name="name" pattern="^[a-zA-Z ]*[a-zA-Z]+[a-zA-Z ]*$"
+                                    oninvalid="setCustomValidity('Please enter only letters or spaces. Cannot be empty. Cannot be only spaces.')"
+                                    oninput="setCustomValidity('')" maxlength="290" required>
+                            </div>
+                            <div class="label-and-input-block">
+                                <label for="device-room">Where is your device going to be?</label>
+                                <input id="device-room" type="text" name="room" pattern="^[a-zA-Z ]*[a-zA-Z]+[a-zA-Z ]*$"
+                                    oninvalid="setCustomValidity('Please enter only letters or spaces. Cannot be empty. Cannot be only spaces.')"
+                                    oninput="setCustomValidity('')" maxlength="290" required>
+                            </div>
+                            
+                            <h3>Set the initial parameters for your device</h3>
+                        <% } else if (read_mode == 'edit') { %>
+                            <div class="label-and-input-block">
+                                <label for="device-type">Device type: </label>
+                                <input id="device-type" type="text" name="device" value="<%= device %>" disabled>
+                                <input id="device-type" type="text" name="device" value="<%= device %>" hidden>
+                            </div>
+                            
+                            <div class="label-and-input-block">
+                                <label for="device-name">Device name: </label>
+                                <input id="device-name" type="text" name="name" value="<%= selectedDeviceProperties.name %>" disabled>
+                                <input id="device-name" type="text" name="name" value="<%= selectedDeviceProperties.name %>" hidden>
+                            </div>
+                            <h3>Edit parameters</h3>
+                            <div class="label-and-input-block">
+                                <label for="device-room">Where is your device going to be?</label>
+                                <input id="device-room" type="text" name="room" value="<%= selectedDeviceProperties.room %>" pattern="^[a-zA-Z ]*[a-zA-Z]+[a-zA-Z ]*$"
+                                oninvalid="setCustomValidity('Please enter only letters or spaces. Cannot be empty. Cannot be only spaces.')"
+                                oninput="setCustomValidity('')" maxlength="290" required>
+                            </div>
+                        <% } else if (read_mode == 'read') { %>
+                            <div class="label-and-input-block">
+                                <label for="device-type">Device type: </label>
+                                <input id="device-type" type="text" name="device" value="<%= device %>" disabled>
+                                <input id="device-type" type="text" name="device" value="<%= device %>" hidden>
+                            </div>
+                            
+                            <div class="label-and-input-block">
+                                <label for="device-name">Device name: </label>
+                                <input id="device-name" type="text" name="name" value="<%= selectedDeviceProperties.name %>" disabled>
+                                <input id="device-name" type="text" name="name" value="<%= selectedDeviceProperties.name %>" hidden>
+                            </div>
+                            <div class="label-and-input-block">
+                                <label for="device-room">Room</label>
+                                <input id="device-room" type="text" name="room" value="<%= selectedDeviceProperties.room %>"
+                                    pattern="^[a-zA-Z ]*[a-zA-Z]+[a-zA-Z ]*$"
+                                    oninvalid="setCustomValidity('Please enter only letters or spaces. Cannot be empty. Cannot be only spaces.')"
+                                    oninput="setCustomValidity('')" maxlength="290" disabled>
+                            </div>
+                        <% } %>
+
+                        <% device_attributes.forEach(function(deviceAttribute){ %>
+                            <div class="label-and-input-block">
+                                <label for="<%= deviceAttribute.description %>"><%= deviceAttribute.description %></label>
+                                <% if(deviceAttribute.input_type == "range"){ %>
+                                    <div id="<%= deviceAttribute.description %>" class="slider-container">
+                                        <% if (read_mode == 'add') { %>
+                                            <input class="input-range" type="range" value="<%= deviceAttribute.input_range.split(',')[0] %>"
+                                                min="<%= deviceAttribute.input_range.split(',')[0] %>" max="<%= deviceAttribute.input_range.split(',')[1] %>"
+                                                oninput="this.nextElementSibling.value = this.value" name="<%= deviceAttribute.attribute_name %>">
+                                            <output class="selected-value-output"><%= deviceAttribute.input_range.split(',')[0] %></output>
+                                        <% } else if (read_mode == 'edit') { %>
+                                            <input class="input-range" type="range" value="<%= selectedDeviceProperties[deviceAttribute.attribute_name] %>"
+                                                min="<%= deviceAttribute.input_range.split(',')[0] %>" max="<%= deviceAttribute.input_range.split(',')[1] %>"
+                                                oninput="this.nextElementSibling.value = this.value" name="<%= deviceAttribute.attribute_name %>">
+                                            <output class="selected-value-output"><%= selectedDeviceProperties[deviceAttribute.attribute_name] %></output>
+                                        <% } else if (read_mode == 'read') { %>
+                                            <input class="input-range" type="range" value="<%= selectedDeviceProperties[deviceAttribute.attribute_name] %>"
+                                                min="<%= deviceAttribute.input_range.split(',')[0] %>" max="<%= deviceAttribute.input_range.split(',')[1] %>"
+                                                oninput="this.nextElementSibling.value = this.value" name="<%= deviceAttribute.attribute_name %>" disabled>
+                                            <output class="selected-value-output"><%= selectedDeviceProperties[deviceAttribute.attribute_name] %></output>
+                                        <% } %>
+                                        
+                                    </div>
+                                <% } else if(deviceAttribute.input_type == "radio"){ %>
+                                    <div class="radio-container">
+                                        <% if (read_mode == 'add') { %>
+                                            <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" checked>
+                                            <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                            <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>">
+                                            <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                            
+                                        <% } else if (read_mode == 'edit') { %>
+                                            <% if (deviceAttribute.attribute_name == 'is_on') { %>
+                                                <% if (selectedDeviceProperties.is_on == '0') { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" checked>
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" >
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } else { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>">
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" checked>
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } %>
+                                            <% } else if (deviceAttribute.attribute_name == 'is_open') { %>
+                                                <% if (selectedDeviceProperties.is_open == '0') { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" checked>
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>">
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } else { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>">
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" checked>
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } %>
+
+                                            <% } %>
+                                        <% } else if (read_mode == 'read') { %>
+                                            <% if (deviceAttribute.attribute_name == 'is_on') { %>
+                                                <% if (selectedDeviceProperties.is_on == '0') { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" checked disabled>
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" disabled>
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } else { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" disabled>
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" checked disabled>
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } %>
+                                            <% } else if (deviceAttribute.attribute_name == 'is_open') { %>
+                                                <% if (selectedDeviceProperties.is_open == '0') { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" checked disabled>
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" disabled>
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } else { %>
+                                                    <input type="radio" id="off" value=0 name="<%= deviceAttribute.attribute_name %>" disabled>
+                                                    <label for="off"><%= deviceAttribute.input_range.split(',')[0] %></label>
+                                                    <input type="radio" id="on" value=1 name="<%= deviceAttribute.attribute_name %>" checked disabled>
+                                                    <label for="on"><%= deviceAttribute.input_range.split(',')[1] %></label>
+                                                <% } %>
+                                            
+                                            <% } %>
+                                        <% } %>
+                                        
+                                    </div>
+                                <% } else{ %>
+                                    <% if (read_mode == 'add') { %>
+                                        <input class="input" id="<%= deviceAttribute.description %>" type="<%= deviceAttribute.input_type %>"
+                                            name="<%= deviceAttribute.attribute_name %>" required>
+                                    <% } else if (read_mode == 'edit') { %>
+                                        <input class="input" id="<%= deviceAttribute.description %>" type="<%= deviceAttribute.input_type %>"
+                                            name="<%= deviceAttribute.attribute_name %>" value="<%= selectedDeviceProperties[deviceAttribute.attribute_name] %>" required>
+                                    <% } else if (read_mode == 'read') { %>
+                                        <input class="input" id="<%= deviceAttribute.description %>" type="<%= deviceAttribute.input_type %>"
+                                        name="<%= deviceAttribute.attribute_name %>" value="<%= selectedDeviceProperties[deviceAttribute.attribute_name] %>"
+                                        disabled>
+                                    <% } %>
+                                
+                                <% } %>
+                                
+                            </div>
+                        <% }) %>
+                    </div>
+                    <div class="form-bottom">
+                        <% if (read_mode == 'read') { %>
+                            <input id="submit" type="submit" value="Ok">
+                        <% } else { %>
+                            <input id="submit" type="submit" value="Submit">
+                        <% } %>
+                    </div>
+                </form>
+            </div>
+        </div>
+       
+    </main>
+</body>
+
+</html>

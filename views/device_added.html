@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+
+<head>
+    <title> Add device form</title>
+    <meta charset="utf-8">
+    <meta name="description" content="This is a website to manage IOT devices.">
+    <meta name="author" content="Susanna Ventafridda - Databases, networks, and the web - 2021/2022">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="refresh" content="600">
+    <meta name="keywords" content="'IOT devices', 'smart home', 'manage IOT devices'">
+    <!-- Common and page specific CSS -->
+    <link rel="stylesheet" type="text/css" href="/css/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/css/add_device.css">
+
+    <!-- Bootstrap and jquery -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/javascripts/add_device.js"></script>
+    <script type="text/javascript" src="/my_js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/my_js/bootstrap.js"></script>
+    <script type="text/javascript" src="/my_js/jquery.min.js"></script>
+    <script type="text/javascript" src="/my_js/jquery.js"></script>
+
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+</head>
+
+<body>
+    <header>
+        <!-- Header with navbar -->
+        <div class="navbar-custom-container">
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a href="/" class="navbar-brand"><img style=" width: 64px;" src="/logo/home_logo.png"
+                                alt="Home Connect logo">Home Connect
+                        </a>
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="/about">About</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+    
+        </div>
+    </header>
+    <nav id="breadcrumb" aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Home</a></li>
+            <% if (read_mode != null && read_mode == 'add') { %>
+                <li class="breadcrumb-item"><a href="/add_device">Add device</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Device added</li>
+            <% } else if (read_mode != null && read_mode == 'update') { %>
+                <li class="breadcrumb-item"><a href="/edit_device">Edit device</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Device edited</li>
+            <% } else if (read_mode != null && read_mode == 'deleted' || read_mode == 'delete') { %>
+                <li class="breadcrumb-item"><a href="/delete_device">Delete device</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Device deleted</li>
+            <% } %>
+        </ol>
+    </nav>
+    <main>
+        <div class="first-container-add-device">
+            <div class="second-container-form">
+                <% if (read_mode != null && read_mode == 'add') { %>
+                    <h1> Device added successfully! </h1>
+                <% } else if (read_mode != null && read_mode == 'update') { %>
+                    <h1> Device edited successfully! </h1>
+                <% } else if (read_mode != null && read_mode == 'deleted') { %>
+                    <h1> Device deleted successfully! </h1>
+                <% } else if (read_mode != null && read_mode == 'delete') { %>
+                    <h1> Are you sure ? </h1>
+                <% } %>
+                
+                <div class="error-container">
+                    <div class="center-message">
+                        <% if (read_mode != null && read_mode == 'add') { %>
+                            <div class="error-paragraph"><%- savedDevices %></div>
+                        <% } else if (read_mode != null && read_mode == 'update') { %>
+                            <div class="error-paragraph"><%- message %></div>
+                        <% } else if (read_mode != null && read_mode == 'deleted') { %>
+                            <% var deviceAndName = device + ' called ' + name; %>
+                            <div class="error-paragraph">You have successfully deleted your <%- deviceAndName %></div>
+                        <% } else if (read_mode != null && read_mode == 'delete') { %>
+                            <% var deviceAndName = device + ' called ' + name; %>
+                            <div class="error-paragraph">Are you sure you want to delete your <%- deviceAndName %>?</div>
+                        <% } %>
+                    </div>
+                    
+                    <% if (read_mode != null && read_mode == 'delete') { %>
+                        <% var deviceAndName = device + '/' + name; %>
+                        <div class="button-container">
+                            <form class="error-form" method="POST" action="/device_status/deleted/<%= deviceAndName %>">
+                                <input id="device" type="text" name="device" value="<%= device %>" hidden>
+                                <input id="name" type="text" name="name" value="<%= name %>" hidden>
+                                <input id="submit" type="submit" name="delete-confirmed" value="Yes" >
+                            </form>
+                            <form class="error-form" method="GET" action="/">
+                                <input id="submit" type="submit" value="No">
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <form class="error-form" method="GET" action="/">
+                            <input id="submit" type="submit" value="OK">
+                        </form>
+                    <% } %>
+                    
+                </div>
+            </div>
+        </div>
+
+    </main>
+</body>
+
+</html>
