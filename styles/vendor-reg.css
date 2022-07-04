@@ -1,0 +1,15 @@
+form{
+    padding-left: 10rem;
+    padding-right: 10rem;
+}
+
+input{
+    padding: 12px 20px;
+    margin: 8px 0;
+}
+
+#page-header{
+    text-align: center;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
