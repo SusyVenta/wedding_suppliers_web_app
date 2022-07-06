@@ -25,6 +25,7 @@
       <div class="main-container">
           <div class="tab">
             <button class="tablinks" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal Information</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'to-do-list')">To Do List</button>
             <button class="tablinks" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
             <button class="tablinks" onclick="openUserProfile(event, 'Orders')">My Orders</button>
             <button class="tablinks" onclick="openUserProfile(event, 'Messages')">Messages</button>
@@ -342,6 +343,29 @@
               </div>
             </div>
             
+        <div id="to-do-list" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content" id="wishlist-tab-content">
+              <h3 class="tab-title">To Do List</h3>
+              <div id="wishlist-container">
+                <form action="#" method="post" id="add-element-to-list" class="header">
+                  <input type="text" id="to-do-list-new-input" placeholder="What else do you need to do?">
+                  <span onclick="newToDoElement()" id="add-new-to-do-element-btn" class="addBtn">Add</span>
+                </form>
+                
+                <ul id="to-do-list-items">
+                  <li class="checked">Choosing the best wedding suppliers website</li>
+                  <li>Venue</li>
+                  <li>Photographer</li>
+                  <li>Catering</li>
+                  <li>Flowers</li>
+                  <li>Clothing</li>
+                  <li>Decorations</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
         <div id="Wishlist" class="tabcontent">
           <div class="tab-content-container">
             <div class="tab-content">
