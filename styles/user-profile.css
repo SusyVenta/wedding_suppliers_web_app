@@ -343,6 +343,7 @@ input {
     background: #E6E7ED;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
+    border-radius:50px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -447,6 +448,7 @@ input {
     background: #E6E7ED;
     -moz-border-radius: 50px;
     -webkit-border-radius: 50px;
+    border-radius: 50px;
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;

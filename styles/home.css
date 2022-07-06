@@ -1,0 +1,114 @@
+
+/* ----------------------------------orders ---------------------------*/
+
+.orders-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 900px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+.orders-container * button{
+  height: 60px;
+}
+
+.product{
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+  font-size: 13px;
+  margin-top: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+  width: 100%;
+}
+
+.picture-and-description{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+}
+
+.product-description{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+}
+
+.product-photo {
+  width: 60%;
+  height: 200px;
+  max-width: 100%;
+  max-height: 100%;
+  background-image: url("https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616");
+
+  /* Set a specific height */
+  height: 20vh;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+}
+
+.stars-rating > *.checked{
+  color: orange;
+}
+
+.product-to-right-boxes{
+  display: flex;
+  flex-direction: row;
+  width: 40%;
+}
+
+.product-details, .rightest-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #ccc;
+  padding: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-between;
+  width: 50%;
+}
+
+.fa.fa-shopping-cart{
+  color:#fff;
+  background-color: #4f6ebd;
+  padding: 12px 12px 12px 12px;
+  border-radius: 50px;
+  font-size: 16pt;
+  height: 40px;
+  width: 40px;
+}
+
+/* product number input picker */
+input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    opacity: 1;
+}
+
+.product-number-input{
+  height: 30px;
+}
+
+input[type=number].product-number-input{
+  font-size:16px;
+}
+
+.product-description > h3{
+  font-weight: bold;
+  font-size: 18px;
+}
