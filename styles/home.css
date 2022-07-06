@@ -46,7 +46,7 @@
 
 .product-photo {
   width: 60%;
-  height: 200px;
+  height: 100% !important;
   max-width: 100%;
   max-height: 100%;
   background-image: url("https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616");
@@ -95,6 +95,11 @@
 }
 
 /* product number input picker */
+input{
+  position: relative;
+  max-width: 100%;
+}
+
 input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
     opacity: 1;
