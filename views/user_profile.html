@@ -13,6 +13,11 @@
     <link rel="stylesheet" href="/styles/user-profile.css">
     <link rel="stylesheet" href="/styles/header.css">
 
+    <!-- Google icons -->
+    <link 
+  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
+  rel="stylesheet"  type='text/css'>
+
     <script src="/js/user_profile.js" type="text/javascript" defer></script>
     <!-- Footer -->
     <script src="/components/footer.js" type="text/javascript" defer></script>
@@ -384,6 +389,116 @@
           <div class="tab-content-container">
             <div class="tab-content">
               <h3 class="tab-title">Your Messages</h3>
+              <div id="chat-container">
+            
+                <section class="discussions">
+                  <div class="discussion search">
+                    <div class="searchbar">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                      <input type="text" placeholder="Search..."></input>
+                    </div>
+                  </div>
+                  <div class="discussion message-active">
+                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                      <div class="online"></div>
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Belfiore</p>
+                      <p class="message">9 pm at the bar if possible 😳</p>
+                    </div>
+                    <div class="timer">12 sec</div>
+                  </div>
+          
+                  <div class="discussion">
+                    <div class="photo" style="background-image: url(https://i.pinimg.com/originals/a9/26/52/a926525d966c9479c18d3b4f8e64b434.jpg);">
+                      <div class="online"></div>
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Dave Corlew</p>
+                      <p class="message">Are you available for a visit at 3pm ?</p>
+                    </div>
+                    <div class="timer">3 min</div>
+                  </div>
+          
+                  <div class="discussion">
+                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80);">
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Jerome Seiber</p>
+                      <p class="message">I've sent you the plan</p>
+                    </div>
+                    <div class="timer">42 min</div>
+                  </div>
+          
+                  <div class="discussion">
+                    <div class="photo" style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
+                      <div class="online"></div>
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Thomas Dbtn</p>
+                      <p class="message">Talk to you soon ! 🙂</p>
+                    </div>
+                    <div class="timer">2 hour</div>
+                  </div>
+          
+                  <div class="discussion">
+                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1553514029-1318c9127859?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80);">
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Elsie Amador</p>
+                      <p class="message">Best decorations!</p>
+                    </div>
+                    <div class="timer">1 day</div>
+                  </div>
+          
+                  <div class="discussion">
+                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1541747157478-3222166cf342?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80);">
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Billy Southard</p>
+                      <p class="message">Absolutely</p>
+                    </div>
+                    <div class="timer">4 days</div>
+                  </div>
+          
+                  <div class="discussion">
+                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1435348773030-a1d74f568bc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80);">
+                      <div class="online"></div>
+                    </div>
+                    <div class="desc-contact">
+                      <p class="name">Paul Walker</p>
+                      <p class="message">Sorry, we don't have that color</p>
+                    </div>
+                    <div class="timer">1 week</div>
+                  </div>
+                </section>
+                <section class="chat">
+                  <div class="header-chat">
+                    <i class="icon fa fa-user-o" aria-hidden="true"></i>
+                    <p class="name">Belfiore</p>
+                    <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
+                  </div>
+                  <div class="messages-chat">
+                    <div class="message">
+                      <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                        <div class="online"></div>
+                      </div>
+                      <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be able to deliver them at around 10am. Does that work for you? </p>
+                      <p class="time"> 14h58</p>
+                    </div>
+                    <div class="message text-only">
+                      <div class="response">
+                        <p class="text"> Hi, that works great thank you 😃</p>
+                        <p class="response-time time"> 15h04</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="footer-chat">
+                    <input type="text" class="write-message" placeholder="Type your message here"></input>
+                    <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
+                  </div>
+                </section>
+              </div>
             </div>
           </div>
         </div>
