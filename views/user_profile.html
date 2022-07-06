@@ -375,13 +375,81 @@
           <div class="tab-content-container">
             <div class="tab-content">
               <h3 class="tab-title">Your Wishlist</h3>
+              <div id="order-container">
+                <div class="product">
+                  <div class="picture-and-description">
+                    <div class="product-photo"></div>
+                    <div class="product-description">
+                      <p>Kathy's cakes</p>
+                      <p>The Woodlans Club</p>
+                      <p>39, Woods Road, Falmouth, ME</p>
+                      <div class="stars-rating">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                      </div>
+                      <p>4.9/5 127 Reviews</p>
+                    </div>
+                  </div>
+                  <div class="product-to-right-boxes">
+                    <div class="product-details">
+                      <p>Colors available: pink, red</p>
+                      <p>Tags: traditional-wedding</p>
+                      <button onclick="" class="btn">See product details</button>
+                    </div>
+                    <div class="rightest-box">
+                      <i class="fa fa-shopping-cart"></i>
+                      <input class="product-number-input" type="number" />
+                      <p>Price per unit: £ 200</p>
+                      <button onclick="" class="btn">Add to basket</button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <!-- orders tab -->
         <div id="Orders" class="tabcontent">
           <div class="tab-content-container">
             <div class="tab-content">
               <h3 class="tab-title">Your Orders</h3>
+              <div id="order-container">
+                <div class="product">
+                  <div class="picture-and-description">
+                    <div class="product-photo"></div>
+                    <div class="product-description">
+                      <h3>Kathy's cakes</h3>
+                      <p>The Woodlans Club</p>
+                      <p>39, Woods Road, Falmouth, ME</p>
+                      <div class="stars-rating">
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star"></span>
+                        <span class="fa fa-star"></span>
+                      </div>
+                      <p>4.9/5 127 Reviews</p>
+                    </div>
+                  </div>
+                  <div class="product-to-right-boxes">
+                    <div class="product-details">
+                      <p>Order Details:</p>
+                      <p>1 Cream and Strawberries, 5 layers</p>
+                      <p>Total price: £ 200</p>
+                      <button onclick="" class="btn">See product details</button>
+                    </div>
+                    <div class="rightest-box">
+                      <p>Status: delivered</p>
+                      <button onclick="" class="btn">Leave a review</button>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -414,8 +482,8 @@
                       <div class="online"></div>
                     </div>
                     <div class="desc-contact">
-                      <p class="name">Dave Corlew</p>
-                      <p class="message">Are you available for a visit at 3pm ?</p>
+                      <p class="name">Belfiore</p>
+                      <p class="message">9 pm at the bar if possible</p>
                     </div>
                     <div class="timer">3 min</div>
                   </div>
@@ -495,7 +563,7 @@
                   </div>
                   <div class="footer-chat">
                     <input type="text" class="write-message" placeholder="Type your message here"></input>
-                    <i class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
+                    <i id="chat-send-btn" class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
                   </div>
                 </section>
               </div>
