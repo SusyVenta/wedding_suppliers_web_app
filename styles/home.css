@@ -82,6 +82,11 @@
   width: 40%;
 }
 
+.product-description-text{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
 .product-photo {
   width: 60%;
   height: 100% !important;
