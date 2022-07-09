@@ -110,3 +110,7 @@ dist
 # firebase configurations
 /config
 
+# firebase
+firestore-debug.log
+.firebaserc
+.firebase/

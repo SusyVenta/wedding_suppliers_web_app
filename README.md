@@ -8,35 +8,33 @@ Prototype of online retail platform to connect users and wedding suppliers
 1) Install node.js (https://nodejs.org/en/download/)
 2) add node installation folder to environment variables
 
-to run:
+## To run:
+### Execute `npm init` inside the functions folder, which installs all required modules for you
+```
+$npm init
+```
 
-npm install 
-node index.js
-localhost:8089
+### Run `firebase emulators:start` to set up firebase emulator for local development
 
-** Installations done**
-npm init
-npm install express --save
-npm install ejs --save
-npm install express-session --save
-npm install connect-flash --save
-npm install express-validator --save
-npm install express-messages --save
-npm install firebase --save
-npm install -g firebase-tools --save
+```
+$firebase emulators:start
+```
+This hosts firebase on  http://localhost:5004
 
-## Firebase
-
-https://console.firebase.google.com/project/weddingsuppliersonlineretail/overview
-
-https://weddingsuppliersonlineretail.web.app/
-
-firebase login
-
-firebase init
-Quando è tutto pronto, esegui il deployment della tua applicazione web
-Colloca i file statici (ad esempio HTML, CSS e JS) nella directory di deployment dell'app (quella predefinita è "public"), quindi esegui questo comando dalla directory principale dell'app:
-
-firebase deploy
+## npm installations(No need to execute)
+- npm init
+- npm install -g express --saved
+- npm install -g ejs --saved
+- npm install -g firebase --saved
+- npm install -g firebase-tools --saved
 
 
+## Directory
+- functions
+    - index.js (The app configurations and routings)
+    - views (html files)
+- public
+    - assests
+    - components
+    - js
+    - styles
