@@ -558,7 +558,8 @@ input {
   flex-direction: column;
   width: 100%;
   min-height: 900px;
-  
+  height: 900px;
+  overflow-y: scroll;
 }
 
 #order-container * button{
@@ -570,7 +571,7 @@ input {
   flex-direction: row;
   height: 300px;
   font-size: 13px;
-  margin-top: 5px;
+  margin-top: 20px;
   box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
   width: 100%;
 }
