@@ -563,7 +563,7 @@ input {
 }
 
 #order-container * button{
-  height: 60px;
+  height: 40px;
 }
 
 .product{
@@ -600,6 +600,7 @@ input {
   height: 200px;
   max-width: 100%;
   max-height: 100%;
+  
   /* Set a specific height */
   height: 20vh;
 
@@ -618,7 +619,7 @@ input {
 .product-to-right-boxes{
   display: flex;
   flex-direction: row;
-  width: 40%;
+  width: 100%;
 }
 
 .product-details, .rightest-box{
@@ -630,7 +631,7 @@ input {
   padding-top: 15px;
   padding-bottom: 15px;
   justify-content: space-between;
-  width: 50%;
+  width: 100%;
 }
 
 .fa.fa-shopping-cart{
@@ -660,4 +661,10 @@ input[type=number].product-number-input{
 .product-description > h3{
   font-weight: bold;
   font-size: 18px;
+}
+
+/* Add new product button */
+#add-new-product{
+  display: flex;
+  justify-content: flex-end;
 }
