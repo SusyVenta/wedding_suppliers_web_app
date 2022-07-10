@@ -23,18 +23,29 @@ This hosts firebase on  http://localhost:5004
 
 ## npm installations(No need to execute)
 - npm init
-- npm install -g express --saved
-- npm install -g ejs --saved
-- npm install -g firebase --saved
-- npm install -g firebase-tools --saved
+- npm install -g express --save
+- npm install -g ejs --save
+- npm install -g firebase --save
+- npm install -g firebase-tools --save
 
 
 ## Directory
 - functions
-    - index.js (The app configurations and routings)
-    - views (html files)
+    - index.js (The app configurations)
+    - routings 
+    - controllers
+    - views (ejs files)
 - public
     - assests
     - components
     - js
     - styles
+
+## Reference
+- MVC pattern  
+  - https://www.freecodecamp.org/news/the-model-view-controller-pattern-mvc-architecture-and-frameworks-explained/  
+- express.js: routes and controllers 
+    - https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/routes
+
+- EJS(Embedded JavaScript templating)
+    - https://ejs.co/
