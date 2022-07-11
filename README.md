@@ -21,6 +21,12 @@ $firebase emulators:start
 ```
 This hosts firebase on  http://localhost:5004
 
+## Additional steps for Windows:
+
+```
+$firebase serve -p 8080
+```
+
 ## npm installations(No need to execute)
 - npm init
 - npm install -g express --save

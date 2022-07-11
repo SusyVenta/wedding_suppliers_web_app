@@ -4,11 +4,19 @@ body {
     font-family: "Lato", sans-serif;
 }
 
+  /* ----------- phone view - 1 column only ------ */
+  @media only screen and (max-width: 700px) {
+    body {
+        font-family: "Lato", sans-serif;
+        width: 100vh;
+    }
+  }
+/*
 main{
     display: flex;
     flex-direction: column;
     min-height: 70vh;
-}
+} */
 
 #page-header{
     margin: 10px;
@@ -40,3 +48,5 @@ footer-component{
     border-color: #637289;
     box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
 }
+
+  

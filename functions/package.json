@@ -32,5 +32,7 @@
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/SusyVenta/WeddingSuppliersWebApp/issues"
-  }
+  },
+  "homepage": "https://github.com/SusyVenta/WeddingSuppliersWebApp#readme",
+  "version": "1.0.0"
 }
