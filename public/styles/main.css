@@ -8,15 +8,8 @@ body {
   @media only screen and (max-width: 700px) {
     body {
         font-family: "Lato", sans-serif;
-        width: 100vh;
     }
   }
-/*
-main{
-    display: flex;
-    flex-direction: column;
-    min-height: 70vh;
-} */
 
 #page-header{
     margin: 10px;
@@ -25,7 +18,7 @@ main{
 
 /* Footer */
 footer-component{
-    height: 200px;
+    height: 100px;
     position: relative;
     margin-top: auto;
 }
@@ -33,6 +26,7 @@ footer-component{
 #footer-content{
     background: #6372896d;
     position: relative;
+    height: 100px;
 }
 
 
@@ -50,3 +44,18 @@ footer-component{
 }
 
   
+/* ----------- phone view - 1 column only ------ */
+@media only screen and (max-width: 700px){
+    .btn{
+        font-size: 13px;
+    }
+
+    footer-component > * {
+        font-size: 11px;
+    }
+
+    footer-component, #footer-content {
+        height: 140px;
+    }
+
+  }

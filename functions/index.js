@@ -2,7 +2,8 @@ const functions = require('firebase-functions');
 const express = require('express');
 const path = require('path');
 const usersRouter = require('./routes/users.js')
-const vendorsRouter = require('./routes/vendors.js')
+const vendorsRouter = require('./routes/vendors.js');
+const mock_db = require('./mock_db/mock_db.js');
 
 const app = express();
 
@@ -17,15 +18,47 @@ app.use('/my_js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/users', usersRouter)
 app.use('/vendors', vendorsRouter)
 
+// home page
 app.get('/', (request, response) => {
   let indexPath = path.join(__dirname, "views/home.ejs");
-  response.render(indexPath)
+
+  /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
+        // execute sql query
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                request.flash("error", err.message + "," + "None" + ",/,GET");
+                response.redirect('/error');
+            } else {
+                response.render(indexPath, {
+                  products: result
+                });
+            };
+        }); */
+
+  response.render(indexPath, {
+    products: mock_db.products
+  });
 })
+
+// product details
+app.get("/product:details/:product_id", function (request, response) {
+  let indexPath = path.join(__dirname, "views/product_details.ejs");
+  let chosenProductId = request.params.product_id;
+  let sqlquery = "SELECT * FROM products WHERE product_id = ?;";
+  response.render(indexPath, {
+    product: mock_db.products[0]
+  });
+});
 
 
 // TODO move to routes/vendor.js
 app.get('/vendor_profile', (request, response) => {
   let indexPath = path.join(__dirname, "views/vendor_profile.ejs");
+  response.render(indexPath);
+});
+
+app.get('/user_profile', (request, response) => {
+  let indexPath = path.join(__dirname, "views/user_profile.ejs");
   response.render(indexPath);
 })
 

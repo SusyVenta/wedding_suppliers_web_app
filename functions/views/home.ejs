@@ -24,6 +24,17 @@
     <script src="/components/footer.js" type="text/javascript" defer></script>
     <!-- Header -->
     <script src="/components/header.js" type="text/javascript" defer></script>
+
+    <script>
+        /* Submit product form when user clicks on div -> redirects to product page */
+        $(function () {
+            $(".product").on("click", function () {
+                $(this).submit();
+            });
+
+        });
+    </script>
+
 </head>
 <body>
     <div class="page-container">
@@ -99,142 +110,61 @@
     </div>
     </div>
     <div class="orders-container">
-        <div class="product">
-            <div class="picture-and-description">
-            <div class="product-photo" style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');"></div>
-            <div class="product-description">
-                <h5>Layer cake - vanilla & lemon glaze</h5>
-                <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                <p>Vendor: Kathy's cakes</p>
-                <p>The Woodlans Club</p>
-                <p>39, Woods Road, Falmouth, ME</p>
-                <div class="stars-rating">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                </div>
-                <p>4.9/5 127 Reviews</p>
-            </div>
-            </div>
-            <div class="product-to-right-boxes">
-            <div class="product-details">
-                <p>Colors available: cream</p>
-                <p>Tags: traditional-wedding</p>
-                <button onclick="" class="btn">Product details</button>
-            </div>
-            <div class="rightest-box">
-                <i class="fa fa-shopping-cart"></i>
-                <p>Quantity:</p>
-                <input class="product-number-input" type="number" />
-                <p>Price per unit: £ 200</p>
-                <button onclick="" class="btn">Add to basket</button>
-                
-            </div>
-            </div>
-        </div><div class="product">
-            <div class="picture-and-description">
-            <div class="product-photo" style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');"></div>
-            <div class="product-description">
-                <h5>Layer cake - vanilla & lemon glaze</h5>
-                <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                <p>Vendor: Kathy's cakes</p>
-                <p>The Woodlans Club</p>
-                <p>39, Woods Road, Falmouth, ME</p>
-                <div class="stars-rating">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                </div>
-                <p>4.9/5 127 Reviews</p>
-            </div>
-            </div>
-            <div class="product-to-right-boxes">
-            <div class="product-details">
-                <p>Colors available: cream</p>
-                <p>Tags: traditional-wedding</p>
-                <button onclick="" class="btn">Product details</button>
-            </div>
-            <div class="rightest-box">
-                <i class="fa fa-shopping-cart"></i>
-                <input class="product-number-input" type="number" />
-                <p>Price per unit: £ 200</p>
-                <button onclick="" class="btn">Add to basket</button>
-                
-            </div>
-            </div>
-        </div>
-        <div class="product">
-            <div class="picture-and-description">
-            <div class="product-photo" style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');"></div>
-            <div class="product-description">
-                <h5>Layer cake - vanilla & lemon glaze</h5>
-                <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                <p>Vendor: Kathy's cakes</p>
-                <p>The Woodlans Club</p>
-                <p>39, Woods Road, Falmouth, ME</p>
-                <div class="stars-rating">
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star checked"></span>
-                <span class="fa fa-star"></span>
-                <span class="fa fa-star"></span>
-                </div>
-                <p>4.9/5 127 Reviews</p>
-            </div>
-            </div>
-            <div class="product-to-right-boxes">
-            <div class="product-details">
-                <p>Colors available: cream</p>
-                <p>Tags: traditional-wedding</p>
-                <button onclick="" class="btn">Product details</button>
-            </div>
-            <div class="rightest-box">
-                <i class="fa fa-shopping-cart"></i>
-                <input class="product-number-input" type="number" />
-                <p>Price per unit: £ 200</p>
-                <button onclick="" class="btn">Add to basket</button>
-                
-            </div>
-            </div>
-        </div>
-        <div class="product">
-            <div class="picture-and-description">
-                <div class="product-photo" style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');"></div>
-                <div class="product-description">
-                    <h5>Layer cake - vanilla & lemon glaze</h5>
-                    <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                    <p>Vendor: Kathy's cakes</p>
-                    <p>The Woodlans Club</p>
-                    <p>39, Woods Road, Falmouth, ME</p>
-                    <div class="stars-rating">
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star checked"></span>
-                    <span class="fa fa-star"></span>
-                    <span class="fa fa-star"></span>
+        <% products.forEach(function(product){ %>
+
+            <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
+                <div class="picture-and-description">
+                    <div class="product-photo" style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');"></div>
+                    <div class="product-description">
+                        <h5><%= product.title %></h5>
+                        <p class="product-description-text"><%= product.description %> </p>
+                        <p>Colors available: <%= product.colors %></p>
+                        <p class="vendor-details"><%= product.vendor %>, <%= product.address %></p>
+                        <div class="stars-rating">
+                            <% if (product.stars >= 1) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %> 
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                            <% if (product.stars >= 2) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %> 
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                            <% if (product.stars >= 3) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %> 
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                            <% if (product.stars >= 4) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %> 
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                            <% if (product.stars >= 5) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %> 
+                                <span class="fa fa-star"></span>
+                            <% } %>
+                        </div>
+                        <div class="rating-and-reviews">
+                            <p>Rating: <%= product.stars %>/5</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                        </div>
                     </div>
-                    <p>4.9/5 127 Reviews</p>
                 </div>
-            </div>
-            <div class="product-to-right-boxes">
-                <div class="product-details">
-                    <p>Colors available: cream</p>
-                    <p>Tags: traditional-wedding</p>
-                    <button onclick="" class="btn">Product details</button>
+                <div class="product-to-right-boxes">
+                    <div class="rightest-box">
+                        <i class="fa fa-shopping-cart"></i>
+                        <p>Quantity:</p>
+                        <input class="product-number-input" type="number" />
+                        <p>Price per unit: <%= product.currency %> <%= product.price %></p>
+                        <button onclick="" class="btn">Add to basket</button>
+                    </div>
                 </div>
-                <div class="rightest-box">
-                    <i class="fa fa-shopping-cart"></i>
-                    <input class="product-number-input" type="number" />
-                    <p>Price per unit: £ 200</p>
-                    <button onclick="" class="btn">Add to basket</button>
-                    
-                </div>
-            </div>
-        </div>
+                <input input type="hidden" id="first" type="text" name="product_id" value="<%= product.product_id %>" />
+            </form>
+        <% }) %>
     </div>
     <div id="page-navigation">
         <nav aria-label="Page navigation">
