@@ -4,6 +4,8 @@ const path = require('path');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
 const mock_db = require('./mock_db/mock_db.js');
+let Country = require('country-state-city').Country;
+let City = require('country-state-city').City;
 
 const app = express();
 
@@ -22,6 +24,9 @@ app.use('/vendors', vendorsRouter)
 app.get('/', (request, response) => {
   let indexPath = path.join(__dirname, "views/home.ejs");
 
+  const allCountries = Country.getAllCountries();
+  const cities = City.getAllCities();
+
   /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
         // execute sql query
         db.query(sqlquery, (err, result) => {
@@ -36,7 +41,12 @@ app.get('/', (request, response) => {
         }); */
 
   response.render(indexPath, {
-    products: mock_db.products
+    products: mock_db.products,
+    allCountries: allCountries,
+    cities: cities,
+    categories: mock_db.product_categories,
+    colors: mock_db.colors,
+    weddingTypes: mock_db.wedding_types
   });
 })
 

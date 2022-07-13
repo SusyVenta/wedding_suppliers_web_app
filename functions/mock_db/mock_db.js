@@ -9,8 +9,9 @@ let mock_db = {
             stars: 3.5,
             number_reviews: 157,
             colors: ["cream", "pink"],
+            wedding_types: ["traditional", "beach", "castle", "countryside"],
             currency: "£",
-            price: 200,
+            price: 2000,
             product_id: 1,
             available_countries: ["France", "Italy"],
             available_cities: ["Paris"]
@@ -23,8 +24,9 @@ let mock_db = {
             stars: 1,
             number_reviews: 2,
             colors: ["cream", "pink"],
+            wedding_types: ["traditional", "beach", "castle", "countryside"],
             currency: "£",
-            price: 2000,
+            price: 200,
             product_id: 2,
             available_countries: ["France"],
             available_cities: ["Paris", "Nice"]
@@ -39,6 +41,25 @@ let mock_db = {
             user_id: 1,
             product_id: 2
         }
+    ],
+    wedding_types: [
+        "traditional", "beach", "castle", "countryside"
+    ],
+    colors: [
+        "red", "orange", "yellow", "green", "cyan", "blue", "magenta", "purple", "white", "black",
+        "grey", "silver", "pink", "maroon", "brown", "beige", "tan", "peach", "lime", "olive", 
+        "turquoise", "teal", "indigo", "violet"
+    ],
+    product_categories: [
+        "photographer", 
+        "makeup",
+        "venue",
+        "catering",
+        "cake",
+        "dress",
+        "decorations",
+        "jewelry",
+        "linens"
     ]
 }
 

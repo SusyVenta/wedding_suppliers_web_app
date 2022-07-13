@@ -29,10 +29,11 @@ $firebase serve -p 8080
 
 ## npm installations(No need to execute)
 - npm init
-- npm install -g express --save
-- npm install -g ejs --save
-- npm install -g firebase --save
-- npm install -g firebase-tools --save
+- npm install express --save
+- npm install ejs --save
+- npm install firebase --save
+- npm install firebase-tools --save
+- npm install country-state-city --save  (https://openbase.com/js/country-state-city)
 
 
 ## Directory

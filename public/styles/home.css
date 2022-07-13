@@ -4,6 +4,12 @@
 }
 
 /* --------------------------------- filters---------------------------*/
+.btn.dropdown-toggle.btn-light.bs-placeholder, .filter-option-inner-inner, .dropdown.bootstrap-select,
+.dropdown.bootstrap-select.show{
+  color:white; 
+  width: fit-content !important;
+}
+
 #first-level-filters{
   display: flex;
   flex-direction: row;
