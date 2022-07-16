@@ -49,14 +49,8 @@
         <div id="first-level-filters">
         <div id="left-side-filters">
             <select id="country-dropdown" class="selectpicker" data-live-search="true" title="Country">
-                <% allCountries.forEach(function(country_obj){ %>
-                    <option onclick="get_country_selected(this)" data-tokens=<%= country_obj.name %> class=<%= country_obj.isoCode %>><%= country_obj.name %></option>
-                <% }) %>
             </select>
             <select id="city-dropdown" class="selectpicker" data-live-search="true" title="City">
-                <% cities.forEach(function(city_obj){ %>
-                    <option data-tokens=<%= city_obj.name %> class=<%= city_obj.countryCode %>><%= city_obj.name %></option>
-                <% }) %>
             </select>
             <select id="category-dropdown" class="selectpicker" data-live-search="true" title="Product Category">
                 <% categories.forEach(function(category){ %>
