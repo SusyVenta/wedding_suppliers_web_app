@@ -14,6 +14,8 @@ Prototype of online retail platform to connect users and wedding suppliers
 $npm init
 ```
 
+### Put `.env` file under the function directly
+
 ### Run `firebase emulators:start` to set up firebase emulator for local development
 
 ```
