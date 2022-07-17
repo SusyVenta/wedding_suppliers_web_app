@@ -14,7 +14,7 @@ let mock_db = {
             price: 2000,
             product_id: 1,
             available_countries: ["France", "Italy"],
-            available_cities: ["Paris"]
+            available_cities: ["All"]
         },
         {
             title: "Layer cake - vanilla & lemon glaze",
@@ -61,8 +61,23 @@ let mock_db = {
         "jewelry",
         "linens"
     ]
+};
+
+function getDistinctCountries() {
+    let products = mock_db.products;
+    let countries = new Set();
+    for (let product of products){
+        let tmp_countries = product.available_countries;
+        for (let country of tmp_countries){
+            countries.add(country);
+        }
+    }
+
+    return Array.from(countries);
+};  
+var distinctCountries = getDistinctCountries();
+
+module.exports = {
+    mock_db: mock_db,
+    distinctCountries: distinctCountries
 }
-
-
-
-module.exports = mock_db

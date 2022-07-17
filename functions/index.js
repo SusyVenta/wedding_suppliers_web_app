@@ -3,7 +3,7 @@ const express = require('express');
 const path = require('path');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
-const mock_db = require('./mock_db/mock_db.js');
+const {mock_db, distinctCountries} = require('./mock_db/mock_db.js');
 let Country = require('country-state-city').Country;
 let City = require('country-state-city').City;
 
@@ -24,8 +24,8 @@ app.use('/vendors', vendorsRouter)
 app.get('/', (request, response) => {
   let indexPath = path.join(__dirname, "views/home.ejs");
 
-  const allCountries = Country.getAllCountries();
-  const cities = City.getAllCities();
+  //const allCountries = Country.getAllCountries();
+  //const cities = City.getAllCities();
 
   /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
         // execute sql query
@@ -39,11 +39,39 @@ app.get('/', (request, response) => {
                 });
             };
         }); */
-
+  console.log(request.params);
   response.render(indexPath, {
     products: mock_db.products,
-    allCountries: allCountries,
-    cities: cities,
+    allCountries: distinctCountries,
+    cities: [],
+    categories: mock_db.product_categories,
+    colors: mock_db.colors,
+    weddingTypes: mock_db.wedding_types
+  });
+})
+app.get('/:country', (request, response) => {
+  let indexPath = path.join(__dirname, "views/home.ejs");
+
+  //const allCountries = Country.getAllCountries();
+  //const cities = City.getAllCities();
+
+  /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
+        // execute sql query
+        db.query(sqlquery, (err, result) => {
+            if (err) {
+                request.flash("error", err.message + "," + "None" + ",/,GET");
+                response.redirect('/error');
+            } else {
+                response.render(indexPath, {
+                  products: result
+                });
+            };
+        }); */
+  console.log(request.params);
+  response.render(indexPath, {
+    products: mock_db.products,
+    allCountries: distinctCountries,
+    cities: [],
     categories: mock_db.product_categories,
     colors: mock_db.colors,
     weddingTypes: mock_db.wedding_types
@@ -70,6 +98,9 @@ app.get('/vendor_profile', (request, response) => {
 app.get('/user_profile', (request, response) => {
   let indexPath = path.join(__dirname, "views/user_profile.ejs");
   response.render(indexPath);
+  response.render(indexPath, {
+    products: mock_db.products
+  });
 })
 
 app.get('/vendor_login', (request, response) => {
