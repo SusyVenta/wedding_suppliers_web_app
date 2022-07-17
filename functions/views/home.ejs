@@ -33,7 +33,7 @@
     <script src="/components/footer.js" type="text/javascript" defer></script>
     <!-- Header -->
     <script src="/components/header.js" type="text/javascript" defer></script>
-    <script>
+    <script type="text/javascript">
         /* Submit product form when user clicks on div -> redirects to product page */
         $(function () {
             $(".product").on("click", function () {
@@ -41,6 +41,10 @@
             });
 
         });
+
+        /*function submitChosenCountry(element) {
+            alert(element.val());
+        }*/
     </script>
 </head>
 <body>
@@ -48,9 +52,20 @@
     <header-component></header-component>
         <div id="first-level-filters">
         <div id="left-side-filters">
-            <select id="country-dropdown" class="selectpicker" data-live-search="true" title="Country">
-            </select>
+            <form method="GET" id="dropdown-country-form" action=javascript:submitChosenCountry(this)>
+                <select id="country-dropdown" class="selectpicker" data-live-search="true" title="Country" onchange="this.form.submit()">
+                    <% allCountries.forEach(function(country_obj){ %>
+                            <option country=<%= country_obj %> class=<%= country_obj %>><%= country_obj %></option>
+                    <% }) %>
+                </select>
+            </form>
             <select id="city-dropdown" class="selectpicker" data-live-search="true" title="City">
+                <% cities.forEach(function(city_obj){ %>
+                    <form method="GET" class="product" action="/" data="">
+                        <option data-tokens=<%= city_obj.name %> class=<%= city_obj.countryCode %>><%= city_obj.name %></option>
+                    </form>
+                    
+                <% }) %>
             </select>
             <select id="category-dropdown" class="selectpicker" data-live-search="true" title="Product Category">
                 <% categories.forEach(function(category){ %>
@@ -68,11 +83,11 @@
                 <% }) %>
             </select>
         </div>
-        <div id="right-side-filters">
+        <!--div id="right-side-filters">
             <div class="dropdown">
                 <button onclick="" class="btn btn-secondary"><i id="map-marker-icon" class="fa fa-map-marker" aria-hidden="true"></i>Map view</button>
             </div>
-        </div>
+        </div -->
     </div>
     </div>
     <div class="orders-container">

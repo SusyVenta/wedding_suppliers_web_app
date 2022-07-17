@@ -43,7 +43,7 @@
   padding-right: 10px;
 }
 
-  /* ----------- phone view - 1 column only ------ */
+  /* ----------- phone view ------ */
   @media only screen and (max-width: 700px) {
     #first-level-filters{
       display: flex;
@@ -80,7 +80,7 @@
     }
   }
 
-    /* ----------- phone and tablet view - 1 column only ------ */
+    /* ----------- tablet view ------ */
     @media only screen and (max-width: 1024px) and (min-width: 701px){
       #first-level-filters{
         display: flex;
@@ -271,9 +271,14 @@ input[type=number].product-number-input{
   .product-to-right-boxes > * > p, .picture-and-description  > * > p{
     font-size: 15px;
   }
+
+  .product-details > button, .rightest-box > button {
+    height: 50px;
+  }
+
 }
 
-/* ----------- phone view - 1 column only ------ */
+/* ----------- phone view  ------ */
 @media only screen and (max-width: 700px){
   .product-to-right-boxes{
     width: 20%;
