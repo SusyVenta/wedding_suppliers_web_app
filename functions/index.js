@@ -1,9 +1,10 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const path = require('path');
+const url = require('url');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
-const {mock_db, distinctCountries} = require('./mock_db/mock_db.js');
+const {mock_db, distinctCountries, distinctCities, filterProductsBy} = require('./mock_db/mock_db.js');
 let Country = require('country-state-city').Country;
 let City = require('country-state-city').City;
 
@@ -39,44 +40,85 @@ app.get('/', (request, response) => {
                 });
             };
         }); */
-  console.log(request.params);
-  response.render(indexPath, {
-    products: mock_db.products,
-    allCountries: distinctCountries,
-    cities: [],
-    categories: mock_db.product_categories,
-    colors: mock_db.colors,
-    weddingTypes: mock_db.wedding_types
-  });
-})
-app.get('/:country', (request, response) => {
-  let indexPath = path.join(__dirname, "views/home.ejs");
+  const queryObject = url.parse(request.url, true).query;
+  const isEmpty = Object.keys(queryObject).length === 0;
+  console.log(isEmpty);
 
-  //const allCountries = Country.getAllCountries();
-  //const cities = City.getAllCities();
+  console.log(queryObject);
+  let payload;
+  if (isEmpty){
+    payload = {
+      products: mock_db.products,
+      allCountries: distinctCountries,
+      cities: distinctCities,
+      categories: mock_db.product_categories,
+      colors: mock_db.colors,
+      weddingTypes: mock_db.wedding_types,
+      appliedFilters: {
+        chosenCountry: "All",
+        chosenCity: "All",
+        chosenCategory: "All",
+        chosenColor: "All",
+        chosenWeddingType: "All"
+      }
+    }
+  }else{
+    let products = mock_db.products;
 
-  /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
-        // execute sql query
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                request.flash("error", err.message + "," + "None" + ",/,GET");
-                response.redirect('/error');
-            } else {
-                response.render(indexPath, {
-                  products: result
-                });
-            };
-        }); */
-  console.log(request.params);
-  response.render(indexPath, {
-    products: mock_db.products,
-    allCountries: distinctCountries,
-    cities: [],
-    categories: mock_db.product_categories,
-    colors: mock_db.colors,
-    weddingTypes: mock_db.wedding_types
-  });
-})
+    let chosenCountry = queryObject.country;
+    // validate input
+    if (chosenCountry == "All" | distinctCountries.has(chosenCountry)){
+      if(chosenCountry != "All"){
+        products = filterProductsBy(products, "available_countries", chosenCountry);
+      }
+    }
+    let chosenCity = queryObject.city;
+    if (chosenCity == "All" | distinctCities.has(chosenCity)){
+      if(chosenCity != "All"){
+        products = filterProductsBy(products, "available_cities", chosenCity);
+      }
+    }
+
+    let chosenCategory = queryObject.category;
+    if (chosenCategory == "All" | mock_db.product_categories.includes(chosenCategory)){
+      if(chosenCategory != "All"){
+        products = filterProductsBy(products, "category", chosenCategory);
+      }
+    }
+    let chosenColor = queryObject.color;
+    if (chosenColor == "All" | mock_db.colors.includes(chosenColor)){
+      if(chosenColor != "All"){
+        products = filterProductsBy(products, "colors", chosenColor);
+      }
+    }
+    let chosenWeddingType = queryObject.weddingType;
+    if (chosenWeddingType == "All" | mock_db.wedding_types.includes(chosenWeddingType)){
+      if(chosenWeddingType != "All"){
+        products = filterProductsBy(products, "wedding_types", chosenWeddingType);
+      }
+    }
+
+    payload = {
+      products: products,
+      allCountries: distinctCountries,
+      cities: distinctCities,
+      categories: mock_db.product_categories,
+      colors: mock_db.colors,
+      weddingTypes: mock_db.wedding_types,
+      appliedFilters: {
+        chosenCountry: chosenCountry,
+        chosenCity: chosenCity,
+        chosenCategory: chosenCategory,
+        chosenColor: chosenColor,
+        chosenWeddingType: chosenWeddingType
+      }
+    }
+  }
+
+  response.render(indexPath, payload);
+});
+
+
 
 // product details
 app.get("/product:details/:product_id", function (request, response) {

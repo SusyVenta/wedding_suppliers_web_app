@@ -23,12 +23,6 @@
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
-
-    <!-- (Optional) Latest compiled and minified JavaScript translation files -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/i18n/defaults-*.min.js"></script>
-
     <!-- Footer -->
     <script src="/components/footer.js" type="text/javascript" defer></script>
     <!-- Header -->
@@ -41,56 +35,94 @@
             });
 
         });
-
-        /*function submitChosenCountry(element) {
-            alert(element.val());
-        }*/
+        
     </script>
 </head>
 <body>
     <div class="page-container">
-    <header-component></header-component>
+        <header-component></header-component>
         <div id="first-level-filters">
-        <div id="left-side-filters">
-            <form method="GET" id="dropdown-country-form" action=javascript:submitChosenCountry(this)>
-                <select id="country-dropdown" class="selectpicker" data-live-search="true" title="Country" onchange="this.form.submit()">
-                    <% allCountries.forEach(function(country_obj){ %>
-                            <option country=<%= country_obj %> class=<%= country_obj %>><%= country_obj %></option>
-                    <% }) %>
-                </select>
+            <form method="GET" id="dropdown-filters-form" action="/">
+                <div id="country-select-div">
+                    <label for="country-select">Country:</label>
+                    <select name="country" id="country-select" >
+                        <% if(appliedFilters.chosenCountry != 'All'){ %>
+                            <option value='All'>All</option>
+                        <% } %>
+                        <option value=<%= appliedFilters.chosenCountry %> selected><%= appliedFilters.chosenCountry %></option>
+                        <% allCountries.forEach(function(country_obj){ %>
+                            <% if(country_obj != appliedFilters.chosenCountry){ %>
+                                <option value=<%= country_obj %>><%= country_obj %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <div id="city-select-div">
+                    <label for="city-select">City:</label>
+                    <select name="city" id="city-select">
+                        <% if(appliedFilters.chosenCity != 'All'){ %>
+                            <option value='All'>All</option>
+                        <% } %>
+                        <option value=<%= appliedFilters.chosenCountry %> selected><%= appliedFilters.chosenCity %></option>
+                        <% cities.forEach(function(city_obj){ %>
+                            <% if(city_obj != appliedFilters.chosenCity){ %>
+                                <option value=<%= city_obj %>><%= city_obj %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <div id="category-select-div">
+                    <label for="category-select">Category:</label>
+                    <select name="category" id="category-select">
+                        <% if(appliedFilters.chosenCategory != 'All'){ %>
+                            <option value='All'>All</option>
+                        <% } %>
+                        <option value=<%= appliedFilters.chosenCategory %> selected><%= appliedFilters.chosenCategory %></option>
+                        <% categories.forEach(function(category){ %>
+                            <% if(category != appliedFilters.chosenCategory){ %>
+                                <option value=<%= category %>><%= category %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <div id="color-select-div">
+                    <label for="color-select">Color:</label>
+                    <select name="color" id="color-select">
+                        <% if(appliedFilters.chosenColor != 'All'){ %>
+                            <option value='All'>All</option>
+                        <% } %>
+                        <option value=<%= appliedFilters.chosenColor %> selected><%= appliedFilters.chosenColor %></option>
+                        <% colors.forEach(function(color){ %>
+                            <% if(color != appliedFilters.chosenColor){ %>
+                                <option value=<%= color %>><%= color %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <div id="weddingType-select-div">
+                    <label for="weddingType-select">Wedding Type:</label>
+                    <select name="weddingType" id="weddingType-select">
+                        <% if(appliedFilters.chosenWeddingType != 'All'){ %>
+                            <option value='All'>All</option>
+                        <% } %>
+                        <option value=<%= appliedFilters.chosenWeddingType %> selected><%= appliedFilters.chosenWeddingType %></option>
+                        <% weddingTypes.forEach(function(weddingType){ %>
+                            <% if(weddingType != appliedFilters.chosenWeddingType){ %>
+                                <option value=<%= weddingType %>><%= weddingType %></option>
+                            <% } %>
+                        <% }) %>
+                    </select>
+                </div>
+                <input id="submit-search-filters" type="submit" value="Submit">
             </form>
-            <select id="city-dropdown" class="selectpicker" data-live-search="true" title="City">
-                <% cities.forEach(function(city_obj){ %>
-                    <form method="GET" class="product" action="/" data="">
-                        <option data-tokens=<%= city_obj.name %> class=<%= city_obj.countryCode %>><%= city_obj.name %></option>
-                    </form>
-                    
-                <% }) %>
-            </select>
-            <select id="category-dropdown" class="selectpicker" data-live-search="true" title="Product Category">
-                <% categories.forEach(function(category){ %>
-                    <option data-tokens=<%= category %> class=<%= category %>><%= category %></option>
-                <% }) %>
-            </select>
-            <select id="color-dropdown" class="selectpicker" data-live-search="true" title="Color">
-                <% colors.forEach(function(color){ %>
-                    <option data-tokens=<%= color %> class=<%= color %>><%= color %></option>
-                <% }) %>
-            </select>
-            <select id="wedding-type-dropdown" class="selectpicker" data-live-search="true" title="Wedding type">
-                <% weddingTypes.forEach(function(weddingType){ %>
-                    <option data-tokens=<%= weddingType %> class=<%= weddingType %>><%= weddingType %></option>
-                <% }) %>
-            </select>
         </div>
-        <!--div id="right-side-filters">
-            <div class="dropdown">
-                <button onclick="" class="btn btn-secondary"><i id="map-marker-icon" class="fa fa-map-marker" aria-hidden="true"></i>Map view</button>
-            </div>
-        </div -->
-    </div>
     </div>
     <div class="orders-container">
+        <% if(products.length == 0){ %>
+            <div class="no-results">
+                <p>We couldn't find anything matching your search results</p>
+            </div>
+        <% } %>
         <% products.forEach(function(product){ %>
 
             <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
