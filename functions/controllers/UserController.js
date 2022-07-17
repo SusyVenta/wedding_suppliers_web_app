@@ -13,7 +13,7 @@ const getUserLogin = ((req, res) => {
 })
 
 const getUserRegistration = ((req, res) => {
-  // TODO implement user_reg.ejs
+  res.render(Views + 'customer_reg.ejs')
 })
 
 
