@@ -2,6 +2,8 @@
 let mock_db = {
     products: [
         {
+            product_id: 1,
+            vendor_id: 1,
             title: "Layer cake - vanilla & lemon glaze",
             description: "Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.",
             vendor: "Kathy's cakes",
@@ -12,12 +14,14 @@ let mock_db = {
             wedding_types: ["traditional", "beach", "castle", "countryside"],
             currency: "£",
             price: 2000,
-            product_id: 1,
+            
             available_countries: ["France", "Italy"],
             available_cities: ["Paris", "Rome"],
             category: "cake"
         },
         {
+            product_id: 2,
+            vendor_id: 2,
             title: "Fabuolous Dresses",
             description: "Quality wedding dresses",
             vendor: "Kathy's dresses",
@@ -28,7 +32,40 @@ let mock_db = {
             wedding_types: ["traditional"],
             currency: "£",
             price: 200,
-            product_id: 2,
+            available_countries: ["France"],
+            available_cities: ["Paris", "Nice"],
+            category: "dress"
+        },
+        {
+            product_id: 3,
+            vendor_id: 2,
+            title: "Fabuolous Dresses",
+            description: "Quality wedding dresses",
+            vendor: "Kathy's dresses",
+            address: "123, Rue de la Seinne, Paris",
+            stars: 1,
+            number_reviews: 2,
+            colors: ["cream", "pink"],
+            wedding_types: ["traditional"],
+            currency: "£",
+            price: 200,
+            available_countries: ["France"],
+            available_cities: ["Paris", "Nice"],
+            category: "dress"
+        },
+        {
+            product_id: 4,
+            vendor_id: 1,
+            title: "Fabuolous Dresses",
+            description: "Quality wedding dresses",
+            vendor: "Kathy's dresses",
+            address: "123, Rue de la Seinne, Paris",
+            stars: 1,
+            number_reviews: 2,
+            colors: ["cream", "pink"],
+            wedding_types: ["traditional"],
+            currency: "£",
+            price: 200,
             available_countries: ["France"],
             available_cities: ["Paris", "Nice"],
             category: "dress"
@@ -42,6 +79,40 @@ let mock_db = {
         {
             user_id: 1,
             product_id: 2
+        }
+    ],
+    users: [
+        {
+            user_id: 1,
+            address: "22, rue Henri VII, Paris, France"
+        },
+        {
+            user_id: 2,
+            address: "100, rue de Strasbourg, Strasbourg, France"
+        }
+    ],
+    orders: [
+        {
+            user_id: 1,
+            product_id: 1,
+            vendor_id: 1,
+            order_id: 1,
+            quantity: 1,
+            requested_delivery_date: "26 Sep 2022"
+        },
+        {
+            user_id: 1,
+            product_id: 2,
+            vendor_id: 2,
+            order_id: 2,
+            requested_delivery_date: "27 Sep 2022"
+        },
+        {
+            user_id: 2,
+            product_id: 2,
+            vendor_id: 2,
+            order_id: 3,
+            requested_delivery_date: "28 Sep 2022"
         }
     ],
     wedding_types: [

@@ -14,17 +14,44 @@
     <link rel="stylesheet" href="/styles/header.css">
 
     <!-- Google icons -->
-    <link 
-  href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" 
-  rel="stylesheet"  type='text/css'>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet"  type='text/css'>
 
     <script src="/js/user_profile.js" type="text/javascript" defer></script>
     <!-- Footer -->
     <script src="/components/footer.js" type="text/javascript" defer></script>
     <!-- Header -->
     <script src="/components/header.js" type="text/javascript" defer></script>
+    <script>
+      /* Chat view for phone display */
+      function listChats(){
+        var chatSections = document.getElementsByClassName('chat');
+        for (let chatSection of chatSections){
+          chatSection.style.display = "none";
+        }
+
+        var chatsListSections = document.getElementsByClassName('discussions');
+        for (let chatsListSection of chatsListSections){
+          chatsListSection.style.display = "flex";
+        }
+      };
+
+      function openChat(element){
+        var user = this.id;
+
+        var chatSections = document.getElementsByClassName('chat');
+        for (let chatSection of chatSections){
+          chatSection.style.display = "flex";
+        }
+
+        var chatsListSections = document.getElementsByClassName('discussions');
+        for (let chatsListSection of chatsListSections){
+          chatsListSection.style.display = "none";
+        }
+      };
+    </script>
 </head>
 <body>
+  <div class="page-container">
   <header-component></header-component>
   <main>
       <div class="main-container">
@@ -355,77 +382,61 @@
           <div class="tab-content-container">
             <div class="tab-content" id="wishlist-tab-content">
               <h3 class="tab-title">Catalogue</h3>
-              <div id="order-container">
-                <div id="add-new-product">
-                  <button onclick="" class="btn">Add new</button>
-                </div>
-                <div class="product">
-                  <div class="picture-and-description">
-                    <div class="product-photo" style="background-image: url('https://www.brides.com/thmb/FibKOV_LKk7Aq7vL0FWis8Yqzxk=/1197x898/smart/filters:no_upscale()/aef-a1eb0550df2645e581844a61585422ac-a1fe8db5082c4bdcb0bb6da5e7cf688a.jpg');"></div>
-                    <div class="product-description">
-                      <h3>White delight with roses</h3>
-                      <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                      <button onclick="" class="btn">Product page</button>
-                      <button onclick="" class="btn">Edit</button>
+              <div class="orders-container">
+                <% if(products.length == 0){ %>
+                    <div class="no-results">
+                        <p>We couldn't find anything matching your search results</p>
                     </div>
-                  </div>
-                  <div class="product-to-right-boxes">
-                    <div class="product-details">
-                      <h5>Details:</h5>
-                      <p>Delivering in countries: France</p>
-                      <p>Delivering in cities: Paris, Reims</p>
-                      <p>Product category: cakes</p>
-                      <p>Colors: Red, Pink, White</p>
-                      <p>Wedding types: all</p>
-                      <p>Price per unit: £ 200</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product">
-                  <div class="picture-and-description">
-                    <div class="product-photo" style="background-image: url('https://www.brides.com/thmb/FibKOV_LKk7Aq7vL0FWis8Yqzxk=/1197x898/smart/filters:no_upscale()/aef-a1eb0550df2645e581844a61585422ac-a1fe8db5082c4bdcb0bb6da5e7cf688a.jpg');"></div>
-                    <div class="product-description">
-                      <h3>White delight with roses</h3>
-                      <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                      <button onclick="" class="btn">Product page</button>
-                      <button onclick="" class="btn">Edit</button>
-                    </div>
-                  </div>
-                  <div class="product-to-right-boxes">
-                    <div class="product-details">
-                      <h5>Details:</h5>
-                      <p>Delivering in countries: France</p>
-                      <p>Delivering in cities: Paris, Reims</p>
-                      <p>Product category: cakes</p>
-                      <p>Colors: Red, Pink, White</p>
-                      <p>Wedding types: all</p>
-                      <p>Price per unit: £ 200</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="product">
-                  <div class="picture-and-description">
-                    <div class="product-photo" style="background-image: url('https://www.brides.com/thmb/FibKOV_LKk7Aq7vL0FWis8Yqzxk=/1197x898/smart/filters:no_upscale()/aef-a1eb0550df2645e581844a61585422ac-a1fe8db5082c4bdcb0bb6da5e7cf688a.jpg');"></div>
-                    <div class="product-description">
-                      <h3>White delight with roses</h3>
-                      <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                      <button onclick="" class="btn">Product page</button>
-                      <button onclick="" class="btn">Edit</button>
-                    </div>
-                  </div>
-                  <div class="product-to-right-boxes">
-                    <div class="product-details">
-                      <h5>Details:</h5>
-                      <p>Delivering in countries: France</p>
-                      <p>Delivering in cities: Paris, Reims</p>
-                      <p>Product category: cakes</p>
-                      <p>Colors: Red, Pink, White</p>
-                      <p>Wedding types: all</p>
-                      <p>Price per unit: £ 200</p>
-                    </div>
-                  </div>
-                </div>
-              </div> <!-- end order-container -->
+                <% } %>
+                <% products.forEach(function(product){ %>
+                    <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
+                        <div class="picture-and-description">
+                            <div class="product-photo" style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');"></div>
+                            <div class="product-description">
+                                <h5><%= product.title %></h5>
+                                <p class="product-description-text"><%= product.description %> </p>
+                                <p>Category: <%= product.category %></p>
+                                <p>Colors available: <%= product.colors %></p>
+                                <p>Delivering in countries: <%= product.available_countries %></p>
+                                <p>Wedding type: <%= product.wedding_types %></p>
+                                <p>Price: <%= product.price %> <%= product.currency %></p>
+                                <div class="stars-rating">
+                                    <% if (product.stars >= 1) { %>
+                                        <span class="fa fa-star checked"></span>
+                                        <% } else{ %> 
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars >= 2) { %>
+                                        <span class="fa fa-star checked"></span>
+                                        <% } else{ %> 
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars >= 3) { %>
+                                        <span class="fa fa-star checked"></span>
+                                        <% } else{ %> 
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars >= 4) { %>
+                                        <span class="fa fa-star checked"></span>
+                                        <% } else{ %> 
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars >= 5) { %>
+                                        <span class="fa fa-star checked"></span>
+                                        <% } else{ %> 
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                </div>
+                                <div class="rating-and-reviews">
+                                    <p>Rating: <%= product.stars %>/5</p>
+                                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                                </div>
+                            </div>
+                        </div>
+                        <input input type="hidden" id="first" type="text" name="product_id" value="<%= product.product_id %>" />
+                    </form>
+                <% }) %>
+            </div><!-- end order-container -->
             </div>
           </div>
         </div> <!-- end id="catalogue" class="tabcontent" -->
@@ -433,28 +444,22 @@
           <div class="tab-content-container">
             <div class="tab-content">
               <h3 class="tab-title">Orders</h3>
-              <div id="order-container">
+              <div class="orders-container">
                 <div class="product">
                   <div class="picture-and-description">
                     <div class="product-photo" style="background-image: url('https://www.brides.com/thmb/FibKOV_LKk7Aq7vL0FWis8Yqzxk=/1197x898/smart/filters:no_upscale()/aef-a1eb0550df2645e581844a61585422ac-a1fe8db5082c4bdcb0bb6da5e7cf688a.jpg');"></div>
                     <div class="product-description">
                       <h3>White delight with roses</h3>
                       <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                      <button onclick="" class="btn">Product details</button>
-                    </div>
-                  </div>
-                  <div class="product-to-right-boxes">
-                    <div class="product-details">
                       <h5>Order Details:</h5>
                       <p>Quantity: 1</p>
                       <p>Total price: £ 200</p>
                       <p>Requested delivery date: 26/09/2022</p>
                       <p>Requested delivery location: 22, rue Henri VII, Paris, France</p>
-                      <p>Customer username: @kate123</p>
                       <div class="horizontal-buttons-container">
-                        <button onclick="" class="btn">Confirm</button>
-                        <button onclick="" class="btn">Decline</button>
-                        <button onclick="" class="btn">Message customer</button>
+                        <button onclick="" class="btn confirm-order">Confirm</button>
+                        <button onclick="" class="btn decline-order">Decline</button>
+                        <button onclick="" class="btn message-customer">Message customer</button>
                       </div>
                     </div>
                   </div>
@@ -465,11 +470,6 @@
                     <div class="product-description">
                       <h3>White delight with roses</h3>
                       <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                      <button onclick="" class="btn">Product details</button>
-                    </div>
-                  </div>
-                  <div class="product-to-right-boxes">
-                    <div class="product-details">
                       <h5>Order Details:</h5>
                       <p>Quantity: 1</p>
                       <p>Total price: £ 200</p>
@@ -486,11 +486,6 @@
                     <div class="product-description">
                       <h3>White delight with roses</h3>
                       <p class="product-description-text">Delicious vanilla-flavored cake. Filling: vanilla buttercream. Frosting: Lemon zest.</p>
-                      <button onclick="" class="btn">Product details</button>
-                    </div>
-                  </div>
-                  <div class="product-to-right-boxes">
-                    <div class="product-details">
                       <h5>Order Details:</h5>
                       <p>Quantity: 1, Total price: £ 200</p>
                       <p>Requested delivery date: 26/09/2022</p>
@@ -520,114 +515,70 @@
                       <input type="text" placeholder="Search..."></input>
                     </div>
                   </div>
-                  <div class="discussion message-active">
-                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
-                      <div class="online"></div>
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Belfiore</p>
-                      <p class="message">9 pm at the bar if possible 😳</p>
+                  <div class="discussion message-active" id="userId1" ontouchstart="touchAvailable=true; openChat(this);" onclick="if(!touchAvailable) openChat(this);">
+                    
+                    <div class="chat-list-photo-name">
+                      <div>
+                        <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                        </div>
+                      </div>
+                      <div class="desc-contact">
+                        <p class="name">Belfiore</p>
+                        <p class="message">Works great!</p>
+                      </div>
                     </div>
                     <div class="timer">12 sec</div>
                   </div>
-          
                   <div class="discussion">
-                    <div class="photo" style="background-image: url(https://i.pinimg.com/originals/a9/26/52/a926525d966c9479c18d3b4f8e64b434.jpg);">
-                      <div class="online"></div>
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Belfiore</p>
-                      <p class="message">9 pm at the bar if possible</p>
-                    </div>
-                    <div class="timer">3 min</div>
-                  </div>
-          
-                  <div class="discussion">
-                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=667&q=80);">
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Jerome Seiber</p>
-                      <p class="message">I've sent you the plan</p>
+                    <div class="chat-list-photo-name">
+                      <div>
+                        <div class="photo" style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
+                        </div>
+                      </div>
+                      <div class="desc-contact">
+                        <p class="name">Thomas Dbtn</p>
+                        <p class="message">Are you available at that time?</p>
+                      </div>
                     </div>
                     <div class="timer">42 min</div>
                   </div>
           
-                  <div class="discussion">
-                    <div class="photo" style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
-                      <div class="online"></div>
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Thomas Dbtn</p>
-                      <p class="message">Talk to you soon ! 🙂</p>
-                    </div>
-                    <div class="timer">2 hour</div>
-                  </div>
-          
-                  <div class="discussion">
-                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1553514029-1318c9127859?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=80);">
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Elsie Amador</p>
-                      <p class="message">Best decorations!</p>
-                    </div>
-                    <div class="timer">1 day</div>
-                  </div>
-          
-                  <div class="discussion">
-                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1541747157478-3222166cf342?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=967&q=80);">
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Billy Southard</p>
-                      <p class="message">Absolutely</p>
-                    </div>
-                    <div class="timer">4 days</div>
-                  </div>
-          
-                  <div class="discussion">
-                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1435348773030-a1d74f568bc2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1050&q=80);">
-                      <div class="online"></div>
-                    </div>
-                    <div class="desc-contact">
-                      <p class="name">Paul Walker</p>
-                      <p class="message">Sorry, we don't have that color</p>
-                    </div>
-                    <div class="timer">1 week</div>
-                  </div>
                 </section>
                 <section class="chat">
                   <div class="header-chat">
-                    <i class="icon fa fa-user-o" aria-hidden="true"></i>
+                    <a id="go-back-to-chat-list" ontouchstart="touchAvailable=true; listChats();" onclick="if(!touchAvailable) listChats();"> <i class="fa fa-arrow-left" aria-hidden="true"></i></a>
+                    <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                    </div>
                     <p class="name">Belfiore</p>
-                    <i class="icon clickable fa fa-ellipsis-h right" aria-hidden="true"></i>
                   </div>
                   <div class="messages-chat">
-                    <div class="message">
-                      <div class="photo" style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
-                        <div class="online"></div>
+                    <div class="message text-only">
+                      <div class="from-sender">
+                        <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be able to deliver them at around 10am. Does that work for you? </p>
+                        <p class="time"> 14h58</p>
                       </div>
-                      <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be able to deliver them at around 10am. Does that work for you? </p>
-                      <p class="time"> 14h58</p>
                     </div>
                     <div class="message text-only">
                       <div class="response">
-                        <p class="text"> Hi, that works great thank you 😃</p>
                         <p class="response-time time"> 15h04</p>
+                        <p class="text"> Hi, that works great thank you 😃</p>
                       </div>
                     </div>
                   </div>
                   <div class="footer-chat">
                     <input type="text" class="write-message" placeholder="Type your message here"></input>
-                    <i id="chat-send-btn" class="icon send fa fa-paper-plane-o clickable" aria-hidden="true"></i>
+                    <i id="chat-send-btn" class="fa fa-paper-plane clickable" aria-hidden="true"></i>
                   </div>
                 </section>
               </div>
             </div>
           </div>
-        </div>
+        </div> <!-- end messages tab -->
       </div>
   </main>
 
   <footer-component></footer-component>
 </body>
+</div>
 </html>
 

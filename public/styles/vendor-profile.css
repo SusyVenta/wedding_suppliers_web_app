@@ -1,6 +1,16 @@
-.main-container{
-  margin-top: 20px;
+.page-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
 }
+
+ /* ----------- phone view ------ */
+ @media only screen and (min-width: 800px) {
+  .main-container{
+    margin-top: 20px;
+  }
+  
+ }
 
 /* ---------------------------- generic tabs content -----------------------------*/
 /* Style the tab */
@@ -72,6 +82,31 @@
   align-self: center;
 }
 
+ /* ----------- phone view ------ */
+ @media only screen and (max-width: 800px) {
+  .tab button, .tab button.active {
+    font-size: 12px;
+  }
+  .main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .tab{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    border: 1px solid gray;
+    width: 100%;
+    justify-content: center;
+  }
+  .tabcontent{
+    width: 100%;
+  }
+
+ }
+
 /* ----------------- tabs content - personal information section ----------------*/
 /* rounded rofile picture*/
 
@@ -85,7 +120,8 @@
 #profile-pic {
   border-radius: 50%;
   width: 150px;
-  object-fit: contain;
+  height: 150px;
+  object-fit: cover;
   box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
 }
 
@@ -99,8 +135,28 @@
   flex-direction: column;
 }
 
-.container.user-details{
-  width: 60%;
+
+
+/* ----------- phone view ------ */
+@media only screen and (max-width: 800px) {
+  .container.user-details{
+    width: 90%;
+  }
+
+  .form-control{
+    font-size: 12px;
+  }
+
+  h3{
+    font-size: 16px;
+  }
+}
+
+/* ----------- larger than phone ------ */
+@media only screen and (min-width: 800px){
+  .container.user-details{
+    width: 60%;
+  }
 }
 
 .container.user-details > .row{
@@ -112,41 +168,324 @@
 #edit-user-details, #change-picture, .row{
   margin-top: 15px;
 }
-
-
 /* ----------------------------------------Messages tab-------------------------*/
 
-#chat-container {
-  padding:0;
-  background-color: #FFF; 
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
-  height: 900px;
-  display: flex;
-  width: 100%;
-}
+
 
 /* === CONVERSATIONS === */
+/* ----------- larger than phone ------ */
+@media only screen and (min-width: 1200px){
+  #chat-container {
+    padding:0;
+    background-color: #FFF; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 900px;
+    display: flex;
+    width: 100%;
+  }
+  .discussions {
+    width: 40%;
+    height: 100%;
+    box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
 
-.discussions {
-  width: 40%;
-  height: 100%;
-  box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
-  overflow: hidden;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
+  .chat-list-photo-name{
+    display: flex;
+    width: 100%;
+  }
+
+  .time {
+    font-size: 10px;
+    color:lightgrey;
+    margin-bottom:10px;
+    margin-left: 85px;
+  }
+  .chat .header-chat .name {
+    margin: 0 0 0 20px;
+    text-transform: uppercase;
+    font-family:'Montserrat', sans-serif;
+    font-size: 13pt;
+    color:#515151;
+  }
+  .header-chat {
+    background-color: #FFF;
+    height: 90px;
+    box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
+    display:flex;
+    align-items: center;
+    width: 100%;
+  }
+  .header-chat > .photo{
+    display: block;
+    width: 50px;
+    height: 45px;
+    background: #E6E7ED;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius:50px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+  }
+  .text-only {
+    margin-left: 45px;
+  }
+  .response {
+    float: right;
+    margin-right: 0px !important;
+    margin-left:auto; /* flexbox alignment rule */
+  }
+  
+  .chat .messages-chat .text {
+    margin: 0 35px;
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  #chat-send-btn {
+    color:#C0C0C0;
+    font-size: 14pt;
+    color:#fff;
+    background-color: #4f6ebd;
+    padding: 12px 12px 12px 12px;
+    border-radius: 50px;
+    font-size: 14pt;
+    display: flex;
+    margin-right: 10px;
+  }
+  .write-message {
+    border:none !important;
+    width:80%;
+    height: 50px;
+    margin-left: 20px;
+    padding: 10px;
+  }
+  .chat {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .discussions .discussion {
+    width: 100%;
+    height: 90px;
+    background-color: #FAFAFA;
+    border-bottom: solid 1px #E0E0E0;
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .timer {
+    margin-left: auto;
+    font-family:'Open Sans', sans-serif;
+    font-size: 11px;
+    padding: 3px 8px;
+    color: #BBB;
+    background-color: #FFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 15px;
+  }
+  .desc-contact {
+    height: 43px;
+    width:50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
 }
 
-.discussions .discussion {
-  width: 100%;
-  height: 90px;
-  background-color: #FAFAFA;
-  border-bottom: solid 1px #E0E0E0;
-  display:flex;
-  align-items: center;
-  cursor: pointer;
+@media only screen and (max-width: 800px) {
+  #chat-container {
+    padding:0;
+    background-color: #FFF; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 100%;
+    display: flex;
+    width: 100%;
+  }
+  .chat {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    height: 100%;
+  }
 }
+
+/* ----------- phone & tablet ------ */
+@media only screen and (min-width: 801px) and (max-width: 1199px) {
+  .chat {
+    width: 100%;
+    height: 900px;
+    display: none;
+    
+    flex-direction: column;
+  }
+  #chat-container {
+    padding:0;
+    background-color: #FFF; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 100%;
+    display: flex;
+    width: 100%;
+  }
+}
+/* ----------- phone & tablet ------ */
+@media only screen and (max-width: 1199px) {
+  
+
+  /* On phone, by default display only the list of conversations. If user clicks on one,
+  open it full screen*/
+  
+
+  .discussions {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+    overflow: hidden;
+    background-color: white;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .messages-chat{
+    display: flex;
+    flex-direction: column;
+    min-height: 65vh;
+  }
+  .time{
+    font-size: 10px;
+    color:lightgrey;
+    margin-bottom:10px;
+    margin-left: 0px;
+  }
+
+  .chat .header-chat .name {
+    margin: 0 0 0 20px;
+    text-transform: uppercase;
+    font-family:'Montserrat', sans-serif;
+    font-size: 16px;
+    color:#515151;
+  }
+  .header-chat {
+    background-color: #FFF;
+    height: 70px;
+    box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
+    display:flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+  }
+  .messages-chat > * > p, .messages-chat > * > * > p{
+    font-size: 12px;
+  }
+
+  .header-chat > .photo, .discussion > .photo, .chat-list-photo-name > * > .photo{
+    display: block;
+    width: 50px;
+    height: 45px;
+    background: #E6E7ED;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius:50px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+  }
+
+  .text-only{
+    margin-left: 0px;
+  }
+
+  .from-sender{
+    display: flex;
+    margin-right: 20%;
+    align-items: center;
+  }
+  .response {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+  }
+  
+  .chat .messages-chat .text {
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  #chat-send-btn {
+    color:#C0C0C0;
+    font-size: 14pt;
+    color:#fff;
+    background-color: #4f6ebd;
+    padding: 12px 12px 12px 12px;
+    border-radius: 50px;
+    font-size: 12pt;
+    display: flex;
+    margin-right: 10px;
+  }
+  input.write-message {
+    border:none !important;
+    width:80%;
+    height: 50px;
+    margin-left: 20px;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .chat-list-photo-name{
+    display: flex;
+  }
+  .discussions .discussion {
+    width: 100%;
+    height: 90px;
+    background-color: #FAFAFA;
+    border-bottom: solid 1px #E0E0E0;
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+  }
+  .timer {
+    width: 20%;
+    font-family:'Open Sans', sans-serif;
+    font-size: 11px;
+    padding: 3px 8px;
+    color: #BBB;
+    background-color: #FFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 15px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right:20px;
+  }
+  .timer > p{
+    width: 100%;
+    
+  }
+  .desc-contact {
+    height: 43px;
+    width:60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .desc-contact > .message{
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+}
+
+
+
 
 .discussions .search {
   display:flex;
@@ -195,20 +534,6 @@
   border-bottom: solid 1px #E0E0E0;
 }
 
-.discussions .discussion .photo {
-    margin-left:20px;
-    display: block;
-    width: 45px;
-    height: 45px;
-    background: #E6E7ED;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
-    border-radius:50px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
 .online {
   position: relative;
   top: 30px;
@@ -218,14 +543,6 @@
   background-color: #8BC34A;
   border-radius: 13px;
   border: 3px solid #FAFAFA;
-}
-
-.desc-contact {
-  height: 43px;
-  width:50%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .discussions .discussion .name {
@@ -242,45 +559,12 @@
   color:#515151;
 }
 
-.timer {
-  margin-left: 15%;
-  font-family:'Open Sans', sans-serif;
-  font-size: 11px;
-  padding: 3px 8px;
-  color: #BBB;
-  background-color: #FFF;
-  border: 1px solid #E5E5E5;
-  border-radius: 15px;
-}
 
-.chat {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.header-chat {
-  background-color: #FFF;
-  height: 90px;
-  box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
-  display:flex;
-  align-items: center;
-  width: 100%;
-}
 
 .chat .header-chat .icon {
   margin-left: 30px;
   color:#515151;
   font-size: 14pt;
-}
-
-.chat .header-chat .name {
-  margin: 0 0 0 20px;
-  text-transform: uppercase;
-  font-family:'Montserrat', sans-serif;
-  font-size: 13pt;
-  color:#515151;
 }
 
 .chat .header-chat .right {
@@ -301,47 +585,13 @@
   
 }
 
-.chat .messages-chat .message .photo {
-    display: block;
-    width: 45px;
-    height: 45px;
-    background: #E6E7ED;
-    -moz-border-radius: 50px;
-    -webkit-border-radius: 50px;
-    border-radius: 50px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-.chat .messages-chat .text {
-  margin: 0 35px;
-  background-color: #f6f6f6;
-  padding: 15px;
-  border-radius: 12px;
-}
-
-.text-only {
-  margin-left: 45px;
-}
-
-.time {
-  font-size: 10px;
-  color:lightgrey;
-  margin-bottom:10px;
-  margin-left: 85px;
-}
 
 .response-time {
   float: right;
   margin-right: 40px !important;
 }
 
-.response {
-  float: right;
-  margin-right: 0px !important;
-  margin-left:auto; /* flexbox alignment rule */
-}
+
 
 .response .text {
   background-color: #e3effd !important;
@@ -359,35 +609,12 @@
   
 }
 
-.chat .footer-chat .icon {
-  color:#C0C0C0;
-  font-size: 14pt;
-}
-
-.chat .footer-chat .send {
-  color:#fff;
-  background-color: #4f6ebd;
-  padding: 12px 12px 12px 12px;
-  border-radius: 50px;
-  font-size: 14pt;
-  display: flex;
-  margin-right: 10px;
-}
-
 .chat .footer-chat .name {
   margin: 0 0 0 20px;
   text-transform: uppercase;
   font-family:'Montserrat', sans-serif;
   font-size: 13pt;
   color:#515151;
-}
-
-.write-message {
-  border:none !important;
-  width:80%;
-  height: 50px;
-  margin-left: 20px;
-  padding: 10px;
 }
 
 .footer-chat *::-webkit-input-placeholder {
@@ -411,37 +638,21 @@
 .clickable {
   cursor: pointer;
 }
-
 /* ----------------------------------orders ---------------------------*/
-#order-container{
+.orders-container{
   display: flex;
   flex-direction: column;
   width: 100%;
   min-height: 900px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
   height: 900px;
   overflow-y: scroll;
 }
 
-#order-container * button{
-  height: 40px;
-}
-
-.product{
-  display: flex;
-  flex-direction: row;
-  height: 300px;
-  font-size: 13px;
-  margin-top: 20px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
-  width: 100%;
-}
-
-.picture-and-description{
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  padding: 5px;
-  border-right: 1px solid #ccc;
+.orders-container * button{
+  height: 50px;
 }
 
 .product-description{
@@ -452,7 +663,11 @@
   padding-bottom: 15px;
   justify-content: space-between;
   align-items: center;
-  width: 40%;
+  width: 70%;
+}
+
+.product-description > *{
+  align-self: flex-start;
 }
 
 .product-description-text{
@@ -462,7 +677,7 @@
 
 .product-photo {
   width: 60%;
-  height: 200px;
+  height: 100% !important;
   max-width: 100%;
   max-height: 100%;
   
@@ -481,13 +696,21 @@
   color: orange;
 }
 
+.rating-and-reviews{
+  display: flex;
+}
+
+.vendor-details{
+  font-size: 10px;
+}
+
 .product-to-right-boxes{
   display: flex;
   flex-direction: row;
-  width: 100%;
+  width: 30%;
 }
 
-.product-details, .rightest-box{
+.rightest-box{
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -509,7 +732,20 @@
   width: 40px;
 }
 
+.picture-and-description{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+}
+
 /* product number input picker */
+input{
+  position: relative;
+  max-width: 100%;
+}
+
 input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
     opacity: 1;
@@ -528,8 +764,112 @@ input[type=number].product-number-input{
   font-size: 18px;
 }
 
-/* Add new product button */
-#add-new-product{
-  display: flex;
-  justify-content: flex-end;
+
+/* ----------- tablet view  ------ */
+@media only screen and (max-width: 1024px) and (min-width: 701px){
+  .rightest-box > button {
+    height: 70px;
+  }
+
+  .product-description-text{
+    display: none;
+  }
+
+  input{
+    border: 1px solid black;
+  }
+
+  .product-to-right-boxes > * > p, .picture-and-description  > * > p{
+    font-size: 15px;
+  }
+
+  .product-details > button, .rightest-box > button {
+    height: 50px;
+  }
+
+  .product{
+    display: flex;
+    flex-direction: row;
+    height: 350px;
+    font-size: 13px;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+    width: 100%;
+  }
+  .btn.confirm-order, .btn.message-customer, .btn.decline-order{
+    height: 30px;
+    margin-top: 5px;
+  }
+
+}
+
+/* ----------- phone view  ------ */
+@media only screen and (max-width: 700px){
+  .product-to-right-boxes{
+    width: 20%;
+  }
+
+  .rightest-box{
+    width: 100%;
+  }
+
+  .product-details > button, .rightest-box > button {
+    height: 50px;
+  }
+
+  .product-description-text{
+    display: none;
+  }
+  .product-description > p{
+    margin-bottom: 0%;
+  }
+
+  input{
+    border: 1px solid black;
+  }
+
+  .product-to-right-boxes > * > p, .picture-and-description  > * > p{
+    font-size: 10px;
+  }
+
+  h5{
+    font-size: 13px;
+  }
+
+  .fa.fa-shopping-cart{
+    font-size: 15px;
+  }
+
+  .rating-and-reviews > p, .stars-rating > *{
+    font-size: 10px;
+  }
+
+  .product{
+    display: flex;
+    flex-direction: row;
+    height: 300px;
+    font-size: 13px;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+    width: 100%;
+  }
+
+  .btn.confirm-order, .btn.message-customer, .btn.decline-order{
+    height: 30px;
+    margin-top: 5px;
+  }
+}
+
+/* ----------- laptop view  ------ */
+@media only screen and (min-width: 1025px){
+  .product{
+    display: flex;
+    flex-direction: row;
+    height: 350px;
+    font-size: 13px;
+    margin-top: 20px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+    width: 100%;
+  }
+
 }
