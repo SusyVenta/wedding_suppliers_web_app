@@ -5,6 +5,7 @@ const url = require('url');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
 const {mock_db, distinctCountries, distinctCities, filterProductsBy} = require('./mock_db/mock_db.js');
+const {prepareHomePayload} = require('./routes-logic/home.js')
 let Country = require('country-state-city').Country;
 let City = require('country-state-city').City;
 
@@ -24,10 +25,6 @@ app.use('/vendors', vendorsRouter)
 // home page
 app.get('/', (request, response) => {
   let indexPath = path.join(__dirname, "views/home.ejs");
-
-  //const allCountries = Country.getAllCountries();
-  //const cities = City.getAllCities();
-
   /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
         // execute sql query
         db.query(sqlquery, (err, result) => {
@@ -41,79 +38,8 @@ app.get('/', (request, response) => {
             };
         }); */
   const queryObject = url.parse(request.url, true).query;
-  const isEmpty = Object.keys(queryObject).length === 0;
-  console.log(isEmpty);
 
-  console.log(queryObject);
-  let payload;
-  if (isEmpty){
-    payload = {
-      products: mock_db.products,
-      allCountries: distinctCountries,
-      cities: distinctCities,
-      categories: mock_db.product_categories,
-      colors: mock_db.colors,
-      weddingTypes: mock_db.wedding_types,
-      appliedFilters: {
-        chosenCountry: "All",
-        chosenCity: "All",
-        chosenCategory: "All",
-        chosenColor: "All",
-        chosenWeddingType: "All"
-      }
-    }
-  }else{
-    let products = mock_db.products;
-
-    let chosenCountry = queryObject.country;
-    // validate input
-    if (chosenCountry == "All" | distinctCountries.has(chosenCountry)){
-      if(chosenCountry != "All"){
-        products = filterProductsBy(products, "available_countries", chosenCountry);
-      }
-    }
-    let chosenCity = queryObject.city;
-    if (chosenCity == "All" | distinctCities.has(chosenCity)){
-      if(chosenCity != "All"){
-        products = filterProductsBy(products, "available_cities", chosenCity);
-      }
-    }
-
-    let chosenCategory = queryObject.category;
-    if (chosenCategory == "All" | mock_db.product_categories.includes(chosenCategory)){
-      if(chosenCategory != "All"){
-        products = filterProductsBy(products, "category", chosenCategory);
-      }
-    }
-    let chosenColor = queryObject.color;
-    if (chosenColor == "All" | mock_db.colors.includes(chosenColor)){
-      if(chosenColor != "All"){
-        products = filterProductsBy(products, "colors", chosenColor);
-      }
-    }
-    let chosenWeddingType = queryObject.weddingType;
-    if (chosenWeddingType == "All" | mock_db.wedding_types.includes(chosenWeddingType)){
-      if(chosenWeddingType != "All"){
-        products = filterProductsBy(products, "wedding_types", chosenWeddingType);
-      }
-    }
-
-    payload = {
-      products: products,
-      allCountries: distinctCountries,
-      cities: distinctCities,
-      categories: mock_db.product_categories,
-      colors: mock_db.colors,
-      weddingTypes: mock_db.wedding_types,
-      appliedFilters: {
-        chosenCountry: chosenCountry,
-        chosenCity: chosenCity,
-        chosenCategory: chosenCategory,
-        chosenColor: chosenColor,
-        chosenWeddingType: chosenWeddingType
-      }
-    }
-  }
+  let payload = prepareHomePayload(queryObject);
 
   response.render(indexPath, payload);
 });
