@@ -3,6 +3,10 @@ Prototype of online retail platform to connect users and wedding suppliers
 
 # Development
 
+For changes to be automatically deployed to Firebase host: 
+
+Develop on a test branch -> create and merge pull request
+
 ## Windows
 
 1) Install node.js (https://nodejs.org/en/download/)
