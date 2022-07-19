@@ -11,6 +11,11 @@
       "**/node_modules/**"
     ]
   },
+  "rewrites": [{
+    "source": "**",
+    "function": "app"
+  }],
+    
   "emulators": {
     "hosting": {
       "port": 5004
@@ -21,8 +26,5 @@
     "ui": {
       "enabled": true
     }
-  },
-  "functions": {
-    "source": "functions"
   }
 }
