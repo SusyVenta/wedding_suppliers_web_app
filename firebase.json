@@ -5,12 +5,6 @@
   },
   "hosting": {
     "public": "public",
-    "rewrites": [
-      {
-        "source": "**",
-        "function": "app"
-      }
-    ],
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -27,5 +21,8 @@
     "ui": {
       "enabled": true
     }
+  },
+  "functions": {
+    "source": "functions"
   }
 }
