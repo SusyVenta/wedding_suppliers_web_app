@@ -8,22 +8,22 @@ class Header extends HTMLElement {
         <header>
             <!-- Top navigation bar - collapsible on small screens - always stays at the top even when scrolling-->
             <nav class="navbar sticky-top navbar-fixed-top">
-            <div class="navbar-header">
-                <img id="logo" src="https://c8.alamy.com/comp/2E4C6GC/you-and-me-lettering-hand-drawn-isolated-on-white-background-decorated-with-hearts-and-floral-elements-text-quote-motivation-vector-illustration-2E4C6GC.jpg">  
-                <ul id="navbar-left" class="nav navbar-nav navbar-right">
-                <li><a href="index.html">Home</a></li>
-                </ul>
-            </div>
-            <!-- Links in this part collapse within three lines menu on small screen -->
-            <div id="topNavbar">
-                <!-- Links to other pages in the top right part of navigation bar -->
-                <ul id="navbar-right" class="nav navbar-nav navbar-right">
-                    <li><a href="index.html">User Profile</a></li>
-                    <li><a href="index.html">Log out</a></li>
-                </ul>
-                
-            </div>
+                <div class="navbar-header">
+                    <img id="logo" src="https://c8.alamy.com/comp/2E4C6GC/you-and-me-lettering-hand-drawn-isolated-on-white-background-decorated-with-hearts-and-floral-elements-text-quote-motivation-vector-illustration-2E4C6GC.jpg">  
+                    <ul id="navbar-left" class="nav navbar-nav navbar-right">
+                        <li><a href="index.html">Home</a></li>
+                    </ul>
+                </div>
+                <!-- Links in this part collapse within three lines menu on small screen -->
+                <div id="topNavbar">
+                    <!-- Sign in/ log out links -->
+                    <div id="hide-when-signed-in">
+                        <span id="sign-in-header" class="auth" auth="show-sign-in-form">Sign In</span>
+                        <button id="create-user-header" class="auth" auth="show-create-user-form">Create User</button>
+                    </div
+                </div>
             </nav>
+
             <!-- Hero image and call for action at top of the page, below navbar -->
             <div class="below-navbar">
                 <div class="hero-image">

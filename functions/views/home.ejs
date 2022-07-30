@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendor Registration</title>
+    <title>Home</title>
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
@@ -27,6 +27,8 @@
     <script src="/components/footer.js" type="text/javascript" defer></script>
     <!-- Header -->
     <script src="/components/header.js" type="text/javascript" defer></script>
+
+
     <script type="text/javascript">
         /* Submit product form when user clicks on div -> redirects to product page */
         $(function () {
@@ -37,10 +39,14 @@
         });
         
     </script>
+
 </head>
-<body>
+<body> 
+    
     <div class="page-container">
+
         <header-component></header-component>
+
         <div id="first-level-filters">
             <form method="GET" id="dropdown-filters-form" action="/">
                 <div id="country-select-div">
@@ -201,6 +207,25 @@
           </nav>
     </div>   
     </div>
+
     <footer-component></footer-component>
+
+
+        <!-- Modal -->
+
+        <div id="modal">
+            <div id="modal-content">
+                <button id="close">&times</button>
+                <!-- Authentication -->
+                    <div id="authentication">
+                        placeholder text
+                    </div>
+                <!-- Authentication -->
+            </div>
+        </div>
+    
+        <!-- Modal -->
+
+    <script src="/js/auth.js"></script>
 </body>
 </html>
