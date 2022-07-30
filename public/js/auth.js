@@ -12,3 +12,42 @@ window.addEventListener('click', (event) => {
         modal.style.display = 'none';
     }
 })
+
+// Create user account
+displayCreateUserForm = () => {
+    modal.style.display = 'block';
+}
+
+// User sign in
+displaySignInForm = () => {
+    modal.style.display = 'block';
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.auth').forEach(item => {
+        item.addEventListener('click', event => {
+            let chosen = event.target.getAttribute('auth');
+            // if sign in button is pressed then bring up sign in form modal
+            // if sign up button is pressed then bring up sign up form modal
+            if (chosen === 'show-create-user-form') {
+                displayCreateUserForm();
+            } else if (chosen === 'show-sign-in-form') {
+                displaySignInForm();
+            }
+        })
+    })
+})
+
+// authAction.forEach(item => {
+//     item.addEventListener('click', event => {
+//         let chosen = event.target.getAttribute('auth');
+//         console.log(chosen);
+//         // if sign in button is pressed then bring up sign in form modal
+//         // if sign up button is pressed then bring up sign up form modal
+//         // if (chosen === 'show-create-user-form') {
+//         //     displayCreateUserForm();
+//         // } else if (chosen === 'show-sign-in-form') {
+//         //     displaySignInForm();
+//         // }
+//     })
+// })

@@ -7,7 +7,7 @@ body {
 
 /* Authentication modal */
 #modal{
-    /* display: none; */
+    display: none;
     position: fixed;
     z-index: 10000; 
     left: 0;
@@ -36,6 +36,10 @@ body {
 
 #close:hover, #close:focus{
     text-decoration: none;
+    cursor: pointer;
+}
+
+.auth{
     cursor: pointer;
 }
 
