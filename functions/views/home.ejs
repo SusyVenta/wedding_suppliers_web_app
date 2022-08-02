@@ -9,6 +9,8 @@
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 
+    <link rel="icon" href="images/favicon.png" type="images/png">
+
     <link rel="stylesheet" href="/styles/main.css">
     <link rel="stylesheet" href="/styles/header.css">
     <link rel="stylesheet" href="/styles/home.css">
@@ -228,13 +230,13 @@
                             <h3 class="login-header">User Registration</h3>
                             <div id="create-user-inputs">
                                 <div class="row align-items-center">
-                                    <input type="text" id="create-user-username" class="form-control mb-3" placeholder="Username" required>
+                                    <input type="text" id="create-user-username" class="form-control mb-3" placeholder="Username" autocomplete="false" required>
                                 </div>
                                 <div class="row align-items-center">
-                                    <input type="email" class="form-control mb-3" id="create-user-email" placeholder="Email" required>
+                                    <input type="email" class="form-control mb-3" id="create-user-email" placeholder="Email" autocomplete="false" required>
                                 </div>
                                 <div class="row align-items-center">
-                                    <input type="password" id="create-user-password" class="form-control mb-3" placeholder="Password" required>
+                                    <input type="password" id="create-user-password" class="form-control mb-3" placeholder="Password" autocomplete="false" required>
                                 </div>
                                 <div class="row align-items-center" id="checkbox-tnc-container">
                                     <input type="checkbox" id="checkbox-tnc">
@@ -270,7 +272,7 @@
                             <h3 class="login-header">Forgot Password</h3>
                             <div id="forgot-password-inputs">
                                 <div class="row align-items-center">
-                                    <input type="email" class="form-control mb-3" id="forgot-password-email" placeholder="Email" required>
+                                    <input type="email" class="form-control mb-3" id="forgot-password-email" placeholder="Email" autocomplete="false" required>
                                 </div>
                                 <div class="row align-items-center">
                                     <button id="forgot-password-button" type="button" class="btn mb-3">Forgot Password</button>
