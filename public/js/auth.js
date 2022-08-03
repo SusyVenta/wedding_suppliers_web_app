@@ -7,6 +7,7 @@ const config = {
 }
 
 firebase.initializeApp(config);
+const auth = firebase.auth();
 
 
 const modal = document.getElementById('modal');
@@ -83,6 +84,71 @@ hideAuthElements = () => {
     signInDialogue.classList.add('hide');
     needAccountDialogue.classList.add('hide');
 }
+
+// User identifier (needs to be global)
+let uid;
+
+// check user auth state and set id
+auth.onAuthStateChanged(user => {
+    if (user) {
+        //logged in
+        uid = user.uid;
+        modal.style.display = 'none';
+    } else {
+        //logged out
+    }
+})
+
+createUserForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const userName = document.getElementById('create-user-username').value;
+    const email = document.getElementById('create-user-email').value;
+    const password = document.getElementById('create-user-password').value;
+
+    auth.createUserWithEmailAndPassword(email, password)
+        .then(() => {
+            firebase.auth().currentUser.updateProfile({
+                displayName: userName
+            })
+            createUserForm.reset();
+            hideAuthElements();
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+})
+
+signInForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const email = document.getElementById('sign-in-email');
+    const password = document.getElementById('sign-in-password');
+
+    auth.signInWithEmailAndPassword(email, password)
+        .then(() => {
+            signInForm.reset();
+            hideAuthElements();
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
+})
+
+forgotPasswordForm.addEventListener('submit', event => {
+    event.preventDefault();
+    const email = document.getElementById(forgot - password - email).value;
+
+    auth.sendPasswordResetEmail(email)
+        .then(() => {
+            forgotPasswordForm.reset();
+            // TODO: create proper message to user
+            console.log('message sent, check email');
+        })
+        .catch(error => {
+            // TODO: proper error messages to user
+            console.log(error.message);
+        })
+})
+
 
 
 
