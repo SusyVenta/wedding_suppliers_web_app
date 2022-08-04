@@ -5,21 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendor Registration</title>
+    <!-- SHARED HEAD -->
+    <%- include('partials/sharedHead') %> 
 
-    <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
-    <link rel="stylesheet" href="/styles/main.css">
+    <!-- PAGE HEAD -->
     <link rel="stylesheet" href="/styles/vendor-reg.css">
-    <link rel="stylesheet" href="/styles/header.css">
-
-    <!-- Footer -->
-    <script src="/components/footer.js" type="text/javascript" defer></script>
-    <!-- Header -->
-    <script src="/components/header.js" type="text/javascript" defer></script>
 </head>
 <body>
-    <header-component></header-component>
+    <%- include('partials/header') %> 
 
     <h2 id="page-header">Vendor Registration</h2>
 
@@ -330,6 +323,8 @@
         </form>
     </main>
 
-    <footer-component></footer-component>
+    <%- include('partials/footer') %> 
+
+    <%- include('partials/authModal') %> 
 </body>
 </html>
