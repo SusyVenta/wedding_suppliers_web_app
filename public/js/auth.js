@@ -22,11 +22,14 @@ window.addEventListener('DOMContentLoaded', () => {
     const createUserForm = document.getElementById('create-user-form');
     const signInForm = document.getElementById('sign-in-form');
     const forgotPasswordForm = document.getElementById('forgot-password-form');
+    const createVendorForm = document.getElementById('create-vendor-form');
 
     // get auth dialigues
     const createUserDialogue = document.getElementById('create-user-dialogue');
     const signInDialogue = document.getElementById('sign-in-dialogue');
     const needAccountDialogue = document.getElementById('need-account');
+    const CreateVendorDialogue = document.getElementById('create-vendor-dialogue');
+    const backToSignIn = document.getElementById('customer-form-dialogue');
 
     // Get elements that need to be hidden or shown depending on signed in state
     const hidenWhenSignedIn = document.querySelectorAll('.hide-when-signed-in');
@@ -48,10 +51,21 @@ window.addEventListener('DOMContentLoaded', () => {
                 displayForgotPassword();
             } else if (chosen === 'sign-out') {
                 signOutUser();
+            } else if (chosen === 'show-create-vendor-form') {
+                displayCreateVendorForm();
             }
         })
     })
 
+    // Create vendor account
+    displayCreateVendorForm = () => {
+        hideAuthElements();
+        modal.style.display = 'block';
+        createVendorForm.classList.remove('hide');
+        needAccountDialogue.classList.remove('hide');
+        signInDialogue.classList.remove('hide');
+        backToSignIn.classList.remove('hide');
+    }
 
     // Create user account
     displayCreateUserForm = () => {
@@ -60,6 +74,7 @@ window.addEventListener('DOMContentLoaded', () => {
         createUserForm.classList.remove('hide');
         needAccountDialogue.classList.remove('hide');
         signInDialogue.classList.remove('hide');
+        CreateVendorDialogue.classList.remove('hide');
     }
 
     // User sign in
@@ -85,6 +100,9 @@ window.addEventListener('DOMContentLoaded', () => {
         createUserDialogue.classList.add('hide');
         signInDialogue.classList.add('hide');
         needAccountDialogue.classList.add('hide');
+        CreateVendorDialogue.classList.add('hide');
+        backToSignIn.classList.add('hide');
+        createVendorForm.classList.add('hide');
     }
 
     // Called when a user signs out
@@ -142,9 +160,37 @@ window.addEventListener('DOMContentLoaded', () => {
         } else {
             document.getElementById('no-match').innerHTML = 'Passwords do not match';
         }
+    })
 
+    // create vendor submit event
+    createVendorForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const businessName = document.getElementById('create-vendor-name').value;
+        const vendorEmail = document.getElementById('create-vendor-email').value;
+        const vendorAddress1 = document.getElementById('create-vendor-address-1').value;
+        const vendorAddress2 = document.getElementById('create-vendor-address-2').value;
+        const vendorNumber = document.getElementById('create-vendor-number').value;
+        const vendorCity = document.getElementById('create-vendor-city').value;
+        const vendorPostCode = document.getElementById('create-vendor-post-code').value;
+        const vendorCountry = document.getElementById('create-vendor-country').value;
+        const vendorPassword = document.getElementById('create-vendor-password').value;
+        const vendorPasswordRepeat = document.getElementById('create-vendor-password-repeat').value;
 
-
+        if (checkPasswordsMatch(vendorPassword, vendorPasswordRepeat)) {
+            auth.createUserWithEmailAndPassword(vendorEmail, vendorPassword)
+                .then(() => {
+                    firebase.auth.currentUser.updateProfile({
+                        displayName: businessName
+                    })
+                    createVendorForm.reset();
+                    hideAuthElements();
+                })
+                .catch(error => {
+                    displayMessage('error', error.message);
+                })
+        } else {
+            document.getElementById('no-match-vendor').innerHTML = 'Passwords do not match';
+        }
     })
 
     // sign in form submit event
