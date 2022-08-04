@@ -1,11 +1,3 @@
-const config = {
-    apiKey: 'AIzaSyA5rPW0DD8QSgeqeY1ozgWUBQXBFARKSyI',
-    authDomain: 'wedding-supplier-ba7e5.firebaseapp.com',
-    projectID: 'wedding-supplier-ba7e5',
-    storageBucket: 'wedding-supplier-ba7e5.appspot.com',
-    messagingSenderId: '843839275828'
-}
-
 firebase.initializeApp(config);
 const auth = firebase.auth();
 
