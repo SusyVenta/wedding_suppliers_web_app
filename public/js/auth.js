@@ -181,28 +181,6 @@ window.addEventListener('DOMContentLoaded', () => {
             })
     })
 
-    // // needs to be global
-    // let messageTimeout;
-
-    // // Error handling
-    // const displayMessage = (type, message) => {
-    //     if (type === 'error') {
-    //         authMessage.style.borderColor = 'red';
-    //         authMessage.style.color = 'red';
-    //         authMessage.style.disply = 'block';
-    //     } else if (type === 'success') {
-    //         authMessage.style.borderColor = 'green';
-    //         authMessage.style.color = 'green';
-    //         authMessage.style.disply = 'block';
-    //     }
-
-    //     authMessage.innerHTML = message;
-    //     messageTimeout = setTimeout(() => {
-    //         authMessage.innerHTML = '';
-    //         authMessage.style.display = 'none';
-    //     }, 7000);
-    // }
-
     let messageTimeout
     // Error and message handling
     displayMessage = (type, message) => {
@@ -234,7 +212,3 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
 })
-
-
-
-
