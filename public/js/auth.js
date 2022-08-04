@@ -32,7 +32,8 @@ window.addEventListener('DOMContentLoaded', () => {
     const hidenWhenSignedIn = document.querySelectorAll('.hide-when-signed-in');
     const hidenWhenSignedOut = document.querySelectorAll('.hide-when-signed-out');
 
-    console.log(hidenWhenSignedOut);
+    // Get success/error message area in modal
+    const authMessage = document.getElementById('message');
 
     document.querySelectorAll('.auth').forEach(item => {
         item.addEventListener('click', event => {
@@ -67,7 +68,7 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.style.display = 'block';
         signInForm.classList.remove('hide');
         needAccountDialogue.classList.remove('hide');
-        signInDialogue.classList.remove('hide');
+        createUserDialogue.classList.remove('hide');
     }
 
     // forgot password
@@ -77,6 +78,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     hideAuthElements = () => {
+        clearMessage();
         createUserForm.classList.add('hide');
         signInForm.classList.add('hide');
         forgotPasswordForm.classList.add('hide');
@@ -135,7 +137,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     hideAuthElements();
                 })
                 .catch(error => {
-                    console.log(error.message);
+                    displayMessage('error', error.message);
                 })
         } else {
             document.getElementById('no-match').innerHTML = 'Passwords do not match';
@@ -158,7 +160,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     hideAuthElements();
                 })
                 .catch(error => {
-                    console.log(error.message);
+                    displayMessage('error', error.message);
                 })
         }
 
@@ -172,14 +174,59 @@ window.addEventListener('DOMContentLoaded', () => {
         auth.sendPasswordResetEmail(email)
             .then(() => {
                 forgotPasswordForm.reset();
-                // TODO: create proper message to user
-                console.log('message sent, check email');
+                displayMessage('success', 'Message sent, Please check your email');
             })
             .catch(error => {
-                // TODO: proper error messages to user
-                console.log(error.message);
+                displayMessage('error', error.message);
             })
     })
+
+    // // needs to be global
+    // let messageTimeout;
+
+    // // Error handling
+    // const displayMessage = (type, message) => {
+    //     if (type === 'error') {
+    //         authMessage.style.borderColor = 'red';
+    //         authMessage.style.color = 'red';
+    //         authMessage.style.disply = 'block';
+    //     } else if (type === 'success') {
+    //         authMessage.style.borderColor = 'green';
+    //         authMessage.style.color = 'green';
+    //         authMessage.style.disply = 'block';
+    //     }
+
+    //     authMessage.innerHTML = message;
+    //     messageTimeout = setTimeout(() => {
+    //         authMessage.innerHTML = '';
+    //         authMessage.style.display = 'none';
+    //     }, 7000);
+    // }
+
+    let messageTimeout
+    // Error and message handling
+    displayMessage = (type, message) => {
+        if (type === `error`) {
+            authMessage.style.borderColor = `red`
+            authMessage.style.color = 'red'
+            authMessage.style.display = `block`
+        } else if (type === `success`) {
+            authMessage.style.borderColor = `green`
+            authMessage.style.color = 'green'
+            authMessage.style.display = `block`
+        }
+        authMessage.innerHTML = message
+        messageTimeout = setTimeout(() => {
+            authMessage.innerHTML = ``
+            authMessage.style.display = `none`
+        }, 7000)
+    }
+
+    clearMessage = () => {
+        clearTimeout(messageTimeout)
+        authMessage.innerHTML = ``
+        authMessage.style.display = `none`
+    }
 
     checkPasswordsMatch = (pw1, pw2) => {
         const match = pw1 === pw2 ? true : false;
