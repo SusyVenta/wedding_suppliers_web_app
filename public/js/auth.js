@@ -150,6 +150,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 .then(() => {
                     firebase.auth().currentUser.updateProfile({
                         displayName: userName
+                    }).then(() => {
+                        createUserInDB({
+                            email: email,
+                            user_id: auth.currentUser.uid
+                        })
                     })
                     createUserForm.reset();
                     hideAuthElements();
@@ -181,6 +186,18 @@ window.addEventListener('DOMContentLoaded', () => {
                 .then(() => {
                     firebase.auth.currentUser.updateProfile({
                         displayName: businessName
+                    }).then(() => {
+                        createVendorInDB({
+                            business_name: businessName,
+                            email: vendorEmail,
+                            address_1: vendorAddress1,
+                            address_2: vendorAddress2,
+                            city: vendorCity,
+                            country: vendorCountry,
+                            phone_number: vendorNumber,
+                            post_code: vendorPostCode,
+                            user_id: auth.currentUser.uid
+                        })
                     })
                     createVendorForm.reset();
                     hideAuthElements();
