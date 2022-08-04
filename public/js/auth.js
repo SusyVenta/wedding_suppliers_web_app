@@ -117,25 +117,35 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    // create user submit event
     createUserForm.addEventListener('submit', event => {
         event.preventDefault();
         const userName = document.getElementById('create-user-username').value;
         const email = document.getElementById('create-user-email').value;
         const password = document.getElementById('create-user-password').value;
+        const passwordRepeat = document.getElementById('password-repeat').value;
 
-        auth.createUserWithEmailAndPassword(email, password)
-            .then(() => {
-                firebase.auth().currentUser.updateProfile({
-                    displayName: userName
+        if (checkPasswordsMatch(password, passwordRepeat)) {
+            auth.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    firebase.auth().currentUser.updateProfile({
+                        displayName: userName
+                    })
+                    createUserForm.reset();
+                    hideAuthElements();
                 })
-                createUserForm.reset();
-                hideAuthElements();
-            })
-            .catch(error => {
-                console.log(error.message);
-            })
+                .catch(error => {
+                    console.log(error.message);
+                })
+        } else {
+            document.getElementById('no-match').innerHTML = 'Passwords do not match';
+        }
+
+
+
     })
 
+    // sign in form submit event
     signInForm.addEventListener('submit', event => {
         event.preventDefault();
         const email = document.getElementById('sign-in-email').value;
@@ -154,6 +164,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     })
 
+    // forgot password submit event
     forgotPasswordForm.addEventListener('submit', event => {
         event.preventDefault();
         const email = document.getElementById('forgot-password-email').value;
@@ -170,6 +181,10 @@ window.addEventListener('DOMContentLoaded', () => {
             })
     })
 
+    checkPasswordsMatch = (pw1, pw2) => {
+        const match = pw1 === pw2 ? true : false;
+        return match;
+    }
 
 })
 
