@@ -11,10 +11,16 @@
         <!-- Links in this part collapse within three lines menu on small screen -->
         <div id="topNavbar">
             <!-- Sign in/ log out links -->
-            <div id="hide-when-signed-in">
+            <div class="hide-when-signed-in">
                 <span id="sign-in-header" class="auth" auth="show-sign-in-form">Sign In</span>
                 <button id="create-user-header" class="auth" auth="show-create-user-form">Create User</button>
-            </div </div>
+            </div> 
+            <div class="hide-when-signed-out">
+                <p id="welcome-message"></p>
+                <span id="profile">Profile</span>
+                <button class="auth" auth="sign-out">Sign Out</button>
+            </div>
+        </div>
     </nav>
 
     <!-- Hero image and call for action at top of the page, below navbar -->
