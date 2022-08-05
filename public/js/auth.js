@@ -1,5 +1,10 @@
 firebase.initializeApp(config);
+
 const auth = firebase.auth();
+
+// User identifier (needs to be global)
+let uid;
+let is_vendor;
 
 window.addEventListener('DOMContentLoaded', () => {
 
@@ -110,15 +115,19 @@ window.addEventListener('DOMContentLoaded', () => {
         auth.signOut();
     }
 
-    // User identifier (needs to be global)
-    let uid;
-
     // check user auth state and set id
     auth.onAuthStateChanged(user => {
         if (user) {
             //logged in
             uid = user.uid;
             modal.style.display = 'none';
+
+            // set global is_vendor from firestore
+            const query = db.collection('users').where('user_id', '==', uid).get().then(snapshot => {
+                snapshot.forEach((doc) => {
+                    is_vendor = doc.data().is_vendor;
+                })
+            });
 
             // hide/show elements depending on if user is signed in
             hidenWhenSignedIn.forEach(item => {

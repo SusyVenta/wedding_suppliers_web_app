@@ -4,8 +4,8 @@ const path = require('path');
 const url = require('url');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
-const {mock_db, distinctCountries, distinctCities, filterProductsBy} = require('./mock_db/mock_db.js');
-const {prepareHomePayload} = require('./routes-logic/home.js')
+const { mock_db, distinctCountries, distinctCities, filterProductsBy } = require('./mock_db/mock_db.js');
+const { prepareHomePayload } = require('./routes-logic/home.js')
 let Country = require('country-state-city').Country;
 let City = require('country-state-city').City;
 
@@ -62,10 +62,7 @@ app.get('/vendor_profile', (request, response) => {
   let indexPath = path.join(__dirname, "views/vendor_profile.ejs");
   let vendor_id = 2; //to make dynamic based on login
   //let vendorOrders = filterProductsBy(mock_db.orders, "vendor_id", vendor_id);
-  response.render(indexPath, {
-    products: mock_db.products /*,
-    orders: */
-  });
+  response.render(indexPath);
 });
 
 app.get('/user_profile', (request, response) => {
