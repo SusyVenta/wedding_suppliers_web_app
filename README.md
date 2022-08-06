@@ -14,7 +14,9 @@ Prototype of online retail platform to connect users and wedding suppliers
 $npm init
 ```
 
-### Put `.env` file under the function directly
+### When testing, add file `functions\firebaseConfig.js` to your repository. Content of this file can be found in Trello board, first column. 
+
+This file contains the necessary config info in order to connect to the database. 
 
 ### Run `firebase emulators:start` to set up firebase emulator for local development
 

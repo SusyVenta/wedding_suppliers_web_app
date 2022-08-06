@@ -4,10 +4,10 @@ const path = require('path');
 const url = require('url');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
-const { mock_db, distinctCountries, distinctCities, filterProductsBy } = require('./mock_db/mock_db.js');
-const { prepareHomePayload } = require('./routes-logic/home.js')
-let Country = require('country-state-city').Country;
-let City = require('country-state-city').City;
+const firebase = require('./db')
+const firestore = firebase.firestore();
+const {mock_db, distinctCountries, distinctCities, filterProductsBy} = require('./db_utils/db_utils.js');
+const {prepareHomePayload} = require('./controllers/HomeController');
 
 const app = express();
 
@@ -22,24 +22,14 @@ app.use('/my_js', express.static(__dirname + '/node_modules/jquery/dist'));
 app.use('/users', usersRouter)
 app.use('/vendors', vendorsRouter)
 
+
 // home page
-app.get('/', (request, response) => {
+app.get('/', async function (request, response){
   let indexPath = path.join(__dirname, "views/home.ejs");
-  /*let sqlquery = "SELECT * FROM products GROUP BY rating, price order by rating desc, price asc;";
-        // execute sql query
-        db.query(sqlquery, (err, result) => {
-            if (err) {
-                request.flash("error", err.message + "," + "None" + ",/,GET");
-                response.redirect('/error');
-            } else {
-                response.render(indexPath, {
-                  products: result
-                });
-            };
-        }); */
+
   const queryObject = url.parse(request.url, true).query;
 
-  let payload = prepareHomePayload(queryObject);
+  let payload = await prepareHomePayload(queryObject);
 
   response.render(indexPath, payload);
 });

@@ -14,7 +14,6 @@ let mock_db = {
             wedding_types: ["traditional", "beach", "castle", "countryside"],
             currency: "£",
             price: 2000,
-            
             available_countries: ["France", "Italy"],
             available_cities: ["Paris", "Rome"],
             category: "cake"
@@ -136,34 +135,6 @@ let mock_db = {
     ]
 };
 
-function getDistinctCountries() {
-    let products = mock_db.products;
-    let countries = new Set();
-    for (let product of products){
-        let tmp_countries = product.available_countries;
-        for (let country of tmp_countries){
-            countries.add(country);
-        }
-    }
-
-    return countries;
-};  
-var distinctCountries = getDistinctCountries();
-
-function getDistinctCities() {
-    let products = mock_db.products;
-    let cities = new Set();
-    for (let product of products){
-        let tmp_cities = product.available_cities;
-        for (let city of tmp_cities){
-            cities.add(city);
-        }
-    }
-
-    return cities;
-};  
-var distinctCities = getDistinctCities();
-
 function filterProductsBy(productsList, targetAttribute, targetValue) {
     let products = productsList;
     let filteredProducts = [];
@@ -189,8 +160,5 @@ function filterProductsBy(productsList, targetAttribute, targetValue) {
 };  
 
 module.exports = {
-    mock_db: mock_db,
-    distinctCountries: distinctCountries,
-    distinctCities: distinctCities,
     filterProductsBy: filterProductsBy
 }
