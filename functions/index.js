@@ -48,7 +48,8 @@ app.get("/product_details/:product_id", async function (request, response) {
   response.render(indexPath, {
     product: payload.product,
     moment: moment,
-    orderRequestSubmitted: false
+    orderRequestSubmitted: false,
+    addedToBasket: false
   });
 });
 
@@ -56,13 +57,26 @@ app.get("/product_details/:product_id", async function (request, response) {
 app.post("/product_details/:product_id", async function (request, response) {
   let indexPath = path.join(__dirname, "views/product_details.ejs");
   let chosenProductId = request.params.product_id;
-  let payload = await confirmProductRequestSubmit(chosenProductId, request);
+  
+  let orderRequestSubmitted;
+  let addedToBasket;
+  let action;
+  if("add_to_basket" in request.body){
+    addedToBasket = true;
+    action = "add_to_basket";
+  }
+  if("confirm_availability" in request.body){
+    orderRequestSubmitted = true;
+    action = "confirm_availability";
+  }
 
-  console.log(payload.product);
+  let payload = await confirmProductRequestSubmit(chosenProductId, request, action);
+  
   response.render(indexPath, {
     product: payload.product,
     moment: moment,
-    orderRequestSubmitted: true
+    orderRequestSubmitted: orderRequestSubmitted,
+    addedToBasket: addedToBasket
   });
 });
 

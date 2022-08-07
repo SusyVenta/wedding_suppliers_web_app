@@ -255,14 +255,19 @@
                             });
                             </script>
                         </div>
-                        <div>
-                            <% if (orderRequestSubmitted === true) { %>
-                                <input disabled id="confirm-availability-button" type="submit" value="Pending Acceptance">
-                            <% } else{ %>
-                                <input id="confirm-availability-button" type="submit" value="Confirm Availability">
-                            <% } %>
-                            
+                        <div id="buttons-container">
+                                <% if (orderRequestSubmitted === true) { %>
+                                    <input disabled id="confirm-availability-button" type="submit" value="Pending Acceptance">
+                                <% } else{ %>
+                                    <input name="confirm_availability" id="confirm-availability-button" type="submit" value="Confirm Availability">
+                                <% } %>
+                                <% if (addedToBasket === true) { %>
+                                    <input name="add_to_basket" disabled id="add_to_basket_button" type="submit" value="Added to Basket">
+                                <% } else{ %>
+                                    <input name="add_to_basket" id="add_to_basket_button" type="submit" value="Add to Basket">
+                                <% } %>
                         </div>
+
                     </div>
                 </form>
             </div> <!-- end orders container -->
