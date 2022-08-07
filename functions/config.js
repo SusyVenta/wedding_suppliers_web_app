@@ -1,5 +1,5 @@
 const dotenv = require('dotenv');
-const {testConfig} = require('./firebaseConfig');
+const { testConfig } = require('./firebaseConfig');
 dotenv.config();
 
 const {
@@ -12,7 +12,7 @@ const {
   MEASUREMENT_ID
 } = process.env;
 
-if (API_KEY != null){
+if (API_KEY != null) {
   module.exports.firebaseConfig = {
     apiKey: API_KEY,
     authDomain: AUTHDOMAIN,
@@ -22,8 +22,8 @@ if (API_KEY != null){
     appId: APP_ID,
     measurementId: MEASUREMENT_ID
   }
-} else{
-  if (API_KEY == null){
+} else {
+  if (API_KEY == null) {
     const API_KEY = testConfig.apiKey;
     const AUTHDOMAIN = testConfig.authDomain;
     const STORAGE_BUCKET = testConfig.storageBucket;
@@ -41,5 +41,5 @@ if (API_KEY != null){
       appId: APP_ID,
       measurementId: MEASUREMENT_ID
     }
-  } 
+  }
 }
