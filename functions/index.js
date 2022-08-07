@@ -5,12 +5,8 @@ const url = require('url');
 const usersRouter = require('./routes/users.js')
 const vendorsRouter = require('./routes/vendors.js');
 const moment = require('moment');
-const firebase = require('./db')
-const firestore = firebase.firestore();
-const {mock_db, distinctCountries, distinctCities, filterProductsBy} = require('./db_utils/db_utils.js');
 const {prepareHomePayload} = require('./controllers/HomeController');
-const {prepareProductPagePayload} = require('./controllers/ProductPageController');
-const Timestamp = require('firebase/firestore');
+const {prepareProductPagePayload, confirmProductRequestSubmit} = require('./controllers/ProductPageController');
 
 const app = express();
 
@@ -42,16 +38,31 @@ app.get('/', async function (request, response){
 });
 
 // product details
-app.get("/product:details/:product_id", async function (request, response) {
+app.get("/product_details/:product_id", async function (request, response) {
   let indexPath = path.join(__dirname, "views/product_details.ejs");
   let chosenProductId = request.params.product_id;
-
+  
   let payload = await prepareProductPagePayload(chosenProductId);
 
-  console.log(payload.product.reviews[0]);
+  console.log(payload.product);
   response.render(indexPath, {
     product: payload.product,
-    moment: moment
+    moment: moment,
+    orderRequestSubmitted: false
+  });
+});
+
+// product details post - when user clicks 'confirm availability
+app.post("/product_details/:product_id", async function (request, response) {
+  let indexPath = path.join(__dirname, "views/product_details.ejs");
+  let chosenProductId = request.params.product_id;
+  let payload = await confirmProductRequestSubmit(chosenProductId, request);
+
+  console.log(payload.product);
+  response.render(indexPath, {
+    product: payload.product,
+    moment: moment,
+    orderRequestSubmitted: true
   });
 });
 
@@ -64,10 +75,16 @@ app.get('/vendor_profile', (request, response) => {
   response.render(indexPath);
 });
 
-app.get('/user_profile', (request, response) => {
+app.get('/user_profile', async (request, response) => {
   let indexPath = path.join(__dirname, "views/user_profile.ejs");
+
+  const queryObject = url.parse(request.url, true).query;
+  let payload = await prepareHomePayload(queryObject);
+  console.log(payload);
+  let params = {email: "....", todo: []};
   response.render(indexPath, {
-    products: mock_db.products
+    products: payload.products,
+    params: params
   });
 })
 

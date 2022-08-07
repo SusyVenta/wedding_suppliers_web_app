@@ -47,6 +47,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"
     />
+    <script>
+        function sendEmail(element){
+            var email_address = '<%= product.vendor_email %>' ;
+            console.log(email_address);
+            window.location.href = "mailto:"+email_address+"?subject=You And Me - Vendor enquiry &body= ";
+        };
+    </script>
 </head>
 
 <body>
@@ -211,14 +218,15 @@
                         <p>Available in Colors: <%= product.colors %></p>
                     </div>
                     <div class="message-vendor-container">
-                        <form method="GET" class="message-vendor" action="/product_details/<%= product.product_id %>">
-                            <input id="email-vendor-button" type="submit" value="Email vendor">
-                        </form>
+                        <!-- Button to open email app to send email to vendor -->
+                        <button id="email-vendor-btn" onclick="sendEmail();" type="button" class="btn btn-primary" >
+                            Email vendor
+                        </button>
                     </div>
                 </div><!-- end right-to-carousel-->
             </div> <!-- end pictures-overall-rating-message-vendor-container-->
             <div class="order-now">
-                <form method="GET" id="order-form" action="/">
+                <form method="POST" id="order-form" action="/product_details/<%= product.product_id %>">
                     <div class="order-items-container">
                         <div id="color-select-div">
                             <p>Color:</p>
@@ -230,16 +238,15 @@
                         </div>
                         <div class="product-quantity-container">
                             <p>Quantity:</p>
-                            <input class="product-number-input" type="number" value=1/>
+                            <input required class="product-number-input" name="quantity" type="number" value="1"/>
                         </div>
                         <div class="price-container">
-                            <p>Price: <%= product.currency %></p>
-                            <input class="price-number-input" type="number" value=<%= product.price %>/>
+                            <p>Price per unit: <%= product.currency %> <%= product.price %></p>
                         </div>
                         <div class="date-picker">
                             <p>Preferred Delivery:</p>
                             <div class="input-group input-daterange">
-                                <input id="preferred-delivery-date-picker" type="text" class="form-control" />
+                                <input required name="preferred_delivery" id="preferred-delivery-date-picker" type="text" class="form-control" />
                             </div>
                         
                             <script type="text/javascript">
@@ -249,7 +256,12 @@
                             </script>
                         </div>
                         <div>
-                            <input id="confirm-availability-button" type="submit" value="Confirm Availability">
+                            <% if (orderRequestSubmitted === true) { %>
+                                <input disabled id="confirm-availability-button" type="submit" value="Pending Acceptance">
+                            <% } else{ %>
+                                <input id="confirm-availability-button" type="submit" value="Confirm Availability">
+                            <% } %>
+                            
                         </div>
                     </div>
                 </form>

@@ -22,7 +22,8 @@
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^3.18.0",
     "jquery": "^3.6.0",
-    "moment": "^2.29.4"
+    "moment": "^2.29.4",
+    "nodemailer": "^6.7.7"
   },
   "devDependencies": {
     "firebase-functions-test": "^0.2.0"

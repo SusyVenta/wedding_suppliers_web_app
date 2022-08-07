@@ -115,6 +115,13 @@
     align-content: flex-end;
 }
 
+#email-vendor-btn, #confirm-availability-button{
+    border-radius: 0%;
+    background-color: #637289;
+    border-color: #637289;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 23%), 0 6px 6px rgb(0 0 0 / 23%);
+    color: white;
+}
   /* ----------- phone view ------ */
   @media only screen and (max-width: 700px) {
     .pictures-container{
