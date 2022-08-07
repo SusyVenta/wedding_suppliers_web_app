@@ -9,13 +9,29 @@ const getUserProfile = async (req, res) => {
   const id = req.params.userId || req.query.userId || req.body.userId;
   
   // Get the user from the database
-  const user = await firestore.collection('users').doc(id).get();
+  const result = await firestore.collection('users').doc(id).get();
 
-  params = user.data();
+  user = result.data();
 
-  // console.log(params);
+  whishlists = user.whishlist
 
-  res.render(Views + 'user_profile.ejs',  params)
+  // Get the products from the database
+  for (let i = 0; i < whishlists.length; i++) {
+    const product = await firestore.collection('products').doc(whishlists[i]).get();
+    whishlists[i] = product.data();
+  }
+
+  // Assign the product details to the user
+  user.whishlist = whishlists;
+
+  orders = user.order
+  for (let i = 0; i < orders.length; i++) {
+    const product = await firestore.collection('products').doc(orders[i]).get();
+    orders[i] = product.data();
+  }
+  user.order = orders;
+
+  res.render(Views + 'user_profile.ejs', user)
 }
 
 const getUserLogin = ((req, res) => {

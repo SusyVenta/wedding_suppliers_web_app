@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vendor Registration</title>
+  <title>User Profile</title>
     <!-- SHARED HEAD -->
     <%- include('partials/sharedHead') %> 
 
@@ -80,7 +80,7 @@
                       <div class="col">
                         <div class="row">
                           <!-- Email -->
-                          <input type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= params.email %>" required>
+                          <input type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
                         </div>
                         <div class="row">
                           <!-- Password -->
@@ -89,12 +89,12 @@
                         <div class="row">
                           <!-- Phone number -->
                           <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
-                            placeholder="Phone Number" value="<%= params.phone_number %>" required>
+                            placeholder="Phone Number" value="<%= user.phone_number %>" required>
                         </div>
                         <div class="row">
                           <!-- Address 1 -->
                           <input type="text" id="address_1" class="form-control"
-                            placeholder="Address of your wedding location" value="<%= params.address_1 + " " + params.address_2 %>" required>
+                            placeholder="Address of your wedding location" value="<%= user.address_1 + " " + user.address_2 %>" required>
                         </div>
                         <div class="row">
                           <!-- Postal Code -->
@@ -102,7 +102,7 @@
                         </div>
                         <div class="row">
                           <!-- City -->
-                          <input type="text" id="city" class="form-control" placeholder="City" value="<%= params.city %>" required>
+                          <input type="text" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
                         </div>
                         <div class="row">
                           <!-- Country -->
@@ -382,9 +382,9 @@
 
                   <ul id="to-do-list-items">
                     <!-- print the todo list -->
-                    <% for(var i=0; i < params.todo.length; i++) { %>
+                    <% for(var i=0; i < user.todo.length; i++) { %>
                       <li>
-                        <%= params.todo[i] %>
+                        <%= user.todo[i] %>
                       </li>
                    <% } %>
                   </ul>
@@ -392,16 +392,16 @@
               </div>
             </div>
           </div>
-
-          <% /* %>
+          
+          
           <div id="Wishlist" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
                 <h3 class="tab-title">Your Wishlist</h3>
                 <div class="orders-container">
-                  <% products.forEach(function(product){ %>
+                  <% user.whishlist.forEach(function(product){ %>
 
-                    <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
+                    <form method="GET" class="product" action="/product_details/<%= product %>">
                       <div class="picture-and-description">
                         <div class="product-photo"
                           style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
@@ -470,15 +470,17 @@
               </div>
             </div>
           </div>
+
+          
           <!-- orders tab -->
           <div id="Orders" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
                 <h3 class="tab-title">Your Orders</h3>
                 <div class="orders-container">
-                  <% products.forEach(function(product){ %>
+                  <% user.order.forEach(function(product){ %>
 
-                    <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
+                    <form method="GET" class="product" action="/product_details/<%= product %>">
                       <div class="picture-and-description">
                         <div class="product-photo"
                           style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
@@ -545,7 +547,7 @@
               </div>
             </div>
           </div>
-          <% */ %>
+          
 
           <div id="Messages" class="tabcontent">
             <div class="tab-content-container">
