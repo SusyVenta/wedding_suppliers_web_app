@@ -187,35 +187,6 @@
 .vendor-details{
   font-size: 10px;
 }
-
-.product-to-right-boxes{
-  display: flex;
-  flex-direction: row;
-  width: 30%;
-}
-
-.rightest-box{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-right: 1px solid #ccc;
-  padding: 5px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.fa.fa-shopping-cart{
-  color:#fff;
-  background-color: #4f6ebd;
-  padding: 12px 12px 12px 12px;
-  border-radius: 50px;
-  font-size: 16pt;
-  height: 40px;
-  width: 40px;
-}
-
 /* product number input picker */
 input{
   position: relative;
@@ -227,14 +198,6 @@ input[type=number]::-webkit-inner-spin-button,
     opacity: 1;
 }
 
-.product-number-input{
-  height: 30px;
-}
-
-input[type=number].product-number-input{
-  font-size:16px;
-}
-
 .product-description > h3{
   font-weight: bold;
   font-size: 18px;
@@ -242,10 +205,6 @@ input[type=number].product-number-input{
 
 /* ----------- tablet view  ------ */
 @media only screen and (max-width: 1024px) and (min-width: 701px){
-  .rightest-box > button {
-    height: 70px;
-  }
-
   .product-description-text{
     display: none;
   }
@@ -254,11 +213,11 @@ input[type=number].product-number-input{
     border: 1px solid black;
   }
 
-  .product-to-right-boxes > * > p, .picture-and-description  > * > p{
+  .picture-and-description  > * > p{
     font-size: 15px;
   }
 
-  .product-details > button, .rightest-box > button {
+  .product-details > button {
     height: 50px;
   }
 
@@ -266,15 +225,7 @@ input[type=number].product-number-input{
 
 /* ----------- phone view  ------ */
 @media only screen and (max-width: 700px){
-  .product-to-right-boxes{
-    width: 20%;
-  }
-
-  .rightest-box{
-    width: 100%;
-  }
-
-  .product-details > button, .rightest-box > button {
+  .product-details > button{
     height: 50px;
   }
 
@@ -286,7 +237,7 @@ input[type=number].product-number-input{
     border: 1px solid black;
   }
 
-  .product-to-right-boxes > * > p, .picture-and-description  > * > p{
+  .picture-and-description  > * > p{
     font-size: 10px;
   }
 
@@ -294,9 +245,13 @@ input[type=number].product-number-input{
     font-size: 13px;
   }
 
-  .fa.fa-shopping-cart{
-    font-size: 15px;
+  .product-description > *{
+    font-size: 10px;
   }
+  .product-description > button{
+    height: 30px;
+  }
+
 }
 
 

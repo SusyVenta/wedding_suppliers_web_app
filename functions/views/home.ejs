@@ -182,17 +182,8 @@
                                     <p>Rating: <%= product.stars %>/5</p>
                                     <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="product-to-right-boxes">
-                            <div class="rightest-box">
-                                <i class="fa fa-shopping-cart"></i>
-                                <p>Quantity:</p>
-                                <input class="product-number-input" type="number" />
-                                <p>Price per unit: <%= product.currency %>
-                                        <%= product.price %>
-                                </p>
-                                <button onclick="" class="btn">Add to basket</button>
+                                <p>Price per unit: <%= product.currency %> <%= product.price %></p>
+                                <button onclick="" class="btn">See Product Details</button>
                             </div>
                         </div>
                         <input input type="hidden" id="first" type="text" name="product_id"
