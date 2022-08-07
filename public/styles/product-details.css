@@ -14,7 +14,7 @@
     margin-bottom: 15px;
 }
 
-/* Titles  */
+/* ---------------------Titles  ---------------------------*/
 .text-container{
     display: flex;
     flex-direction: column;
@@ -30,6 +30,33 @@
     font-size: calc(1.14rem + .3vw);
 }
 
+  /* ----------- phone view ------ */
+  @media only screen and (max-width: 700px) {
+    .page-container{
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        min-height: 900px;
+        margin-bottom: 15px;
+    }
+    .text-container{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        justify-content: flex-start;
+    }
+    #product-title{
+        font-size: 20px;
+    }
+    #vendor{
+        font-size: 12px;
+    }
+    #address{
+        font-size: 12px;
+    }
+  }
+
+  /* ---------------------pictures and ratings  ---------------------------*/
 /* Colors review stars  */
 .stars-rating > *.checked{
     color: orange;
@@ -64,6 +91,9 @@
 .rating-container > *{
     display: flex;
     flex-direction: row;
+    align-items: baseline;
+    width: 300px;
+    justify-content: space-between;
 }
 
 .stars-rating{
@@ -85,6 +115,61 @@
     align-content: flex-end;
 }
 
+  /* ----------- phone view ------ */
+  @media only screen and (max-width: 700px) {
+    .pictures-container{
+        width: 100%;
+    }
+    .right-to-carousel{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        width: 100%;
+        padding: 5px;
+        margin-left: 0px;
+    }
+    .rating-container > div > p, .rating-container > div > div > span, 
+    .product-details-container > p,
+    .message-vendor > input
+    {
+        font-size: 12px;
+    }
+    .rating-container{
+        justify-content: center;
+    }
+
+    #email-vendor-button{
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .rating-container > *{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        width: 200px;
+        justify-content: space-between;
+    }
+  }
+
+  /* ----------- tablet view ------ */
+  @media only screen and (max-width: 1024px) and (min-width: 701px){
+    .rating-container > *{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .rating-container > div > p, .rating-container > div > div > span, 
+    .product-details-container > p,
+    .message-vendor > input
+    {
+        font-size: 14px;
+    }
+  }
+
 /* ------------------------- order box ----------------------------*/
 /* order form, below pictures and product details */
 .order-items-container{
@@ -95,6 +180,7 @@
     margin-top: 15px;
     justify-content: space-between;
     border: 1px solid black;
+    padding: 5px;
 }
 
 #submit-search-filters{
@@ -106,6 +192,48 @@
     flex-direction: column;
     justify-content: center;
 }
+
+#color-select-div, .product-quantity-container, .price-container, .product-quantity-container,
+.date-picker
+{
+    width: 15%;
+}
+input, select{
+    height: 30px;
+}
+/* ----------- phone view ------ */
+@media only screen and (max-width: 800px) {
+    .order-items-container > div > p{
+        font-size: 13px;
+    }
+    #color-select-div, .product-quantity-container, .price-container, .product-quantity-container,
+    #preferred-delivery-date-picker, .order-items-container > div
+    {
+        width: 47%;
+    }
+    input, select, #preferred-delivery-date-picker{
+        height: 40px;
+    }
+    #confirm-availability-button{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        height: 40px;
+        font-size: 13px;
+    }
+}
+
+/* ----------- tablet view ------ */
+@media only screen and (max-width: 1024px) and (min-width: 801px){
+    select, .product-number-input, #color-select, .price-number-input, #preferred-delivery-date-picker{
+        margin: 2px;
+        border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+        border-width: 1px;
+        border-style: inset;
+    }
+    #preferred-delivery-date-picker{
+        margin-bottom: 20px;
+    }
+  }
 
 /* ------------------------- reviews ----------------------------*/
 /* Contains all reviews */
@@ -159,3 +287,50 @@
     flex-wrap: wrap;
     overflow-y: hidden;
 }
+
+@media only screen and (max-width: 700px) {
+    .reviews-container > h3{
+        font-size: 18px;
+    }
+    .user_name, .review-date-container{
+        width: 150px;
+    }
+
+    .review-date-container{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .review-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        justify-content: space-between;
+        padding: 5px;
+    }
+    .rating-container-review{
+        width: 100%;
+    }
+
+    .rating-container-review > div > p, .rating-container-review > div > div > span
+    {
+        font-size: 10px;
+    }
+
+    .review-comment > p, .review-comment{
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* ----------- tablet view ------ */
+@media only screen and (max-width: 1024px) and (min-width: 701px){
+    .review-container{
+        flex-wrap: wrap;
+    }
+    .review-comment{
+        width: 100%;
+        max-width: 100%;
+    }
+    
+  }

@@ -212,7 +212,7 @@
                     </div>
                     <div class="message-vendor-container">
                         <form method="GET" class="message-vendor" action="/product_details/<%= product.product_id %>">
-                            <input id="submit-search-filters" type="submit" value="Email vendor">
+                            <input id="email-vendor-button" type="submit" value="Email vendor">
                         </form>
                     </div>
                 </div><!-- end right-to-carousel-->
@@ -228,18 +228,18 @@
                                 <% }) %>
                             </select>
                         </div>
-                        <div>
+                        <div class="product-quantity-container">
                             <p>Quantity:</p>
                             <input class="product-number-input" type="number" value=1/>
                         </div>
-                        <div>
+                        <div class="price-container">
                             <p>Price: <%= product.currency %></p>
-                            <input class="product-number-input" type="number" value=<%= product.price %>/>
+                            <input class="price-number-input" type="number" value=<%= product.price %>/>
                         </div>
                         <div class="date-picker">
                             <p>Preferred Delivery:</p>
                             <div class="input-group input-daterange">
-                                <input type="text" class="form-control" />
+                                <input id="preferred-delivery-date-picker" type="text" class="form-control" />
                             </div>
                         
                             <script type="text/javascript">
@@ -249,7 +249,7 @@
                             </script>
                         </div>
                         <div>
-                            <input id="submit-search-filters" type="submit" value="Confirm Availability">
+                            <input id="confirm-availability-button" type="submit" value="Confirm Availability">
                         </div>
                     </div>
                 </form>
@@ -261,7 +261,7 @@
                         <div class="user_name">
                             <p><%= review.firstName %> <%= review.lastName %></p>
                         </div>
-                        <div>
+                        <div class="review-date-container">
                             <p><%= moment(review.date).format('Do MMM YYYY HH:MM')  %></p>
                         </div>
                         <div class="rating-container-review">
