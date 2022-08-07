@@ -1,0 +1,161 @@
+
+/* Contains header and rest of the page */
+.outer-page-container{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Does not contain header. Wraps page content  */
+.page-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 900px;
+    margin-bottom: 15px;
+}
+
+/* Titles  */
+.text-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: flex-start;
+}
+
+#product-title{
+    position: relative;
+}
+
+#address{
+    font-size: calc(1.14rem + .3vw);
+}
+
+/* Colors review stars  */
+.stars-rating > *.checked{
+    color: orange;
+}
+
+.pictures-overall-rating-message-vendor-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* conatins divs to the right of pictures carousel */
+.right-to-carousel{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    margin-left: 2%;
+    width: 38%;
+    padding: 20px;
+}
+
+.rating-container{
+    border-bottom: 1px solid black;
+}
+
+.pictures-container{
+    width: 60%;
+}
+
+/* Align stars to rating descriptions */
+.rating-container > *{
+    display: flex;
+    flex-direction: row;
+}
+
+.stars-rating{
+    margin-left: 5px;
+}
+
+.carousel-item > img{
+    max-width: 100%;
+    max-height: 100%;
+    height: 30vh;
+    object-fit: cover;
+}
+
+.message-vendor-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-content: flex-end;
+}
+
+/* ------------------------- order box ----------------------------*/
+/* order form, below pictures and product details */
+.order-items-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+    margin-top: 15px;
+    justify-content: space-between;
+    border: 1px solid black;
+}
+
+#submit-search-filters{
+    height: 50px;
+}
+
+.order-items-container > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ------------------------- reviews ----------------------------*/
+/* Contains all reviews */
+.reviews-container{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contains one review */
+.review-container{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    justify-content: space-between;
+}
+
+/* Align stars to rating descriptions */
+.rating-container-review > div{
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.review-container > div > p, .review-container > div > div > p, .review-container > div > div > div{
+    font-size: 14px;
+}
+
+.review-comment{
+    width: 300px;
+    max-width: 300px;
+}
+
+.review-comment > p{
+    display: inline-block;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+.user_name{
+    width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+}
+
+.rating-container-review{
+    width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+}

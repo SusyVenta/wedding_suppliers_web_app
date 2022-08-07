@@ -33,6 +33,7 @@ This hosts firebase on  http://localhost:5004
 - npm install firebase --save
 - npm install firebase-tools --save
 - npm install country-state-city --save  (https://openbase.com/js/country-state-city)
+- npm install moment --save
 
 
 ## Directory
