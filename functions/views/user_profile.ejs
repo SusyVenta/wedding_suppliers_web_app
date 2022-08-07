@@ -80,7 +80,7 @@
                       <div class="col">
                         <div class="row">
                           <!-- Email -->
-                          <input type="email" id="email" class="form-control form-control" placeholder="Email" required>
+                          <input type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= params.email %>" required>
                         </div>
                         <div class="row">
                           <!-- Password -->
@@ -89,12 +89,12 @@
                         <div class="row">
                           <!-- Phone number -->
                           <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
-                            placeholder="Phone Number" required>
+                            placeholder="Phone Number" value="<%= params.phone_number %>" required>
                         </div>
                         <div class="row">
                           <!-- Address 1 -->
                           <input type="text" id="address_1" class="form-control"
-                            placeholder="Address of your wedding location" required>
+                            placeholder="Address of your wedding location" value="<%= params.address_1 + " " + params.address_2 %>" required>
                         </div>
                         <div class="row">
                           <!-- Postal Code -->
@@ -102,7 +102,7 @@
                         </div>
                         <div class="row">
                           <!-- City -->
-                          <input type="text" id="city" class="form-control" placeholder="City" required>
+                          <input type="text" id="city" class="form-control" placeholder="City" value="<%= params.city %>" required>
                         </div>
                         <div class="row">
                           <!-- Country -->
@@ -381,18 +381,19 @@
                   </form>
 
                   <ul id="to-do-list-items">
-                    <li class="checked">Choosing the best wedding suppliers website</li>
-                    <li>Venue</li>
-                    <li>Photographer</li>
-                    <li>Catering</li>
-                    <li>Flowers</li>
-                    <li>Clothing</li>
-                    <li>Decorations</li>
+                    <!-- print the todo list -->
+                    <% for(var i=0; i < params.todo.length; i++) { %>
+                      <li>
+                        <%= params.todo[i] %>
+                      </li>
+                   <% } %>
                   </ul>
                 </div>
               </div>
             </div>
           </div>
+
+          <% /* %>
           <div id="Wishlist" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
@@ -544,6 +545,8 @@
               </div>
             </div>
           </div>
+          <% */ %>
+
           <div id="Messages" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">

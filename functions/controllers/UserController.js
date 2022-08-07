@@ -5,12 +5,18 @@ const firebase = require('../db')
 const firestore = firebase.firestore();
 
 
-const getUserProfile = ((req, res) => {
-  const id = Number(req.params.userID)
-  const params = { user: { id: id, name: "Emma Stone" } }
+const getUserProfile = async (req, res) => {
+  const id = req.params.userId || req.query.userId || req.body.userId;
+  
+  // Get the user from the database
+  const user = await firestore.collection('users').doc(id).get();
+
+  params = user.data();
+
+  // console.log(params);
 
   res.render(Views + 'user_profile.ejs',  params)
-})
+}
 
 const getUserLogin = ((req, res) => {
   res.render(Views + 'customer_login.ejs' )
