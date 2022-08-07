@@ -10,6 +10,8 @@ async function prepareHomePayload(queryObject) {
   
   productsTable.forEach(doc => {
     let product_data = doc.data();
+    let product_id = doc.id;
+    product_data.product_id = product_id;
     tmp_products.push(product_data);
   });
 
@@ -25,7 +27,7 @@ async function prepareHomePayload(queryObject) {
 
     product.address = vendor_data.address_1;
     product.vendor = vendor_data.business_name;
-
+    product.vendor_email = vendor_data.email;
     products.push(product);
   }
 

@@ -54,9 +54,10 @@
     justify-content: center;
   }
 
-  .hero-text > h1{
+  #hero-text{
     margin-top: 20px;
     font-size: 3rem;
+    position: absolute;
   }
 
   .hero-text > h2{
@@ -146,6 +147,5 @@
 .breadcrumb>li>a{
   color: black;
 }
-
 
 

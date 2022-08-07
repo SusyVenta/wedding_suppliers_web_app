@@ -108,16 +108,16 @@
                         <select name="weddingType" id="weddingType-select">
                             <% if(appliedFilters.chosenWeddingType !='All' ){ %>
                                 <option value='All'>All</option>
-                                <% } %>
-                                    <option value=<%=appliedFilters.chosenWeddingType %> selected><%=
-                                            appliedFilters.chosenWeddingType %>
+                            <% } %>
+                            <option value=<%=appliedFilters.chosenWeddingType %> selected><%=
+                                    appliedFilters.chosenWeddingType %>
+                            </option>
+                            <% weddingTypes.forEach(function(weddingType){ %>
+                                <% if(weddingType !=appliedFilters.chosenWeddingType){ %>
+                                    <option value=<%=weddingType %>><%= weddingType %>
                                     </option>
-                                    <% weddingTypes.forEach(function(weddingType){ %>
-                                        <% if(weddingType !=appliedFilters.chosenWeddingType){ %>
-                                            <option value=<%=weddingType %>><%= weddingType %>
-                                            </option>
-                                            <% } %>
-                                                <% }) %>
+                                <% } %>
+                            <% }) %>
                         </select>
                     </div>
                     <input id="submit-search-filters" type="submit" value="Submit">
