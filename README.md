@@ -14,9 +14,40 @@ Prototype of online retail platform to connect users and wedding suppliers
 $npm init
 ```
 
-### When testing, add file `functions\firebaseConfig.js` to your repository. Content of this file can be found in Trello board, first column. 
+### Configurations needed when testing
 
-This file contains the necessary config info in order to connect to the database. 
+1) add file `functions\firebaseConfig.js` to your repository. Content of this file can be found in Trello board, first column. This file contains the necessary config info in order to connect to the database. Content:
+
+```
+const config = {
+    apiKey: '<key>',
+    authDomain: '<key>',
+    projectId: '<key>',
+    storageBucket: '<key>',
+    messagingSenderId: '<key>',
+    appId: '<key>',
+    measurementId: '<key>'
+};
+
+module.exports = {
+    testConfig: config
+}
+```
+
+2) add file `public\firebaseConfig.js` to your repository. Content of this file can be found in Trello board, first column. This file contains the necessary config info in order to be able to authenticate from frontend
+
+```
+const config = {
+    apiKey: '<key>',
+    authDomain: '<key>',
+    projectId: '<key>',
+    storageBucket: '<key>',
+    messagingSenderId: '<key>',
+    appId: '<key>',
+    measurementId: '<key>'
+};
+```
+
 
 ### Run `firebase emulators:start` to set up firebase emulator for local development
 
