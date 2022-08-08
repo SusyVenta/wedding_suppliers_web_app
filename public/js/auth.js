@@ -242,8 +242,9 @@ window.addEventListener('DOMContentLoaded', () => {
     forgotPasswordForm.addEventListener('submit', event => {
         event.preventDefault();
         const email = document.getElementById('forgot-password-email').value;
+        console.log(email);
 
-        auth.sendPasswordResetEmail(email)
+        firebase.auth().sendPasswordResetEmail(email)
             .then(() => {
                 forgotPasswordForm.reset();
                 displayMessage('success', 'Message sent, Please check your email');
