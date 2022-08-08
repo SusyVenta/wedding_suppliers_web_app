@@ -67,9 +67,14 @@
                 <img id="profile-pic"
                   src="/assets/blank-profile-picture-png.png"
                   alt="User profile picture">
-                <form action="#" method="post">
+                <!-- Profile picture edit -->
+                <label class="vendor-profile-edit">
+                  <input type="file" id="profile-pic-edit-button" accept=".jpg, .jpeg, .png">
+                  Edit Picture
+                </label>
+                <!-- <form action="#" method="post">
                   <button type="button" id="change-picture" class="btn btn-primary">Update profile picture</button>
-                </form>
+                </form> -->
               </div>
 
 
@@ -135,7 +140,7 @@
             <div class="tab-content-container">
               <div class="tab-content" id="wishlist-tab-content">
                 <h3 class="tab-title">Catalogue</h3>
-                <div class="orders-container">
+                <div id="orders-container">
 
                   <!-- <%# if(products.length==0){ %>
                     <div class="no-results">
@@ -206,7 +211,11 @@
                 </div><!-- end order-container -->
               </div>
             </div>
+            <!-- Add to catalogue button -->
+              <button type="button" id="add-to-catalogue-button" class="btn btn-light">Add To Catalogue</button>
           </div> <!-- end id="catalogue" class="tabcontent" -->
+
+
           <div id="orders" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">

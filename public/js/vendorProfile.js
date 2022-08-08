@@ -16,6 +16,7 @@ firebase.auth().onAuthStateChanged(user => {
 })
 
 // get all profile elements
+// personal information
 const profilePicture = document.getElementById('profile-pic');
 const businessName = document.getElementById('business-name');
 const email = document.getElementById('email');
@@ -25,6 +26,7 @@ const address2 = document.getElementById('address-2');
 const postCode = document.getElementById('post-code');
 const city = document.getElementById('city');
 const country = document.getElementById('country');
+const pictureEdit = document.getElementById('profile-pic-edit-button');
 
 const setProfile = (vendorData) => {
     // set profile picture, if user has set an image themselves then use that image from storage otherwise use default image
@@ -48,4 +50,21 @@ const setProfile = (vendorData) => {
     if (vendorData.city) city.innerText = vendorData.city;
     // set country
     if (vendorData.country) country.innerText = vendorData.country;
+
+    // populate catalogue
+    const orderContainer = document.getElementById('orders-container');
+    console.log(orderContainer);
+    if (vendorData.products) {
+        // Orders in catalogue, populate contianer
+
+    } else {
+        // no orders in catalogue
+        orderContainer.innerHTML = `<p class="text-center"> You have no products in your catalogue. Click add product to add products to your catalogue</p>`
+    }
 }
+
+// Profile picture edit button pressed
+// pictureEdit.onchange = () => {
+//     const selectedFile = pictureEdit.files[0];
+//     profilePicture.src = selectedFile;
+// }
