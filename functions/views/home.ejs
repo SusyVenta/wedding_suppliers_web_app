@@ -135,7 +135,7 @@
                     <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
                         <div class="picture-and-description">
                             <div class="product-photo"
-                                style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
+                                style="background-image: url('<%= product.pictures[0]%>')" >
                             </div>
                             <div class="product-description">
                                 <h5>

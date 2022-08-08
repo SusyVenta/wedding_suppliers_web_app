@@ -53,7 +53,7 @@ app.get("/product_details/:product_id", async function (request, response) {
   });
 });
 
-// product details post - when user clicks 'confirm availability
+// product details post - when user clicks 'confirm availability' or 'add to basket'
 app.post("/product_details/:product_id", async function (request, response) {
   let indexPath = path.join(__dirname, "views/product_details.ejs");
   let chosenProductId = request.params.product_id;
