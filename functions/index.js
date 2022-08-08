@@ -26,18 +26,17 @@ app.use((req, res, next)=>{
 });
 
 
-// home page
+// home page - does not require authentication
 app.get('/', async function (request, response){
   let indexPath = path.join(__dirname, "views/home.ejs");
 
   const queryObject = url.parse(request.url, true).query;
 
   let payload = await prepareHomePayload(queryObject);
-
   response.render(indexPath, payload);
 });
 
-// product details
+// product details - does not require authentication
 app.get("/product_details/:product_id", async function (request, response) {
   let indexPath = path.join(__dirname, "views/product_details.ejs");
   let chosenProductId = request.params.product_id;
@@ -53,7 +52,7 @@ app.get("/product_details/:product_id", async function (request, response) {
   });
 });
 
-// product details post - when user clicks 'confirm availability' or 'add to basket'
+// product details post - when user clicks 'confirm availability' or 'add to basket' - requires auth
 app.post("/product_details/:product_id", async function (request, response) {
   let indexPath = path.join(__dirname, "views/product_details.ejs");
   let chosenProductId = request.params.product_id;
