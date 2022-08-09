@@ -154,9 +154,13 @@
   align-self: flex-start;
 }
 
-.product-description-text{
+.product-description-text, .colors-available-p, .vendor-details, .product-title{
+  text-overflow: ellipsis;
   text-align: justify;
   text-justify: inter-word;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
 }
 
 .product-photo {

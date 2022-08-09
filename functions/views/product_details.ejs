@@ -154,126 +154,130 @@
                 </div>
                 <div class="right-to-carousel">
                     <div class="rating-container">
-                        <div class="overall-rating">
-                            <p>Overall Rating: </p>
-                            <div class="stars-rating">
-                                <% if (product.stars >= 1) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.stars>= 2) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.stars>= 3) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.stars>= 4) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.stars>= 5) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                            </div>
-                        </div> <!-- end overall rating-->
-                        <div class="product-quality-rating">
-                            <p>Product Quality: </p>
-                            <div class="stars-rating">
-                                <% if (product.overall_product_quality_rating >= 1) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_quality_rating>= 2) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_quality_rating>= 3) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_quality_rating>= 4) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_quality_rating>= 5) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                            </div>
-                        </div> <!-- end product-quality rating-->
-                        <div class="vendor-quality-rating">
-                            <p>Vendor: </p>
-                            <div class="stars-rating">
-                                <% if (product.overall_vendor_quality_rating >= 1) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_vendor_quality_rating >= 2) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_vendor_quality_rating >= 3) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_vendor_quality_rating >= 4) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_vendor_quality_rating >= 5) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                            </div>
-                        </div> <!-- end vendor-quality rating-->
-                        <div class="product-description-quality-rating">
-                            <p>Product-description: </p>
-                            <div class="stars-rating">
-                                <% if (product.overall_product_description_rating >= 1) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_description_rating>= 2) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_description_rating>= 3) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_description_rating>= 4) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                                <% if (product.overall_product_description_rating>= 5) { %>
-                                    <span class="fa fa-star checked"></span>
-                                <% } else{ %>
-                                    <span class="fa fa-star"></span>
-                                <% } %>
-                            </div>
-                        </div> <!-- end product-description-quality rating-->
+                        <% if (product.stars != null) { %>
+                            <div class="overall-rating">
+                                <p>Overall Rating: </p>
+                                <div class="stars-rating">
+                                    <% if (product.stars >= 1) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars>= 2) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars>= 3) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars>= 4) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.stars>= 5) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                </div>
+                            </div> <!-- end overall rating-->
+                            <div class="product-quality-rating">
+                                <p>Product Quality: </p>
+                                <div class="stars-rating">
+                                    <% if (product.overall_product_quality_rating >= 1) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_quality_rating>= 2) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_quality_rating>= 3) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_quality_rating>= 4) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_quality_rating>= 5) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                </div>
+                            </div> <!-- end product-quality rating-->
+                            <div class="vendor-quality-rating">
+                                <p>Vendor: </p>
+                                <div class="stars-rating">
+                                    <% if (product.overall_vendor_quality_rating >= 1) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_vendor_quality_rating >= 2) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_vendor_quality_rating >= 3) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_vendor_quality_rating >= 4) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_vendor_quality_rating >= 5) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                </div>
+                            </div> <!-- end vendor-quality rating-->
+                            <div class="product-description-quality-rating">
+                                <p>Product-description: </p>
+                                <div class="stars-rating">
+                                    <% if (product.overall_product_description_rating >= 1) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_description_rating>= 2) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_description_rating>= 3) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_description_rating>= 4) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                    <% if (product.overall_product_description_rating>= 5) { %>
+                                        <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                    <% } %>
+                                </div>
+                            </div> <!-- end product-description-quality rating-->
+                        <% } else{ %>
+                            <p>No rating yet</p>
+                        <% } %>
                     </div> <!-- end rating container-->
                     <div class="product-details-container">
                         <p>Product Category: <%= product.categoty %></p>
@@ -337,141 +341,145 @@
             </div> <!-- end orders container -->
             <div class="reviews-container">
                 <h3>Reviews:</h3>
-                <% product.reviews.forEach(function(review){ %>
-                    <div class="review-container">
-                        <div class="user_name">
-                            <p><%= review.firstName %> <%= review.lastName %></p>
+                <% if(product.reviews.length > 0){ %>
+                    <% product.reviews.forEach(function(review){ %>
+                        <div class="review-container">
+                            <div class="user_name">
+                                <p><%= review.firstName %> <%= review.lastName %></p>
+                            </div>
+                            <div class="review-date-container">
+                                <p><%= moment(review.date).format('Do MMM YYYY HH:MM')  %></p>
+                            </div>
+                            <div class="rating-container-review">
+                                <div class="overall-rating">
+                                    <p>Overall Rating: </p>
+                                    <div class="stars-rating">
+                                        <% if (review.overall_rating >= 1) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.overall_rating>= 2) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.overall_rating>= 3) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.overall_rating>= 4) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.overall_rating>= 5) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                    </div>
+                                </div> <!-- end overall rating-->
+                                <div class="product-quality-rating">
+                                    <p>Product Quality: </p>
+                                    <div class="stars-rating">
+                                        <% if (review.product_quality_rating >= 1) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_quality_rating>= 2) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_quality_rating>= 3) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_quality_rating>= 4) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_quality_rating>= 5) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                    </div>
+                                </div> <!-- end product-quality rating-->
+                                <div class="vendor-quality-rating">
+                                    <p>Vendor: </p>
+                                    <div class="stars-rating">
+                                        <% if (review.vendor_quality_rating >= 1) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.vendor_quality_rating >= 2) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.vendor_quality_rating >= 3) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.vendor_quality_rating >= 4) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.vendor_quality_rating >= 5) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                    </div>
+                                </div> <!-- end vendor-quality rating-->
+                                <div class="product-description-quality-rating">
+                                    <p>Product-description: </p>
+                                    <div class="stars-rating">
+                                        <% if (review.product_description_rating >= 1) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_description_rating>= 2) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_description_rating>= 3) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_description_rating>= 4) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                        <% if (review.product_description_rating>= 5) { %>
+                                            <span class="fa fa-star checked"></span>
+                                        <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                        <% } %>
+                                    </div>
+                                </div> <!-- end product-description-quality rating-->
+                            </div> <!-- end rating container-->
+                            <div class="review-comment">
+                                <p><%= review.comment %></p>
+                            </div>
                         </div>
-                        <div class="review-date-container">
-                            <p><%= moment(review.date).format('Do MMM YYYY HH:MM')  %></p>
-                        </div>
-                        <div class="rating-container-review">
-                            <div class="overall-rating">
-                                <p>Overall Rating: </p>
-                                <div class="stars-rating">
-                                    <% if (review.overall_rating >= 1) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.overall_rating>= 2) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.overall_rating>= 3) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.overall_rating>= 4) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.overall_rating>= 5) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                </div>
-                            </div> <!-- end overall rating-->
-                            <div class="product-quality-rating">
-                                <p>Product Quality: </p>
-                                <div class="stars-rating">
-                                    <% if (review.product_quality_rating >= 1) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_quality_rating>= 2) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_quality_rating>= 3) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_quality_rating>= 4) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_quality_rating>= 5) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                </div>
-                            </div> <!-- end product-quality rating-->
-                            <div class="vendor-quality-rating">
-                                <p>Vendor: </p>
-                                <div class="stars-rating">
-                                    <% if (review.vendor_quality_rating >= 1) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.vendor_quality_rating >= 2) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.vendor_quality_rating >= 3) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.vendor_quality_rating >= 4) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.vendor_quality_rating >= 5) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                </div>
-                            </div> <!-- end vendor-quality rating-->
-                            <div class="product-description-quality-rating">
-                                <p>Product-description: </p>
-                                <div class="stars-rating">
-                                    <% if (review.product_description_rating >= 1) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_description_rating>= 2) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_description_rating>= 3) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_description_rating>= 4) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                    <% if (review.product_description_rating>= 5) { %>
-                                        <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                    <% } %>
-                                </div>
-                            </div> <!-- end product-description-quality rating-->
-                        </div> <!-- end rating container-->
-                        <div class="review-comment">
-                            <p><%= review.comment %></p>
-                        </div>
-                    </div>
-                <% }) %>
+                    <% }) %>
+                <% } else{ %>
+                    <p>No reviews yet</p>
+                <% } %>
             </div>
         </div>
     </div>

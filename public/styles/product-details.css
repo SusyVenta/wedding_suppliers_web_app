@@ -30,6 +30,21 @@
     font-size: calc(1.14rem + .3vw);
 }
 
+.product-details-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.product-details-container > *{
+    text-overflow: ellipsis;
+    text-align: justify;
+    text-justify: inter-word;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+
   /* ----------- phone view ------ */
   @media only screen and (max-width: 700px) {
     .page-container{

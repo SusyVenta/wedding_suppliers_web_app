@@ -10,11 +10,15 @@ async function prepareProductPagePayload(targetProduct_id) {
 
   // format review dates 
   let reviews = targetProduct.reviews;
-  
-  for(let i=0; i < reviews.length; i++){
-    let formatted_date = reviews[i].date.toDate();
-    reviews[i].date = formatted_date;
+  if (reviews != null){
+    for(let i=0; i < reviews.length; i++){
+      let formatted_date = reviews[i].date.toDate();
+      reviews[i].date = formatted_date;
+    }
+  } else{
+    reviews = [];
   }
+  
   targetProduct.reviews = reviews;
 
   let vendor_id = targetProduct.vendor_id;
@@ -54,7 +58,6 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
   let payload = await prepareProductPagePayload(chosenProductId);
 
   if (is_authenticated === false){
-    console.log("Not updating DB!!!!!!!!!!");
     return payload;
   }
 
