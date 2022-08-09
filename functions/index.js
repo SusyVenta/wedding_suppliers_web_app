@@ -46,7 +46,8 @@ app.get("/product_details/:product_id", async function (request, response) {
     product: payload.product,
     moment: moment,
     orderRequestSubmitted: false,
-    addedToBasket: false
+    addedToBasket: false,
+    is_authenticated: true
   });
 });
 
@@ -54,27 +55,36 @@ app.get("/product_details/:product_id", async function (request, response) {
 app.post("/product_details/:product_id", async function (request, response) {
   let indexPath = path.join(__dirname, "views/product_details.ejs");
   let chosenProductId = request.params.product_id;
-  
   let orderRequestSubmitted;
   let addedToBasket;
   let action;
-  console.log(request.body);
-  if("add_to_basket" in request.body){
-    addedToBasket = true;
-    action = "add_to_basket";
-  }
-  if("confirm_availability" in request.body){
-    orderRequestSubmitted = true;
-    action = "confirm_availability";
+  let user_id = request.body.user_id;
+  let is_authenticated;
+
+  if(user_id == "unauthenticated"){
+    is_authenticated = false;
+    orderRequestSubmitted = false;
+    addedToBasket = false;
+  }else{
+    is_authenticated = true;
+    if("add_to_basket" in request.body){
+      addedToBasket = true;
+      action = "add_to_basket";
+    }
+    if("confirm_availability" in request.body){
+      orderRequestSubmitted = true;
+      action = "confirm_availability";
+    }
   }
 
-  let payload = await confirmProductRequestSubmit(chosenProductId, request, action);
+  let payload = await confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated);
   
   response.render(indexPath, {
     product: payload.product,
     moment: moment,
     orderRequestSubmitted: orderRequestSubmitted,
-    addedToBasket: addedToBasket
+    addedToBasket: addedToBasket,
+    is_authenticated: is_authenticated
   });
 });
 

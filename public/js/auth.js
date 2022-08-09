@@ -150,6 +150,8 @@ window.addEventListener('DOMContentLoaded', () => {
             hidenWhenSignedOut.forEach(item => {
                 item.classList.add('hide');
             })
+            // when user is logged out, set user id = unauthenticated
+            document.getElementById("user_id_navbar").innerHTML = "unauthenticated";
         }
     })
 

@@ -50,8 +50,13 @@ async function getDocIdOfUserID(userID){
   return outputUserId;
 }
 
-async function confirmProductRequestSubmit(chosenProductId, request, action){
+async function confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated){
   let payload = await prepareProductPagePayload(chosenProductId);
+
+  if (is_authenticated === false){
+    console.log("Not updating DB!!!!!!!!!!");
+    return payload;
+  }
 
   let productFields = {
     user_id: await getDocIdOfUserID(request.body.user_id), 
