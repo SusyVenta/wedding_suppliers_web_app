@@ -7,7 +7,6 @@ const vendorsRouter = require('./routes/vendors.js');
 const moment = require('moment');
 const {prepareHomePayload} = require('./controllers/HomeController');
 const {prepareProductPagePayload, confirmProductRequestSubmit} = require('./controllers/ProductPageController');
-
 const app = express();
 
 // enable to use ejs
@@ -43,7 +42,6 @@ app.get("/product_details/:product_id", async function (request, response) {
   
   let payload = await prepareProductPagePayload(chosenProductId);
 
-  console.log(payload.product);
   response.render(indexPath, {
     product: payload.product,
     moment: moment,
@@ -60,6 +58,7 @@ app.post("/product_details/:product_id", async function (request, response) {
   let orderRequestSubmitted;
   let addedToBasket;
   let action;
+  console.log(request.body);
   if("add_to_basket" in request.body){
     addedToBasket = true;
     action = "add_to_basket";

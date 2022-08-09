@@ -34,10 +34,27 @@ async function prepareProductPagePayload(targetProduct_id) {
   return payload;
 };
 
+async function getDocIdOfUserID(userID){
+  // uid != ID of the document containing the user ID, which we need to find
+  const productsTable = await firestore.collection('users').get();
+  
+  let outputUserId;
+
+  productsTable.forEach(doc => {
+    let data = doc.data();
+    if(data.user_id == userID){
+      outputUserId = doc.id;
+    }
+  });
+
+  return outputUserId;
+}
+
 async function confirmProductRequestSubmit(chosenProductId, request, action){
   let payload = await prepareProductPagePayload(chosenProductId);
+
   let productFields = {
-    user_id: 'ocIzCpZR6UQY7s2CSDoKOmxjylf1', // TODO replace with logged in user ID
+    user_id: await getDocIdOfUserID(request.body.user_id), 
     vendor_id: payload.product.vendor_id,
     chosenProductId: chosenProductId,
     quantity_chosen: request.body.quantity,

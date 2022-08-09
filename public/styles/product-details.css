@@ -377,3 +377,9 @@ input, select{
     }
     
   }
+
+
+#user_id{
+    color: white;
+    font-size: 0.01px;
+}
