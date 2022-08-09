@@ -1,9 +1,11 @@
 let docRef;
+let userId
 
 firebase.auth().onAuthStateChanged(user => {
     let vendorData;
     if (user) {
         uid = user.uid;
+        userId = user.uid;
         db.collection('users')
             .where('user_id', '==', user.uid)
             .get()
@@ -35,13 +37,42 @@ const city = document.getElementById('city');
 const country = document.getElementById('country');
 const pictureEdit = document.getElementById('profile-pic-edit-button');
 
+// when edit picture button pressed, open file loader
+//when vendor has chosen picture, upload image to firebase storage
+// get link for that image and then update vendor db with link to storage
+pictureEdit.addEventListener('change', (event) => {
+    const image = event.target.files[0];
+    const storageRef = firebase.storage().ref('vendor-profiles').child(userId);
+    storageRef.put(image).then(() => {
+        firebase.storage()
+            .ref('vendor-profiles')
+            .child(userId)
+            .getDownloadURL()
+            .then((downloadURL) => {
+                const imageURL = downloadURL;
+                vendorRef = db.collection('users').doc(docRef);
+
+                vendorRef.update({
+                    profile_image: imageURL,
+                })
+                    .then(() => {
+                        console.log('image added to db');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    })
+            })
+    })
+})
+
 // catalogue
 const catalogueContainer = document.getElementById('catalogue-container');
 
 const setProfile = (vendorData) => {
     // set profile picture, if user has set an image themselves then use that image from storage otherwise use default image
-    if (vendorData.profile_pic) {
+    if (vendorData.profile_image) {
         // vendor has set profile picture
+        profilePicture.src = vendorData.profile_image;
     } else {
         // no profile picture has been set by vendor so use default
         profilePicture.src = '/assets/blank-profile-picture-png.png';
@@ -74,9 +105,6 @@ const setProfile = (vendorData) => {
 
 
 const renderCatalogue = (product) => {
-
-    // let cataForm = document.createElement('form');
-    // cataForm.class = 'product';
     // CONTAINING DIV
     let pictureAndDescription = document.createElement('div');
     pictureAndDescription.classList.add('picture-and-description');
@@ -136,14 +164,6 @@ const renderCatalogue = (product) => {
     seeReviewsButton.id = `${product.id}-review-button`;
     seeReviewsButton.innerHTML = 'See Reviews';
     productDescription.appendChild(seeReviewsButton);
-    // if (product.stars >= 1) {
-    //     let stars1 = document.createElement('span');
-    //     stars1.classList.add('fa', 'fa-star', 'checked');
-    // } else {
-
-    // }
-
-
 
     // append productDescription to pictureAndDescription div
     pictureAndDescription.appendChild(productDescription);
@@ -163,8 +183,64 @@ function getProductDetails(productIDs) {
         })
 }
 
-// Profile picture edit button pressed
-// pictureEdit.onchange = () => {
-//     const selectedFile = pictureEdit.files[0];
-//     profilePicture.src = selectedFile;
-// }
+
+// -------Add to catalogue----------------
+const addToCataButton = document.getElementById('add-to-catalogue-button');
+const addToCataModal = document.getElementById('add-to-catalogue-modal');
+const cataClose = document.getElementById('catalogue-close');
+
+addToCataButton.addEventListener('click', () => {
+    // get all elements from form
+    const dropdownTypes = document.getElementById('create-wedding-type');
+
+    // add wedding type options to dropdown
+    db.collection('wedding_types').get().then((snapshot) => {
+        snapshot.forEach(doc => {
+            const weddingTypes = doc.data().wedding_types;
+            weddingTypes.forEach(type => {
+                let option = document.createElement('option');
+                option.value = type;
+                option.innerHTML = type;
+                dropdownTypes.appendChild(option);
+            })
+        })
+    }).then(() => {
+        db.collection('colors').get().then((snapshot) => {
+            snapshot.forEach(doc => {
+                const weddingColours = doc.data().colors;
+                weddingColours.forEach(type => {
+                    let option = document.createElement('option');
+                    option.value = type;
+                    option.innerHTML = type;
+                    dropdownTypes.appendChild(option);
+                })
+            })
+        }).then(() => {
+            addToCataModal.style.display = 'block';
+        })
+    })
+})
+
+
+
+//close the modal
+cataClose.addEventListener('click', () => {
+    console.log('called');
+    addToCataModal.style.display = 'none'
+})
+
+window.addEventListener('click', (event) => {
+    if (event.target == addToCataModal) {
+        addToCataModal.style.display = 'none';
+    }
+})
+
+// sumbit product creation
+const productCreateButton = document.getElementById('create-product-button');
+
+// when vendor clicks create product, add the product to the product table in the database
+// add the product to the vendors array of products
+// productCreateButton.addEventListener('click', () => {
+//     // get all items in the form
+//     const 
+// })

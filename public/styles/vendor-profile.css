@@ -4,15 +4,56 @@
   min-height: 70vh;
 }
 
+#add-to-catalogue-button{
+  max-width: 20%;
+}
+
 /* Profile Picture edit button */
 input[type="file"]{
   display: none;
+}
+
+.vendor-profile-pic-edit:hover{
+  cursor: pointer;
 }
 
 .vendor-profile-pic-edit{
   border: 1px solid #ccc;
   display: inline-block;
   padding: 6px 12px;
+}
+
+/* add to catalogue modal */
+#add-to-catalogue-modal{
+  display: none;
+  position: fixed;
+  z-index: 10000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+#add-to-catalogue-modal-content{
+  background-color: #fefefe;
+  margin: 4% auto;
+  border: 1px solid #888888;
+  max-width: 350px;
+}
+
+#catalogue-close{
+  float: right;
+  margin-right: -15px;
+  margin-top: -15px;
+  font-weight: bold;
+  padding: 0px 7px 5px 7px;
+  border-radius: 100%;
+}
+
+#catalogue-close:hover, #catalogue-close:focus{
+  text-decoration: none;
   cursor: pointer;
 }
 

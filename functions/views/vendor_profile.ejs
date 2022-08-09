@@ -72,9 +72,6 @@
                   <input type="file" id="profile-pic-edit-button" accept=".jpg, .jpeg, .png">
                   Edit Picture
                 </label>
-                <!-- <form action="#" method="post">
-                  <button type="button" id="change-picture" class="btn btn-primary">Update profile picture</button>
-                </form> -->
               </div>
 
 
@@ -140,6 +137,7 @@
             <div class="tab-content-container">
               <div class="tab-content" id="wishlist-tab-content">
                 <h3 class="tab-title">Catalogue</h3>
+                <button type="button" id="add-to-catalogue-button" class="btn btn-light">Add To Catalogue</button>
                 <div id="catalogue-container"> 
 
 
@@ -215,8 +213,6 @@
                 </div><!-- end order-container -->
               </div>
             </div>
-            <!-- Add to catalogue button -->
-              <button type="button" id="add-to-catalogue-button" class="btn btn-light">Add To Catalogue</button>
           </div> <!-- end id="catalogue" class="tabcontent" -->
 
 
@@ -291,6 +287,8 @@
               </div>
             </div>
           </div> <!-- end id="orders" class="tabcontent" -->
+
+
           <div id="Messages" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
@@ -373,6 +371,178 @@
         </div>
       </main>
 
+      <!-- Modal to add item to catalogue -->
+      <div id="add-to-catalogue-modal">
+        <div id="add-to-catalogue-modal-content">
+          <button id="catalogue-close">&times</button>
+          <h3 class="create-product-header">Create Product</h3>
+          <form>
+            <!-- image upload -->
+              <div class="row align-items-center">
+                <input type="file" id="create-product-image" requried>
+              </div>
+              <!-- create name -->
+              <div class="row align-items-center">
+                <input type="text" id="create-product-name" placeholder="Product Name" required>
+              </div>
+              <!-- create description -->
+              <div class="row align-items-center">
+                <input type="text" id="create-product-description" placeholder="Item description" required>
+              </div>
+              <!-- create wedding type -->
+              <div class="row align-items-center">
+                <select name="wedding_type" id="create-wedding-type"></select>
+              </div>
+              <div class="row align-items-center">
+                <input type="text" id="create-product-description" placeholder="Item description" required>
+              </div> 
+              <!-- Price -->
+              <div class="row align-items-center">
+                <input type="number" id="create-product-price" placeholder="Price" required>
+              </div>
+              <!-- Currency -->
+              <div class="row align-items-center">
+                <select name="currency" id="create-product-currency">
+                  <option value="£" selected>GBP</option>
+                  <option value="$">USD</option>
+                  <option value="NOK">NOK</option>
+                  <option value="€">Euro</option>
+                  <option value="₹">INR</option>
+                  <option value="HK$">HKD</option>
+                  <option value="¥">JPY</option>
+                </select>
+              </div>
+              <!-- Wedding colour available -->
+              <fieldset>
+                <legend>Available Colours:</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="black" name="black" value="black">
+                    <label for="black">Black</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="grey" name="grey" value="grey">
+                    <label for="grey">grey</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="red" name="red" value="red">
+                    <label for="red">red</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="orange" name="orange" value="orange">
+                    <label for="orange">orange</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="yellow" name="yellow" value="yellow">                
+                    <label for="yellow">yellow</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="cyan" name="cyan" value="cyan">
+                    <label for="cyan">cyan</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="blue" name="blue" value="blue">
+                    <label for="blue">blue</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="magenta" name="magenta" value="magenta">
+                    <label for="magenta">magenta</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="purple" name="purple" value="purple">
+                    <label for="purple">purple</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="white" name="white" value="white">
+                    <label for="white">white</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="silver" name="silver" value="silver">
+                    <label for="silver">silver</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="pink" name="pink" value="pink">
+                    <label for="pink">pink</label>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="maroon" name="maroon" value="maroon">
+                    <label for="maroon">maroon</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="brown" name="brown" value="brown">
+                    <label for="brown">brown</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="beige" name="beige" value="beige">
+                    <label for="beige">beige</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="tan" name="tan" value="tan">
+                    <label for="tan">tan</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="peach" name="peach" value="peach">
+                    <label for="peach">peach</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="lime" name="lime" value="lime">
+                    <label for="lime">lime</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="olive" name="olive" value="olive">
+                    <label for="olive">olive</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="turquoise" name="turquoise" value="turquoise">
+                    <label for="turquoise">turquoise</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="teal" name="teal" value="teal">
+                    <label for="teal">teal</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="indigo" name="indigo" value="indigo">
+                    <label for="indigo">indigo</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="black" name="violet" value="violet">
+                    <label for="violet">violet</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="green" name="green" value="green">
+                    <label for="green">green</label>
+                  </div>
+                </div>
+            </fieldset>
+             
+              <div class="row align-items-center">
+                <button id="create-product-button" type="submit" class="btn mb-3">Create Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <!-- footer partial -->
       <%- include('partials/footer') %>
 
@@ -384,6 +554,4 @@
       <script src="/js/user_profile.js" type="text/javascript" defer></script>
       <script src="/js/vendorProfile.js" type="text/javascript" defer></script>
 </body>
-</div>
-
 </html>

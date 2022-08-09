@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
 
+#profile:hover{
+  cursor: pointer;
+}
+
 
   /* --------------------------------- Hero image and overlayed content -------------------------------- */
 .hero-image {

@@ -113,6 +113,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // Called when a user signs out
     signOutUser = () => {
         auth.signOut();
+        //re-direct to home page
+        window.location.href = `${window.location.protocol}//${window.location.host}`;
     }
 
     // check user auth state and set id
