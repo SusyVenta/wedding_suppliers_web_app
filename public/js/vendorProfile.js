@@ -188,10 +188,12 @@ function getProductDetails(productIDs) {
 const addToCataButton = document.getElementById('add-to-catalogue-button');
 const addToCataModal = document.getElementById('add-to-catalogue-modal');
 const cataClose = document.getElementById('catalogue-close');
+const createProductForm = document.getElementById('create-product-form');
 
 addToCataButton.addEventListener('click', () => {
     // get all elements from form
     const dropdownTypes = document.getElementById('create-wedding-type');
+    const dropdownCategories = document.getElementById('create-wedding-category');
 
     // add wedding type options to dropdown
     db.collection('wedding_types').get().then((snapshot) => {
@@ -204,28 +206,27 @@ addToCataButton.addEventListener('click', () => {
                 dropdownTypes.appendChild(option);
             })
         })
-    }).then(() => {
-        db.collection('colors').get().then((snapshot) => {
-            snapshot.forEach(doc => {
-                const weddingColours = doc.data().colors;
-                weddingColours.forEach(type => {
-                    let option = document.createElement('option');
-                    option.value = type;
-                    option.innerHTML = type;
-                    dropdownTypes.appendChild(option);
+    })
+        .then(() => {
+            const categoryRef = db.collection('product_categories').doc('iUqr7LSvwjohrNYrgsrD');
+            categoryRef.get().then((doc) => {
+                doc.data().product_categories.forEach(category => {
+                    let categoryOption = document.createElement('option');
+                    categoryOption.value = category;
+                    categoryOption.innerHTML = category;
+                    dropdownCategories.appendChild(categoryOption);
                 })
             })
         }).then(() => {
             addToCataModal.style.display = 'block';
         })
-    })
 })
+
 
 
 
 //close the modal
 cataClose.addEventListener('click', () => {
-    console.log('called');
     addToCataModal.style.display = 'none'
 })
 
@@ -240,7 +241,67 @@ const productCreateButton = document.getElementById('create-product-button');
 
 // when vendor clicks create product, add the product to the product table in the database
 // add the product to the vendors array of products
-// productCreateButton.addEventListener('click', () => {
-//     // get all items in the form
-//     const 
-// })
+let productImageChosen;
+productCreateButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    // get all items in the form
+    const productName = document.getElementById('create-product-name').value;
+    const productDescription = document.getElementById('create-product-description').value;
+    const productType = document.getElementById('create-wedding-type').value;
+    const productCategory = document.getElementById('create-wedding-category').value;
+    const productPrice = document.getElementById('create-product-price').value;
+    const productCurrency = document.getElementById('create-product-currency').value;
+    const productColours = document.querySelectorAll('input[name=colourCheck]:checked');
+    const coloursArray = Array.from(productColours).map(checkbox => checkbox.value);
+    const productCountries = document.querySelectorAll('input[name=countryCheck]:checked');
+    const countriesArray = Array.from(productCountries).map(checkbox => checkbox.value);
+    // first upload image to storage and get storage id
+    //create unique productId using userId and current time
+    const productId = `${userId}${new Date().getTime()}`;
+    const storageRef = firebase.storage().ref('product-images').child(productId);
+    let imageURL = false;
+    storageRef.put(productImageChosen).then(() => {
+        firebase.storage()
+            .ref('product-images')
+            .child(productId)
+            .getDownloadURL()
+            .then(downloadURL => {
+                //create product in database
+                imageURL = downloadURL;
+                db.collection('products').doc(productId).set({
+                    available_countries: countriesArray,
+                    category: productCategory,
+                    colors: coloursArray,
+                    currency: productCurrency,
+                    description: productDescription,
+                    pictures: imageURL,
+                    price: productPrice,
+                    product_id: productId,
+                    title: productName,
+                    vendor_id: userId,
+                    wedding_types: productType,
+                })
+                    .then(() => {
+                        console.log('added product to db successful');
+                    })
+                    .catch(error => {
+                        console.log(error.message);
+                    })
+            })
+    }).then(() => {
+        vendorRef = db.collection('users').doc(docRef);
+
+        vendorRef.update({
+            catalogue: firebase.firestore.FieldValue.arrayUnion(productId),
+        })
+    }).then(() => {
+        createProductForm.reset();
+        addToCataModal.style.display = 'none';
+    })
+})
+
+// product image
+const productImageEdit = document.getElementById('create-product-image');
+productImageEdit.addEventListener('change', event => {
+    productImageChosen = event.target.files[0];
+})

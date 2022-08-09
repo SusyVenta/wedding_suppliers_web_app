@@ -13,14 +13,18 @@ input[type="file"]{
   display: none;
 }
 
-.vendor-profile-pic-edit:hover{
+.vendor-profile-edit:hover{
   cursor: pointer;
 }
 
-.vendor-profile-pic-edit{
+.vendor-profile-edit{
   border: 1px solid #ccc;
   display: inline-block;
   padding: 6px 12px;
+}
+
+.create-product-image:hover{
+  cursor: pointer
 }
 
 /* add to catalogue modal */
