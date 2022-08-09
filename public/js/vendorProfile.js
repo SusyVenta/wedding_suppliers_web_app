@@ -105,70 +105,29 @@ const setProfile = (vendorData) => {
 
 
 const renderCatalogue = (product) => {
-    // CONTAINING DIV
-    let pictureAndDescription = document.createElement('div');
-    pictureAndDescription.classList.add('picture-and-description');
-
-    // PHOTO - append to picture and decription container
-    //TODO change to get photo from firebase storage instead
-    let productPhoto = document.createElement('div');
-    productPhoto.classList.add('product-photo');
-    //productPhoto.src = product.pictures[0];
-    productPhoto.style.backgroundImage = "url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616')";
-    pictureAndDescription.appendChild(productPhoto);
-
-    // DESCRIPTIon
-    //description container
-    let productDescription = document.createElement('div');
-    // title
-    let productTitle = document.createElement('h5');
-    productTitle.innerText = product.title;
-    productDescription.appendChild(productTitle);
-    // description text
-    let productDescriptionText = document.createElement('p');
-    productDescriptionText.classList.add('product-description-text');
-    productDescriptionText.innerText = product.description;
-    productDescription.appendChild(productDescriptionText);
-    //category
-    let productCategory = document.createElement('p');
-    productCategory.innerText = `Category: ${product.category}`
-    productDescription.appendChild(productCategory);
-    // colors
-    let colourListLabel = document.createElement('p');
-    colourListLabel.innerText = `Colours available: ${product.colors}`;
-    productDescription.appendChild(colourListLabel);
-    // delivery
-    let delivery = document.createElement('p');
-    delivery.innerText = `Delivering in countries: ${product.available_countries}`
-    productDescription.appendChild(delivery);
-    // wedding type
-    let weddingType = document.createElement('p');
-    weddingType.innerText = `Wedding Type: ${product.wedding_types}`;
-    productDescription.appendChild(weddingType);
-    // price
-    let productPrice = document.createElement('p');
-    productPrice.innerText = `Price: ${product.currency} ${product.price}`;
-    productDescription.appendChild(productPrice);
-    //star rating
-    let starRating = document.createElement('div');
-    starRating.classList.add('stars-rating');
-    for (let i = 0; i < product.stars; i++) {
-        let star = document.createElement('span');
-        star.classList.add('fa', 'fa-star', 'checked');
-        starRating.appendChild(star);
-    }
-    productDescription.appendChild(starRating);
-    // see reviews
-    let seeReviewsButton = document.createElement('button');
-    seeReviewsButton.classList.add('see-reviews-button');
-    seeReviewsButton.id = `${product.id}-review-button`;
-    seeReviewsButton.innerHTML = 'See Reviews';
-    productDescription.appendChild(seeReviewsButton);
-
-    // append productDescription to pictureAndDescription div
-    pictureAndDescription.appendChild(productDescription);
-
-    catalogueContainer.appendChild(pictureAndDescription);
+    const productImage = product.pictures[0];
+    const productCard = `
+    <div class="card mx-auto text-center text-dark bg-light" style="width: 80%">
+        <div class="row g-0">
+            <div class="col-md-4">
+            <img src="${productImage}" alt="product image" class="img-fluid rounded-start">
+            </div>
+            <div class="col-md-8">
+            <h5 class="card-title">${product.title}</h5>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">${product.description}</li>
+                <li class="list-group-item">Category: ${product.category}</li>
+                <li class="list-group-item">Available colours: ${product.colors}</li>
+                <li class="list-group-item">Country availablility: ${product.available_countries}</li>
+                <li class="list-group-item">Wedding Types: ${product.wedding_types}</li> 
+                <li class="list-group-item">Price: ${product.currency} ${product.price}</li>
+            </ul>
+            <a href="#" class="btn btn-primary">See reviews</a>
+            </div>
+        </div>
+    </div>
+    `
+    catalogueContainer.innerHTML += productCard;
 }
 
 // get products for catalogue from db

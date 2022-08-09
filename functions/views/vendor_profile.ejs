@@ -139,77 +139,6 @@
                 <h3 class="tab-title">Catalogue</h3>
                 <button type="button" id="add-to-catalogue-button" class="btn btn-light">Add To Catalogue</button>
                 <div id="catalogue-container"> 
-
-
-                  <!-- <%# if(products.length==0){ %>
-                    <div class="no-results">
-                      <p>We couldn't find anything matching your search results</p>
-                    </div>
-                    <%# } %>
-
-                      <%# products.forEach(function(product){ %>
-                        <form method="GET" class="product" action="/product_details/<%#= product.product_id %>">
-                          <div class="picture-and-description">
-
-                            <div class="product-photo"
-                              style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
-                            </div>
-
-                            <div class="product-description">
-                              <h5>
-                                <%#= product.title %>
-                              </h5>
-                              <p class="product-description-text">
-                                <%#= product.description %>
-                              </p>
-                              <p>Category: <%#= product.category %>
-                              </p>
-                              <p>Colors available: <%#= product.colors %>
-                              </p>
-                              <p>Delivering in countries: <%#= product.available_countries %>
-                              </p>
-                              <p>Wedding type: <%#= product.wedding_types %>
-                              </p>
-                              <p>Price: <%#= product.price %>
-                                  <%#= product.currency %>
-                              </p>
-                              <div class="stars-rating">
-                                <%# if (product.stars>= 1) { %>
-                                  <span class="fa fa-star checked"></span>
-                                  <%# } else{ %>
-                                    <span class="fa fa-star"></span>
-                                    <%# } %>
-                                      <%# if (product.stars>= 2) { %>
-                                        <span class="fa fa-star checked"></span>
-                                        <%# } else{ %>
-                                          <span class="fa fa-star"></span>
-                                          <%# } %>
-                                            <%# if (product.stars>= 3) { %>
-                                              <span class="fa fa-star checked"></span>
-                                              <%# } else{ %>
-                                                <span class="fa fa-star"></span>
-                                                <%# } %>
-                                                  <%# if (product.stars>= 4) { %>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <%# } else{ %>
-                                                      <span class="fa fa-star"></span>
-                                                      <%# } %>
-                                                        <%# if (product.stars>= 5) { %>
-                                                          <span class="fa fa-star checked"></span>
-                                                          <%# } else{ %>
-                                                            <span class="fa fa-star"></span>
-                                                            <%# } %>
-                              </div>
-                              <div class="rating-and-reviews">
-                                <p>Rating: <%#= product.stars %>/5</p>
-                                <p>&nbsp;&nbsp;&nbsp;&nbsp;<%#= product.number_reviews %> Reviews</p>
-                              </div>
-                            </div>
-                          </div>
-                          <input input type="hidden" id="first" type="text" name="product_id"
-                            value="<%#= product.product_id %>" />
-                        </form>
-                        <%# }) %> -->
                 </div><!-- end order-container -->
               </div>
             </div>
@@ -380,9 +309,10 @@
             <!-- image upload -->
               <div class="row align-items-center">
                 <label class="create-product-image">
-                  <input type="file" id="create-product-image" accept=".jpg, .jpeg, .png">
+                  <input type="file" id="create-product-image" accept=".jpg, .jpeg, .png" required>
                   Upload Image
                 </label>
+                <span class="create-product-error" id="error-image"></span>
               </div>
               <!-- create name -->
               <div class="row align-items-center">
