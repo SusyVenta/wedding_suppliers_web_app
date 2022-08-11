@@ -8,43 +8,42 @@ let is_vendor;
 
 window.addEventListener('DOMContentLoaded', () => {
 
-    const modal = document.getElementById('modal');
-    const closeModal = document.getElementById('close');
+    const modal = $('#modal');
 
     // when the user clicks the (x) button close the modal
-    closeModal.addEventListener('click', () => {
-        modal.style.display = 'none';
+    $('#close').click(() => {
+        modal.hide();
     })
 
     // when the user clicks anywhere outside the modal, close it
-    window.addEventListener('click', (event) => {
+    $(window).click(event => {
         if (event.target == modal) {
-            modal.style.display = 'none';
+            modal.hide();
         }
     })
 
     //get forms
-    const createUserForm = document.getElementById('create-user-form');
-    const signInForm = document.getElementById('sign-in-form');
-    const forgotPasswordForm = document.getElementById('forgot-password-form');
-    const createVendorForm = document.getElementById('create-vendor-form');
+    const createUserForm = $('#create-user-form');
+    const signInForm = $('#sign-in-form');
+    const forgotPasswordForm = $('#forgot-password-form');
+    const createVendorForm = $('#create-vendor-form');
 
     // get auth dialigues
-    const createUserDialogue = document.getElementById('create-user-dialogue');
-    const signInDialogue = document.getElementById('sign-in-dialogue');
-    const needAccountDialogue = document.getElementById('need-account');
-    const CreateVendorDialogue = document.getElementById('create-vendor-dialogue');
-    const backToSignIn = document.getElementById('customer-form-dialogue');
+    const createUserDialogue = $('#create-user-dialogue');
+    const signInDialogue = $('#sign-in-dialogue');
+    const needAccountDialogue = $('#need-account');
+    const CreateVendorDialogue = $('#create-vendor-dialogue');
+    const backToSignIn = $('#customer-form-dialogue');
 
     // Get elements that need to be hidden or shown depending on signed in state
-    const hidenWhenSignedIn = document.querySelectorAll('.hide-when-signed-in');
-    const hidenWhenSignedOut = document.querySelectorAll('.hide-when-signed-out');
+    const hidenWhenSignedIn = $('.hide-when-signed-in');
+    const hidenWhenSignedOut = $('.hide-when-signed-out');
 
     // Get success/error message area in modal
-    const authMessage = document.getElementById('message');
+    const authMessage = $('#message');
 
-    document.querySelectorAll('.auth').forEach(item => {
-        item.addEventListener('click', event => {
+    $('.auth').each((i, item) => {
+        item.click(event => {
             let chosen = event.target.getAttribute('auth');
             // if sign in button is pressed then bring up sign in form modal
             // if sign up button is pressed then bring up sign up form modal
@@ -65,49 +64,49 @@ window.addEventListener('DOMContentLoaded', () => {
     // Create vendor account
     displayCreateVendorForm = () => {
         hideAuthElements();
-        modal.style.display = 'block';
-        createVendorForm.classList.remove('hide');
-        needAccountDialogue.classList.remove('hide');
-        signInDialogue.classList.remove('hide');
-        backToSignIn.classList.remove('hide');
+        modal.show();
+        createVendorForm.show();
+        needAccountDialogue.show();
+        signInDialogue.show();
+        backToSignIn.show();
     }
 
     // Create user account
     displayCreateUserForm = () => {
         hideAuthElements();
-        modal.style.display = 'block';
-        createUserForm.classList.remove('hide');
-        needAccountDialogue.classList.remove('hide');
-        signInDialogue.classList.remove('hide');
-        CreateVendorDialogue.classList.remove('hide');
+        modal.show();
+        createUserForm.show();
+        needAccountDialogue.show();
+        signInDialogue.show();
+        CreateVendorDialogue.show();
     }
 
     // User sign in
     displaySignInForm = () => {
         hideAuthElements();
-        modal.style.display = 'block';
-        signInForm.classList.remove('hide');
-        needAccountDialogue.classList.remove('hide');
-        createUserDialogue.classList.remove('hide');
+        modal.show()
+        signInForm.show();
+        needAccountDialogue.show();
+        createUserDialogue.show();
     }
 
     // forgot password
     displayForgotPassword = () => {
         hideAuthElements();
-        forgotPasswordForm.classList.remove('hide');
+        forgotPasswordForm.show();
     }
 
     hideAuthElements = () => {
         clearMessage();
-        createUserForm.classList.add('hide');
-        signInForm.classList.add('hide');
-        forgotPasswordForm.classList.add('hide');
-        createUserDialogue.classList.add('hide');
-        signInDialogue.classList.add('hide');
-        needAccountDialogue.classList.add('hide');
-        CreateVendorDialogue.classList.add('hide');
-        backToSignIn.classList.add('hide');
-        createVendorForm.classList.add('hide');
+        createUserForm.hide();
+        signInForm.hide();
+        forgotPasswordForm.hide();
+        createUserDialogue.hide();
+        signInDialogue.hide();
+        needAccountDialogue.hide();
+        CreateVendorDialogue.hide();
+        backToSignIn.hide();
+        createVendorForm.hide();
     }
 
     // Called when a user signs out
@@ -122,7 +121,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (user) {
             //logged in
             uid = user.uid;
-            modal.style.display = 'none';
+            modal.hide();
 
             // set global is_vendor from firestore
             const query = db.collection('users').where('user_id', '==', uid).get().then(snapshot => {
@@ -132,36 +131,42 @@ window.addEventListener('DOMContentLoaded', () => {
             });
 
             // hide/show elements depending on if user is signed in
-            hidenWhenSignedIn.forEach(item => {
-                item.classList.add('hide');
+            hidenWhenSignedIn.each((i, item) => {
+                item.hide();
             })
-            hidenWhenSignedOut.forEach(item => {
-                item.classList.remove('hide');
+            hidenWhenSignedOut.forEach((i, item) => {
+                item.show();
             })
-            
+
             // when user is logged in, user id is hidden in the navbar
-            document.getElementById("user_id_navbar").innerHTML = uid;
-            document.getElementById("user_id_navbar").style.color = "white";
-            document.getElementById("user_id_navbar").style.fontSize = "0.01px";
+            $('#user_id_navbar').html('uid').css({
+                'color': 'white',
+                'fontSize': '0.01px'
+            }).css();
+
+            //document.getElementById("user_id_navbar").innerHTML = uid;
+            //document.getElementById("user_id_navbar").style.color = "white";
+            //document.getElementById("user_id_navbar").style.fontSize = "0.01px";
         } else {
-            hidenWhenSignedIn.forEach(item => {
+            hidenWhenSignedIn.each((i, item) => {
                 item.classList.remove('hide');
             })
-            hidenWhenSignedOut.forEach(item => {
+            hidenWhenSignedOut.each((i, item) => {
                 item.classList.add('hide');
             })
             // when user is logged out, set user id = unauthenticated
-            document.getElementById("user_id_navbar").innerHTML = "unauthenticated";
+            $('user_id_navbar').html('unauthenticated');
+            // document.getElementById("user_id_navbar").innerHTML = "unauthenticated";
         }
     })
 
     // create user submit event
-    createUserForm.addEventListener('submit', event => {
+    createUserForm.submit(event => {
         event.preventDefault();
-        const userName = document.getElementById('create-user-username').value;
-        const email = document.getElementById('create-user-email').value;
-        const password = document.getElementById('create-user-password').value;
-        const passwordRepeat = document.getElementById('password-repeat').value;
+        const userName = $('#create-user-username').val();
+        const email = $('#create-user-email').val();
+        const password = $('#create-user-password').val();
+        const passwordRepeat = $('#password-repeat').val();
 
         if (checkPasswordsMatch(password, passwordRepeat)) {
             auth.createUserWithEmailAndPassword(email, password)
@@ -169,7 +174,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     firebase.auth().currentUser.updateProfile({
                         displayName: userName
                     })
-                    createUserForm.reset();
+                    createUserForm.trigger('reset');
                     hideAuthElements();
                 }).then(() => {
                     createUserInDB({
@@ -181,23 +186,23 @@ window.addEventListener('DOMContentLoaded', () => {
                     displayMessage('error', error.message);
                 })
         } else {
-            document.getElementById('no-match').innerHTML = 'Passwords do not match';
+            $('#no-match').html('Password do not match');
         }
     })
 
     // create vendor submit event
-    createVendorForm.addEventListener('submit', event => {
+    createVendorForm.submit(event => {
         event.preventDefault();
-        const businessName = document.getElementById('create-vendor-name').value;
-        const vendorEmail = document.getElementById('create-vendor-email').value;
-        const vendorAddress1 = document.getElementById('create-vendor-address-1').value;
-        const vendorAddress2 = document.getElementById('create-vendor-address-2').value;
-        const vendorNumber = document.getElementById('create-vendor-number').value;
-        const vendorCity = document.getElementById('create-vendor-city').value;
-        const vendorPostCode = document.getElementById('create-vendor-post-code').value;
-        const vendorCountry = document.getElementById('create-vendor-country').value;
-        const vendorPassword = document.getElementById('create-vendor-password').value;
-        const vendorPasswordRepeat = document.getElementById('create-vendor-password-repeat').value;
+        const businessName = $('#create-vendor-name').val();
+        const vendorEmail = $('#create-vendor-email').val();
+        const vendorAddress1 = $('#create-vendor-address-1').val();
+        const vendorAddress2 = $('#create-vendor-address-2').val();
+        const vendorNumber = $('#create-vendor-number').val();
+        const vendorCity = $('#create-vendor-city').val();
+        const vendorPostCode = $('#create-vendor-post-code').val();
+        const vendorCountry = $('#create-vendor-country').val();
+        const vendorPassword = $('#create-vendor-password').val();
+        const vendorPasswordRepeat = $('#create-vendor-password-repeat').val();
 
         if (checkPasswordsMatch(vendorPassword, vendorPasswordRepeat)) {
             auth.createUserWithEmailAndPassword(vendorEmail, vendorPassword)
@@ -224,15 +229,15 @@ window.addEventListener('DOMContentLoaded', () => {
                     displayMessage('error', error.message);
                 })
         } else {
-            document.getElementById('no-match-vendor').innerHTML = 'Passwords do not match';
+            $('#no-match-vendor').html('Passwords do not match');
         }
     })
 
     // sign in form submit event
-    signInForm.addEventListener('submit', event => {
+    signInForm.submit(event => {
         event.preventDefault();
-        const email = document.getElementById('sign-in-email').value;
-        const password = document.getElementById('sign-in-password').value;
+        const email = $('#sign-in-email').val();
+        const password = $('#sign-in-password').val();
 
         if (email && password) {
             auth.signInWithEmailAndPassword(email, password)
@@ -248,9 +253,9 @@ window.addEventListener('DOMContentLoaded', () => {
     })
 
     // forgot password submit event
-    forgotPasswordForm.addEventListener('submit', event => {
+    forgotPasswordForm.submit(event => {
         event.preventDefault();
-        const email = document.getElementById('forgot-password-email').value;
+        const email = $('#forgot-password-email').val();
         console.log(email);
 
         firebase.auth().sendPasswordResetEmail(email)
@@ -267,25 +272,31 @@ window.addEventListener('DOMContentLoaded', () => {
     // Error and message handling
     displayMessage = (type, message) => {
         if (type === `error`) {
-            authMessage.style.borderColor = `red`
-            authMessage.style.color = 'red'
-            authMessage.style.display = `block`
+            authMessage.css({
+                'border-color': 'red',
+                'color': 'red',
+            }).show();
+            //authMessage.style.borderColor = `red`
+            //authMessage.style.color = 'red'
+            //authMessage.style.display = `block`
         } else if (type === `success`) {
-            authMessage.style.borderColor = `green`
-            authMessage.style.color = 'green'
-            authMessage.style.display = `block`
+            authMessage.css({
+                'border-color': 'green',
+                'color': 'green',
+            }).show();
+            //authMessage.style.borderColor = `green`
+            //authMessage.style.color = 'green'
+            //authMessage.style.display = `block`
         }
-        authMessage.innerHTML = message
+        authMessage.html(message);
         messageTimeout = setTimeout(() => {
-            authMessage.innerHTML = ``
-            authMessage.style.display = `none`
+            authMessage.html('').hide();
         }, 7000)
     }
 
     clearMessage = () => {
         clearTimeout(messageTimeout)
-        authMessage.innerHTML = ``
-        authMessage.style.display = `none`
+        authMessage.html('').hide();
     }
 
     checkPasswordsMatch = (pw1, pw2) => {
