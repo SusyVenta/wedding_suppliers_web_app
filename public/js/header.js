@@ -1,8 +1,8 @@
 window.addEventListener('DOMContentLoaded', () => {
     // get profile button
-    const profileButton = document.getElementById('profile');
+    //const profileButton = document.getElementById('profile');
 
-    profileButton.addEventListener('click', () => {
+    $('#profile').click(() => {
         // if vendor redirect to vendor_profile
         //if customer redirect to user_profile
         if (is_vendor) {
