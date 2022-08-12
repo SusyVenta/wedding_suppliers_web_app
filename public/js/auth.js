@@ -42,23 +42,21 @@ window.addEventListener('DOMContentLoaded', () => {
     // Get success/error message area in modal
     const authMessage = $('#message');
 
-    $('.auth').each((i, item) => {
-        item.click(event => {
-            let chosen = event.target.getAttribute('auth');
-            // if sign in button is pressed then bring up sign in form modal
-            // if sign up button is pressed then bring up sign up form modal
-            if (chosen === 'show-create-user-form') {
-                displayCreateUserForm();
-            } else if (chosen === 'show-sign-in-form') {
-                displaySignInForm();
-            } else if (chosen === 'show-forgot-password-form') {
-                displayForgotPassword();
-            } else if (chosen === 'sign-out') {
-                signOutUser();
-            } else if (chosen === 'show-create-vendor-form') {
-                displayCreateVendorForm();
-            }
-        })
+    $('.auth').on('click', (event) => {
+        let chosen = event.target.getAttribute('auth');
+        // if sign in button is pressed then bring up sign in form modal
+        // if sign up button is pressed then bring up sign up form modal
+        if (chosen === 'show-create-user-form') {
+            displayCreateUserForm();
+        } else if (chosen === 'show-sign-in-form') {
+            displaySignInForm();
+        } else if (chosen === 'show-forgot-password-form') {
+            displayForgotPassword();
+        } else if (chosen === 'sign-out') {
+            signOutUser();
+        } else if (chosen === 'show-create-vendor-form') {
+            displayCreateVendorForm();
+        }
     })
 
     // Create vendor account
@@ -131,18 +129,14 @@ window.addEventListener('DOMContentLoaded', () => {
             });
 
             // hide/show elements depending on if user is signed in
-            hidenWhenSignedIn.each((i, item) => {
-                item.hide();
-            })
-            hidenWhenSignedOut.forEach((i, item) => {
-                item.show();
-            })
+            hidenWhenSignedIn.hide();
+            hidenWhenSignedOut.show();
 
             // when user is logged in, user id is hidden in the navbar
-            $('#user_id_navbar').html('uid').css({
+            $('#user_id_navbar').html(uid).css({
                 'color': 'white',
                 'fontSize': '0.01px'
-            }).css();
+            });
 
             //document.getElementById("user_id_navbar").innerHTML = uid;
             //document.getElementById("user_id_navbar").style.color = "white";
