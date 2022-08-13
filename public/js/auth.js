@@ -133,14 +133,9 @@ window.addEventListener('DOMContentLoaded', () => {
             hidenWhenSignedOut.show();
 
             // when user is logged in, user id is hidden in the navbar
-            $('#user_id_navbar').html(uid).css({
-                'color': 'white',
-                'fontSize': '0.01px'
-            });
-
-            //document.getElementById("user_id_navbar").innerHTML = uid;
-            //document.getElementById("user_id_navbar").style.color = "white";
-            //document.getElementById("user_id_navbar").style.fontSize = "0.01px";
+            document.getElementById("user_id_navbar").innerHTML = uid;
+            document.getElementById("user_id_navbar").style.color = "white";
+            document.getElementById("user_id_navbar").style.fontSize = "0.01px";
         } else {
             hidenWhenSignedIn.each((i, item) => {
                 item.classList.remove('hide');
@@ -149,8 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('hide');
             })
             // when user is logged out, set user id = unauthenticated
-            $('user_id_navbar').html('unauthenticated');
-            // document.getElementById("user_id_navbar").innerHTML = "unauthenticated";
+            document.getElementById("user_id_navbar").innerHTML = "unauthenticated";
         }
     })
 
