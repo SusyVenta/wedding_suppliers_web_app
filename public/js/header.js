@@ -9,7 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
             window.location.href = window.location.protocol + '//' + window.location.host + '/vendor_profile';
         } else if (!is_vendor) {
             //customer
-            // location.href = 'localhost:5004/user_profile';
             window.location.href = window.location.protocol + '//' + window.location.host + '/user_profile';
         }
     })

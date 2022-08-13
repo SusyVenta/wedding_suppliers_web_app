@@ -133,9 +133,10 @@ window.addEventListener('DOMContentLoaded', () => {
             hidenWhenSignedOut.show();
 
             // when user is logged in, user id is hidden in the navbar
-            document.getElementById("user_id_navbar").innerHTML = uid;
-            document.getElementById("user_id_navbar").style.color = "white";
-            document.getElementById("user_id_navbar").style.fontSize = "0.01px";
+            $('#user_id_navbar').html(uid).css({
+                'color': 'white',
+                'fontSize': '0.01px'
+            });
         } else {
             hidenWhenSignedIn.each((i, item) => {
                 item.classList.remove('hide');
@@ -144,7 +145,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 item.classList.add('hide');
             })
             // when user is logged out, set user id = unauthenticated
-            document.getElementById("user_id_navbar").innerHTML = "unauthenticated";
+            $('user_id_navbar').html('unauthenticated');
+
         }
     })
 
@@ -197,21 +199,24 @@ window.addEventListener('DOMContentLoaded', () => {
                 .then(() => {
                     firebase.auth().currentUser.updateProfile({
                         displayName: businessName
+                    }).then(() => {
+                        db.collection('users').add({
+                            business_name: businessName,
+                            email: vendorEmail,
+                            address_1: vendorAddress1,
+                            address_2: vendorAddress2,
+                            city: vendorCity,
+                            country: vendorCountry,
+                            phone_number: vendorNumber,
+                            post_code: vendorPostCode,
+                            user_id: auth.currentUser.uid,
+                            is_vendor: true
+                        }).then(() => {
+                            console.log('added new vendor to db');
+                        })
                     })
                     createVendorForm.reset();
                     hideAuthElements();
-                }).then(() => {
-                    createVendorInDB({
-                        business_name: businessName,
-                        email: vendorEmail,
-                        address_1: vendorAddress1,
-                        address_2: vendorAddress2,
-                        city: vendorCity,
-                        country: vendorCountry,
-                        phone_number: vendorNumber,
-                        post_code: vendorPostCode,
-                        user_id: auth.currentUser.uid
-                    })
                 })
                 .catch(error => {
                     displayMessage('error', error.message);
