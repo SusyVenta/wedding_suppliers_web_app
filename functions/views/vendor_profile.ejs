@@ -83,40 +83,31 @@
                       <div class="col">
                         <div class="row">
                           <!-- Business Name -->
-                          <p id="business-name"></p>
-                          <!-- <input type="text" id="business_name" class="form-control" placeholder="Business Name"
-                            required> -->
+                          <p contenteditable="true" id="business-name"></p>
                         </div>
                         <div class="row">
                           <!-- Email -->
                           <p id="email">Email</p>
-                          <!-- <input type="email" id="email" class="form-control form-control" placeholder="Email" required> -->
                         </div>
                         <div class="row">
                           <!-- Phone number -->
                           <p id="phone-number">Phone Number</p>
-                          <!-- <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
-                            placeholder="Phone Number" required> -->
                         </div>
                         <div class="row">
                           <!-- Address 1 -->
                           <p id="address-1">Address 1</p>
-                          <!-- <input type="text" id="address_1" class="form-control" placeholder="Address 1" required> -->
                         </div>
                         <div class="row">
                           <!-- address 2 -->
                           <p id="address-2">Address 2</p>
-                          <!-- <input type="text" id="address_2" class="form-control" placeholder="Address 2"> -->
                         </div>
                         <div class="row">
                           <!-- Postal Code -->
                           <p id="post-code">Post Code</p>
-                          <!-- <input type="text" id="post_code" class="form-control" placeholder="Postal Code" required> -->
                         </div>
                         <div class="row">
                           <!-- City -->
                           <p id="city">City</p>
-                          <!-- <input type="text" id="city" class="form-control" placeholder="City" required> -->
                         </div>
                         <div class="row">
                           <!-- Country -->
@@ -514,6 +505,50 @@
             </fieldset>
               <div class="row align-items-center">
                 <button id="create-product-button" type="submit" class="btn mb-3">Create Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="edit-modal">
+        <div id="edit-content">
+          <button id="edit-close">&times</button>
+          <h3 class="create-product-header">Edit Details</h3>
+          <form id="edit-details">
+            <!-- name -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-name">
+            </div>
+            <!-- email -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-email">
+            </div>
+            <!-- number -->
+            <div class="row align-items-center">
+              <input type="number" id="edit-number">
+            </div>
+            <!-- address 1 -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-address-1">
+            </div>
+            <!-- address 2 -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-address-2">
+            </div>
+            <!-- post code -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-post-code">
+            </div>
+            <!-- city -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-city">
+            </div>
+            <!-- country -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-country">
+            </div>
+            <div class="row align-items-center">
+              <button id="save-edit" type="submit" class="btn mb-3">Save Changes</button>
             </div>
           </form>
         </div>

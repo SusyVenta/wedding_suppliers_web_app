@@ -27,8 +27,8 @@ input[type="file"]{
   cursor: pointer
 }
 
-/* add to catalogue modal */
-#add-to-catalogue-modal{
+/* modals */
+#add-to-catalogue-modal, #edit-modal{
   display: none;
   position: fixed;
   z-index: 10000;
@@ -40,14 +40,14 @@ input[type="file"]{
   background-color: rgba(0,0,0,0.4);
 }
 
-#add-to-catalogue-modal-content{
+#add-to-catalogue-modal-content, #edit-content{
   background-color: #fefefe;
   margin: 4% auto;
   border: 1px solid #888888;
   max-width: 350px;
 }
 
-#catalogue-close{
+#catalogue-close, #edit-close{
   float: right;
   margin-right: -15px;
   margin-top: -15px;
@@ -56,7 +56,7 @@ input[type="file"]{
   border-radius: 100%;
 }
 
-#catalogue-close:hover, #catalogue-close:focus{
+#catalogue-close:hover, #catalogue-close:focus, #edit-close:hover, #edit-close:focus{
   text-decoration: none;
   cursor: pointer;
 }

@@ -1,5 +1,6 @@
 let docRef;
-let userId
+let userId;
+let vendorDetails;
 
 firebase.auth().onAuthStateChanged(user => {
     let vendorData;
@@ -17,30 +18,17 @@ firebase.auth().onAuthStateChanged(user => {
             }).then(() => {
                 // set data with user data
                 db.collection('users').doc(docRef).onSnapshot((doc) => {
-                    setProfile(doc.data());
+                    vendorDetails = doc.data();
+                    setProfile();
                 })
             })
     }
 })
 
-
-// get all profile elements
-// personal information
-const profilePicture = document.getElementById('profile-pic');
-const businessName = document.getElementById('business-name');
-const email = document.getElementById('email');
-const phoneNumber = document.getElementById('phone-number');
-const address1 = document.getElementById('address-1');
-const address2 = document.getElementById('address-2');
-const postCode = document.getElementById('post-code');
-const city = document.getElementById('city');
-const country = document.getElementById('country');
-const pictureEdit = document.getElementById('profile-pic-edit-button');
-
 // when edit picture button pressed, open file loader
 //when vendor has chosen picture, upload image to firebase storage
 // get link for that image and then update vendor db with link to storage
-pictureEdit.addEventListener('change', (event) => {
+$('#profile-pic-edit-button').change(event => {
     const image = event.target.files[0];
     const storageRef = firebase.storage().ref('vendor-profiles').child(userId);
     storageRef.put(image).then(() => {
@@ -65,42 +53,90 @@ pictureEdit.addEventListener('change', (event) => {
     })
 })
 
-// catalogue
-const catalogueContainer = document.getElementById('catalogue-container');
-
-const setProfile = (vendorData) => {
+const setProfile = () => {
     // set profile picture, if user has set an image themselves then use that image from storage otherwise use default image
-    if (vendorData.profile_image) {
-        // vendor has set profile picture
-        profilePicture.src = vendorData.profile_image;
-    } else {
-        // no profile picture has been set by vendor so use default
-        profilePicture.src = '/assets/blank-profile-picture-png.png';
-    }
+
+    // vendor has set profile picture
+    if (vendorDetails.profile_image) $('#profile-pic').attr('src', vendorDetails.profile_image);
+    // set business name
+    if (vendorDetails.business_name) $('#business-name').html(vendorDetails.business_name);
     // set email
-    if (vendorData.email) email.innerText = vendorData.email;
+    if (vendorDetails.email) $('#email').html(vendorDetails.email);
     //set phone number
-    if (vendorData.phone_number) phoneNumber.innerText = vendorData.phone_number;
+    if (vendorDetails.phone_number) $('#phone-number').html(vendorDetails.phone_number);
     //set address 1
-    if (vendorData.address_1) address1.innerText = vendorData.address_1;
+    if (vendorDetails.address_1) $('#address-1').html(vendorDetails.address_1);
     // set address 2
-    if (vendorData.address_2) address2.innerText = vendorData.address_2;
+    if (vendorDetails.address_2) $('#address-2').html(vendorDetails.address_2);
     // set post code
-    if (vendorData.post_code) postCode.innerText = vendorData.post_code;
+    if (vendorDetails.post_code) $('#post-code').html(vendorDetails.post_code);
     // set city
-    if (vendorData.city) city.innerText = vendorData.city;
+    if (vendorDetails.city) $('#city').html(vendorDetails.city);
     // set country
-    if (vendorData.country) country.innerText = vendorData.country;
+    if (vendorDetails.country) $('#country').html(vendorDetails.country);
 
     // populate catalogue
-    const orderContainer = document.getElementById('catalogue-container');
-    if (vendorData.catalogue) {
-        // Orders in catalogue, populate contianer
-        getProductDetails(vendorData.catalogue);
+    const orderContainer = $('#catalogue-container');
+    if (vendorDetails.catalogue) {
+        // Orders in catalogue, populate contaianer
+        getProductDetails(vendorDetails.catalogue);
     } else {
         // no orders in catalogue
-        orderContainer.innerHTML = `<p class="text-center"> You have no products in your catalogue. Click add product to add products to your catalogue</p>`
+        orderContainer.html(
+            `<p class="text-center"> You have no products in your catalogue. Click add product to add products to your catalogue</p>`
+        )
     }
+}
+
+// open edit modal on click
+$('#edit-user-details').click(() => {
+    populateEditModal();
+    $('#edit-modal').show();
+})
+
+// close modal on close or click away
+$('#edit-close').click(() => {
+    $('#edit-modal').hide();
+})
+
+function populateEditModal() {
+    $('#edit-name').val(vendorDetails.business_name);
+    $('#edit-email').val(vendorDetails.email);
+    $('#edit-number').val(vendorDetails.phone_number);
+    $('#edit-address-1').val(vendorDetails.address_2);
+    $('#edit-address-2').val(vendorDetails.address_1);
+    $('#edit-post-code').val(vendorDetails.post_code);
+    $('#edit-city').val(vendorDetails.city);
+    $('#edit-country').val(vendorDetails.country);
+}
+
+// Save changes
+$('#save-edit').click(event => {
+    event.preventDefault();
+    const inputs = {}
+    $('form#edit-details :input').each((i, field) => {
+        inputs[field.id] = field.value;
+    })
+    saveEditsToDatabase(inputs);
+    $('#edit-modal').hide()
+})
+
+function saveEditsToDatabase(inputs) {
+    vendorRef = db.collection('users').doc(docRef);
+    vendorRef.update({
+        address_1: inputs['edit-address-1'],
+        address_2: inputs['edit-address-2'],
+        city: inputs['edit-city'],
+        country: inputs['edit-country'],
+        email: inputs['edit-email'],
+        business_name: inputs['edit-name'],
+        phone_number: inputs['edit-number'],
+        post_code: inputs['edit-post-code']
+    }).then(() => {
+        console.log('Details edited in database')
+    }).catch(err => {
+        console.log(err.message);
+    })
 }
 
 
@@ -127,7 +163,8 @@ const renderCatalogue = (product) => {
         </div>
     </div>
     `
-    catalogueContainer.innerHTML += productCard;
+    // catalogue
+    $('#catalogue-container').append(productCard);
 }
 
 // get products for catalogue from db
@@ -143,17 +180,7 @@ function getProductDetails(productIDs) {
 }
 
 
-// -------Add to catalogue----------------
-const addToCataButton = document.getElementById('add-to-catalogue-button');
-const addToCataModal = document.getElementById('add-to-catalogue-modal');
-const cataClose = document.getElementById('catalogue-close');
-const createProductForm = document.getElementById('create-product-form');
-
-addToCataButton.addEventListener('click', () => {
-    // get all elements from form
-    const dropdownTypes = document.getElementById('create-wedding-type');
-    const dropdownCategories = document.getElementById('create-wedding-category');
-
+$('#add-to-catalogue-button').click(() => {
     // add wedding type options to dropdown
     db.collection('wedding_types').get().then((snapshot) => {
         snapshot.forEach(doc => {
@@ -162,7 +189,7 @@ addToCataButton.addEventListener('click', () => {
                 let option = document.createElement('option');
                 option.value = type;
                 option.innerHTML = type;
-                dropdownTypes.appendChild(option);
+                $('#create-wedding-type').append(option);
             })
         })
     })
@@ -170,46 +197,41 @@ addToCataButton.addEventListener('click', () => {
             const categoryRef = db.collection('product_categories').doc('iUqr7LSvwjohrNYrgsrD');
             categoryRef.get().then((doc) => {
                 doc.data().product_categories.forEach(category => {
-                    let categoryOption = document.createElement('option');
-                    categoryOption.value = category;
-                    categoryOption.innerHTML = category;
-                    dropdownCategories.appendChild(categoryOption);
+                    let option = document.createElement('option');
+                    option.value = category;
+                    option.innerHTML = category;
+                    $('#create-wedding-category').append(option);
                 })
             })
         }).then(() => {
-            addToCataModal.style.display = 'block';
+            $('#add-to-catalogue-modal').show();
         })
 })
 
-
-
-
 //close the modal
-cataClose.addEventListener('click', () => {
-    addToCataModal.style.display = 'none'
+$('#catalogue-close').click(() => {
+    $('#add-to-catalogue-modal').hide();
 })
 
-window.addEventListener('click', (event) => {
-    if (event.target == addToCataModal) {
-        addToCataModal.style.display = 'none';
+$('window').click(event => {
+    if (event.target == $('#add-to-catalogue-modal')) {
+        $('#add-to-catalogue-modal').hide();
+        $('#edit-modal').hide();
     }
 })
-
-// sumbit product creation
-const productCreateButton = document.getElementById('create-product-button');
 
 // when vendor clicks create product, add the product to the product table in the database
 // add the product to the vendors array of products
 let productImageChosen;
-productCreateButton.addEventListener('click', (event) => {
+$('#create-product-button').click(event => {
     event.preventDefault();
     // get all items in the form
-    const productName = document.getElementById('create-product-name').value;
-    const productDescription = document.getElementById('create-product-description').value;
-    const productType = document.getElementById('create-wedding-type').value;
-    const productCategory = document.getElementById('create-wedding-category').value;
-    const productPrice = document.getElementById('create-product-price').value;
-    const productCurrency = document.getElementById('create-product-currency').value;
+    const productName = $('#create-product-name').val();
+    const productDescription = $('#create-product-description').val();
+    const productType = $('#create-wedding-type').val();
+    const productCategory = $('#create-wedding-category').val();
+    const productPrice = $('#create-product-price').val();
+    const productCurrency = $('#create-product-currency').val();
     const productColours = document.querySelectorAll('input[name=colourCheck]:checked');
     const coloursArray = Array.from(productColours).map(checkbox => checkbox.value);
     const productCountries = document.querySelectorAll('input[name=countryCheck]:checked');
@@ -249,18 +271,18 @@ productCreateButton.addEventListener('click', (event) => {
             })
     }).then(() => {
         vendorRef = db.collection('users').doc(docRef);
-
         vendorRef.update({
+            // push the product onto the vendors catalogue array
             catalogue: firebase.firestore.FieldValue.arrayUnion(productId),
         })
     }).then(() => {
-        createProductForm.reset();
-        addToCataModal.style.display = 'none';
+        $('#create-product-form').trigger('reset');
+        $('#add-to-catalogue-modal').hide();
     })
 })
 
 // product image
 const productImageEdit = document.getElementById('create-product-image');
-productImageEdit.addEventListener('change', event => {
+$('#create-product-image').change(event => {
     productImageChosen = event.target.files[0];
 })
