@@ -1,8 +1,9 @@
 window.addEventListener('DOMContentLoaded', () => {
-    // get profile button
-    //const profileButton = document.getElementById('profile');
+    const user_id_navbar = document.getElementById('user_id_navbar');
 
-    $('#profile').click(() => {
+    $('#profile').on('click',() => {
+        // get user id from navbar
+        const user_id = user_id_navbar.innerText;
         // if vendor redirect to vendor_profile
         //if customer redirect to user_profile
         if (is_vendor) {
@@ -10,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
         } else if (!is_vendor) {
             //customer
             // location.href = 'localhost:5004/user_profile';
-            window.location.href = window.location.protocol + '//' + window.location.host + '/user_profile';
+            window.location.href = window.location.protocol + '//' + window.location.host + '/users/' + user_id + '/profile';
         }
     })
 })

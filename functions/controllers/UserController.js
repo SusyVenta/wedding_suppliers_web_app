@@ -6,30 +6,46 @@ const firestore = firebase.firestore();
 
 
 const getUserProfile = async (req, res) => {
+  const userTable = await firestore.collection('users').get();
+
+  console.log(userTable);
+  
   const id = req.params.userId || req.query.userId || req.body.userId;
+
+  let real_id;
+
+  userTable.forEach(doc => {
+    let data = doc.data();
+    if (data.user_id == id) {
+      real_id = doc.id;
+    }
+  });
   
   // Get the user from the database
-  const result = await firestore.collection('users').doc(id).get();
+  const result = await firestore.collection('users').doc(real_id).get();
 
   user = result.data();
 
-  whishlists = user.whishlist
+  wishlist = user.wishlist
 
   // Get the products from the database
-  for (let i = 0; i < whishlists.length; i++) {
-    const product = await firestore.collection('products').doc(whishlists[i]).get();
-    whishlists[i] = product.data();
+  for (let i = 0; i < wishlist.length; i++) {
+    const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
+    wishlist[i] = product.data();
   }
 
   // Assign the product details to the user
-  user.whishlist = whishlists;
+  user.wishlist = wishlist;
 
-  orders = user.order
+  orders = user.orders
+  console.log(orders);
   for (let i = 0; i < orders.length; i++) {
-    const product = await firestore.collection('products').doc(orders[i]).get();
+    const product = await firestore.collection('products').doc(orders[i].product_id).get();
     orders[i] = product.data();
   }
   user.order = orders;
+
+  console.log(user.wishlist.length);
 
   res.render(Views + 'user_profile.ejs', user)
 }
