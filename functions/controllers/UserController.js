@@ -29,23 +29,29 @@ const getUserProfile = async (req, res) => {
   wishlist = user.wishlist
 
   // Get the products from the database
-  for (let i = 0; i < wishlist.length; i++) {
-    const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
-    wishlist[i] = product.data();
+  if(wishlist != null){
+    for (let i = 0; i < wishlist.length; i++) {
+      const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
+      wishlist[i] = product.data();
+    }
+  
+    // Assign the product details to the user
+    user.wishlist = wishlist;
+  }else{
+    user.wishlist = [];
   }
-
-  // Assign the product details to the user
-  user.wishlist = wishlist;
+  
 
   orders = user.orders
-  console.log(orders);
-  for (let i = 0; i < orders.length; i++) {
-    const product = await firestore.collection('products').doc(orders[i].product_id).get();
-    orders[i] = product.data();
+  if(wishlist != null){
+    for (let i = 0; i < orders.length; i++) {
+      const product = await firestore.collection('products').doc(orders[i].product_id).get();
+      orders[i] = product.data();
+    }
+    user.order = orders;
+  }else{
+    user.order = [];
   }
-  user.order = orders;
-
-  console.log(user.wishlist.length);
 
   res.render(Views + 'user_profile.ejs', user)
 }

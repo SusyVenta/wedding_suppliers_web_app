@@ -90,18 +90,25 @@
                           <input type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
                         </div>
                         <div class="row">
-                          <!-- Password -->
-                          <input type="password" id="password" class="form-control" placeholder="Password" required>
-                        </div>
-                        <div class="row">
                           <!-- Phone number -->
-                          <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
+                          <% if(user.phone_number == null){ %>
+                            <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
+                            placeholder="Phone Number" value="" required>
+                          <% } else{ %>
+                            <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
                             placeholder="Phone Number" value="<%= user.phone_number %>" required>
+                          <% }%>
                         </div>
                         <div class="row">
                           <!-- Address 1 -->
-                          <input type="text" id="address_1" class="form-control"
-                            placeholder="Address of your wedding location" value="<%= user.address_1 + " " + user.address_2 %>" required>
+                          <% if(user.address_1 == null){ %>
+                            <input type="text" id="address_1" class="form-control"
+                            placeholder="Address of your wedding location" value="" %>" required>
+                          <% } else{ %>
+                            <input type="text" id="address_1" class="form-control"
+                            placeholder="Address of your wedding location" value="<%= user.address_1 %>" required>
+                          <% }%>
+                          
                         </div>
                         <div class="row">
                           <!-- Postal Code -->
@@ -389,11 +396,15 @@
 
                   <ul id="to-do-list-items">
                     <!-- print the todo list -->
-                    <% for(var i=0; i < user.todo.length; i++) { %>
-                      <li>
-                        <%= user.todo[i] %>
-                      </li>
-                   <% } %>
+                    <% if(user.todo == null){ %>
+                      <li>Choosing the best wedding planning app</li>
+                    <% } else{ %>
+                      <% for(var i=0; i < user.todo.length; i++) { %>
+                        <li>
+                          <%= user.todo[i] %>
+                        </li>
+                      <% } %>
+                    <% } %>
                   </ul>
                 </div>
               </div>
@@ -406,75 +417,77 @@
               <div class="tab-content">
                 <h3 class="tab-title">Your Wishlist</h3>
                 <div class="orders-container">
-                  <% if (user.wishlist.length > 0) { %>
-                  <% user.wishlist.forEach(function(product){ %>
+                  <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
+                    <% user.wishlist.forEach(function(product){ %>
 
-                    <form method="GET" class="product" action="/product_details/<%= product %>">
-                      <div class="picture-and-description">
-                        <div class="product-photo"
-                          style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
-                        </div>
-                        <div class="product-description">
-                          <h5>
-                            <%= product.title %>
-                          </h5>
-                          <p class="product-description-text">
-                            <%= product.description %>
-                          </p>
-                          <p>Colors available: <%= product.colors %>
-                          </p>
-                          <p class="vendor-details">
-                            <%= product.vendor %>, <%= product.address %>
-                          </p>
-                          <div class="stars-rating">
-                            <% if (product.stars>= 1) { %>
-                              <span class="fa fa-star checked"></span>
-                              <% } else{ %>
-                                <span class="fa fa-star"></span>
-                                <% } %>
-                                  <% if (product.stars>= 2) { %>
-                                    <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                      <span class="fa fa-star"></span>
-                                      <% } %>
-                                        <% if (product.stars>= 3) { %>
-                                          <span class="fa fa-star checked"></span>
-                                          <% } else{ %>
-                                            <span class="fa fa-star"></span>
-                                            <% } %>
-                                              <% if (product.stars>= 4) { %>
-                                                <span class="fa fa-star checked"></span>
-                                                <% } else{ %>
-                                                  <span class="fa fa-star"></span>
-                                                  <% } %>
-                                                    <% if (product.stars>= 5) { %>
-                                                      <span class="fa fa-star checked"></span>
-                                                      <% } else{ %>
-                                                        <span class="fa fa-star"></span>
-                                                        <% } %>
+                      <form method="GET" class="product" action="/product_details/<%= product %>">
+                        <div class="picture-and-description">
+                          <div class="product-photo"
+                            style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
                           </div>
-                          <div class="rating-and-reviews">
-                            <p>Rating: <%= product.stars %>/5</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                          <div class="product-description">
+                            <h5>
+                              <%= product.title %>
+                            </h5>
+                            <p class="product-description-text">
+                              <%= product.description %>
+                            </p>
+                            <p>Colors available: <%= product.colors %>
+                            </p>
+                            <p class="vendor-details">
+                              <%= product.vendor %>, <%= product.address %>
+                            </p>
+                            <div class="stars-rating">
+                              <% if (product.stars>= 1) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %>
+                                  <span class="fa fa-star"></span>
+                                  <% } %>
+                                    <% if (product.stars>= 2) { %>
+                                      <span class="fa fa-star checked"></span>
+                                      <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                        <% } %>
+                                          <% if (product.stars>= 3) { %>
+                                            <span class="fa fa-star checked"></span>
+                                            <% } else{ %>
+                                              <span class="fa fa-star"></span>
+                                              <% } %>
+                                                <% if (product.stars>= 4) { %>
+                                                  <span class="fa fa-star checked"></span>
+                                                  <% } else{ %>
+                                                    <span class="fa fa-star"></span>
+                                                    <% } %>
+                                                      <% if (product.stars>= 5) { %>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <% } else{ %>
+                                                          <span class="fa fa-star"></span>
+                                                          <% } %>
+                            </div>
+                            <div class="rating-and-reviews">
+                              <p>Rating: <%= product.stars %>/5</p>
+                              <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                      <div class="product-to-right-boxes">
-                        <div class="rightest-box">
-                          <i class="fa fa-shopping-cart"></i>
-                          <p>Quantity:</p>
-                          <input class="product-number-input" type="number" />
-                          <p>Price per unit: <%= product.currency %>
-                              <%= product.price %>
-                          </p>
-                          <button onclick="" class="btn">Add to basket</button>
+                        <div class="product-to-right-boxes">
+                          <div class="rightest-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <p>Quantity:</p>
+                            <input class="product-number-input" type="number" />
+                            <p>Price per unit: <%= product.currency %>
+                                <%= product.price %>
+                            </p>
+                            <button onclick="" class="btn">Add to basket</button>
+                          </div>
                         </div>
-                      </div>
-                      <input input type="hidden" id="first" type="text" name="product_id"
-                        value="<%= product.product_id %>" />
-                    </form>
-                    <% }) %>
-                    <% } %>
+                        <input input type="hidden" id="first" type="text" name="product_id"
+                          value="<%= product.product_id %>" />
+                      </form>
+                      <% }) %>
+                    <% } else { %>
+                      <p>Your wishlist is currently empty</p>
+                    <% } %> 
                 </div>
               </div>
             </div>
@@ -488,7 +501,7 @@
               <div class="tab-content">
                 <h3 class="tab-title">Your Orders</h3>
                 <div class="orders-container">
-                  <% if (user.order.length > 0) { %> 
+                  <% if (user.order.length > 0 & user.order != null) { %> 
                   <% user.order.forEach(function(product){ %>
 
                     <form method="GET" class="product" action="/product_details/<%= product %>">
@@ -554,7 +567,9 @@
                         value="<%= product.product_id %>" />
                     </form>
                     <% }) %>
-                    <% } %>
+                    <% } else { %>
+                      <p>Your wishlist is currently empty</p>
+                    <% } %> 
                 </div>
               </div>
             </div>
