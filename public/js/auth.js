@@ -269,17 +269,11 @@ window.addEventListener('DOMContentLoaded', () => {
                 'border-color': 'red',
                 'color': 'red',
             }).show();
-            //authMessage.style.borderColor = `red`
-            //authMessage.style.color = 'red'
-            //authMessage.style.display = `block`
         } else if (type === `success`) {
             authMessage.css({
                 'border-color': 'green',
                 'color': 'green',
             }).show();
-            //authMessage.style.borderColor = `green`
-            //authMessage.style.color = 'green'
-            //authMessage.style.display = `block`
         }
         authMessage.html(message);
         messageTimeout = setTimeout(() => {

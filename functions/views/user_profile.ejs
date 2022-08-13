@@ -41,6 +41,11 @@
         chatsListSection.style.display = "none";
       }
     };
+
+    // Upload image to firebase storage and return url
+    // function uploadImage(file) {
+
+    // }
   </script>
 </head>
 
@@ -68,10 +73,12 @@
 
               <div class="tab-content" id="profile-pic-container">
 
-                <img id="profile-pic" src="/assets/mock-user-profile/profile-pic.png" alt="User profile picture">
+                <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
                 <form action="#" method="post">
                   <button type="button" id="change-picture" class="btn btn-primary">Update profile picture</button>
                 </form>
+                <!-- <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*">
+                <button type="button" id="change-picture" class="btn btn-primary">Update profile picture</button> -->
               </div>
               <div class="tab-content" id="user-details">
                 <form action="#" method="post" id="user-details">
@@ -399,7 +406,8 @@
               <div class="tab-content">
                 <h3 class="tab-title">Your Wishlist</h3>
                 <div class="orders-container">
-                  <% user.whishlist.forEach(function(product){ %>
+                  <% if (user.wishlist.length > 0) { %>
+                  <% user.wishlist.forEach(function(product){ %>
 
                     <form method="GET" class="product" action="/product_details/<%= product %>">
                       <div class="picture-and-description">
@@ -466,10 +474,12 @@
                         value="<%= product.product_id %>" />
                     </form>
                     <% }) %>
+                    <% } %>
                 </div>
               </div>
             </div>
           </div>
+          
 
           
           <!-- orders tab -->
@@ -478,6 +488,7 @@
               <div class="tab-content">
                 <h3 class="tab-title">Your Orders</h3>
                 <div class="orders-container">
+                  <% if (user.order.length > 0) { %> 
                   <% user.order.forEach(function(product){ %>
 
                     <form method="GET" class="product" action="/product_details/<%= product %>">
@@ -543,10 +554,12 @@
                         value="<%= product.product_id %>" />
                     </form>
                     <% }) %>
+                    <% } %>
                 </div>
               </div>
             </div>
           </div>
+          
           
 
           <div id="Messages" class="tabcontent">
