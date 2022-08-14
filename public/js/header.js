@@ -9,7 +9,7 @@ window.addEventListener('DOMContentLoaded', () => {
         if (is_vendor) {
             window.location.href = window.location.protocol + '//' + window.location.host + '/vendor_profile';
         } else if (!is_vendor) {
-            window.location.href = window.location.protocol + '//' + window.location.host + '/users/' + user_id + '/profile';
+            window.location.href = window.location.protocol + '//' + window.location.host + '/users/' + uid + '/profile';
         }
     })
 })
