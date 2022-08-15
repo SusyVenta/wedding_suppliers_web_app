@@ -200,7 +200,7 @@ window.addEventListener('DOMContentLoaded', () => {
                     firebase.auth().currentUser.updateProfile({
                         displayName: businessName
                     }).then(() => {
-                        db.collection('users').add({
+                        db.collection('users').doc(auth.currentUser.uid).set({
                             business_name: businessName,
                             email: vendorEmail,
                             address_1: vendorAddress1,

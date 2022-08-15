@@ -1,7 +1,6 @@
 createUserInDB = (data) => {
-    console.log('adding user into database');
     try {
-        db.collection('users').add({
+        db.collection('users').doc(data.user_id).set({
             first_name: "data.first_name",
             last_name: "data.last_name",
             email: data.email,
@@ -17,8 +16,9 @@ createUserInDB = (data) => {
             orders: [],
             todo: [],
             wishlist: []
+        }).then(() => {
+            console.log('User added to database');
         })
-        console.log('adding user into database');
     } catch (error) {
         console.log(error.message);
     }

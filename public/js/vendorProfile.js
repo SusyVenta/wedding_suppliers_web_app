@@ -75,15 +75,24 @@ const setProfile = () => {
     // set country
     if (vendorDetails.country) $('#country').html(vendorDetails.country);
 
-    // populate catalogue
-    const orderContainer = $('#catalogue-container');
+    // If the vendor has products then display them in the catalogue container
+    // Otherwise display a message
     if (vendorDetails.catalogue) {
-        // Orders in catalogue, populate contaianer
         getProductDetails(vendorDetails.catalogue);
     } else {
-        // no orders in catalogue
-        orderContainer.html(
+        $('#catalogue-container').html(
             `<p class="text-center"> You have no products in your catalogue. Click add product to add products to your catalogue</p>`
+        )
+    }
+
+    // If the vendor has orders to confirm, display them in the catalogue container
+    // Otherwise display a message
+    if (vendorDetails.orders_to_confirm) {
+        //display orders
+        getOrders(vendorDetails.orders_to_confirm);
+    } else {
+        $('#orders-container').html(
+            `<p class="text-center"> You have no orders to confirm. </p>`
         )
     }
 }
@@ -140,6 +149,7 @@ function saveEditsToDatabase(inputs) {
 }
 
 
+
 const renderCatalogue = (product) => {
     const productImage = product.pictures[0];
     const productCard = `
@@ -179,6 +189,7 @@ function getProductDetails(productIDs) {
         })
 }
 
+// -------------- Catalogue ----------------------
 
 $('#add-to-catalogue-button').click(() => {
     // add wedding type options to dropdown
@@ -255,7 +266,7 @@ $('#create-product-button').click(event => {
                     colors: coloursArray,
                     currency: productCurrency,
                     description: productDescription,
-                    pictures: imageURL,
+                    pictures: [imageURL],
                     price: productPrice,
                     product_id: productId,
                     title: productName,
@@ -285,4 +296,140 @@ $('#create-product-button').click(event => {
 const productImageEdit = document.getElementById('create-product-image');
 $('#create-product-image').change(event => {
     productImageChosen = event.target.files[0];
+})
+
+
+// ---------- Orders ----------------
+// create a set from the product ids
+// get those products from the database and pass this data to renderOrders
+function getOrders(orders) {
+    const products = [];
+    const productsSet = new Set();
+    orders.forEach(order => {
+        productsSet.add(order.product_id);
+    })
+    const productsArray = Array.from(productsSet);
+    db.collection('products')
+        .where('product_id', 'in', productsArray)
+        .get()
+        .then(snapshot => {
+            snapshot.forEach(doc => {
+                products.push(doc.data());
+            })
+        }).then(() => {
+            renderOrders(orders, products);
+        })
+}
+
+function renderOrders(orders, products) {
+    orders.forEach(order => {
+        // get the correct product from the products array
+        const product = products.find(obj => obj.product_id === order.product_id);
+        const totalPrice = getTotalPrice(order.quantity_chosen, product.price);
+
+        $('.orders-container').append(
+            $('<div/>', {
+                'class': 'card mx-auto text-center text-dark bg-light',
+                'style': 'width: 80%'
+            }).append(
+                $('<div/>', {
+                    'class': 'row g-0'
+                }).append(
+                    $('<div/>', {
+                        'class': 'col-md-4'
+                    }).append(
+                        $('<img/>', {
+                            'src': `${product.pictures[0]}`,
+                            'class': 'img-fluid rounded-start'
+                        })
+                    )
+                ).append(
+                    $('<div/>', {
+                        'class': 'col-md-8'
+                    }).append(
+                        $('</h5>', {
+                            'class': 'card-title',
+                            text: `${product.title}`,
+                        })
+                    ).append(
+                        $('<p/>', {
+                            // description
+                        })
+                    ).append(
+                        $('<p/>', {
+                            text: 'Order Details: '
+                        })
+                    ).append(
+                        $('<ul/>', {
+                            'class': 'list-group list-group-flush'
+                        }).append(
+                            $('<li/>', {
+                                'class': 'list-group-item',
+                                text: `Quantity: ${order.quantity_chosen}`
+                            })
+                        ).append(
+                            $('<li/>', {
+                                'class': 'list-group-item',
+                                text: `Total price: ${totalPrice}`
+                            })
+                        ).append(
+                            $('<li/>', {
+                                'class': 'list-group-item',
+                                text: `Requested deliver date:: ${order.preferred_delivery_chosen}`
+                            })
+                        )
+                    ).append(
+                        $('<div/>', {
+                            'class': 'row'
+                        }).append(
+                            $('<div/>', {
+                                'class': 'col'
+                            }).append(
+                                $('<button/>', {
+                                    'class': 'btn btn-success confirm-order',
+                                    text: 'Confirm',
+                                    'data-userID': `${order.user_id}`,
+                                    'data-orderID': `${order.order_id}`
+                                })
+                            )
+                        ).append(
+                            $('<div/>', {
+                                'class': 'col'
+                            }).append(
+                                $('<button/>', {
+                                    'class': 'btn btn-danger decline-order',
+                                    text: 'Decline'
+                                })
+                            )
+                        ).append(
+                            $('<div/>', {
+                                'class': 'col'
+                            }).append(
+                                $('<button/>', {
+                                    'class': 'btn btn-light message-customer',
+                                    text: 'Message Customer'
+                                })
+                            )
+                        )
+                    )
+                )
+            )
+        )
+    })
+}
+
+function getTotalPrice(quantity, price) {
+    return quantity * price;
+}
+
+$('.orders-container').on('click', '.confirm-order', e => {
+    const element = e.target;
+    const orderID = element.dataset.orderid;
+    const userID = element.dataset.userid;
+
+    // change order from pending to confirmed for user
+    // db.collection('users').doc('userID').where()
+
+    // remove from orders to confirm for vendor and move to confirmed orders
+
 })
