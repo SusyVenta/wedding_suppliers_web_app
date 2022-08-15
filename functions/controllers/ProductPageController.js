@@ -1,5 +1,6 @@
 const firebase = require('../db')
 const firestore = firebase.firestore();
+const { v4: uuidv4 } = require('uuid');
 
 
 async function prepareProductPagePayload(targetProduct_id) {
@@ -10,15 +11,15 @@ async function prepareProductPagePayload(targetProduct_id) {
 
   // format review dates 
   let reviews = targetProduct.reviews;
-  if (reviews != null){
-    for(let i=0; i < reviews.length; i++){
+  if (reviews != null) {
+    for (let i = 0; i < reviews.length; i++) {
       let formatted_date = reviews[i].date.toDate();
       reviews[i].date = formatted_date;
     }
-  } else{
+  } else {
     reviews = [];
   }
-  
+
   targetProduct.reviews = reviews;
 
   let vendor_id = targetProduct.vendor_id;
@@ -30,7 +31,7 @@ async function prepareProductPagePayload(targetProduct_id) {
   targetProduct.address = vendor_data.address_1;
   targetProduct.vendor = vendor_data.business_name;
   targetProduct.vendor_email = vendor_data.email;
-  
+
 
   payload = {
     product: targetProduct
@@ -38,15 +39,15 @@ async function prepareProductPagePayload(targetProduct_id) {
   return payload;
 };
 
-async function getDocIdOfUserID(userID){
+async function getDocIdOfUserID(userID) {
   // uid != ID of the document containing the user ID, which we need to find
   const productsTable = await firestore.collection('users').get();
-  
+
   let outputUserId;
 
   productsTable.forEach(doc => {
     let data = doc.data();
-    if(data.user_id == userID){
+    if (data.user_id == userID) {
       outputUserId = doc.id;
     }
   });
@@ -54,15 +55,15 @@ async function getDocIdOfUserID(userID){
   return outputUserId;
 }
 
-async function confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated){
+async function confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated) {
   let payload = await prepareProductPagePayload(chosenProductId);
 
-  if (is_authenticated === false){
+  if (is_authenticated === false) {
     return payload;
   }
 
   let productFields = {
-    user_id: await getDocIdOfUserID(request.body.user_id), 
+    user_id: await getDocIdOfUserID(request.body.user_id),
     vendor_id: payload.product.vendor_id,
     chosenProductId: chosenProductId,
     quantity_chosen: request.body.quantity,
@@ -70,11 +71,13 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     color_chosen: request.body.color
   }
 
-  if(action === "confirm_availability"){
+  if (action === "confirm_availability") {
     /* 
     Updates vendor DB entry, adding details of order to confirm. 
     Returns payload.
     */
+
+    const uniqueOrderID = uuidv4();
 
     // get vendor ID data
     const usersTableVendorID = await firestore.collection('users').doc(productFields.vendor_id).get();
@@ -85,21 +88,22 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       product_id: productFields.chosenProductId,
       quantity_chosen: productFields.quantity_chosen,
       preferred_delivery_chosen: productFields.preferred_delivery_chosen,
-      color_chosen: productFields.color_chosen
+      color_chosen: productFields.color_chosen,
+      order_id: uniqueOrderID
     };
 
     let orders_to_confirm;
     if ('orders_to_confirm' in vendor_data) {
       orders_to_confirm = vendor_data.orders_to_confirm;
       orders_to_confirm.push(new_entry_for_vendor);
-    } else{
+    } else {
       orders_to_confirm = [new_entry_for_vendor];
     }
 
     const vendorEntry = firestore.collection('users').doc(productFields.vendor_id);
 
     vendorEntry.set(
-      { orders_to_confirm: orders_to_confirm}, 
+      { orders_to_confirm: orders_to_confirm },
       { merge: true }
     );
 
@@ -112,24 +116,25 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       quantity_chosen: productFields.quantity_chosen,
       preferred_delivery_chosen: productFields.preferred_delivery_chosen,
       color_chosen: productFields.color_chosen,
-      status: "pending vendor confirmation"
+      status: "pending vendor confirmation",
+      order_id: uniqueOrderID
     };
     let user_orders;
     if ('orders' in user_data) {
       user_orders = user_data.orders;
       user_orders.push(new_entry_for_user);
-    } else{
+    } else {
       user_orders = [new_entry_for_user];
     }
     const userEntry = firestore.collection('users').doc(productFields.user_id);
 
     userEntry.set(
-      { orders: user_orders}, 
+      { orders: user_orders },
       { merge: true }
     );
   }
 
-  if(action === "add_to_basket"){
+  if (action === "add_to_basket") {
     /* Update user wishlist */
     let user_data_snap = await firestore.collection('users').doc(productFields.user_id).get();
     let user_data = user_data_snap.data();
@@ -144,18 +149,18 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     if ('wishlist' in user_data) {
       wishlist = user_data.wishlist;
       wishlist.push(new_entry_for_user);
-    } else{
+    } else {
       wishlist = [new_entry_for_user];
     }
     const userEntry = firestore.collection('users').doc(productFields.user_id);
 
     userEntry.set(
-      { wishlist: wishlist}, 
+      { wishlist: wishlist },
       { merge: true }
     );
   }
 
-  
+
   return payload;
 };
 
