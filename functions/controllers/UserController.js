@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const Views = '../views/'
 const firebase = require('../db')
 
@@ -8,8 +8,6 @@ const firestore = firebase.firestore();
 const getUserProfile = async (req, res) => {
   const userTable = await firestore.collection('users').get();
 
-  console.log(userTable);
-  
   const id = req.params.userId || req.query.userId || req.body.userId;
 
   let real_id;
@@ -20,7 +18,7 @@ const getUserProfile = async (req, res) => {
       real_id = doc.id;
     }
   });
-  
+
   // Get the user from the database
   const result = await firestore.collection('users').doc(real_id).get();
 
@@ -29,27 +27,31 @@ const getUserProfile = async (req, res) => {
   wishlist = user.wishlist
 
   // Get the products from the database
-  if(wishlist != null){
+  if (wishlist != null) {
     for (let i = 0; i < wishlist.length; i++) {
       const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
       wishlist[i] = product.data();
     }
-  
     // Assign the product details to the user
     user.wishlist = wishlist;
-  }else{
+  } else {
     user.wishlist = [];
   }
-  
 
-  orders = user.orders
-  if(wishlist != null){
+
+  const allOrders = await firestore.collection('users').doc(real_id).collection('orders').get();
+  let orders = [];
+  allOrders.forEach(order => {
+    orders.push(order.data());
+  })
+  user.orders = orders;
+  if (wishlist != null) {
     for (let i = 0; i < orders.length; i++) {
       const product = await firestore.collection('products').doc(orders[i].product_id).get();
       orders[i] = product.data();
     }
     user.order = orders;
-  }else{
+  } else {
     user.order = [];
   }
 
@@ -57,7 +59,7 @@ const getUserProfile = async (req, res) => {
 }
 
 const getUserLogin = ((req, res) => {
-  res.render(Views + 'customer_login.ejs' )
+  res.render(Views + 'customer_login.ejs')
 })
 
 const getUserRegistration = ((req, res) => {
@@ -66,7 +68,7 @@ const getUserRegistration = ((req, res) => {
 
 const postTestUser = async (req, res) => {
   try {
-    const data = {'firstName': 'naoya', 'lastName': 'nara', 'module': 'agile'}
+    const data = { 'firstName': 'naoya', 'lastName': 'nara', 'module': 'agile' }
     await firestore.collection('test-users').doc().set(data);
     res.send("Record test user successfuly")
   } catch (error) {

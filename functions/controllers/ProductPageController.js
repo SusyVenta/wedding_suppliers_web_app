@@ -108,8 +108,8 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     );
 
     /* Update user orders, adding the order that is pending confirmation */
-    let user_data_snap = await firestore.collection('users').doc(productFields.user_id).get();
-    let user_data = user_data_snap.data();
+    //let user_data_snap = await firestore.collection('users').doc(productFields.user_id).collection('orders').get();
+    //let user_data = user_data_snap.data();
     let new_entry_for_user = {
       user_id: productFields.user_id,
       product_id: productFields.chosenProductId,
@@ -119,19 +119,22 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       status: "pending vendor confirmation",
       order_id: uniqueOrderID
     };
-    let user_orders;
-    if ('orders' in user_data) {
-      user_orders = user_data.orders;
-      user_orders.push(new_entry_for_user);
-    } else {
-      user_orders = [new_entry_for_user];
-    }
-    const userEntry = firestore.collection('users').doc(productFields.user_id);
 
-    userEntry.set(
-      { orders: user_orders },
-      { merge: true }
-    );
+    firestore.collection('users').doc(productFields.user_id).collection('orders').doc(uniqueOrderID).set(new_entry_for_user)
+
+    // let user_orders;
+    // if ('orders' in user_data) {
+    //   user_orders = user_data.orders;
+    //   user_orders.push(new_entry_for_user);
+    // } else {
+    //   user_orders = [new_entry_for_user];
+    // }
+    // const userEntry = firestore.collection('users').doc(productFields.user_id);
+
+    // userEntry.set(
+    //   { orders: user_orders },
+    //   { merge: true }
+    // );
   }
 
   if (action === "add_to_basket") {
