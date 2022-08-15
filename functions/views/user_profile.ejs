@@ -41,11 +41,18 @@
         chatsListSection.style.display = "none";
       }
     };
+    function uploadTrigger() {
+      var input = document.getElementById('profile-pic-input');
+      input.click();
+    }
+    
+    //upload the image to firebase storage and update the profile pic
+    function updateProfilePic() {
+      var input = document.getElementById('profile-pic-input');
+      console.log(input.files[0]);
+      var file = input.files[0];
+    }
 
-    // Upload image to firebase storage and return url
-    // function uploadImage(file) {
-
-    // }
   </script>
 </head>
 
@@ -74,14 +81,12 @@
               <div class="tab-content" id="profile-pic-container">
 
                 <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
-                <form action="#" method="post">
-                  <button type="button" id="change-picture" class="btn btn-primary">Update profile picture</button>
-                </form>
-                <!-- <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*">
-                <button type="button" id="change-picture" class="btn btn-primary">Update profile picture</button> -->
+
+                <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
+                <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picturesssssss</button>
               </div>
               <div class="tab-content" id="user-details">
-                <form action="#" method="post" id="user-details">
+                <form id="user-details">
                   <div class="container user-details">
                     <div class="row">
                       <div class="col">
@@ -92,10 +97,10 @@
                         <div class="row">
                           <!-- Phone number -->
                           <% if(user.phone_number == null){ %>
-                            <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
+                            <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
                             placeholder="Phone Number" value="" required>
                           <% } else{ %>
-                            <input type="text" inputmode="numeric" id="phone_number" class="form-control form-control"
+                            <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
                             placeholder="Phone Number" value="<%= user.phone_number %>" required>
                           <% }%>
                         </div>
@@ -112,16 +117,17 @@
                         </div>
                         <div class="row">
                           <!-- Postal Code -->
-                          <input type="text" id="post_code" class="form-control" placeholder="Postal Code" required>
+                          <input type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
                         </div>
                         <div class="row">
                           <!-- City -->
-                          <input type="text" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
+                          <input type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
                         </div>
                         <div class="row">
                           <!-- Country -->
-                          <select id="country" name="Country" class="form-control" required>
+                          <select id="country" name="country" class="form-control" required>
                             <option value="" disabled selected hidden>Country</option>
+                            <option selected value="<%= user.country %>"><%= user.country %></option>
                             <option value="AF">Afghanistan</option>
                             <option value="AX">Åland Islands</option>
                             <option value="AL">Albania</option>
@@ -376,9 +382,7 @@
                       </div>
                     </div>
                   </div>
-                </form>
-                <form action="#" method="post">
-                  <button type="button" id="edit-user-details" class="btn btn-primary">Edit</button>
+                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Edit" />
                 </form>
               </div>
             </div>
@@ -389,7 +393,7 @@
               <div class="tab-content" id="wishlist-tab-content">
                 <h3 class="tab-title">To Do List</h3>
                 <div id="wishlist-container">
-                  <form action="#" method="post" id="add-element-to-list" class="header">
+                  <form id="add-element-to-list" class="header">
                     <input type="text" id="to-do-list-new-input" placeholder="What else do you need to do?">
                     <span onclick="newToDoElement()" id="add-new-to-do-element-btn" class="addBtn">Add</span>
                   </form>
