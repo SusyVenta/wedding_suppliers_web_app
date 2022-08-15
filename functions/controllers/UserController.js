@@ -1,4 +1,4 @@
-const express = require('express')
+const express = require('express');
 const Views = '../views/'
 const firebase = require('../db')
 
@@ -160,7 +160,6 @@ const getUserProfile = async (req, res) => {
       const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
       wishlist[i] = product.data();
     }
-
     // Assign the product details to the user
     user.wishlist = wishlist;
   } else {
@@ -168,7 +167,12 @@ const getUserProfile = async (req, res) => {
   }
 
 
-  orders = user.orders
+  const allOrders = await firestore.collection('users').doc(real_id).collection('orders').get();
+  let orders = [];
+  allOrders.forEach(order => {
+    orders.push(order.data());
+  })
+  user.orders = orders;
   if (wishlist != null) {
     for (let i = 0; i < orders.length; i++) {
       const product = await firestore.collection('products').doc(orders[i].product_id).get();
