@@ -20,6 +20,7 @@ const updateProfileForm = async () => {
   let user_id = document.getElementById("user_id_navbar").innerHTML;
   const data = {
     user_id: user_id,
+    profile_picture: document.getElementById("profile-pic").src,
     address_1: document.getElementById("address_1").value,
     phone_number: document.getElementById("phone_number").value,
     country: document.getElementById("country").value,
@@ -49,7 +50,7 @@ for (i = 0; i < myNodelist.length; i++) {
   span.className = "close";
   span.onclick = async function () {
     var div = this.parentElement;
-    
+
     let user_id = document.getElementById("user_id_navbar").innerHTML;
 
     console.log(div);
@@ -58,9 +59,9 @@ for (i = 0; i < myNodelist.length; i++) {
     let id = div.id;
 
     //remove first 4 characters from id
-    let todo_id = Number(id.substring(4))-1;
+    let todo_id = Number(id.substring(4)) - 1;
 
-    const result = await fetch('http://localhost:8080/users/' + user_id + '/todo/' + todo_id , {
+    const result = await fetch('http://localhost:8080/users/' + user_id + '/todo/' + todo_id, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json'
@@ -73,7 +74,7 @@ for (i = 0; i < myNodelist.length; i++) {
   span.appendChild(txt);
   myNodelist[i].appendChild(span);
   //add id to each list item
-  myNodelist[i].id = "todo" + i; 
+  myNodelist[i].id = "todo" + i;
 }
 
 // Add a "checked" symbol when clicking on a list item
@@ -93,7 +94,7 @@ function newToDoElement() {
   if (inputValue === '') {
     alert("You must write something!");
   } else {
-    
+
     let user_id = document.getElementById("user_id_navbar").innerHTML;
     const data = {
       user_id: user_id,
@@ -123,7 +124,7 @@ function newToDoElement() {
 
   for (i = 0; i < close.length; i++) {
     close[i].onclick = function () {
-      const result = fetch('http://localhost:8080/users/' + user_id + '/todo' + i , {
+      const result = fetch('http://localhost:8080/users/' + user_id + '/todo' + i, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json'
@@ -136,4 +137,29 @@ function newToDoElement() {
       });
     }
   }
+}
+
+function uploadTrigger() {
+  var input = document.getElementById('profile-pic-input');
+  input.click();
+}
+
+//upload the image to firebase storage and update the profile pic
+function updateProfilePic() {
+  let user_id = document.getElementById("user_id_navbar").innerHTML;
+  var input = document.getElementById('profile-pic-input');
+  console.log(input.files[0]);
+  var file = input.files[0];
+  var storageRef = firebase.storage().ref('customer_profiles/' + user_id + "/" + file.name );
+  storageRef.put(file).then(() => {
+    storageRef.getDownloadURL().then(url => {
+      document.getElementById("profile-pic").src = url;
+      updateProfileForm();
+      console.log('Uploaded a blob or file!');
+    })
+    
+  }).catch(error => {
+    console.log(error.message);
+  }
+  );
 }

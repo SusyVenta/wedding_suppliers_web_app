@@ -44,8 +44,6 @@ const deleteUserTodo = async (req, res) => {
   }
 }
 
-          
-
 const updateUserTodo = async (req, res) => {
   try {
     const userTable = await firestore.collection('users').get();
@@ -107,7 +105,7 @@ const updateUserProfile = async (req, res) => {
       userData.country = req.body.country;
       userData.phone_number = req.body.phone_number;
       userData.post_code = req.body.post_code;
-      // userData.profile_picture = req.body.profile_picture;
+      userData.profile_picture = req.body.profile_picture;
       // userData.is_vendor = req.body.is_vendor;
       // userData.orders = req.body.orders;
       // userData.todo = req.body.todo;
