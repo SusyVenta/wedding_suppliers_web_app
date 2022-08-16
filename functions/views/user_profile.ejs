@@ -506,10 +506,9 @@
               <div class="tab-content">
                 <h3 class="tab-title">Your Orders</h3>
                 <div class="orders-container">
-                  <% if (user.order.length > 0 & user.order != null) { %> 
-                  <% user.order.forEach(function(product){ %>
-
-                    <form class="product">
+                  <% if (user.orders.length > 0 & user.orders != null) { %> 
+                  <% user.orders.forEach(function(product){ %>
+                    <div class="product">
                       <div class="picture-and-description">
                         <div class="product-photo"
                           style="background-image: url('<%= product.product.pictures[0] %>');">
@@ -526,38 +525,38 @@
                           <p class="vendor-details">
                             <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
                           </p>
-                          <% if(product.stars == null){ %>
+                          <% if(product.product.stars == null){ %>
                             <p>No reviews yet</p>
                         <% } else{ %>
                           <div class="stars-rating">
-                            <% if (product.stars>= 1) { %>
+                            <% if (product.product.stars>= 1) { %>
                               <span class="fa fa-star checked"></span>
                               <% } else{ %>
                                 <span class="fa fa-star"></span>
                                 <% } %>
-                                  <% if (product.stars>= 2) { %>
+                                  <% if (product.product.stars>= 2) { %>
                                     <span class="fa fa-star checked"></span>
                                     <% } else{ %>
                                       <span class="fa fa-star"></span>
                                       <% } %>
-                                        <% if (product.stars>= 3) { %>
+                                        <% if (product.product.stars>= 3) { %>
                                           <span class="fa fa-star checked"></span>
                                           <% } else{ %>
                                             <span class="fa fa-star"></span>
                                             <% } %>
-                                              <% if (product.stars>= 4) { %>
+                                              <% if (product.product.stars>= 4) { %>
                                                 <span class="fa fa-star checked"></span>
                                                 <% } else{ %>
                                                   <span class="fa fa-star"></span>
                                                   <% } %>
-                                                    <% if (product.stars>= 5) { %>
+                                                    <% if (product.product.stars>= 5) { %>
                                                       <span class="fa fa-star checked"></span>
                                                       <% } else{ %>
                                                         <span class="fa fa-star"></span>
                                                         <% } %>
                           </div>
                           <div class="rating-and-reviews">
-                            <p>Rating: <%= product.stars %>/5</p>
+                            <p>Rating: <%= product.product.stars %>/5</p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
                           </div>
                           <% } %>
@@ -569,16 +568,79 @@
                           <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
                           <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
                           <p>Status: <%= product.status %> </p>
-                          <button onclick="" class="btn">Review</button>
+                          <button value="<%= product.product_id %>" onclick="reviewOrder(value)" class="btn">Review</button>
                         </div>
                       </div>
                       <input input type="hidden" id="first" type="text" name="product_id"
                         value="<%= product.product_id %>" />
-                    </form>
+                    </div>
                     <% }) %>
                     <% } else { %>
-                      <p>Your wishlist is currently empty</p>
+                      <p>Your order list is currently empty</p>
                     <% } %> 
+                </div>
+                <div class="user-comments-box" id="user-comments-box">
+                  <div class="user-comments">
+                    <label for="user-review" class="user-comments-box-title">Leave your review!</label>
+                    <!--create a start rating-->
+                    <!-- credit:https://github.com/mukulkant/Star-rating-using-pure-css -->
+                    <div class="overall-star-rate" id="overall-star-rate">
+                      <p>Overall:</p>
+                      <input type="radio" id="overall-star5" name="overall-rate" value="5" />
+                      <label for="overall-star5" title="text">5 stars</label>
+                      <input type="radio" id="overall-star4" name="overall-rate" value="4" />
+                      <label for="overall-star4" title="text">4 stars</label>
+                      <input type="radio" id="overall-star3" name="overall-rate" value="3" />
+                      <label for="overall-star3" title="text">3 stars</label>
+                      <input type="radio" id="overall-star2" name="overall-rate" value="2" />
+                      <label for="overall-star2" title="text">2 stars</label>
+                      <input type="radio" id="overall-star1" name="overall-rate" value="1" />
+                      <label for="overall-star1" title="text">1 star</label>
+                    </div>
+                    <div class="quality-star-rate" id="quality-star-rate">
+                      <p>Product Quality:</p>
+                      <input type="radio" id="quality-star5" name="quality-rate" value="5" />
+                      <label for="quality-star5" title="text">5 stars</label>
+                      <input type="radio" id="quality-star4" name="quality-rate" value="4" />
+                      <label for="quality-star4" title="text">4 stars</label>
+                      <input type="radio" id="quality-star3" name="quality-rate" value="3" />
+                      <label for="quality-star3" title="text">3 stars</label>
+                      <input type="radio" id="quality-star2" name="quality-rate" value="2" />
+                      <label for="quality-star2" title="text">2 stars</label>
+                      <input type="radio" id="quality-star1" name="quality-rate" value="1" />
+                      <label for="quality-star1" title="text">1 star</label>
+                    </div>
+                    <div class="vendor-quality-star-rate" id="vendor-quality-star-rate">
+                      <p>Vendor quality:</p>
+                      <input type="radio" id="vendor-quality-star-star5" name="vendor-quality-rate" value="5" />
+                      <label for="vendor-quality-star-star5" title="text">5 stars</label>
+                      <input type="radio" id="vendor-quality-star-star4" name="vendor-quality-rate" value="4" />
+                      <label for="vendor-quality-star-star4" title="text">4 stars</label>
+                      <input type="radio" id="vendor-quality-star-star3" name="vendor-quality-rate" value="3" />
+                      <label for="vendor-quality-star-star3" title="text">3 stars</label>
+                      <input type="radio" id="vendor-quality-star-star2" name="vendor-quality-rate" value="2" />
+                      <label for="vendor-quality-star-star2" title="text">2 stars</label>
+                      <input type="radio" id="vendor-quality-star-star1" name="vendor-quality-rate" value="1" />
+                      <label for="vendor-quality-star-star1" title="text">1 star</label>
+                    </div>
+
+                    <div class="description-star-rate" id="description-star-rate">
+                      <p>Product Description:</p>
+                      <input type="radio" id="description-star5" name="description-rate" value="5" />
+                      <label for="description-star5" title="text">5 stars</label>
+                      <input type="radio" id="description-star4" name="description-rate" value="4" />
+                      <label for="description-star4" title="text">4 stars</label>
+                      <input type="radio" id="description-star3" name="description-rate" value="3" />
+                      <label for="description-star3" title="text">3 stars</label>
+                      <input type="radio" id="description-star2" name="description-rate" value="2" />
+                      <label for="description-star2" title="text">2 stars</label>
+                      <input type="radio" id="description-star1" name="description-rate" value="1" />
+                      <label for="description-star1" title="text">1 star</label>
+                    </div>
+
+                    <textarea id="user-comments-box-text" class="user-comments-box-text" rows="4" cols="50"></textarea>
+                    <button onclick="submitReview()" class="btn">Submit</button>
+                  </div>
                 </div>
               </div>
             </div>

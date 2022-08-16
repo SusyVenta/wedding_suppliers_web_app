@@ -938,6 +938,186 @@ input[type=number].product-number-input{
   font-size: 18px;
 }
 
+/* user-comments-box */
+.user-comments-box{
+  width: 30%;
+  height: 30%;
+  background-color: #637289;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.user-comments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.vendor-quality-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.vendor-quality-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.vendor-quality-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.vendor-quality-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.vendor-quality-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.vendor-quality-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.vendor-quality-star-rate:not(:checked) > label:hover,
+.vendor-quality-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.vendor-quality-star-rate > input:checked + label:hover,
+.vendor-quality-star-rate > input:checked + label:hover ~ label,
+.vendor-quality-star-rate > input:checked ~ label:hover,
+.vendor-quality-star-rate > input:checked ~ label:hover ~ label,
+.vendor-quality-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.quality-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.quality-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.quality-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.quality-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.quality-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.quality-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.quality-star-rate:not(:checked) > label:hover,
+.quality-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.quality-star-rate > input:checked + label:hover,
+.quality-star-rate > input:checked + label:hover ~ label,
+.quality-star-rate > input:checked ~ label:hover,
+.quality-star-rate > input:checked ~ label:hover ~ label,
+.quality-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.description-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.description-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.description-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.description-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.description-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.description-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.description-star-rate:not(:checked) > label:hover,
+.description-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.description-star-rate > input:checked + label:hover,
+.description-star-rate > input:checked + label:hover ~ label,
+.description-star-rate > input:checked ~ label:hover,
+.description-star-rate > input:checked ~ label:hover ~ label,
+.description-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.overall-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.overall-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.overall-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.overall-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.overall-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.overall-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.overall-star-rate:not(:checked) > label:hover,
+.overall-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.overall-star-rate > input:checked + label:hover,
+.overall-star-rate > input:checked + label:hover ~ label,
+.overall-star-rate > input:checked ~ label:hover,
+.overall-star-rate > input:checked ~ label:hover ~ label,
+.overall-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
 /* ----------- tablet view  ------ */
 @media only screen and (max-width: 1024px) and (min-width: 701px){
   .rightest-box > button {

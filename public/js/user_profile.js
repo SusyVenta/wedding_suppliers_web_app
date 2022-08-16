@@ -208,3 +208,63 @@ function addToBasket(index) {
   );
   
 }
+let selected_product_id = 0;
+function reviewOrder(value) {
+  let box = document.getElementById("user-comments-box");
+  selected_product_id = value;
+  console.log(selected_product_id);
+  box.style.display = "block";
+}
+
+function submitReview() {
+  let overall_radios = document.getElementsByName("overall-rate");
+  let overall_rate = getStarValue(overall_radios);
+
+  let quality_radios = document.getElementsByName("quality-rate");
+  let quality_rate = getStarValue(quality_radios);
+
+  let vendor_radios = document.getElementsByName("vendor-quality-rate");
+  let vendor_rate = getStarValue(vendor_radios);
+
+  let description_radios = document.getElementsByName("description-rate");
+  let description_rate = getStarValue(description_radios);
+
+  let comment = document.getElementById("user-comments-box-text").value;
+  
+  // let date = new Date();
+
+  let user_id = document.getElementById("user_id_navbar").innerHTML;
+
+  let data = {
+    user_id: user_id,
+    product_id: selected_product_id,
+    comment: comment,
+    overall_rating: overall_rate,
+    product_quality_rating: quality_rate,
+    product_description_rating: description_rate,
+    vendor_quality_rating: vendor_rate,
+    // date: date
+  }
+
+  const result = fetch('http://localhost:8080/users/' + user_id + '/comment', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then(() => {
+    alert("Review submitted");
+    // location.reload();
+  }).catch(error => {
+    console.log(error.message);
+  }
+  );
+}
+
+function getStarValue(radios) {
+  for (var i = 0, length = radios.length; i < length; i++) {
+    if (radios[i].checked) {
+      return radios[i].value;
+    }
+  }
+}
