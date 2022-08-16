@@ -430,6 +430,11 @@ $('.orders-container').on('click', '.confirm-order', e => {
     // change order from pending to confirmed for user
     // db.collection('users').doc('userID').where()
 
+    db.collection('users').doc(userID).collection('orders').doc(orderID).update({
+        status: 'confirmed'
+    })
+
+
     // remove from orders to confirm for vendor and move to confirmed orders
 
 })
