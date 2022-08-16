@@ -175,8 +175,7 @@ const getUserProfile = async (req, res) => {
     orders.push(order.data());
   })
   user.orders = orders;
-  console.log(user.orders);
-  console.log("-----------");
+
   if (orders != null) {
     for (let i = 0; i < orders.length; i++) {
       const product = await firestore.collection('products').doc(orders[i].product_id).get();
@@ -190,7 +189,7 @@ const getUserProfile = async (req, res) => {
     user.order = [];
   }
 
-  console.log(user.orders);
+
 
   res.render(Views + 'user_profile.ejs', user)
 }

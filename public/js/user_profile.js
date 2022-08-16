@@ -164,6 +164,47 @@ function updateProfilePic() {
   );
 }
 
-function addToBasket() {
+function addToBasket(index) {
+  console.log(index);
+
+  let user_id = document.getElementById("user_id_navbar").innerHTML;
+  let quantity = document.getElementById(index + "-quantity").value;
+  let color = document.getElementById(index + "-color").value;
+  let date = document.getElementById(index + "-preferred_delivery").value;
+  let productID = document.getElementById(index + "-id").value;
+
+  console.log(quantity);
+  console.log(color);
+  console.log(date);
+  console.log(productID);
+
+  const data = {
+    user_id: user_id,
+    quantity: quantity,
+    color: color,
+    preferred_delivery: date,
+    action: "confirm_availability"
+  }
+
+  console.log(data);
+
+  const result = fetch('http://localhost:8080/product_details/' + productID, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  }).then((res) => {
+    console.log(res);
+    if (res.status === 200) {
+      alert("Product added to basket");
+      location.reload();
+    } else {
+      alert("Product not available");
+    }
+  }).catch(error => {
+    console.log(error.message);
+  }
+  );
   
 }

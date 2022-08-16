@@ -412,8 +412,8 @@
                 <h3 class="tab-title">Your Wishlist</h3>
                 <div class="orders-container">
                   <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
-                    <% user.wishlist.forEach(function(product){ %>
-                      <div class="product">
+                    <% user.wishlist.forEach(function(product, index){ %>
+                      <div class="product" id="<%= "product" + index %> ">
                         <div class="picture-and-description">
                           <div class="product-photo"
                             style='background-image: url(" <%= product.pictures[0] %> " );'>
@@ -471,20 +471,22 @@
                           <div class="rightest-box">
                             <i class="fa fa-shopping-cart"></i>
                             <p>Quantity:</p>
-                            <input class="product-number-input" type="number" />
+                            <input class="product-number-input" type="number" id="<%= "product" + index + "-quantity" %>"/>
                             <p>Color:</p>
-                            <select class="product-color-select">
+                            <select class="product-color-select" id="<%= "product" + index + "-color" %>">
                               <% product.colors.forEach(function(color){ %>
                                 <option value="<%= color %>"><%= color %></option>
                               <% }) %>
                             </select>
+                            <label for="preferred_delivery">Preferred delivery date:</label>
+                            <input type="date" id="<%= "product" + index + "-preferred_delivery" %>" />
                             <p>Price per unit: <%= product.currency %>
                                 <%= product.price %>
                             </p>
-                            <button onclick="addToBasket()" class="btn">Add to basket</button>
+                            <button value=<%= "product" + index %> onclick="addToBasket(value)" class="btn">Add to basket</button>
                           </div>
                         </div>
-                        <input input type="hidden" id="first" type="text" name="product_id"
+                        <input input type="hidden" id=<%= "product" + index + "-id" %> type="text" name="product_id"
                           value="<%= product.product_id %>" />
                       </div>
                       <% }) %>

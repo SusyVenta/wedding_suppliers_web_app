@@ -70,6 +70,7 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     preferred_delivery_chosen: request.body.preferred_delivery,
     color_chosen: request.body.color
   }
+  console.log(action);
 
   if (action === "confirm_availability") {
     /* 

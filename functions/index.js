@@ -75,7 +75,11 @@ app.post("/product_details/:product_id", async function (request, response) {
       orderRequestSubmitted = true;
       action = "confirm_availability";
     }
+    if (action === undefined) {
+      action = request.body.action;
+    }
   }
+
 
   let payload = await confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated);
   
