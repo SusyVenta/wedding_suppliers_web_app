@@ -157,6 +157,10 @@ const getUserProfile = async (req, res) => {
     for (let i = 0; i < wishlist.length; i++) {
       const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
       wishlist[i] = product.data();
+
+      //Get the vender from the database
+      const vendor = await firestore.collection('users').doc(wishlist[i].vendor_id).get();
+      wishlist[i].vendor = vendor.data();
     }
     // Assign the product details to the user
     user.wishlist = wishlist;
@@ -171,15 +175,22 @@ const getUserProfile = async (req, res) => {
     orders.push(order.data());
   })
   user.orders = orders;
-  if (wishlist != null) {
+  console.log(user.orders);
+  console.log("-----------");
+  if (orders != null) {
     for (let i = 0; i < orders.length; i++) {
       const product = await firestore.collection('products').doc(orders[i].product_id).get();
-      orders[i] = product.data();
+      orders[i].product = product.data();
+
+      const vendor = await firestore.collection('users').doc(orders[i].product.vendor_id).get();
+      orders[i].vendor = vendor.data();
     }
     user.order = orders;
   } else {
     user.order = [];
   }
+
+  console.log(user.orders);
 
   res.render(Views + 'user_profile.ejs', user)
 }

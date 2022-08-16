@@ -413,24 +413,26 @@
                 <div class="orders-container">
                   <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
                     <% user.wishlist.forEach(function(product){ %>
-
-                      <form method="GET" class="product" action="/product_details/<%= product %>">
+                      <div class="product">
                         <div class="picture-and-description">
                           <div class="product-photo"
-                            style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
+                            style='background-image: url(" <%= product.pictures[0] %> " );'>
                           </div>
                           <div class="product-description">
-                            <h5>
+                            <h5 class="product-title">
                               <%= product.title %>
-                            </h5>
-                            <p class="product-description-text">
+                          </h5>
+                          <p class="product-description-text">
                               <%= product.description %>
-                            </p>
-                            <p>Colors available: <%= product.colors %>
-                            </p>
-                            <p class="vendor-details">
-                              <%= product.vendor %>, <%= product.address %>
-                            </p>
+                          </p>
+                          <p class="colors-available-p">Colors available: <%= product.colors %>
+                          </p>
+                          <p class="vendor-details">
+                              <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
+                          </p>
+                          <% if(product.stars == null){ %>
+                            <p>No reviews yet</p>
+                        <% } else{ %>
                             <div class="stars-rating">
                               <% if (product.stars>= 1) { %>
                                 <span class="fa fa-star checked"></span>
@@ -462,6 +464,7 @@
                               <p>Rating: <%= product.stars %>/5</p>
                               <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
                             </div>
+                            <% } %>
                           </div>
                         </div>
                         <div class="product-to-right-boxes">
@@ -469,15 +472,21 @@
                             <i class="fa fa-shopping-cart"></i>
                             <p>Quantity:</p>
                             <input class="product-number-input" type="number" />
+                            <p>Color:</p>
+                            <select class="product-color-select">
+                              <% product.colors.forEach(function(color){ %>
+                                <option value="<%= color %>"><%= color %></option>
+                              <% }) %>
+                            </select>
                             <p>Price per unit: <%= product.currency %>
                                 <%= product.price %>
                             </p>
-                            <button onclick="" class="btn">Add to basket</button>
+                            <button onclick="addToBasket()" class="btn">Add to basket</button>
                           </div>
                         </div>
                         <input input type="hidden" id="first" type="text" name="product_id"
                           value="<%= product.product_id %>" />
-                      </form>
+                      </div>
                       <% }) %>
                     <% } else { %>
                       <p>Your wishlist is currently empty</p>
@@ -498,23 +507,26 @@
                   <% if (user.order.length > 0 & user.order != null) { %> 
                   <% user.order.forEach(function(product){ %>
 
-                    <form method="GET" class="product" action="/product_details/<%= product %>">
+                    <form class="product">
                       <div class="picture-and-description">
                         <div class="product-photo"
-                          style="background-image: url('https://cdn.shopify.com/s/files/1/0270/3248/5970/t/4/assets/pf-ccaac636--WeddingCakesCover.png?v=1583852616');">
+                          style="background-image: url('<%= product.product.pictures[0] %>');">
                         </div>
                         <div class="product-description">
                           <h5>
-                            <%= product.title %>
+                            <%= product.product.title %>
                           </h5>
                           <p class="product-description-text">
-                            <%= product.description %>
+                            <%= product.product.description %>
                           </p>
-                          <p>Colors available: <%= product.colors %>
+                          <p>Colors available: <%= product.product.colors %>
                           </p>
                           <p class="vendor-details">
-                            <%= product.vendor %>, <%= product.address %>
+                            <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
                           </p>
+                          <% if(product.stars == null){ %>
+                            <p>No reviews yet</p>
+                        <% } else{ %>
                           <div class="stars-rating">
                             <% if (product.stars>= 1) { %>
                               <span class="fa fa-star checked"></span>
@@ -546,14 +558,15 @@
                             <p>Rating: <%= product.stars %>/5</p>
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
                           </div>
+                          <% } %>
                         </div>
                       </div>
                       <div class="product-to-right-boxes">
                         <div class="rightest-box">
                           <p>Order Details:</p>
-                          <p>1 Cream and Strawberries, 5 layers</p>
-                          <p>Total price: £ 200</p>
-                          <p>Status: delivered</p>
+                          <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
+                          <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
+                          <p>Status: <%= product.status %> </p>
                           <button onclick="" class="btn">Review</button>
                         </div>
                       </div>

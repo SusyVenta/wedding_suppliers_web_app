@@ -163,3 +163,7 @@ function updateProfilePic() {
   }
   );
 }
+
+function addToBasket() {
+  
+}
