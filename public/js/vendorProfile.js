@@ -1,12 +1,12 @@
 let docRef;
-let userId;
+let vendorID;
 let vendorDetails;
 
 firebase.auth().onAuthStateChanged(user => {
     let vendorData;
     if (user) {
         uid = user.uid;
-        userId = user.uid;
+        vendorID = user.uid;
         db.collection('users')
             .where('user_id', '==', user.uid)
             .get()
@@ -20,6 +20,16 @@ firebase.auth().onAuthStateChanged(user => {
                 db.collection('users').doc(docRef).onSnapshot((doc) => {
                     vendorDetails = doc.data();
                     setProfile();
+                    setCatalogue();
+                })
+            }).then(() => {
+                const orders = [];
+                // get vendor orders 
+                db.collection('users').doc(vendorID).collection('orders_to_confirm').get().then(snapshot => {
+                    snapshot.forEach(order => {
+                        orders.push(order.data());
+                    })
+                    setOrders(orders);
                 })
             })
     }
@@ -30,11 +40,11 @@ firebase.auth().onAuthStateChanged(user => {
 // get link for that image and then update vendor db with link to storage
 $('#profile-pic-edit-button').change(event => {
     const image = event.target.files[0];
-    const storageRef = firebase.storage().ref('vendor-profiles').child(userId);
+    const storageRef = firebase.storage().ref('vendor-profiles').child(vendorID);
     storageRef.put(image).then(() => {
         firebase.storage()
             .ref('vendor-profiles')
-            .child(userId)
+            .child(vendorID)
             .getDownloadURL()
             .then((downloadURL) => {
                 const imageURL = downloadURL;
@@ -74,7 +84,9 @@ const setProfile = () => {
     if (vendorDetails.city) $('#city').html(vendorDetails.city);
     // set country
     if (vendorDetails.country) $('#country').html(vendorDetails.country);
+}
 
+function setCatalogue() {
     // If the vendor has products then display them in the catalogue container
     // Otherwise display a message
     if (vendorDetails.catalogue) {
@@ -84,12 +96,14 @@ const setProfile = () => {
             `<p class="text-center"> You have no products in your catalogue. Click add product to add products to your catalogue</p>`
         )
     }
+}
 
+function setOrders(orders) {
     // If the vendor has orders to confirm, display them in the catalogue container
     // Otherwise display a message
-    if (vendorDetails.orders_to_confirm) {
+    if (orders.length > 0) {
         //display orders
-        getOrders(vendorDetails.orders_to_confirm);
+        getOrders(orders);
     } else {
         $('#orders-container').html(
             `<p class="text-center"> You have no orders to confirm. </p>`
@@ -248,8 +262,8 @@ $('#create-product-button').click(event => {
     const productCountries = document.querySelectorAll('input[name=countryCheck]:checked');
     const countriesArray = Array.from(productCountries).map(checkbox => checkbox.value);
     // first upload image to storage and get storage id
-    //create unique productId using userId and current time
-    const productId = `${userId}${new Date().getTime()}`;
+    //create unique productId using vendorID and current time
+    const productId = `${vendorID}${new Date().getTime()}`;
     const storageRef = firebase.storage().ref('product-images').child(productId);
     let imageURL = false;
     storageRef.put(productImageChosen).then(() => {
@@ -270,7 +284,7 @@ $('#create-product-button').click(event => {
                     price: productPrice,
                     product_id: productId,
                     title: productName,
-                    vendor_id: userId,
+                    vendor_id: vendorID,
                     wedding_types: productType,
                 })
                     .then(() => {
@@ -353,7 +367,8 @@ function renderOrders(orders, products) {
                         })
                     ).append(
                         $('<p/>', {
-                            // description
+                            'class': 'card-text',
+                            text: `${product.description}`
                         })
                     ).append(
                         $('<p/>', {
@@ -377,6 +392,11 @@ function renderOrders(orders, products) {
                                 'class': 'list-group-item',
                                 text: `Requested deliver date:: ${order.preferred_delivery_chosen}`
                             })
+                        ).append(
+                            $('<li/>', {
+                                'class': 'list-group-item',
+                                text: `Order Status: ${order.status}`
+                            })
                         )
                     ).append(
                         $('<div/>', {
@@ -398,7 +418,9 @@ function renderOrders(orders, products) {
                             }).append(
                                 $('<button/>', {
                                     'class': 'btn btn-danger decline-order',
-                                    text: 'Decline'
+                                    text: 'Decline',
+                                    'data-userID': `${order.user_id}`,
+                                    'data-orderID': `${order.order_id}`
                                 })
                             )
                         ).append(
@@ -407,7 +429,9 @@ function renderOrders(orders, products) {
                             }).append(
                                 $('<button/>', {
                                     'class': 'btn btn-light message-customer',
-                                    text: 'Message Customer'
+                                    text: 'Message Customer',
+                                    'data-userID': `${order.user_id}`,
+                                    'data-orderID': `${order.order_id}`
                                 })
                             )
                         )
@@ -427,14 +451,26 @@ $('.orders-container').on('click', '.confirm-order', e => {
     const orderID = element.dataset.orderid;
     const userID = element.dataset.userid;
 
-    // change order from pending to confirmed for user
-    // db.collection('users').doc('userID').where()
+    alterOrderStatus('confirmed', orderID, userID);
+})
 
+$('.orders-container').on('click', '.decline-order', e => {
+    const element = e.target;
+    const orderID = element.dataset.orderid;
+    const userID = element.dataset.userid;
+
+    alterOrderStatus('declined', orderID, userID);
+})
+
+function alterOrderStatus(status, orderID, userID) {
+    // cchange status of order in customer doc
     db.collection('users').doc(userID).collection('orders').doc(orderID).update({
-        status: 'confirmed'
+        status: `${status}`
     })
 
+    // change order status in vendor doc
+    db.collection('users').doc(vendorID).collection(`orders_to_confirm`).doc(orderID).update({
+        status: `${status}`
+    })
+}
 
-    // remove from orders to confirm for vendor and move to confirmed orders
-
-})

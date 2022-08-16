@@ -81,8 +81,10 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     const uniqueOrderID = uuidv4();
 
     // get vendor ID data
-    const usersTableVendorID = await firestore.collection('users').doc(productFields.vendor_id).get();
-    let vendor_data = usersTableVendorID.data();
+    // const usersTableVendorID = await firestore.collection('users').doc(productFields.vendor_id).get();
+    // let vendor_data = usersTableVendorID.data();
+
+
 
     let new_entry_for_vendor = {
       user_id: productFields.user_id,
@@ -93,20 +95,22 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       order_id: uniqueOrderID
     };
 
-    let orders_to_confirm;
-    if ('orders_to_confirm' in vendor_data) {
-      orders_to_confirm = vendor_data.orders_to_confirm;
-      orders_to_confirm.push(new_entry_for_vendor);
-    } else {
-      orders_to_confirm = [new_entry_for_vendor];
-    }
+    firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);
 
-    const vendorEntry = firestore.collection('users').doc(productFields.vendor_id);
+    // let orders_to_confirm;
+    // if ('orders_to_confirm' in vendor_data) {
+    //   orders_to_confirm = vendor_data.orders_to_confirm;
+    //   orders_to_confirm.push(new_entry_for_vendor);
+    // } else {
+    //   orders_to_confirm = [new_entry_for_vendor];
+    // }
 
-    vendorEntry.set(
-      { orders_to_confirm: orders_to_confirm },
-      { merge: true }
-    );
+    // const vendorEntry = firestore.collection('users').doc(productFields.vendor_id);
+
+    // vendorEntry.set(
+    //   { orders_to_confirm: orders_to_confirm },
+    //   { merge: true }
+    // );
 
     /* Update user orders, adding the order that is pending confirmation */
     //let user_data_snap = await firestore.collection('users').doc(productFields.user_id).collection('orders').get();
