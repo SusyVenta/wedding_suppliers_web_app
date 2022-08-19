@@ -136,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
             $('#user_id_navbar').html(uid).css({
                 'color': 'white',
                 'fontSize': '0.01px'
-            });
+            }).hide();
         } else {
             hidenWhenSignedIn.each((i, item) => {
                 item.classList.remove('hide');

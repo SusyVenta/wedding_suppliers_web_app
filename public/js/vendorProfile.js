@@ -89,7 +89,7 @@ const setProfile = () => {
 function setCatalogue() {
     // If the vendor has products then display them in the catalogue container
     // Otherwise display a message
-    if (vendorDetails.catalogue) {
+    if (vendorDetails.catalogue.length > 0) {
         getProductDetails(vendorDetails.catalogue);
     } else {
         $('#catalogue-container').html(
@@ -162,33 +162,99 @@ function saveEditsToDatabase(inputs) {
     })
 }
 
-
+// -------------- Catalogue ----------------------
 
 const renderCatalogue = (product) => {
     const productImage = product.pictures[0];
-    const productCard = `
-    <div class="card mx-auto text-center text-dark bg-light" style="width: 80%">
-        <div class="row g-0">
-            <div class="col-md-4">
-            <img src="${productImage}" alt="product image" class="img-fluid rounded-start">
-            </div>
-            <div class="col-md-8">
-            <h5 class="card-title">${product.title}</h5>
-            <ul class="list-group list-group-flush">
-                <li class="list-group-item">${product.description}</li>
-                <li class="list-group-item">Category: ${product.category}</li>
-                <li class="list-group-item">Available colours: ${product.colors}</li>
-                <li class="list-group-item">Country availablility: ${product.available_countries}</li>
-                <li class="list-group-item">Wedding Types: ${product.wedding_types}</li> 
-                <li class="list-group-item">Price: ${product.currency} ${product.price}</li>
-            </ul>
-            <a href="#" class="btn btn-primary">See reviews</a>
-            </div>
-        </div>
-    </div>
-    `
-    // catalogue
-    $('#catalogue-container').append(productCard);
+    $('#catalogue-container').append(
+        $('<div/>', {
+            'class': 'card mx-auto text-center text-dark bg-light',
+            style: 'width: 80%'
+            // row
+        }).append(
+            $('<div/>', {
+                'class': 'row g-0'
+                // image column
+            }).append(
+                $('<div/>', {
+                    'class': 'col-md-4'
+                    // product image
+                }).append(
+                    $('<img/>', {
+                        'class': 'img-fluid rounded-start',
+                        alt: 'product image',
+                        src: `${productImage}`
+                    })
+                )
+                // details column
+            ).append(
+                $('<div/>', {
+                    'class': 'col-md-8'
+                    // title
+                }).append(
+                    $('<h5/>', {
+                        'class': 'card-title',
+                        text: `${product.title}`
+                    })
+                    // list of details
+                ).append(
+                    $('<ul/>', {
+                        'class': 'list-group list-group-flush',
+                        // description
+                    }).append(
+                        $('<li/>', {
+                            'class': 'list-group-item',
+                            text: `${product.description}`
+                        })
+                        // category
+                    ).append(
+                        $('<li/>', {
+                            'class': 'list-group-item',
+                            text: `Category: ${product.category}`
+                        })
+                        // colours
+                    ).append(
+                        $('<li/>', {
+                            'class': 'list-group-item',
+                            text: `Available colours: ${product.colors}`
+                        })
+                        // countries
+                    ).append(
+                        $('<li/>', {
+                            'class': 'list-group-item',
+                            text: `Country availability: ${product.available_countries}`
+                        })
+                        // types
+                    ).append(
+                        $('<li/>', {
+                            'class': 'list-group-item',
+                            text: `Wedding types: ${product.wedding_types}`
+                        })
+                        // price
+                    ).append(
+                        $('<li/>', {
+                            'class': 'list-group-item',
+                            text: `Price: ${product.currency}${product.price}`
+                        })
+                        // reviews
+                    ).append(
+                        $('<a/>', {
+                            'class': 'btn btn-primary',
+                            'data-productID': `${product.product_id}`,
+                            text: 'See Reviews'
+                        })
+                        // delete
+                    ).append(
+                        $('<a/>', {
+                            'class': 'btn btn-primary delete-product',
+                            'data-productID': `${product.product_id}`,
+                            text: 'Delete Product'
+                        })
+                    )
+                )
+            )
+        )
+    )
 }
 
 // get products for catalogue from db
@@ -203,7 +269,70 @@ function getProductDetails(productIDs) {
         })
 }
 
-// -------------- Catalogue ----------------------
+// Delete product click event
+$('#catalogue-container').on('click', '.delete-product', event => {
+    const element = event.target;
+    const productID = element.dataset.productid;
+    // show confirmation window
+    // delete product
+    deleteProduct(productID);
+
+})
+
+async function deleteProduct(productID) {
+    // TODO: don't allow orders that have been confirmed be deleted from orders
+    // check to see if there are any current orders
+    db.collectionGroup('orders')
+        .where('product_id', '==', productID)
+        .get()
+        .then(snapshot => {
+            snapshot.forEach(order => {
+                console.log(order.order_id);
+                // delete order for user
+                db.collection('users')
+                    .doc(order.user_id)
+                    .collection('orders')
+                    .doc(order.order_id)
+                    .delete()
+                    .then(() => {
+                        console.log('deleted order');
+                    })
+            })
+        })
+
+    // delete vendors orders_to_confirm
+    db.collectionGroup('orders_to_confirm')
+        .where('product_id', '==', productID)
+        .get()
+        .then(snapshot => {
+            snapshot.forEach(order => {
+                db.collection('users')
+                    .doc(vendorID)
+                    .collection('orders_to_confirm')
+                    .doc(order.order_id)
+                    .delete()
+                    .then(() => {
+                        console.log('deleted order from orders_to_confirm');
+                    })
+            })
+        })
+
+    // delete product from products
+    db.collection('products')
+        .doc(productID)
+        .delete()
+        .then(() => {
+            console.log('deleted product');
+        })
+
+
+    // delete the product from the vendors catalogue
+    db.collection('users').doc(vendorID).update({
+        catalogue: firebase.firestore.FieldValue.arrayRemove(productID)
+    })
+}
+// See reviews click event
+
 
 $('#add-to-catalogue-button').click(() => {
     // add wedding type options to dropdown
@@ -276,6 +405,7 @@ $('#create-product-button').click(event => {
                 imageURL = downloadURL;
                 db.collection('products').doc(productId).set({
                     available_countries: countriesArray,
+                    available_cities: [],
                     category: productCategory,
                     colors: coloursArray,
                     currency: productCurrency,
@@ -446,6 +576,7 @@ function getTotalPrice(quantity, price) {
     return quantity * price;
 }
 
+// accept order event
 $('.orders-container').on('click', '.confirm-order', e => {
     const element = e.target;
     const orderID = element.dataset.orderid;
@@ -454,6 +585,7 @@ $('.orders-container').on('click', '.confirm-order', e => {
     alterOrderStatus('confirmed', orderID, userID);
 })
 
+// decline order event
 $('.orders-container').on('click', '.decline-order', e => {
     const element = e.target;
     const orderID = element.dataset.orderid;
@@ -462,6 +594,7 @@ $('.orders-container').on('click', '.decline-order', e => {
     alterOrderStatus('declined', orderID, userID);
 })
 
+// Change the status of an order in db when an order is declined or accepted by the vendor
 function alterOrderStatus(status, orderID, userID) {
     // cchange status of order in customer doc
     db.collection('users').doc(userID).collection('orders').doc(orderID).update({
@@ -473,4 +606,3 @@ function alterOrderStatus(status, orderID, userID) {
         status: `${status}`
     })
 }
-
