@@ -239,7 +239,7 @@ const renderCatalogue = (product) => {
                         // reviews
                     ).append(
                         $('<a/>', {
-                            'class': 'btn btn-primary',
+                            'class': 'btn btn-primary see-product',
                             'data-productID': `${product.product_id}`,
                             text: 'See Reviews'
                         })
@@ -256,6 +256,13 @@ const renderCatalogue = (product) => {
         )
     )
 }
+
+// Direct to product page when clicking on see reviews
+$('#catalogue-container').on('click', '.see-product', event => {
+    const element = event.target;
+    const product_id = element.dataset.productid;
+    window.location.href = `${window.location.protocol}//${window.location.host}/product_details/${product_id}`
+})
 
 // get products for catalogue from db
 function getProductDetails(productIDs) {
