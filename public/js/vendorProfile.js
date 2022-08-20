@@ -287,15 +287,14 @@ async function deleteProduct(productID) {
         .get()
         .then(snapshot => {
             snapshot.forEach(order => {
-                console.log(order.order_id);
                 // delete order for user
                 db.collection('users')
-                    .doc(order.user_id)
+                    .doc(order.data().user_id)
                     .collection('orders')
-                    .doc(order.order_id)
+                    .doc(order.data().order_id)
                     .delete()
                     .then(() => {
-                        console.log('deleted order');
+                        console.log(`deleted order ${order.data().order_id}`);
                     })
             })
         })
@@ -309,10 +308,10 @@ async function deleteProduct(productID) {
                 db.collection('users')
                     .doc(vendorID)
                     .collection('orders_to_confirm')
-                    .doc(order.order_id)
+                    .doc(order.data().order_id)
                     .delete()
                     .then(() => {
-                        console.log('deleted order from orders_to_confirm');
+                        console.log(`deleted order ${order.data().order_id} from orders_to_confirm`);
                     })
             })
         })
