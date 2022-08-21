@@ -13,37 +13,6 @@
     <!-- PAGE HEAD -->
     <link rel="stylesheet" href="/styles/user-profile.css">
     <script src="/js/user_profile.js" type="text/javascript" defer></script>
-
-  <script>
-    /* Chat view for phone display */
-    function listChats() {
-      var chatSections = document.getElementsByClassName('chat');
-      for (let chatSection of chatSections) {
-        chatSection.style.display = "none";
-      }
-
-      var chatsListSections = document.getElementsByClassName('discussions');
-      for (let chatsListSection of chatsListSections) {
-        chatsListSection.style.display = "flex";
-      }
-    };
-
-    function openChat(element) {
-      var user = this.id;
-
-      var chatSections = document.getElementsByClassName('chat');
-      for (let chatSection of chatSections) {
-        chatSection.style.display = "flex";
-      }
-
-      var chatsListSections = document.getElementsByClassName('discussions');
-      for (let chatsListSection of chatsListSections) {
-        chatsListSection.style.display = "none";
-      }
-    };
-
-
-  </script>
 </head>
 
 <body>
@@ -56,10 +25,8 @@
           <div class="tab">
             <button class="tablinks" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
               Information</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'to-do-list')">To Do List</button>
             <button class="tablinks" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
             <button class="tablinks" onclick="openUserProfile(event, 'Orders')">My Orders</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'Messages')">Messages</button>
           </div>
 
           <div id="Profile" class="tabcontent">
@@ -73,7 +40,7 @@
                 <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
 
                 <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
-                <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picturesssssss</button>
+                <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picture</button>
               </div>
               <div class="tab-content" id="user-details">
                 <form id="user-details">
@@ -82,11 +49,13 @@
                       <div class="col">
                         <div class="row">
                           <!-- Email -->
-                          <input type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
+                          <label>Email</label>
+                          <input disabled type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
                         </div>
                         <div class="row">
                           <!-- Phone number -->
-                          <% if(user.phone_number == null){ %>
+                          <label>Phone number</label>
+                          <% if(user.phone_number == null | user.phone_number == ""){ %>
                             <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
                             placeholder="Phone Number" value="" required>
                           <% } else{ %>
@@ -96,6 +65,7 @@
                         </div>
                         <div class="row">
                           <!-- Address 1 -->
+                          <label>Address of your wedding location</label>
                           <% if(user.address_1 == null){ %>
                             <input type="text" id="address_1" class="form-control"
                             placeholder="Address of your wedding location" value="" %>" required>
@@ -107,14 +77,17 @@
                         </div>
                         <div class="row">
                           <!-- Postal Code -->
+                          <label>Postal code</label>
                           <input type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
                         </div>
                         <div class="row">
                           <!-- City -->
+                          <label>City</label>
                           <input type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
                         </div>
                         <div class="row">
                           <!-- Country -->
+                          <label>Country</label>
                           <select id="country" name="country" class="form-control" required>
                             <option value="" disabled selected hidden>Country</option>
                             <option selected value="<%= user.country %>"><%= user.country %></option>
@@ -372,40 +345,11 @@
                       </div>
                     </div>
                   </div>
-                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Edit" />
+                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Save" />
                 </form>
               </div>
             </div>
           </div>
-
-          <div id="to-do-list" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content" id="wishlist-tab-content">
-                <h3 class="tab-title">To Do List</h3>
-                <div id="wishlist-container">
-                  <form id="add-element-to-list" class="header">
-                    <input type="text" id="to-do-list-new-input" placeholder="What else do you need to do?">
-                    <span onclick="newToDoElement()" id="add-new-to-do-element-btn" class="addBtn">Add</span>
-                  </form>
-
-                  <ul id="to-do-list-items">
-                    <!-- print the todo list -->
-                    <% if(user.todo == null){ %>
-                      <li>Choosing the best wedding planning app</li>
-                    <% } else{ %>
-                      <% for(var i=0; i < user.todo.length; i++) { %>
-                        <li>
-                          <%= user.todo[i] %>
-                        </li>
-                      <% } %>
-                    <% } %>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
           <div id="Wishlist" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
@@ -413,82 +357,64 @@
                 <div class="orders-container">
                   <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
                     <% user.wishlist.forEach(function(product, index){ %>
-                      <div class="product" id="<%= "product" + index %> ">
+                      <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
                         <div class="picture-and-description">
-                          <div class="product-photo"
-                            style='background-image: url(" <%= product.pictures[0] %> " );'>
-                          </div>
-                          <div class="product-description">
-                            <h5 class="product-title">
-                              <%= product.title %>
-                          </h5>
-                          <p class="product-description-text">
-                              <%= product.description %>
-                          </p>
-                          <p class="colors-available-p">Colors available: <%= product.colors %>
-                          </p>
-                          <p class="vendor-details">
-                              <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
-                          </p>
-                          <% if(product.stars == null){ %>
-                            <p>No reviews yet</p>
-                        <% } else{ %>
-                            <div class="stars-rating">
-                              <% if (product.stars>= 1) { %>
-                                <span class="fa fa-star checked"></span>
+                            <div class="product-photo"
+                                style="background-image: url('<%= product.pictures[0]%>')" >
+                            </div>
+                            <div class="product-description">
+                                <h5 class="product-title">
+                                    <%= product.title %>
+                                </h5>
+                                <p class="product-description-text">
+                                    <%= product.description %>
+                                </p>
+                                <p class="colors-available-p">Colors available: <%= product.colors %>
+                                </p>
+                                <% if(product.stars == null){ %>
+                                    <p>No reviews yet</p>
                                 <% } else{ %>
-                                  <span class="fa fa-star"></span>
-                                  <% } %>
-                                    <% if (product.stars>= 2) { %>
-                                      <span class="fa fa-star checked"></span>
-                                      <% } else{ %>
-                                        <span class="fa fa-star"></span>
-                                        <% } %>
-                                          <% if (product.stars>= 3) { %>
+                                    <div class="stars-rating">
+                                        <% if (product.stars>= 1) { %>
                                             <span class="fa fa-star checked"></span>
                                             <% } else{ %>
-                                              <span class="fa fa-star"></span>
-                                              <% } %>
-                                                <% if (product.stars>= 4) { %>
-                                                  <span class="fa fa-star checked"></span>
-                                                  <% } else{ %>
-                                                    <span class="fa fa-star"></span>
-                                                    <% } %>
-                                                      <% if (product.stars>= 5) { %>
+                                                <span class="fa fa-star"></span>
+                                                <% } %>
+                                                    <% if (product.stars>= 2) { %>
                                                         <span class="fa fa-star checked"></span>
                                                         <% } else{ %>
-                                                          <span class="fa fa-star"></span>
-                                                          <% } %>
+                                                            <span class="fa fa-star"></span>
+                                                            <% } %>
+                                                                <% if (product.stars>= 3) { %>
+                                                                    <span class="fa fa-star checked"></span>
+                                                                    <% } else{ %>
+                                                                        <span class="fa fa-star"></span>
+                                                                        <% } %>
+                                                                            <% if (product.stars>= 4) { %>
+                                                                                <span class="fa fa-star checked"></span>
+                                                                                <% } else{ %>
+                                                                                    <span class="fa fa-star"></span>
+                                                                                    <% } %>
+                                                                                        <% if (product.stars>= 5) { %>
+                                                                                            <span
+                                                                                                class="fa fa-star checked"></span>
+                                                                                            <% } else{ %>
+                                                                                                <span
+                                                                                                    class="fa fa-star"></span>
+                                                                                                <% } %>
+                                    </div>
+                                    <div class="rating-and-reviews">
+                                        <p>Rating: <%= product.stars %>/5</p>
+                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                                    </div>
+                                <% } %>
+                                <p>Price per unit: <%= product.currency %> <%= product.price %></p>
+                                <button onclick="" class="btn">See Product Details</button>
                             </div>
-                            <div class="rating-and-reviews">
-                              <p>Rating: <%= product.stars %>/5</p>
-                              <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
-                            </div>
-                            <% } %>
-                          </div>
                         </div>
-                        <div class="product-to-right-boxes">
-                          <div class="rightest-box">
-                            <i class="fa fa-shopping-cart"></i>
-                            <p>Quantity:</p>
-                            <input class="product-number-input" type="number" id="<%= "product" + index + "-quantity" %>"/>
-                            <p>Color:</p>
-                            <select class="product-color-select" id="<%= "product" + index + "-color" %>">
-                              <% product.colors.forEach(function(color){ %>
-                                <option value="<%= color %>"><%= color %></option>
-                              <% }) %>
-                            </select>
-                            <label for="preferred_delivery">Preferred delivery date:</label>
-                            <input type="date" id="<%= "product" + index + "-preferred_delivery" %>" />
-                            <p>Price per unit: <%= product.currency %>
-                                <%= product.price %>
-                            </p>
-                            <button value=<%= "product" + index %> onclick="addToBasket(value)" class="btn">Add to basket</button>
-                          </div>
-                        </div>
-                        <input input type="hidden" id=<%= "product" + index + "-id" %> type="text" name="product_id"
-                          value="<%= product.product_id %>" />
-                      </div>
+                        <input input type="hidden" type="text" name="product_id"
+                            value="<%= product.product_id %>" />
+                      </form>
                       <% }) %>
                     <% } else { %>
                       <p>Your wishlist is currently empty</p>
@@ -568,166 +494,82 @@
                           <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
                           <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
                           <p>Status: <%= product.status %> </p>
-                          <button value="<%= product.product_id %>" onclick="reviewOrder(value)" class="btn">Review</button>
+                          <% if(product.status == 'pending vendor confirmation'){ %>
+                            <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn">Cancel</button>
+                          <% } else{ %>
+                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.product_id %>').modal('show');" class="btn">Review</button>
+                          <% } %>
                         </div>
                       </div>
                       <input input type="hidden" id="first" type="text" name="product_id"
                         value="<%= product.product_id %>" />
                     </div>
+                    <div id="reviewProduct_<%= product.product_id %>" class="modal" tabindex="-1" role="dialog">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Review <%= product.product.title %></h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                            </button>
+                          </div>
+                          <div class="modal-body">
+                            <div>
+                              <p>Product Quality:</p>
+                              <select name="quality_rating" id="quality_rating_<%= product.product_id %>">
+                                <option value="5" selected>5</option>
+                                <option value="4" selected>4</option>
+                                <option value="3" selected>3</option>
+                                <option value="2" selected>2</option>
+                                <option value="1" selected>1</option>
+                              </select>
+                            </div>
+                            <div>
+                              <p>Vendor quality:</p>
+                              <select name="vendor_quality_rating" id="vendor_quality_rating_<%= product.product_id %>">
+                                <option value="5" selected>5</option>
+                                <option value="4" selected>4</option>
+                                <option value="3" selected>3</option>
+                                <option value="2" selected>2</option>
+                                <option value="1" selected>1</option>
+                              </select>
+                            </div>
+                            <div>
+                              <p>Product Description:</p>
+                              <select name="product_description_rating" id="product_description_rating_<%= product.product_id %>">
+                                <option value="5" selected>5</option>
+                                <option value="4" selected>4</option>
+                                <option value="3" selected>3</option>
+                                <option value="2" selected>2</option>
+                                <option value="1" selected>1</option>
+                              </select>
+                            </div>
+                            <label>Comments:</label>
+                            <textarea id="review_free_text_<%= product.product_id %>" class="review_free_text" rows="4" cols="50"></textarea>
+                          </div> <!-- end modal body-->
+                          <div class="modal-footer">
+                            <button type="button" value="<%= product.product_id %>" class="btn btn-secondary" 
+                              onclick="reviewProduct(
+                                value, 
+                                $('#quality_rating_<%= product.product_id %>').find(':selected').text(), 
+                                $('#vendor_quality_rating_<%= product.product_id %>').find(':selected').text(),
+                                $('#product_description_rating_<%= product.product_id %>').find(':selected').text(),
+                                $('textarea#review_free_text_<%= product.product_id %>').val()
+                              )" 
+                              data-dismiss="modal">Save</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                     <% }) %>
                     <% } else { %>
                       <p>Your order list is currently empty</p>
                     <% } %> 
-                </div>
-                <div class="user-comments-box" id="user-comments-box">
-                  <div class="user-comments">
-                    <label for="user-review" class="user-comments-box-title">Leave your review!</label>
-                    <!--create a start rating-->
-                    <!-- credit:https://github.com/mukulkant/Star-rating-using-pure-css -->
-                    <div class="overall-star-rate" id="overall-star-rate">
-                      <p>Overall:</p>
-                      <input type="radio" id="overall-star5" name="overall-rate" value="5" />
-                      <label for="overall-star5" title="text">5 stars</label>
-                      <input type="radio" id="overall-star4" name="overall-rate" value="4" />
-                      <label for="overall-star4" title="text">4 stars</label>
-                      <input type="radio" id="overall-star3" name="overall-rate" value="3" />
-                      <label for="overall-star3" title="text">3 stars</label>
-                      <input type="radio" id="overall-star2" name="overall-rate" value="2" />
-                      <label for="overall-star2" title="text">2 stars</label>
-                      <input type="radio" id="overall-star1" name="overall-rate" value="1" />
-                      <label for="overall-star1" title="text">1 star</label>
-                    </div>
-                    <div class="quality-star-rate" id="quality-star-rate">
-                      <p>Product Quality:</p>
-                      <input type="radio" id="quality-star5" name="quality-rate" value="5" />
-                      <label for="quality-star5" title="text">5 stars</label>
-                      <input type="radio" id="quality-star4" name="quality-rate" value="4" />
-                      <label for="quality-star4" title="text">4 stars</label>
-                      <input type="radio" id="quality-star3" name="quality-rate" value="3" />
-                      <label for="quality-star3" title="text">3 stars</label>
-                      <input type="radio" id="quality-star2" name="quality-rate" value="2" />
-                      <label for="quality-star2" title="text">2 stars</label>
-                      <input type="radio" id="quality-star1" name="quality-rate" value="1" />
-                      <label for="quality-star1" title="text">1 star</label>
-                    </div>
-                    <div class="vendor-quality-star-rate" id="vendor-quality-star-rate">
-                      <p>Vendor quality:</p>
-                      <input type="radio" id="vendor-quality-star-star5" name="vendor-quality-rate" value="5" />
-                      <label for="vendor-quality-star-star5" title="text">5 stars</label>
-                      <input type="radio" id="vendor-quality-star-star4" name="vendor-quality-rate" value="4" />
-                      <label for="vendor-quality-star-star4" title="text">4 stars</label>
-                      <input type="radio" id="vendor-quality-star-star3" name="vendor-quality-rate" value="3" />
-                      <label for="vendor-quality-star-star3" title="text">3 stars</label>
-                      <input type="radio" id="vendor-quality-star-star2" name="vendor-quality-rate" value="2" />
-                      <label for="vendor-quality-star-star2" title="text">2 stars</label>
-                      <input type="radio" id="vendor-quality-star-star1" name="vendor-quality-rate" value="1" />
-                      <label for="vendor-quality-star-star1" title="text">1 star</label>
-                    </div>
-
-                    <div class="description-star-rate" id="description-star-rate">
-                      <p>Product Description:</p>
-                      <input type="radio" id="description-star5" name="description-rate" value="5" />
-                      <label for="description-star5" title="text">5 stars</label>
-                      <input type="radio" id="description-star4" name="description-rate" value="4" />
-                      <label for="description-star4" title="text">4 stars</label>
-                      <input type="radio" id="description-star3" name="description-rate" value="3" />
-                      <label for="description-star3" title="text">3 stars</label>
-                      <input type="radio" id="description-star2" name="description-rate" value="2" />
-                      <label for="description-star2" title="text">2 stars</label>
-                      <input type="radio" id="description-star1" name="description-rate" value="1" />
-                      <label for="description-star1" title="text">1 star</label>
-                    </div>
-
-                    <textarea id="user-comments-box-text" class="user-comments-box-text" rows="4" cols="50"></textarea>
-                    <button onclick="submitReview()" class="btn">Submit</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          
-
-          <div id="Messages" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Your Messages</h3>
-                <div id="chat-container">
-
-                  <section class="discussions">
-                    <div class="discussion search">
-                      <div class="searchbar">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        <input type="text" placeholder="Search..."></input>
-                      </div>
-                    </div>
-                    <div class="discussion message-active" id="userId1"
-                      ontouchstart="touchAvailable=true; openChat(this);" onclick="if(!touchAvailable) openChat(this);">
-
-                      <div class="chat-list-photo-name">
-                        <div>
-                          <div class="photo"
-                            style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
-                          </div>
-                        </div>
-                        <div class="desc-contact">
-                          <p class="name">Belfiore</p>
-                          <p class="message">Works great!</p>
-                        </div>
-                      </div>
-                      <div class="timer">12 sec</div>
-                    </div>
-                    <div class="discussion">
-                      <div class="chat-list-photo-name">
-                        <div>
-                          <div class="photo"
-                            style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
-                          </div>
-                        </div>
-                        <div class="desc-contact">
-                          <p class="name">Thomas Dbtn</p>
-                          <p class="message">Are you available at that time?</p>
-                        </div>
-                      </div>
-                      <div class="timer">42 min</div>
-                    </div>
-
-                  </section>
-                  <section class="chat">
-                    <div class="header-chat">
-                      <a id="go-back-to-chat-list" ontouchstart="touchAvailable=true; listChats();"
-                        onclick="if(!touchAvailable) listChats();"> <i class="fa fa-arrow-left"
-                          aria-hidden="true"></i></a>
-                      <div class="photo"
-                        style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
-                      </div>
-                      <p class="name">Belfiore</p>
-                    </div>
-                    <div class="messages-chat">
-                      <div class="message text-only">
-                        <div class="from-sender">
-                          <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be
-                            able to deliver them at around 10am. Does that work for you? </p>
-                          <p class="time"> 14h58</p>
-                        </div>
-                      </div>
-                      <div class="message text-only">
-                        <div class="response">
-                          <p class="response-time time"> 15h04</p>
-                          <p class="text"> Hi, that works great thank you 😃</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="footer-chat">
-                      <input type="text" class="write-message" placeholder="Type your message here"></input>
-                      <i id="chat-send-btn" class="fa fa-paper-plane clickable" aria-hidden="true"></i>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div> <!-- end messages tab -->
-        </div>
+                </div> <!--end orders container-->
+              </div><!--end tab content-->
+            </div><!--end tab content container -->
+          </div><!--end #Orders -->
+        </div><!--end main container  -->
       </main>
 
       <!-- footer partial -->

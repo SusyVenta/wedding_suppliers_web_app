@@ -602,7 +602,7 @@ $('.orders-container').on('click', '.decline-order', e => {
 
 // Change the status of an order in db when an order is declined or accepted by the vendor
 function alterOrderStatus(status, orderID, userID) {
-    // cchange status of order in customer doc
+    // change status of order in customer doc
     db.collection('users').doc(userID).collection('orders').doc(orderID).update({
         status: `${status}`
     })

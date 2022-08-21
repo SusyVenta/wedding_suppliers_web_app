@@ -80,12 +80,6 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
 
     const uniqueOrderID = uuidv4();
 
-    // get vendor ID data
-    // const usersTableVendorID = await firestore.collection('users').doc(productFields.vendor_id).get();
-    // let vendor_data = usersTableVendorID.data();
-
-
-
     let new_entry_for_vendor = {
       user_id: productFields.user_id,
       product_id: productFields.chosenProductId,
@@ -94,27 +88,9 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       color_chosen: productFields.color_chosen,
       order_id: uniqueOrderID
     };
+    // adds order to vendor DB, so they can confirm or decline
+    await firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);
 
-    firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);
-
-    // let orders_to_confirm;
-    // if ('orders_to_confirm' in vendor_data) {
-    //   orders_to_confirm = vendor_data.orders_to_confirm;
-    //   orders_to_confirm.push(new_entry_for_vendor);
-    // } else {
-    //   orders_to_confirm = [new_entry_for_vendor];
-    // }
-
-    // const vendorEntry = firestore.collection('users').doc(productFields.vendor_id);
-
-    // vendorEntry.set(
-    //   { orders_to_confirm: orders_to_confirm },
-    //   { merge: true }
-    // );
-
-    /* Update user orders, adding the order that is pending confirmation */
-    //let user_data_snap = await firestore.collection('users').doc(productFields.user_id).collection('orders').get();
-    //let user_data = user_data_snap.data();
     let new_entry_for_user = {
       user_id: productFields.user_id,
       product_id: productFields.chosenProductId,
@@ -125,25 +101,12 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       order_id: uniqueOrderID
     };
 
-    firestore.collection('users').doc(productFields.user_id).collection('orders').doc(uniqueOrderID).set(new_entry_for_user)
-
-    // let user_orders;
-    // if ('orders' in user_data) {
-    //   user_orders = user_data.orders;
-    //   user_orders.push(new_entry_for_user);
-    // } else {
-    //   user_orders = [new_entry_for_user];
-    // }
-    // const userEntry = firestore.collection('users').doc(productFields.user_id);
-
-    // userEntry.set(
-    //   { orders: user_orders },
-    //   { merge: true }
-    // );
+    // adds order to customer profile 'My orders page' 
+    await firestore.collection('users').doc(productFields.user_id).collection('orders').doc(uniqueOrderID).set(new_entry_for_user);
   }
 
   if (action === "add_to_basket") {
-    /* Update user wishlist */
+    /* Update user's  wishlist */
     let user_data_snap = await firestore.collection('users').doc(productFields.user_id).get();
     let user_data = user_data_snap.data();
     let new_entry_for_user = {

@@ -1,6 +1,6 @@
 # WeddingSuppliersWebApp
 Prototype of online retail platform to connect users and wedding suppliers
-
+Commit history: https://github.com/SusyVenta/wedding_suppliers_web_app/commits/main
 # Development   
 
 ## Windows
