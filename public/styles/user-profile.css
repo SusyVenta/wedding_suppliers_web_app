@@ -1,0 +1,1183 @@
+.page-container{
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+}
+
+ /* ----------- phone view ------ */
+ @media only screen and (min-width: 800px) {
+  .main-container{
+    margin-top: 20px;
+  }
+  
+ }
+
+/* ---------------------------- generic tabs content -----------------------------*/
+/* Style the tab */
+.tab {
+  float: left;
+  border: 1px solid #ccc;
+  background-color: white;
+  width: 20%;
+  height: 1000px;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  display: block;
+  background-color: inherit;
+  color: black;
+  padding: 22px 16px;
+  width: 100%;
+  border: none;
+  outline: none;
+  text-align: left;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 16px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #fac7b133;
+}
+
+/* Create an active/current "tab button" class */
+.tab button.active {
+  background-color: #fac7b18c;
+  color: black;
+  padding: 22px 16px;
+  font-size: 17px;
+  cursor: pointer;
+}
+
+/* Style the tab content */
+.tabcontent {
+  float: left;
+  padding: 0px 12px;
+  border: 1px solid #ccc;
+  width: 80%;
+  padding-bottom: 100px;
+  height: 1000px;
+}
+
+
+
+.tab-content-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.tab-content{
+  margin-top: 15px;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.tab-title{
+  align-self: center;
+}
+
+ /* ----------- phone view ------ */
+ @media only screen and (max-width: 800px) {
+  .tab button, .tab button.active {
+    font-size: 12px;
+  }
+  .main-container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .tab{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    height: 80px;
+    border: 1px solid gray;
+    width: 100%;
+    justify-content: center;
+  }
+  .tabcontent{
+    width: 100%;
+  }
+
+ }
+
+
+/* ----------------- tabs content - personal information section ----------------*/
+/* rounded rofile picture*/
+
+#profile-pic-container{
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+#profile-pic {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* user details */
+
+#user-details{
+  width: 100%;
+  align-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+/* ----------- phone view ------ */
+@media only screen and (max-width: 800px) {
+  .container.user-details{
+    width: 90%;
+  }
+
+  .form-control{
+    font-size: 12px;
+  }
+
+  h3{
+    font-size: 16px;
+  }
+}
+
+/* ----------- larger than phone ------ */
+@media only screen and (min-width: 800px){
+  .container.user-details{
+    width: 60%;
+  }
+}
+
+.container.user-details > .row{
+  padding: 30px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* buttons */
+#edit-user-details, #change-picture, .row{
+  margin-top: 15px;
+}
+
+/* --------------------------wishlist -----------------------------------*/
+
+/* Include the padding and border in an element's total width and height */
+
+#wishlist-container, #chat-container, #order-container{
+  box-sizing: border-box;
+  margin-top: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#wishlist-tab-content{
+  display: flex;
+  flex-direction: column;
+}
+
+/* Remove margins and padding from the list */
+#to-do-list-items {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* Style the list items */
+#to-do-list-items li {
+  cursor: pointer;
+  position: relative;
+  padding: 12px 8px 12px 40px;
+  background: #eee;
+  transition: 0.2s;
+
+  /* make the list items unselectable */
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* ----------- larger than phone ------ */
+@media only screen and (min-width: 800px){
+  /* Style the list items */
+  #to-do-list-items li {
+    font-size: 18px;
+  }
+}
+
+/* Set all odd list items to a different color (zebra-stripes) */
+#to-do-list-items li:nth-child(odd) {
+  background: #f9f9f9;
+}
+
+/* Darker background-color on hover */
+#to-do-list-items li:hover {
+  background: #ddd;
+}
+
+/* When clicked on, add a background color and strike out text */
+#to-do-list-items li.checked {
+  background: #B6E2D3;
+  color: black;
+  text-decoration: line-through;
+}
+
+/* Add a "checked" mark when clicked on */
+#to-do-list-items li.checked::before {
+  content: '';
+  position: absolute;
+  border-color: black;
+  border-style: solid;
+  border-width: 0 2px 2px 0;
+  top: 10px;
+  left: 16px;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+}
+
+#add-new-to-do-element-btn{
+  color:white;
+  background-color: #637289;
+  border-color: #637289;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+#add-new-to-do-element-btn:hover{
+  background-color: #7188ab;
+  border-color: #637289;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+}
+
+/* Style the close button */
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
+}
+
+/* Style the header */
+.header {
+  background-color: white;
+  padding: 30px 40px;
+  color: white;
+  text-align: center;
+}
+
+/* Clear floats after the header */
+.header:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the input */
+input {
+  margin: 0;
+  border: 1px solid #ccc;
+  width: 75%;
+  padding: 10px;
+  float: left;
+  font-size: 16px;
+  
+}
+
+/* Style the "Add" button */
+.addBtn {
+  padding: 10px;
+  width: 25%;
+  background: #d9d9d9;
+  color: #555;
+  float: left;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-radius: 0;
+}
+
+.addBtn:hover {
+  background-color: #bbb;
+}
+
+/* ----------- phone view ------ */
+@media only screen and (max-width: 800px) {
+  #to-do-list-items li, #to-do-list-new-input, #add-new-to-do-element-btn {
+    font-size: 12px;
+  }
+
+  #add-element-to-list{
+    padding: 10px 15px;
+  }
+  
+}
+
+/* ----------------------------------------Messages tab-------------------------*/
+
+
+
+/* === CONVERSATIONS === */
+/* ----------- larger than phone ------ */
+@media only screen and (min-width: 1200px){
+  #chat-container {
+    padding:0;
+    background-color: #FFF; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 900px;
+    display: flex;
+    width: 100%;
+  }
+  .discussions {
+    width: 40%;
+    height: 100%;
+    box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+    overflow: hidden;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+
+  .chat-list-photo-name{
+    display: flex;
+    width: 100%;
+  }
+
+  .time {
+    font-size: 10px;
+    color:lightgrey;
+    margin-bottom:10px;
+    margin-left: 85px;
+  }
+  .chat .header-chat .name {
+    margin: 0 0 0 20px;
+    text-transform: uppercase;
+    font-family:'Montserrat', sans-serif;
+    font-size: 13pt;
+    color:#515151;
+  }
+  .header-chat {
+    background-color: #FFF;
+    height: 90px;
+    box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
+    display:flex;
+    align-items: center;
+    width: 100%;
+  }
+  .header-chat > .photo{
+    display: block;
+    width: 50px;
+    height: 45px;
+    background: #E6E7ED;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius:50px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+  }
+  .text-only {
+    margin-left: 45px;
+  }
+  .response {
+    float: right;
+    margin-right: 0px !important;
+    margin-left:auto; /* flexbox alignment rule */
+  }
+  
+  .chat .messages-chat .text {
+    margin: 0 35px;
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  #chat-send-btn {
+    color:#C0C0C0;
+    font-size: 14pt;
+    color:#fff;
+    background-color: #4f6ebd;
+    padding: 12px 12px 12px 12px;
+    border-radius: 50px;
+    font-size: 14pt;
+    display: flex;
+    margin-right: 10px;
+  }
+  .write-message {
+    border:none !important;
+    width:80%;
+    height: 50px;
+    margin-left: 20px;
+    padding: 10px;
+  }
+  .chat {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  .discussions .discussion {
+    width: 100%;
+    height: 90px;
+    background-color: #FAFAFA;
+    border-bottom: solid 1px #E0E0E0;
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+  }
+  .timer {
+    margin-left: auto;
+    font-family:'Open Sans', sans-serif;
+    font-size: 11px;
+    padding: 3px 8px;
+    color: #BBB;
+    background-color: #FFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 15px;
+  }
+  .desc-contact {
+    height: 43px;
+    width:50%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+}
+
+@media only screen and (max-width: 800px) {
+  #chat-container {
+    padding:0;
+    background-color: #FFF; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 100%;
+    display: flex;
+    width: 100%;
+  }
+  .chat {
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    height: 100%;
+  }
+}
+
+/* ----------- phone & tablet ------ */
+@media only screen and (min-width: 801px) and (max-width: 1199px) {
+  .chat {
+    width: 100%;
+    height: 900px;
+    display: none;
+    
+    flex-direction: column;
+  }
+  #chat-container {
+    padding:0;
+    background-color: #FFF; 
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+    height: 100%;
+    display: flex;
+    width: 100%;
+  }
+}
+/* ----------- phone & tablet ------ */
+@media only screen and (max-width: 1199px) {
+  
+
+  /* On phone, by default display only the list of conversations. If user clicks on one,
+  open it full screen*/
+  
+
+  .discussions {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0px 8px 10px rgba(0,0,0,0.20);
+    overflow: hidden;
+    background-color: white;
+    flex-direction: column;
+    overflow-y: scroll;
+  }
+  .messages-chat{
+    display: flex;
+    flex-direction: column;
+    min-height: 65vh;
+  }
+  .time{
+    font-size: 10px;
+    color:lightgrey;
+    margin-bottom:10px;
+    margin-left: 0px;
+  }
+
+  .chat .header-chat .name {
+    margin: 0 0 0 20px;
+    text-transform: uppercase;
+    font-family:'Montserrat', sans-serif;
+    font-size: 16px;
+    color:#515151;
+  }
+  .header-chat {
+    background-color: #FFF;
+    height: 70px;
+    box-shadow: 0px 3px 2px rgba(0,0,0,0.100);
+    display:flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+  }
+  .messages-chat > * > p, .messages-chat > * > * > p{
+    font-size: 12px;
+  }
+
+  .header-chat > .photo, .discussion > .photo, .chat-list-photo-name > * > .photo{
+    display: block;
+    width: 50px;
+    height: 45px;
+    background: #E6E7ED;
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius:50px;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 20px;
+  }
+
+  .text-only{
+    margin-left: 0px;
+  }
+
+  .from-sender{
+    display: flex;
+    margin-right: 20%;
+    align-items: center;
+  }
+  .response {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+  }
+  
+  .chat .messages-chat .text {
+    background-color: #f6f6f6;
+    padding: 15px;
+    border-radius: 12px;
+  }
+  #chat-send-btn {
+    color:#C0C0C0;
+    font-size: 14pt;
+    color:#fff;
+    background-color: #4f6ebd;
+    padding: 12px 12px 12px 12px;
+    border-radius: 50px;
+    font-size: 12pt;
+    display: flex;
+    margin-right: 10px;
+  }
+  input.write-message {
+    border:none !important;
+    width:80%;
+    height: 50px;
+    margin-left: 20px;
+    padding: 10px;
+    font-size: 12px;
+  }
+  .chat-list-photo-name{
+    display: flex;
+  }
+  .discussions .discussion {
+    width: 100%;
+    height: 90px;
+    background-color: #FAFAFA;
+    border-bottom: solid 1px #E0E0E0;
+    display:flex;
+    align-items: center;
+    cursor: pointer;
+    justify-content: space-between;
+  }
+  .timer {
+    width: 20%;
+    font-family:'Open Sans', sans-serif;
+    font-size: 11px;
+    padding: 3px 8px;
+    color: #BBB;
+    background-color: #FFF;
+    border: 1px solid #E5E5E5;
+    border-radius: 15px;
+    display: flex;
+    justify-content: flex-end;
+    margin-right:20px;
+  }
+  .timer > p{
+    width: 100%;
+    
+  }
+  .desc-contact {
+    height: 43px;
+    width:60%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .desc-contact > .message{
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+}
+
+
+
+
+.discussions .search {
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  color: #E0E0E0;
+}
+
+.discussions .search .searchbar {
+  height: 40px;
+  background-color: #FFF;
+  width: 70%;
+  padding: 0 20px;
+  border-radius: 50px;
+  border: 1px solid #EEEEEE;
+  display:flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.discussions .search .searchbar input {
+  margin-left: 15px;
+  height:38px;
+  width:100%;
+  border:none;
+  font-family: 'Montserrat', sans-serif;;
+}
+
+.discussions .search .searchbar *::-webkit-input-placeholder {
+    color: #E0E0E0;
+}
+.discussions .search .searchbar input *:-moz-placeholder {
+    color: #E0E0E0;
+}
+.discussions .search .searchbar input *::-moz-placeholder {
+    color: #E0E0E0;
+}
+.discussions .search .searchbar input *:-ms-input-placeholder {
+    color: #E0E0E0;
+}
+
+.discussions .message-active {
+  width: 98.5%;
+  height: 90px;
+  background-color: #FFF;
+  border-bottom: solid 1px #E0E0E0;
+}
+
+.online {
+  position: relative;
+  top: 30px;
+  left: 35px;
+  width: 13px;
+  height: 13px;
+  background-color: #8BC34A;
+  border-radius: 13px;
+  border: 3px solid #FAFAFA;
+}
+
+.discussions .discussion .name {
+  margin: 0 0 0 20px;
+  font-family:'Montserrat', sans-serif;
+  font-size: 11pt;
+  color:#515151;
+}
+
+.discussions .discussion .message {
+  margin: 6px 0 0 20px;
+  font-family:'Montserrat', sans-serif;
+  font-size: 9pt;
+  color:#515151;
+}
+
+
+
+.chat .header-chat .icon {
+  margin-left: 30px;
+  color:#515151;
+  font-size: 14pt;
+}
+
+.chat .header-chat .right {
+  position: absolute;
+  right: 40px;
+}
+
+.chat .messages-chat {
+  padding: 25px 35px;
+  overflow-y: scroll;
+  height: 80%;
+}
+
+.chat .messages-chat .message {
+  display:flex;
+  align-items: center;
+  margin-bottom: 8px;
+  
+}
+
+
+.response-time {
+  float: right;
+  margin-right: 40px !important;
+}
+
+
+
+.response .text {
+  background-color: #e3effd !important;
+}
+
+.footer-chat {
+  width: 100%;
+  height: 100px;
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: transparent;
+  border-top: 2px solid #EEE;
+  
+}
+
+.chat .footer-chat .name {
+  margin: 0 0 0 20px;
+  text-transform: uppercase;
+  font-family:'Montserrat', sans-serif;
+  font-size: 13pt;
+  color:#515151;
+}
+
+.footer-chat *::-webkit-input-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+}
+.footer-chat input *:-moz-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+}
+.footer-chat input *::-moz-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+  margin-left:5px;
+}
+.footer-chat input *:-ms-input-placeholder {
+  color: #C0C0C0;
+  font-size: 13pt;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+/* ----------------------------------orders ---------------------------*/
+
+.orders-container{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 900px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+  height: 900px;
+  overflow-y: scroll;
+}
+
+.orders-container * button{
+  height: 50px;
+}
+
+.product{
+  display: flex;
+  flex-direction: row;
+  height: 300px;
+  font-size: 13px;
+  margin-top: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+  width: 100%;
+}
+
+.picture-and-description{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  padding: 5px;
+  border-right: 1px solid #ccc;
+}
+
+.product-description{
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-between;
+  align-items: center;
+  width: 40%;
+}
+
+.product-description > *{
+  align-self: flex-start;
+}
+
+.product-description-text{
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+.product-photo {
+  width: 60%;
+  height: 100% !important;
+  max-width: 100%;
+  max-height: 100%;
+  
+  /* Set a specific height */
+  height: 20vh;
+
+  /* Position and center the image to scale nicely on all screens */
+  background-position: bottom;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+}
+
+.stars-rating > *.checked{
+  color: orange;
+}
+
+.rating-and-reviews{
+  display: flex;
+}
+
+.vendor-details{
+  font-size: 10px;
+}
+
+.product-to-right-boxes{
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+}
+
+.rightest-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: 1px solid #ccc;
+  padding: 5px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.fa.fa-shopping-cart{
+  color:#fff;
+  background-color: #4f6ebd;
+  padding: 12px 12px 12px 12px;
+  border-radius: 50px;
+  font-size: 16pt;
+  height: 40px;
+  width: 40px;
+}
+
+/* product number input picker */
+input{
+  position: relative;
+  max-width: 100%;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    opacity: 1;
+}
+
+.product-number-input{
+  height: 30px;
+}
+
+input[type=number].product-number-input{
+  font-size:16px;
+}
+
+.product-description > h3{
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* user-comments-box */
+.user-comments-box{
+  width: 30%;
+  height: 30%;
+  background-color: #637289;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}
+.user-comments{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.vendor-quality-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.vendor-quality-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.vendor-quality-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.vendor-quality-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.vendor-quality-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.vendor-quality-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.vendor-quality-star-rate:not(:checked) > label:hover,
+.vendor-quality-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.vendor-quality-star-rate > input:checked + label:hover,
+.vendor-quality-star-rate > input:checked + label:hover ~ label,
+.vendor-quality-star-rate > input:checked ~ label:hover,
+.vendor-quality-star-rate > input:checked ~ label:hover ~ label,
+.vendor-quality-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.quality-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.quality-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.quality-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.quality-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.quality-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.quality-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.quality-star-rate:not(:checked) > label:hover,
+.quality-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.quality-star-rate > input:checked + label:hover,
+.quality-star-rate > input:checked + label:hover ~ label,
+.quality-star-rate > input:checked ~ label:hover,
+.quality-star-rate > input:checked ~ label:hover ~ label,
+.quality-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.description-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.description-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.description-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.description-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.description-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.description-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.description-star-rate:not(:checked) > label:hover,
+.description-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.description-star-rate > input:checked + label:hover,
+.description-star-rate > input:checked + label:hover ~ label,
+.description-star-rate > input:checked ~ label:hover,
+.description-star-rate > input:checked ~ label:hover ~ label,
+.description-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+.overall-star-rate {
+  float: left;
+  height: 46px;
+  padding: 0 10px;
+}
+.overall-star-rate p {
+  display: inline-block;
+  transform: translateY(30%);
+}
+.overall-star-rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.overall-star-rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#ccc;
+}
+.overall-star-rate:not(:checked) > label:before {
+  content: '★ ';
+}
+.overall-star-rate > input:checked ~ label {
+  color: #ffc700;    
+}
+.overall-star-rate:not(:checked) > label:hover,
+.overall-star-rate:not(:checked) > label:hover ~ label {
+  color: #deb217;  
+}
+.overall-star-rate > input:checked + label:hover,
+.overall-star-rate > input:checked + label:hover ~ label,
+.overall-star-rate > input:checked ~ label:hover,
+.overall-star-rate > input:checked ~ label:hover ~ label,
+.overall-star-rate > label:hover ~ input:checked ~ label {
+  color: #c59b08;
+}
+
+/* ----------- tablet view  ------ */
+@media only screen and (max-width: 1024px) and (min-width: 701px){
+  .rightest-box > button {
+    height: 70px;
+  }
+
+  .product-description-text{
+    display: none;
+  }
+
+  input{
+    border: 1px solid black;
+  }
+
+  .product-to-right-boxes > * > p, .picture-and-description  > * > p{
+    font-size: 15px;
+  }
+
+  .product-details > button, .rightest-box > button {
+    height: 50px;
+  }
+
+}
+
+/* ----------- phone view  ------ */
+@media only screen and (max-width: 700px){
+  .product-to-right-boxes{
+    width: 20%;
+  }
+
+  .rightest-box{
+    width: 100%;
+  }
+
+  .product-details > button, .rightest-box > button {
+    height: 50px;
+  }
+
+  .product-description-text{
+    display: none;
+  }
+
+  .rating-and-reviews > p, .stars-rating > *{
+    margin-bottom: 0%;
+    font-size: 10px;
+  }
+
+  input{
+    border: 1px solid black;
+  }
+
+  .product-to-right-boxes > * > p, .picture-and-description  > * > p{
+    font-size: 10px;
+  }
+
+  h5{
+    font-size: 13px;
+  }
+
+  .fa.fa-shopping-cart{
+    font-size: 15px;
+  }
+}

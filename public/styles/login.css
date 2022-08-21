@@ -1,0 +1,43 @@
+.content {
+  width: 20rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  /* bring your own prefixes */
+  transform: translate(-50%, -50%);
+}
+
+#login-header {
+  padding-bottom: 3rem;
+  text-align: center;
+}
+
+#sign-up {
+  background-color: #A1AbFF;
+  color: white;
+}
+
+#forgot-password {
+  background-color: #FFE459;
+}
+
+#login-btn {
+  background-color: #84D3FF;
+  color: white;
+}
+
+a[href] {
+  color: #DA4040;
+}
+
+#cust-signup-btn {
+  background-color: #5177FF !important;
+  color: white !important;
+}
+#checkbox-tnc-container{
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+}
+#checkbox-tnc{
+  width: auto;
+}

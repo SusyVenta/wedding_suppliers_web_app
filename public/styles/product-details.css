@@ -1,0 +1,400 @@
+
+/* Contains header and rest of the page */
+.outer-page-container{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Does not contain header. Wraps page content  */
+.page-container{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: 900px;
+    margin-bottom: 15px;
+}
+
+/* ---------------------Titles  ---------------------------*/
+.text-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    justify-content: flex-start;
+}
+
+#product-title{
+    position: relative;
+}
+
+#address{
+    font-size: calc(1.14rem + .3vw);
+}
+
+.product-details-container{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.product-details-container > *{
+    text-overflow: ellipsis;
+    text-align: justify;
+    text-justify: inter-word;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+  /* ----------- phone view ------ */
+  @media only screen and (max-width: 700px) {
+    .page-container{
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        min-height: 900px;
+        margin-bottom: 15px;
+    }
+    .text-container{
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+        justify-content: flex-start;
+    }
+    #product-title{
+        font-size: 20px;
+    }
+    #vendor{
+        font-size: 12px;
+    }
+    #address{
+        font-size: 12px;
+    }
+  }
+
+  /* ---------------------pictures and ratings  ---------------------------*/
+/* Colors review stars  */
+.stars-rating > *.checked{
+    color: orange;
+}
+
+.pictures-overall-rating-message-vendor-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* conatins divs to the right of pictures carousel */
+.right-to-carousel{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    margin-left: 2%;
+    width: 38%;
+    padding: 20px;
+}
+
+.rating-container{
+    border-bottom: 1px solid black;
+}
+
+.pictures-container{
+    width: 60%;
+}
+
+/* Align stars to rating descriptions */
+.rating-container > *{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    width: 300px;
+    justify-content: space-between;
+}
+
+.stars-rating{
+    margin-left: 5px;
+}
+
+.carousel-item > img{
+    max-width: 100%;
+    max-height: 100%;
+    height: 30vh;
+    object-fit: cover;
+}
+
+.message-vendor-container{
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+    margin-bottom: auto;
+    align-content: flex-end;
+}
+
+.buttons-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.buttons-container > *{
+    margin-top: 10px;
+    width: 47%;
+}
+
+#add_to_basket_button{
+    margin-top: 10px;
+}
+
+#email-vendor-btn, #confirm-availability-button, #add_to_basket_button{
+    border-radius: 0%;
+    background-color: #637289;
+    border-color: #637289;
+    box-shadow: 0 10px 20px rgb(0 0 0 / 23%), 0 6px 6px rgb(0 0 0 / 23%);
+    color: white;
+}
+  /* ----------- phone view ------ */
+  @media only screen and (max-width: 700px) {
+    .pictures-container{
+        width: 100%;
+    }
+    .right-to-carousel{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        width: 100%;
+        padding: 5px;
+        margin-left: 0px;
+    }
+    .rating-container > div > p, .rating-container > div > div > span, 
+    .product-details-container > p,
+    .message-vendor > input
+    {
+        font-size: 12px;
+    }
+    .rating-container{
+        justify-content: center;
+    }
+
+    #email-vendor-button{
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .rating-container > *{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        width: 200px;
+        justify-content: space-between;
+    }
+
+    #buttons-container{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        align-items: baseline;
+    }
+    
+    .buttons-container > *{
+        margin-top: 10px;
+    }
+
+    #add_to_basket_button{
+        margin-left: 10px;
+    }
+  }
+
+  /* ----------- tablet view ------ */
+  @media only screen and (max-width: 1024px) and (min-width: 701px){
+    .rating-container > *{
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .rating-container > div > p, .rating-container > div > div > span, 
+    .product-details-container > p,
+    .message-vendor > input
+    {
+        font-size: 14px;
+    }
+
+    #add_to_basket_button{
+        margin-top: 10px;
+    }
+  }
+
+/* ------------------------- order box ----------------------------*/
+/* order form, below pictures and product details */
+.order-items-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: fit-content;
+    margin-top: 15px;
+    justify-content: space-between;
+    border: 1px solid black;
+    padding: 5px;
+}
+
+#submit-search-filters{
+    height: 50px;
+}
+
+.order-items-container > div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#color-select-div, .product-quantity-container, .price-container, .product-quantity-container,
+.date-picker
+{
+    width: 15%;
+}
+input, select{
+    height: 30px;
+}
+/* ----------- phone view ------ */
+@media only screen and (max-width: 800px) {
+    .order-items-container > div > p{
+        font-size: 13px;
+    }
+    #color-select-div, .product-quantity-container, .price-container, .product-quantity-container,
+    #preferred-delivery-date-picker, .order-items-container > div
+    {
+        width: 47%;
+    }
+    input, select, #preferred-delivery-date-picker{
+        height: 40px;
+    }
+    #confirm-availability-button, #add_to_basket_button{
+        margin-top: 10px;
+        margin-bottom: 10px;
+        height: 40px;
+        font-size: 13px;
+        width: 100%;
+    }
+}
+
+/* ----------- tablet view ------ */
+@media only screen and (max-width: 1024px) and (min-width: 801px){
+    select, .product-number-input, #color-select, .price-number-input, #preferred-delivery-date-picker{
+        margin: 2px;
+        border-color: -internal-light-dark(rgb(118, 118, 118), rgb(133, 133, 133));
+        border-width: 1px;
+        border-style: inset;
+    }
+    #preferred-delivery-date-picker{
+        margin-bottom: 20px;
+    }
+  }
+
+/* ------------------------- reviews ----------------------------*/
+/* Contains all reviews */
+.reviews-container{
+    display: flex;
+    flex-direction: column;
+}
+
+/* Contains one review */
+.review-container{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    justify-content: space-between;
+}
+
+/* Align stars to rating descriptions */
+.rating-container-review > div{
+    display: flex;
+    flex-direction: row;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.review-container > div > p, .review-container > div > div > p, .review-container > div > div > div{
+    font-size: 14px;
+}
+
+.review-comment{
+    width: 300px;
+    max-width: 300px;
+}
+
+.review-comment > p{
+    display: inline-block;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+.user_name{
+    width: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+}
+
+.rating-container-review{
+    width: 250px;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+}
+
+@media only screen and (max-width: 700px) {
+    .reviews-container > h3{
+        font-size: 18px;
+    }
+    .user_name, .review-date-container{
+        width: 150px;
+    }
+
+    .review-date-container{
+        display: flex;
+        justify-content: flex-end;
+    }
+    .review-container{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        border: 1px solid black;
+        justify-content: space-between;
+        padding: 5px;
+    }
+    .rating-container-review{
+        width: 100%;
+    }
+
+    .rating-container-review > div > p, .rating-container-review > div > div > span
+    {
+        font-size: 10px;
+    }
+
+    .review-comment > p, .review-comment{
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* ----------- tablet view ------ */
+@media only screen and (max-width: 1024px) and (min-width: 701px){
+    .review-container{
+        flex-wrap: wrap;
+    }
+    .review-comment{
+        width: 100%;
+        max-width: 100%;
+    }
+    
+  }
+
+
+#user_id{
+    color: white;
+    font-size: 0.01px;
+}

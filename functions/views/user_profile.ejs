@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+    <!-- SHARED HEAD -->
+    <%- include('partials/sharedHead') %> 
+
+
+    <!-- PAGE HEAD -->
+    <link rel="stylesheet" href="/styles/user-profile.css">
+    <script src="/js/user_profile.js" type="text/javascript" defer></script>
+
+  <script>
+    /* Chat view for phone display */
+    function listChats() {
+      var chatSections = document.getElementsByClassName('chat');
+      for (let chatSection of chatSections) {
+        chatSection.style.display = "none";
+      }
+
+      var chatsListSections = document.getElementsByClassName('discussions');
+      for (let chatsListSection of chatsListSections) {
+        chatsListSection.style.display = "flex";
+      }
+    };
+
+    function openChat(element) {
+      var user = this.id;
+
+      var chatSections = document.getElementsByClassName('chat');
+      for (let chatSection of chatSections) {
+        chatSection.style.display = "flex";
+      }
+
+      var chatsListSections = document.getElementsByClassName('discussions');
+      for (let chatsListSection of chatsListSections) {
+        chatsListSection.style.display = "none";
+      }
+    };
+
+
+  </script>
+</head>
+
+<body>
+  <div class="page-container">
+    <!-- header partial -->
+    <%- include('partials/header') %>
+
+      <main>
+        <div class="main-container">
+          <div class="tab">
+            <button class="tablinks" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
+              Information</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'to-do-list')">To Do List</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'Orders')">My Orders</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'Messages')">Messages</button>
+          </div>
+
+          <div id="Profile" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Personal Information</h3>
+              </div>
+
+              <div class="tab-content" id="profile-pic-container">
+
+                <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
+
+                <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
+                <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picturesssssss</button>
+              </div>
+              <div class="tab-content" id="user-details">
+                <form id="user-details">
+                  <div class="container user-details">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <!-- Email -->
+                          <input type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
+                        </div>
+                        <div class="row">
+                          <!-- Phone number -->
+                          <% if(user.phone_number == null){ %>
+                            <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
+                            placeholder="Phone Number" value="" required>
+                          <% } else{ %>
+                            <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
+                            placeholder="Phone Number" value="<%= user.phone_number %>" required>
+                          <% }%>
+                        </div>
+                        <div class="row">
+                          <!-- Address 1 -->
+                          <% if(user.address_1 == null){ %>
+                            <input type="text" id="address_1" class="form-control"
+                            placeholder="Address of your wedding location" value="" %>" required>
+                          <% } else{ %>
+                            <input type="text" id="address_1" class="form-control"
+                            placeholder="Address of your wedding location" value="<%= user.address_1 %>" required>
+                          <% }%>
+                          
+                        </div>
+                        <div class="row">
+                          <!-- Postal Code -->
+                          <input type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
+                        </div>
+                        <div class="row">
+                          <!-- City -->
+                          <input type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
+                        </div>
+                        <div class="row">
+                          <!-- Country -->
+                          <select id="country" name="country" class="form-control" required>
+                            <option value="" disabled selected hidden>Country</option>
+                            <option selected value="<%= user.country %>"><%= user.country %></option>
+                            <option value="AF">Afghanistan</option>
+                            <option value="AX">Åland Islands</option>
+                            <option value="AL">Albania</option>
+                            <option value="DZ">Algeria</option>
+                            <option value="AS">American Samoa</option>
+                            <option value="AD">Andorra</option>
+                            <option value="AO">Angola</option>
+                            <option value="AI">Anguilla</option>
+                            <option value="AQ">Antarctica</option>
+                            <option value="AG">Antigua &amp; Barbuda</option>
+                            <option value="AR">Argentina</option>
+                            <option value="AM">Armenia</option>
+                            <option value="AW">Aruba</option>
+                            <option value="AC">Ascension Island</option>
+                            <option value="AU">Australia</option>
+                            <option value="AT">Austria</option>
+                            <option value="AZ">Azerbaijan</option>
+                            <option value="BS">Bahamas</option>
+                            <option value="BH">Bahrain</option>
+                            <option value="BD">Bangladesh</option>
+                            <option value="BB">Barbados</option>
+                            <option value="BY">Belarus</option>
+                            <option value="BE">Belgium</option>
+                            <option value="BZ">Belize</option>
+                            <option value="BJ">Benin</option>
+                            <option value="BM">Bermuda</option>
+                            <option value="BT">Bhutan</option>
+                            <option value="BO">Bolivia</option>
+                            <option value="BA">Bosnia &amp; Herzegovina</option>
+                            <option value="BW">Botswana</option>
+                            <option value="BV">Bouvet Island</option>
+                            <option value="BR">Brazil</option>
+                            <option value="IO">British Indian Ocean Territory</option>
+                            <option value="VG">British Virgin Islands</option>
+                            <option value="BN">Brunei</option>
+                            <option value="BG">Bulgaria</option>
+                            <option value="BF">Burkina Faso</option>
+                            <option value="BI">Burundi</option>
+                            <option value="KH">Cambodia</option>
+                            <option value="CM">Cameroon</option>
+                            <option value="CA">Canada</option>
+                            <option value="CV">Cape Verde</option>
+                            <option value="BQ">Caribbean Netherlands</option>
+                            <option value="KY">Cayman Islands</option>
+                            <option value="CF">Central African Republic</option>
+                            <option value="TD">Chad</option>
+                            <option value="CL">Chile</option>
+                            <option value="CN">China</option>
+                            <option value="CX">Christmas Island</option>
+                            <option value="CC">Cocos (Keeling) Islands</option>
+                            <option value="CO">Colombia</option>
+                            <option value="KM">Comoros</option>
+                            <option value="CG">Congo - Brazzaville</option>
+                            <option value="CD">Congo - Kinshasa</option>
+                            <option value="CK">Cook Islands</option>
+                            <option value="CR">Costa Rica</option>
+                            <option value="CI">Côte d’Ivoire</option>
+                            <option value="HR">Croatia</option>
+                            <option value="CW">Curaçao</option>
+                            <option value="CY">Cyprus</option>
+                            <option value="CZ">Czechia</option>
+                            <option value="DK">Denmark</option>
+                            <option value="DJ">Djibouti</option>
+                            <option value="DM">Dominica</option>
+                            <option value="DO">Dominican Republic</option>
+                            <option value="EC">Ecuador</option>
+                            <option value="EG">Egypt</option>
+                            <option value="SV">El Salvador</option>
+                            <option value="GQ">Equatorial Guinea</option>
+                            <option value="ER">Eritrea</option>
+                            <option value="EE">Estonia</option>
+                            <option value="SZ">Eswatini</option>
+                            <option value="ET">Ethiopia</option>
+                            <option value="FK">Falkland Islands (Islas Malvinas)</option>
+                            <option value="FO">Faroe Islands</option>
+                            <option value="FJ">Fiji</option>
+                            <option value="FI">Finland</option>
+                            <option value="FR">France</option>
+                            <option value="GF">French Guiana</option>
+                            <option value="PF">French Polynesia</option>
+                            <option value="TF">French Southern Territories</option>
+                            <option value="GA">Gabon</option>
+                            <option value="GM">Gambia</option>
+                            <option value="GE">Georgia</option>
+                            <option value="DE">Germany</option>
+                            <option value="GH">Ghana</option>
+                            <option value="GI">Gibraltar</option>
+                            <option value="GR">Greece</option>
+                            <option value="GL">Greenland</option>
+                            <option value="GD">Grenada</option>
+                            <option value="GP">Guadeloupe</option>
+                            <option value="GU">Guam</option>
+                            <option value="GT">Guatemala</option>
+                            <option value="GG">Guernsey</option>
+                            <option value="GN">Guinea</option>
+                            <option value="GW">Guinea-Bissau</option>
+                            <option value="GY">Guyana</option>
+                            <option value="HT">Haiti</option>
+                            <option value="HM">Heard &amp; McDonald Islands</option>
+                            <option value="HN">Honduras</option>
+                            <option value="HK">Hong Kong</option>
+                            <option value="HU">Hungary</option>
+                            <option value="IS">Iceland</option>
+                            <option value="IN">India</option>
+                            <option value="ID">Indonesia</option>
+                            <option value="IR">Iran</option>
+                            <option value="IQ">Iraq</option>
+                            <option value="IE">Ireland</option>
+                            <option value="IM">Isle of Man</option>
+                            <option value="IL">Israel</option>
+                            <option value="IT">Italy</option>
+                            <option value="JM">Jamaica</option>
+                            <option value="JP">Japan</option>
+                            <option value="JE">Jersey</option>
+                            <option value="JO">Jordan</option>
+                            <option value="KZ">Kazakhstan</option>
+                            <option value="KE">Kenya</option>
+                            <option value="KI">Kiribati</option>
+                            <option value="XK">Kosovo</option>
+                            <option value="KW">Kuwait</option>
+                            <option value="KG">Kyrgyzstan</option>
+                            <option value="LA">Laos</option>
+                            <option value="LV">Latvia</option>
+                            <option value="LB">Lebanon</option>
+                            <option value="LS">Lesotho</option>
+                            <option value="LR">Liberia</option>
+                            <option value="LY">Libya</option>
+                            <option value="LI">Liechtenstein</option>
+                            <option value="LT">Lithuania</option>
+                            <option value="LU">Luxembourg</option>
+                            <option value="MO">Macao</option>
+                            <option value="MG">Madagascar</option>
+                            <option value="MW">Malawi</option>
+                            <option value="MY">Malaysia</option>
+                            <option value="MV">Maldives</option>
+                            <option value="ML">Mali</option>
+                            <option value="MT">Malta</option>
+                            <option value="MH">Marshall Islands</option>
+                            <option value="MQ">Martinique</option>
+                            <option value="MR">Mauritania</option>
+                            <option value="MU">Mauritius</option>
+                            <option value="YT">Mayotte</option>
+                            <option value="MX">Mexico</option>
+                            <option value="FM">Micronesia</option>
+                            <option value="MD">Moldova</option>
+                            <option value="MC">Monaco</option>
+                            <option value="MN">Mongolia</option>
+                            <option value="ME">Montenegro</option>
+                            <option value="MS">Montserrat</option>
+                            <option value="MA">Morocco</option>
+                            <option value="MZ">Mozambique</option>
+                            <option value="MM">Myanmar (Burma)</option>
+                            <option value="NA">Namibia</option>
+                            <option value="NR">Nauru</option>
+                            <option value="NP">Nepal</option>
+                            <option value="NL">Netherlands</option>
+                            <option value="NC">New Caledonia</option>
+                            <option value="NZ">New Zealand</option>
+                            <option value="NI">Nicaragua</option>
+                            <option value="NE">Niger</option>
+                            <option value="NG">Nigeria</option>
+                            <option value="NU">Niue</option>
+                            <option value="NF">Norfolk Island</option>
+                            <option value="KP">North Korea</option>
+                            <option value="MK">North Macedonia</option>
+                            <option value="MP">Northern Mariana Islands</option>
+                            <option value="NO">Norway</option>
+                            <option value="OM">Oman</option>
+                            <option value="PK">Pakistan</option>
+                            <option value="PW">Palau</option>
+                            <option value="PS">Palestine</option>
+                            <option value="PA">Panama</option>
+                            <option value="PG">Papua New Guinea</option>
+                            <option value="PY">Paraguay</option>
+                            <option value="PE">Peru</option>
+                            <option value="PH">Philippines</option>
+                            <option value="PN">Pitcairn Islands</option>
+                            <option value="PL">Poland</option>
+                            <option value="PT">Portugal</option>
+                            <option value="PR">Puerto Rico</option>
+                            <option value="QA">Qatar</option>
+                            <option value="RE">Réunion</option>
+                            <option value="RO">Romania</option>
+                            <option value="RU">Russia</option>
+                            <option value="RW">Rwanda</option>
+                            <option value="WS">Samoa</option>
+                            <option value="SM">San Marino</option>
+                            <option value="ST">São Tomé &amp; Príncipe</option>
+                            <option value="SA">Saudi Arabia</option>
+                            <option value="SN">Senegal</option>
+                            <option value="RS">Serbia</option>
+                            <option value="SC">Seychelles</option>
+                            <option value="SL">Sierra Leone</option>
+                            <option value="SG">Singapore</option>
+                            <option value="SX">Sint Maarten</option>
+                            <option value="SK">Slovakia</option>
+                            <option value="SI">Slovenia</option>
+                            <option value="SB">Solomon Islands</option>
+                            <option value="SO">Somalia</option>
+                            <option value="ZA">South Africa</option>
+                            <option value="GS">South Georgia &amp; South Sandwich Islands</option>
+                            <option value="KR">South Korea</option>
+                            <option value="SS">South Sudan</option>
+                            <option value="ES">Spain</option>
+                            <option value="LK">Sri Lanka</option>
+                            <option value="BL">St Barthélemy</option>
+                            <option value="SH">St Helena</option>
+                            <option value="KN">St Kitts &amp; Nevis</option>
+                            <option value="LC">St Lucia</option>
+                            <option value="MF">St Martin</option>
+                            <option value="PM">St Pierre &amp; Miquelon</option>
+                            <option value="VC">St Vincent &amp; Grenadines</option>
+                            <option value="SR">Suriname</option>
+                            <option value="SJ">Svalbard &amp; Jan Mayen</option>
+                            <option value="SE">Sweden</option>
+                            <option value="CH">Switzerland</option>
+                            <option value="TW">Taiwan</option>
+                            <option value="TJ">Tajikistan</option>
+                            <option value="TZ">Tanzania</option>
+                            <option value="TH">Thailand</option>
+                            <option value="TL">Timor-Leste</option>
+                            <option value="TG">Togo</option>
+                            <option value="TK">Tokelau</option>
+                            <option value="TO">Tonga</option>
+                            <option value="TT">Trinidad &amp; Tobago</option>
+                            <option value="TA">Tristan da Cunha</option>
+                            <option value="TN">Tunisia</option>
+                            <option value="TR">Turkey</option>
+                            <option value="TM">Turkmenistan</option>
+                            <option value="TC">Turks &amp; Caicos Islands</option>
+                            <option value="TV">Tuvalu</option>
+                            <option value="UG">Uganda</option>
+                            <option value="UA">Ukraine</option>
+                            <option value="AE">United Arab Emirates</option>
+                            <option value="GB">United Kingdom</option>
+                            <option value="US">United States</option>
+                            <option value="UY">Uruguay</option>
+                            <option value="UM">US Outlying Islands</option>
+                            <option value="VI">US Virgin Islands</option>
+                            <option value="UZ">Uzbekistan</option>
+                            <option value="VU">Vanuatu</option>
+                            <option value="VA">Vatican City</option>
+                            <option value="VE">Venezuela</option>
+                            <option value="VN">Vietnam</option>
+                            <option value="WF">Wallis &amp; Futuna</option>
+                            <option value="EH">Western Sahara</option>
+                            <option value="YE">Yemen</option>
+                            <option value="ZM">Zambia</option>
+                            <option value="ZW">Zimbabwe</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Edit" />
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <div id="to-do-list" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content" id="wishlist-tab-content">
+                <h3 class="tab-title">To Do List</h3>
+                <div id="wishlist-container">
+                  <form id="add-element-to-list" class="header">
+                    <input type="text" id="to-do-list-new-input" placeholder="What else do you need to do?">
+                    <span onclick="newToDoElement()" id="add-new-to-do-element-btn" class="addBtn">Add</span>
+                  </form>
+
+                  <ul id="to-do-list-items">
+                    <!-- print the todo list -->
+                    <% if(user.todo == null){ %>
+                      <li>Choosing the best wedding planning app</li>
+                    <% } else{ %>
+                      <% for(var i=0; i < user.todo.length; i++) { %>
+                        <li>
+                          <%= user.todo[i] %>
+                        </li>
+                      <% } %>
+                    <% } %>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+          <div id="Wishlist" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Your Wishlist</h3>
+                <div class="orders-container">
+                  <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
+                    <% user.wishlist.forEach(function(product, index){ %>
+                      <div class="product" id="<%= "product" + index %> ">
+                        <div class="picture-and-description">
+                          <div class="product-photo"
+                            style='background-image: url(" <%= product.pictures[0] %> " );'>
+                          </div>
+                          <div class="product-description">
+                            <h5 class="product-title">
+                              <%= product.title %>
+                          </h5>
+                          <p class="product-description-text">
+                              <%= product.description %>
+                          </p>
+                          <p class="colors-available-p">Colors available: <%= product.colors %>
+                          </p>
+                          <p class="vendor-details">
+                              <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
+                          </p>
+                          <% if(product.stars == null){ %>
+                            <p>No reviews yet</p>
+                        <% } else{ %>
+                            <div class="stars-rating">
+                              <% if (product.stars>= 1) { %>
+                                <span class="fa fa-star checked"></span>
+                                <% } else{ %>
+                                  <span class="fa fa-star"></span>
+                                  <% } %>
+                                    <% if (product.stars>= 2) { %>
+                                      <span class="fa fa-star checked"></span>
+                                      <% } else{ %>
+                                        <span class="fa fa-star"></span>
+                                        <% } %>
+                                          <% if (product.stars>= 3) { %>
+                                            <span class="fa fa-star checked"></span>
+                                            <% } else{ %>
+                                              <span class="fa fa-star"></span>
+                                              <% } %>
+                                                <% if (product.stars>= 4) { %>
+                                                  <span class="fa fa-star checked"></span>
+                                                  <% } else{ %>
+                                                    <span class="fa fa-star"></span>
+                                                    <% } %>
+                                                      <% if (product.stars>= 5) { %>
+                                                        <span class="fa fa-star checked"></span>
+                                                        <% } else{ %>
+                                                          <span class="fa fa-star"></span>
+                                                          <% } %>
+                            </div>
+                            <div class="rating-and-reviews">
+                              <p>Rating: <%= product.stars %>/5</p>
+                              <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                            </div>
+                            <% } %>
+                          </div>
+                        </div>
+                        <div class="product-to-right-boxes">
+                          <div class="rightest-box">
+                            <i class="fa fa-shopping-cart"></i>
+                            <p>Quantity:</p>
+                            <input class="product-number-input" type="number" id="<%= "product" + index + "-quantity" %>"/>
+                            <p>Color:</p>
+                            <select class="product-color-select" id="<%= "product" + index + "-color" %>">
+                              <% product.colors.forEach(function(color){ %>
+                                <option value="<%= color %>"><%= color %></option>
+                              <% }) %>
+                            </select>
+                            <label for="preferred_delivery">Preferred delivery date:</label>
+                            <input type="date" id="<%= "product" + index + "-preferred_delivery" %>" />
+                            <p>Price per unit: <%= product.currency %>
+                                <%= product.price %>
+                            </p>
+                            <button value=<%= "product" + index %> onclick="addToBasket(value)" class="btn">Add to basket</button>
+                          </div>
+                        </div>
+                        <input input type="hidden" id=<%= "product" + index + "-id" %> type="text" name="product_id"
+                          value="<%= product.product_id %>" />
+                      </div>
+                      <% }) %>
+                    <% } else { %>
+                      <p>Your wishlist is currently empty</p>
+                    <% } %> 
+                </div>
+              </div>
+            </div>
+          </div>
+          
+
+          
+          <!-- orders tab -->
+          <div id="Orders" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Your Orders</h3>
+                <div class="orders-container">
+                  <% if (user.orders.length > 0 & user.orders != null) { %> 
+                  <% user.orders.forEach(function(product){ %>
+                    <div class="product">
+                      <div class="picture-and-description">
+                        <div class="product-photo"
+                          style="background-image: url('<%= product.product.pictures[0] %>');">
+                        </div>
+                        <div class="product-description">
+                          <h5>
+                            <%= product.product.title %>
+                          </h5>
+                          <p class="product-description-text">
+                            <%= product.product.description %>
+                          </p>
+                          <p>Colors available: <%= product.product.colors %>
+                          </p>
+                          <p class="vendor-details">
+                            <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
+                          </p>
+                          <% if(product.product.stars == null){ %>
+                            <p>No reviews yet</p>
+                        <% } else{ %>
+                          <div class="stars-rating">
+                            <% if (product.product.stars>= 1) { %>
+                              <span class="fa fa-star checked"></span>
+                              <% } else{ %>
+                                <span class="fa fa-star"></span>
+                                <% } %>
+                                  <% if (product.product.stars>= 2) { %>
+                                    <span class="fa fa-star checked"></span>
+                                    <% } else{ %>
+                                      <span class="fa fa-star"></span>
+                                      <% } %>
+                                        <% if (product.product.stars>= 3) { %>
+                                          <span class="fa fa-star checked"></span>
+                                          <% } else{ %>
+                                            <span class="fa fa-star"></span>
+                                            <% } %>
+                                              <% if (product.product.stars>= 4) { %>
+                                                <span class="fa fa-star checked"></span>
+                                                <% } else{ %>
+                                                  <span class="fa fa-star"></span>
+                                                  <% } %>
+                                                    <% if (product.product.stars>= 5) { %>
+                                                      <span class="fa fa-star checked"></span>
+                                                      <% } else{ %>
+                                                        <span class="fa fa-star"></span>
+                                                        <% } %>
+                          </div>
+                          <div class="rating-and-reviews">
+                            <p>Rating: <%= product.product.stars %>/5</p>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                          </div>
+                          <% } %>
+                        </div>
+                      </div>
+                      <div class="product-to-right-boxes">
+                        <div class="rightest-box">
+                          <p>Order Details:</p>
+                          <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
+                          <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
+                          <p>Status: <%= product.status %> </p>
+                          <button value="<%= product.product_id %>" onclick="reviewOrder(value)" class="btn">Review</button>
+                        </div>
+                      </div>
+                      <input input type="hidden" id="first" type="text" name="product_id"
+                        value="<%= product.product_id %>" />
+                    </div>
+                    <% }) %>
+                    <% } else { %>
+                      <p>Your order list is currently empty</p>
+                    <% } %> 
+                </div>
+                <div class="user-comments-box" id="user-comments-box">
+                  <div class="user-comments">
+                    <label for="user-review" class="user-comments-box-title">Leave your review!</label>
+                    <!--create a start rating-->
+                    <!-- credit:https://github.com/mukulkant/Star-rating-using-pure-css -->
+                    <div class="overall-star-rate" id="overall-star-rate">
+                      <p>Overall:</p>
+                      <input type="radio" id="overall-star5" name="overall-rate" value="5" />
+                      <label for="overall-star5" title="text">5 stars</label>
+                      <input type="radio" id="overall-star4" name="overall-rate" value="4" />
+                      <label for="overall-star4" title="text">4 stars</label>
+                      <input type="radio" id="overall-star3" name="overall-rate" value="3" />
+                      <label for="overall-star3" title="text">3 stars</label>
+                      <input type="radio" id="overall-star2" name="overall-rate" value="2" />
+                      <label for="overall-star2" title="text">2 stars</label>
+                      <input type="radio" id="overall-star1" name="overall-rate" value="1" />
+                      <label for="overall-star1" title="text">1 star</label>
+                    </div>
+                    <div class="quality-star-rate" id="quality-star-rate">
+                      <p>Product Quality:</p>
+                      <input type="radio" id="quality-star5" name="quality-rate" value="5" />
+                      <label for="quality-star5" title="text">5 stars</label>
+                      <input type="radio" id="quality-star4" name="quality-rate" value="4" />
+                      <label for="quality-star4" title="text">4 stars</label>
+                      <input type="radio" id="quality-star3" name="quality-rate" value="3" />
+                      <label for="quality-star3" title="text">3 stars</label>
+                      <input type="radio" id="quality-star2" name="quality-rate" value="2" />
+                      <label for="quality-star2" title="text">2 stars</label>
+                      <input type="radio" id="quality-star1" name="quality-rate" value="1" />
+                      <label for="quality-star1" title="text">1 star</label>
+                    </div>
+                    <div class="vendor-quality-star-rate" id="vendor-quality-star-rate">
+                      <p>Vendor quality:</p>
+                      <input type="radio" id="vendor-quality-star-star5" name="vendor-quality-rate" value="5" />
+                      <label for="vendor-quality-star-star5" title="text">5 stars</label>
+                      <input type="radio" id="vendor-quality-star-star4" name="vendor-quality-rate" value="4" />
+                      <label for="vendor-quality-star-star4" title="text">4 stars</label>
+                      <input type="radio" id="vendor-quality-star-star3" name="vendor-quality-rate" value="3" />
+                      <label for="vendor-quality-star-star3" title="text">3 stars</label>
+                      <input type="radio" id="vendor-quality-star-star2" name="vendor-quality-rate" value="2" />
+                      <label for="vendor-quality-star-star2" title="text">2 stars</label>
+                      <input type="radio" id="vendor-quality-star-star1" name="vendor-quality-rate" value="1" />
+                      <label for="vendor-quality-star-star1" title="text">1 star</label>
+                    </div>
+
+                    <div class="description-star-rate" id="description-star-rate">
+                      <p>Product Description:</p>
+                      <input type="radio" id="description-star5" name="description-rate" value="5" />
+                      <label for="description-star5" title="text">5 stars</label>
+                      <input type="radio" id="description-star4" name="description-rate" value="4" />
+                      <label for="description-star4" title="text">4 stars</label>
+                      <input type="radio" id="description-star3" name="description-rate" value="3" />
+                      <label for="description-star3" title="text">3 stars</label>
+                      <input type="radio" id="description-star2" name="description-rate" value="2" />
+                      <label for="description-star2" title="text">2 stars</label>
+                      <input type="radio" id="description-star1" name="description-rate" value="1" />
+                      <label for="description-star1" title="text">1 star</label>
+                    </div>
+
+                    <textarea id="user-comments-box-text" class="user-comments-box-text" rows="4" cols="50"></textarea>
+                    <button onclick="submitReview()" class="btn">Submit</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
+
+          <div id="Messages" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Your Messages</h3>
+                <div id="chat-container">
+
+                  <section class="discussions">
+                    <div class="discussion search">
+                      <div class="searchbar">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <input type="text" placeholder="Search..."></input>
+                      </div>
+                    </div>
+                    <div class="discussion message-active" id="userId1"
+                      ontouchstart="touchAvailable=true; openChat(this);" onclick="if(!touchAvailable) openChat(this);">
+
+                      <div class="chat-list-photo-name">
+                        <div>
+                          <div class="photo"
+                            style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                          </div>
+                        </div>
+                        <div class="desc-contact">
+                          <p class="name">Belfiore</p>
+                          <p class="message">Works great!</p>
+                        </div>
+                      </div>
+                      <div class="timer">12 sec</div>
+                    </div>
+                    <div class="discussion">
+                      <div class="chat-list-photo-name">
+                        <div>
+                          <div class="photo"
+                            style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
+                          </div>
+                        </div>
+                        <div class="desc-contact">
+                          <p class="name">Thomas Dbtn</p>
+                          <p class="message">Are you available at that time?</p>
+                        </div>
+                      </div>
+                      <div class="timer">42 min</div>
+                    </div>
+
+                  </section>
+                  <section class="chat">
+                    <div class="header-chat">
+                      <a id="go-back-to-chat-list" ontouchstart="touchAvailable=true; listChats();"
+                        onclick="if(!touchAvailable) listChats();"> <i class="fa fa-arrow-left"
+                          aria-hidden="true"></i></a>
+                      <div class="photo"
+                        style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                      </div>
+                      <p class="name">Belfiore</p>
+                    </div>
+                    <div class="messages-chat">
+                      <div class="message text-only">
+                        <div class="from-sender">
+                          <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be
+                            able to deliver them at around 10am. Does that work for you? </p>
+                          <p class="time"> 14h58</p>
+                        </div>
+                      </div>
+                      <div class="message text-only">
+                        <div class="response">
+                          <p class="response-time time"> 15h04</p>
+                          <p class="text"> Hi, that works great thank you 😃</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer-chat">
+                      <input type="text" class="write-message" placeholder="Type your message here"></input>
+                      <i id="chat-send-btn" class="fa fa-paper-plane clickable" aria-hidden="true"></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div> <!-- end messages tab -->
+        </div>
+      </main>
+
+      <!-- footer partial -->
+      <%- include('partials/footer') %>
+
+      <!-- auth partial -->
+      <%- include('partials/authModal') %>
+
+      <%- include('partials/firebaseInteraction') %> 
+  </div>
+</body>
+
+</html>

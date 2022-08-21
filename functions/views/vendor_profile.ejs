@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Registration</title>
+  <!-- SHARED HEAD -->
+  <%- include('partials/sharedHead') %> 
+ 
+  <!-- PAGE HEAD -->
+  <link rel="stylesheet" href="/styles/vendor-profile.css">
+ 
+  <script>
+    /* Chat view for phone display */
+    function listChats() {
+      var chatSections = document.getElementsByClassName('chat');
+      for (let chatSection of chatSections) {
+        chatSection.style.display = "none";
+      }
+
+      var chatsListSections = document.getElementsByClassName('discussions');
+      for (let chatsListSection of chatsListSections) {
+        chatsListSection.style.display = "flex";
+      }
+    };
+
+    function openChat(element) {
+      var user = this.id;
+
+      var chatSections = document.getElementsByClassName('chat');
+      for (let chatSection of chatSections) {
+        chatSection.style.display = "flex";
+      }
+
+      var chatsListSections = document.getElementsByClassName('discussions');
+      for (let chatsListSection of chatsListSections) {
+        chatsListSection.style.display = "none";
+      }
+    };
+  </script>
+</head>
+
+<body>
+  <div class="page-container">
+    <!-- header partial -->
+    <%- include('partials/header') %>
+      <main>
+        <div class="main-container">
+          <div class="tab">
+            <button class="tablinks" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
+              Information</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'catalogue')">My catalogue</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'orders')">Orders</button>
+            <button class="tablinks" onclick="openUserProfile(event, 'Messages')">Messages</button>
+          </div>
+
+          <div id="Profile" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Personal Information</h3>
+              </div>
+
+              <div class="tab-content" id="profile-pic-container">
+                <!-- Profile Picture -->
+                <img id="profile-pic"
+                  src="/assets/blank-profile-picture-png.png"
+                  alt="User profile picture">
+                <!-- Profile picture edit -->
+                <label class="vendor-profile-edit">
+                  <input type="file" id="profile-pic-edit-button" accept=".jpg, .jpeg, .png">
+                  Edit Picture
+                </label>
+              </div>
+
+
+
+
+
+              <div class="tab-content" id="user-details">
+
+                <form action="#" method="post" id="user-details">
+                  <div class="container user-details text-center">
+                    <div class="row">
+                      <div class="col">
+                        <div class="row">
+                          <!-- Business Name -->
+                          <p contenteditable="true" id="business-name"></p>
+                        </div>
+                        <div class="row">
+                          <!-- Email -->
+                          <p id="email">Email</p>
+                        </div>
+                        <div class="row">
+                          <!-- Phone number -->
+                          <p id="phone-number">Phone Number</p>
+                        </div>
+                        <div class="row">
+                          <!-- Address 1 -->
+                          <p id="address-1">Address 1</p>
+                        </div>
+                        <div class="row">
+                          <!-- address 2 -->
+                          <p id="address-2">Address 2</p>
+                        </div>
+                        <div class="row">
+                          <!-- Postal Code -->
+                          <p id="post-code">Post Code</p>
+                        </div>
+                        <div class="row">
+                          <!-- City -->
+                          <p id="city">City</p>
+                        </div>
+                        <div class="row">
+                          <!-- Country -->
+                          <p id="country">Country</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+                <form action="#" method="post">
+                  <button type="button" id="edit-user-details" class="btn btn-primary">Edit</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Catalogue tab -->
+          <div id="catalogue" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content" id="wishlist-tab-content">
+                <h3 class="tab-title">Catalogue</h3>
+                <!-- Add to catalogue button -->
+                <button type="button" id="add-to-catalogue-button" class="btn btn-light">Add To Catalogue</button>
+                <!-- Container for catalogue -->
+                <div id="catalogue-container"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Order tab -->
+          <div id="orders" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Orders</h3>
+                <!-- Orders container -->
+                <div class="orders-container"></div> 
+              </div>
+            </div>
+          </div> <!-- end id="orders" class="tabcontent" -->
+
+
+          <div id="Messages" class="tabcontent">
+            <div class="tab-content-container">
+              <div class="tab-content">
+                <h3 class="tab-title">Your Messages</h3>
+                <div id="chat-container">
+
+                  <section class="discussions">
+                    <div class="discussion search">
+                      <div class="searchbar">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <input type="text" placeholder="Search..."></input>
+                      </div>
+                    </div>
+                    <div class="discussion message-active" id="userId1"
+                      ontouchstart="touchAvailable=true; openChat(this);" onclick="if(!touchAvailable) openChat(this);">
+
+                      <div class="chat-list-photo-name">
+                        <div>
+                          <div class="photo"
+                            style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                          </div>
+                        </div>
+                        <div class="desc-contact">
+                          <p class="name">Belfiore</p>
+                          <p class="message">Works great!</p>
+                        </div>
+                      </div>
+                      <div class="timer">12 sec</div>
+                    </div>
+                    <div class="discussion">
+                      <div class="chat-list-photo-name">
+                        <div>
+                          <div class="photo"
+                            style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
+                          </div>
+                        </div>
+                        <div class="desc-contact">
+                          <p class="name">Thomas Dbtn</p>
+                          <p class="message">Are you available at that time?</p>
+                        </div>
+                      </div>
+                      <div class="timer">42 min</div>
+                    </div>
+
+                  </section>
+                  <section class="chat">
+                    <div class="header-chat">
+                      <a id="go-back-to-chat-list" ontouchstart="touchAvailable=true; listChats();"
+                        onclick="if(!touchAvailable) listChats();"> <i class="fa fa-arrow-left"
+                          aria-hidden="true"></i></a>
+                      <div class="photo"
+                        style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+                      </div>
+                      <p class="name">Belfiore</p>
+                    </div>
+                    <div class="messages-chat">
+                      <div class="message text-only">
+                        <div class="from-sender">
+                          <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be
+                            able to deliver them at around 10am. Does that work for you? </p>
+                          <p class="time"> 14h58</p>
+                        </div>
+                      </div>
+                      <div class="message text-only">
+                        <div class="response">
+                          <p class="response-time time"> 15h04</p>
+                          <p class="text"> Hi, that works great thank you 😃</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="footer-chat">
+                      <input type="text" class="write-message" placeholder="Type your message here"></input>
+                      <i id="chat-send-btn" class="fa fa-paper-plane clickable" aria-hidden="true"></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+            </div>
+          </div> <!-- end messages tab -->
+        </div>
+      </main>
+
+      <!-- Modal to add item to catalogue -->
+      <div id="add-to-catalogue-modal">
+        <div id="add-to-catalogue-modal-content">
+          <button id="catalogue-close">&times</button>
+          <h3 class="create-product-header">Create Product</h3>
+          <form id="create-product-form">
+            <!-- image upload -->
+              <div class="row align-items-center">
+                <label class="create-product-image">
+                  <input type="file" id="create-product-image" accept=".jpg, .jpeg, .png" required>
+                  Upload Image
+                </label>
+                <span class="create-product-error" id="error-image"></span>
+              </div>
+              <!-- create name -->
+              <div class="row align-items-center">
+                <input type="text" id="create-product-name" placeholder="Product Name" required>
+              </div>
+              <!-- create description -->
+              <div class="row align-items-center">
+                <input type="text" id="create-product-description" placeholder="Item description" required>
+              </div>
+              <!-- create wedding type -->
+              <div class="row align-items-center">
+                <label for="wedding_type">
+                  Wedding type:
+                  <select name="wedding_type" id="create-wedding-type">
+                    <option disabled selected value> -- select an option -- </option>
+                  </select>
+                </label>
+              </div>
+              <!-- product category -->
+              <div class="row align-items-center">
+                <label for="wedding-category">
+                  Wedding Category:
+                  <select name="wedding_category" id="create-wedding-category">
+                    <option disabled selected value> -- select an option -- </option>
+                  </select>
+                </label>
+              </div>
+              <!-- Available Countries -->
+              <fieldset>
+                <legend>Available Countries</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" name="countryCheck" id="uk" value="UK">
+                    <label for="uk">UK</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" name="countryCheck" id="italy" value="Italy">
+                    <label for="italy">Italy</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" name="countryCheck" id="india" value="India">
+                    <label for="india">India</label>
+                  </div>
+                  
+                  <div class="row">
+                    <div class="col">
+                      <input type="checkbox" name="countryCheck" id="japan" value="Japan">
+                      <label for="japan">Japan</label>
+                    </div>
+                    <div class="col">
+                      <input type="checkbox" name="countryCheck" id="hong-kong" value="Hong Kong">
+                      <label for="hong-kong">Hong Kong</label>
+                    </div>
+                    <div class="col">
+                      <input type="checkbox" name="countryCheck" id="norway" value="Norway">
+                    <label for="norway">Norway</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <!-- Price -->
+              <div class="row align-items-center">
+                <input type="number" id="create-product-price" placeholder="Price" required>
+              </div>
+              <!-- Currency -->
+              <div class="row align-items-center">
+                <select name="currency" id="create-product-currency">
+                  <option value="£" selected>GBP</option>
+                  <option value="$">USD</option>
+                  <option value="NOK">NOK</option>
+                  <option value="€">Euro</option>
+                  <option value="₹">INR</option>
+                  <option value="HK$">HKD</option>
+                  <option value="¥">JPY</option>
+                </select>
+              </div>
+              <!-- Wedding colour available -->
+              <fieldset>
+                <legend>Available Colours:</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="black" name="colourCheck" value="black">
+                    <label for="black">Black</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="grey" name="colourCheck" value="grey">
+                    <label for="grey">grey</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="red" name="colourCheck" value="red">
+                    <label for="red">red</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="orange" name="colourCheck" value="orange">
+                    <label for="orange">orange</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="yellow" name="colourCheck" value="yellow">                
+                    <label for="yellow">yellow</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="cyan" name="colourCheck" value="cyan">
+                    <label for="cyan">cyan</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="blue" name="colourCheck" value="blue">
+                    <label for="blue">blue</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="magenta" name="colourCheck" value="magenta">
+                    <label for="magenta">magenta</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="purple" name="colourCheck" value="purple">
+                    <label for="purple">purple</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="white" name="colourCheck" value="white">
+                    <label for="white">white</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="silver" name="colourCheck" value="silver">
+                    <label for="silver">silver</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="pink" name="colourCheck" value="pink">
+                    <label for="pink">pink</label>
+                  </div>
+                </div>
+                
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="maroon" name="colourCheck" value="maroon">
+                    <label for="maroon">maroon</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="brown" name="colourCheck" value="brown">
+                    <label for="brown">brown</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="beige" name="colourCheck" value="beige">
+                    <label for="beige">beige</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="tan" name="colourCheck" value="tan">
+                    <label for="tan">tan</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="peach" name="colourCheck" value="peach">
+                    <label for="peach">peach</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="lime" name="colourCheck" value="lime">
+                    <label for="lime">lime</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="olive" name="colourCheck" value="olive">
+                    <label for="olive">olive</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="turquoise" name="colourCheck" value="turquoise">
+                    <label for="turquoise">turquoise</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="teal" name="colourCheck" value="teal">
+                    <label for="teal">teal</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="indigo" name="colourCheck" value="indigo">
+                    <label for="indigo">indigo</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="black" name="colourCheck" value="violet">
+                    <label for="violet">violet</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="green" name="colourCheck" value="green">
+                    <label for="green">green</label>
+                  </div>
+                </div>
+            </fieldset>
+              <div class="row align-items-center">
+                <button id="create-product-button" type="submit" class="btn mb-3">Create Product</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div id="edit-modal">
+        <div id="edit-content">
+          <button id="edit-close">&times</button>
+          <h3 class="create-product-header">Edit Details</h3>
+          <form id="edit-details">
+            <!-- name -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-name">
+            </div>
+            <!-- email -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-email">
+            </div>
+            <!-- number -->
+            <div class="row align-items-center">
+              <input type="number" id="edit-number">
+            </div>
+            <!-- address 1 -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-address-1">
+            </div>
+            <!-- address 2 -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-address-2">
+            </div>
+            <!-- post code -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-post-code">
+            </div>
+            <!-- city -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-city">
+            </div>
+            <!-- country -->
+            <div class="row align-items-center">
+              <input type="text" id="edit-country">
+            </div>
+            <div class="row align-items-center">
+              <button id="save-edit" type="submit" class="btn mb-3">Save Changes</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- footer partial -->
+      <%- include('partials/footer') %>
+
+      <!-- auth partial -->
+      <%- include('partials/authModal') %>
+
+      <!-- firebase interaction scrips -->
+      <%- include('partials/firebaseInteraction') %> 
+      <script src="/js/user_profile.js" type="text/javascript" defer></script>
+      <script src="/js/vendorProfile.js" type="text/javascript" defer></script>
+</body>
+</html>
