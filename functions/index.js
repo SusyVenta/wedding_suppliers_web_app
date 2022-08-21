@@ -17,23 +17,36 @@ app.use('/css', express.static(__dirname + '/node_modules/bootstrap/dist/css'));
 app.use('/my_js', express.static(__dirname + '/node_modules/bootstrap/dist/js'));
 app.use('/my_js', express.static(__dirname + '/node_modules/jquery/dist'));
 
-app.use('/users', usersRouter);
-app.use('/vendors', vendorsRouter);
+
 app.use((req, res, next)=>{
   res.locals.moment = moment;
   next();
 });
 
+app.use('/users', usersRouter);
+app.use('/vendors', vendorsRouter);
+
 
 // home page - does not require authentication
-app.get('/', async function (request, response){
+/*app.get('/', async function (request, response){
   let indexPath = path.join(__dirname, "views/home.ejs");
 
   const queryObject = url.parse(request.url, true).query;
 
   let payload = await prepareHomePayload(queryObject);
   response.render(indexPath, payload);
-});
+});*/
+
+
+// home page - does not require authentication
+app.get('/home', async function (request, response){
+    let indexPath = path.join(__dirname, "views/home.ejs");
+  
+    const queryObject = url.parse(request.url, true).query;
+  
+    let payload = await prepareHomePayload(queryObject);
+    response.render(indexPath, payload);
+  });
 
 // product details - does not require authentication
 app.get("/product_details/:product_id", async function (request, response) {
@@ -96,8 +109,6 @@ app.post("/product_details/:product_id", async function (request, response) {
 // TODO move to routes/vendor.js
 app.get('/vendor_profile', (request, response) => {
   let indexPath = path.join(__dirname, "views/vendor_profile.ejs");
-  let vendor_id = 2; //to make dynamic based on login
-  //let vendorOrders = filterProductsBy(mock_db.orders, "vendor_id", vendor_id);
   response.render(indexPath);
 });
 
@@ -121,12 +132,13 @@ app.get('/vendor_login', (request, response) => {
 
 app.get('/admin_routes', (request, response) => {
   let routes = [
-    " /, => home.html ",
+    " /, => home.ejs ",
     " users/login, => customer_login.ejs ", " users/:userId/profile => user_profile.ejs ",
     " /vendor_login => vendor_login.html ", " /vendor_profile => vendor_profile.ejs",
     " vendors/reg => vendor_reg.ejs "
   ]
   response.send(`${routes}`);
 })
+
 
 exports.app = functions.https.onRequest(app);
