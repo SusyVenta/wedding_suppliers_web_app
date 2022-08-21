@@ -1,6 +1,11 @@
 # WeddingSuppliersWebApp
 Prototype of online retail platform to connect users and wedding suppliers
 Commit history: https://github.com/SusyVenta/wedding_suppliers_web_app/commits/main
+
+Project Console: https://console.firebase.google.com/project/wedding-suppliers-web-app/overview
+Hosting URL: https://wedding-suppliers-web-app.web.app
+
+
 # Development   
 
 ## Windows
@@ -12,6 +17,13 @@ Commit history: https://github.com/SusyVenta/wedding_suppliers_web_app/commits/m
 ### Execute `npm init` inside the functions folder, which installs all required modules for you
 ```
 $npm init
+```
+
+## To deploy:
+
+```
+$cd /functions/
+$firebase deploy
 ```
 
 ### Configurations needed when testing
