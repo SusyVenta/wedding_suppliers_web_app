@@ -32,15 +32,16 @@ async function prepareHomePayload(queryObject) {
   }
 
   // product categories
-  const productCategoriesTable = await firestore.collection('product_categories').doc('iUqr7LSvwjohrNYrgsrD').get();
+  const productCategoriesTable = await firestore.collection('product_categories').doc('AJQHqaXZpE5hfR1etKss').get();
+  console.log(productCategoriesTable.data());
   let product_categories = productCategoriesTable.data().product_categories;
 
   // colors
-  const colorsTable = await firestore.collection('colors').doc('aXUfriSY9nJrwo4CB4SM').get();
+  const colorsTable = await firestore.collection('colors').doc('P3v7lMdnyvZ0JiFKVrC4').get();
   let colors = colorsTable.data().colors;
 
   // wedding types
-  const weddingTypesTable = await firestore.collection('wedding_types').doc('dEkz4hBstsnDwX9CY1bQ').get();
+  const weddingTypesTable = await firestore.collection('wedding_types').doc('nw6eDIwkVqPjrTBbxsac').get();
   let weddingTypes = weddingTypesTable.data().wedding_types;
 
   // distinct countries
