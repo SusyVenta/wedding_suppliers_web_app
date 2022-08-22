@@ -105,17 +105,32 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
 
   // Update product overall stars
   let overallStarsAvg = 0;
+  let overall_product_quality_rating = 0;
+  let overall_vendor_quality_rating = 0;
+  let overall_product_description_rating = 0;
+
   let countReviews = 0;
   for (let review of existingReviews){
     overallStarsAvg += review.overall_rating;
+    overall_product_quality_rating += review.product_quality_rating;
+    overall_vendor_quality_rating += review.vendor_quality_rating;
+    overall_product_description_rating += review.product_description_rating;
+
     countReviews += 1;
   }
   overallStarsAvg = parseFloat((overallStarsAvg / countReviews).toFixed(1));
+  overall_product_quality_rating = parseFloat((overall_product_quality_rating / countReviews).toFixed(1));
+  overall_vendor_quality_rating = parseFloat((overall_vendor_quality_rating / countReviews).toFixed(1));
+  overall_product_description_rating = parseFloat((overall_product_description_rating / countReviews).toFixed(1));
 
   const productsTableSet = await db.collection('products').doc(product_id);
   productsTableSet.set(
     {reviews: existingReviews,
-     stars: overallStarsAvg},
+     stars: overallStarsAvg,
+     overall_product_quality_rating: overall_product_quality_rating,
+     overall_vendor_quality_rating: overall_vendor_quality_rating,
+     overall_product_description_rating: overall_product_description_rating
+    },
     { merge: true }
   );
 
@@ -125,7 +140,7 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
     {status: "reviewed"},
     { merge: true }
   );
-  
+
   // reload page to refresh orders
   location.reload();
 
