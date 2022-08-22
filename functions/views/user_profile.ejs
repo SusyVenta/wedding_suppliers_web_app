@@ -36,8 +36,11 @@
               </div>
 
               <div class="tab-content" id="profile-pic-container">
-
-                <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
+                <% if(user.profile_picture == null){ %>
+                  <img id="profile-pic" src="https://media.istockphoto.com/photos/newlyweds-on-the-beach-at-sunset-picture-id1124826836?k=20&m=1124826836&s=612x612&w=0&h=SEGhu2KC1D6zJW1JXymeN7_3tDT2rFXlsiRVKubnYs0=" alt="User profile picture">
+                <% } else{ %>
+                  <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
+                <% }%>
 
                 <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
                 <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picture</button>
@@ -423,9 +426,6 @@
               </div>
             </div>
           </div>
-          
-
-          
           <!-- orders tab -->
           <div id="Orders" class="tabcontent">
             <div class="tab-content-container">
@@ -435,61 +435,14 @@
                   <% if (user.orders.length > 0 & user.orders != null) { %> 
                   <% user.orders.forEach(function(product){ %>
                     <div class="product">
-                      <div class="picture-and-description">
-                        <div class="product-photo"
+                      <div class="picture-and-description-small">
+                        <div class="product-photo-orders"
                           style="background-image: url('<%= product.product.pictures[0] %>');">
                         </div>
-                        <div class="product-description">
-                          <h5>
-                            <%= product.product.title %>
-                          </h5>
-                          <p class="product-description-text">
-                            <%= product.product.description %>
-                          </p>
-                          <p>Colors available: <%= product.product.colors %>
-                          </p>
-                          <p class="vendor-details">
-                            <%= product.vendor.business_name %>, <%= product.vendor.address_1 %>
-                          </p>
-                          <% if(product.product.stars == null){ %>
-                            <p>No reviews yet</p>
-                        <% } else{ %>
-                          <div class="stars-rating">
-                            <% if (product.product.stars>= 1) { %>
-                              <span class="fa fa-star checked"></span>
-                              <% } else{ %>
-                                <span class="fa fa-star"></span>
-                                <% } %>
-                                  <% if (product.product.stars>= 2) { %>
-                                    <span class="fa fa-star checked"></span>
-                                    <% } else{ %>
-                                      <span class="fa fa-star"></span>
-                                      <% } %>
-                                        <% if (product.product.stars>= 3) { %>
-                                          <span class="fa fa-star checked"></span>
-                                          <% } else{ %>
-                                            <span class="fa fa-star"></span>
-                                            <% } %>
-                                              <% if (product.product.stars>= 4) { %>
-                                                <span class="fa fa-star checked"></span>
-                                                <% } else{ %>
-                                                  <span class="fa fa-star"></span>
-                                                  <% } %>
-                                                    <% if (product.product.stars>= 5) { %>
-                                                      <span class="fa fa-star checked"></span>
-                                                      <% } else{ %>
-                                                        <span class="fa fa-star"></span>
-                                                        <% } %>
-                          </div>
-                          <div class="rating-and-reviews">
-                            <p>Rating: <%= product.product.stars %>/5</p>
-                            <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
-                          </div>
-                          <% } %>
-                        </div>
                       </div>
-                      <div class="product-to-right-boxes">
+                      <div class="product-to-right-boxes-small">
                         <div class="rightest-box">
+                          <h4><%= product.product.title %></h4>
                           <p>Order Details:</p>
                           <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
                           <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
