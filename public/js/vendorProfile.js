@@ -250,6 +250,12 @@ const renderCatalogue = (product) => {
                             'data-productID': `${product.product_id}`,
                             text: 'Delete Product'
                         })
+                    ).append(
+                        $('<a/>', {
+                            'class': 'btn btn btn-primary edit-product',
+                            'data-productid': `${product.product_id}`,
+                            text: `Edit ${product.title}`
+                        })
                     )
                 )
             )
@@ -273,6 +279,88 @@ function getProductDetails(productIDs) {
             snapshot.forEach(doc => {
                 renderCatalogue(doc.data());
             })
+        })
+}
+
+// Edit product click event
+$('#catalogue-container').on('click', '.edit-product', event => {
+    const element = event.target;
+    const productID = element.dataset.productid;
+    // Fill the modal with the current data for the product clicked
+    populateProductEdit(productID);
+    // Open the modal to edit the details for that modal;
+    $('#product-edit-modal').show();
+})
+
+$('#save-product-edit').click(() => {
+    $('#product-edit-modal').hide();
+})
+
+function populateProductEdit(productID) {
+    db.collection('products')
+        .where('product_id', '==', productID)
+        .get()
+        .then(snapshot => {
+            snapshot.forEach(doc => {
+                const productDetails = doc.data();
+                const title = productDetails.title;
+                const price = productDetails.price;
+                const description = productDetails.description;
+                const currency = productDetails.currency;
+                const availableCountries = productDetails.available_countries
+                $(`#edit-product-currenct option[value='${currency}']`).attr('selected', 'selected');
+                $(`#product-edit-title`).val(title);
+                $(`#product-edit-price`).val(price);
+                $(`#product-edit-description`).val(description);
+                $('#product-edit-details').data('product-id', productDetails.product_id);
+            })
+        })
+}
+
+// Save changes
+// // Save changes
+$('#save-product-edit').click(event => {
+    event.preventDefault();
+    const inputs = {}
+    $('form#product-edit-details :input[type="text"]').each((i, field) => {
+        if (field.id === 'product-edit-description') {
+            inputs['description'] = field.value;
+        }
+        if (field.id === 'product-edit-price') {
+            inputs['price'] = field.value;
+        }
+        if (field.id === 'product-edit-currency') {
+            inputs['currency'] = field.value
+        }
+        if (field.id === 'product-edit-title') {
+            inputs['title'] = field.value;
+        }
+    })
+    inputs['currency'] = $('#edit-product-currency').val();
+    // edited country availabiility
+    const productEditCountries = document.querySelectorAll('input[name=countryCheckEdit]:checked');
+    const countriesArray = Array.from(productEditCountries).map(checkbox => checkbox.value);
+    if (countriesArray > 0) {
+        inputs['available-countries'] = countriesArray
+    }
+    // Edited colours
+    const productEditColours = document.querySelectorAll('input[name="colourCheckEdit"]:checked');
+    const colourArr = Array.from(productEditColours).map(checkbox => checkbox.value);
+    if (colourArr > 0) {
+        inputs['colors'] = colourArr;
+    }
+    const productID = $('#product-edit-details').data('product-id');
+    saveProductEditsToDb(inputs, productID);
+    $('#product-edit-modal').hide()
+})
+
+function saveProductEditsToDb(inputs, productID) {
+    productRef = db.collection('products').doc(productID);
+    productRef.update(inputs)
+        .then(() => {
+            console.log(`product details updated in db`);
+        }).catch(err => {
+            console.log(err.message);
         })
 }
 
@@ -354,7 +442,7 @@ $('#add-to-catalogue-button').click(() => {
         })
     })
         .then(() => {
-            const categoryRef = db.collection('product_categories').doc('iUqr7LSvwjohrNYrgsrD');
+            const categoryRef = db.collection('product_categories').doc('AJQHqaXZpE5hfR1etKss');
             categoryRef.get().then((doc) => {
                 doc.data().product_categories.forEach(category => {
                     let option = document.createElement('option');
@@ -374,11 +462,17 @@ $('#catalogue-close').click(() => {
 })
 
 $('window').click(event => {
-    if (event.target == $('#add-to-catalogue-modal')) {
-        $('#add-to-catalogue-modal').hide();
-        $('#edit-modal').hide();
+    if (event.target == $('#add-to-catalogue-modal') ||
+        event.target == $('#product-edit-modal')) {
+        hideModals();
     }
 })
+
+function hideModals() {
+    $('#add-to-catalogue-modal').hide();
+    $('#edit-modal').hide();
+    $('#product-edit-modal').hide();
+}
 
 // when vendor clicks create product, add the product to the product table in the database
 // add the product to the vendors array of products
