@@ -259,9 +259,10 @@ input {
 
 /* ----------------------------------orders ---------------------------*/
 
-.review_free_text{
+[id^=review_free_text_]{
   position: relative;
-  max-width: 100%
+  max-width: 100%;
+  width: 100%;
 }
 
 .orders-container{

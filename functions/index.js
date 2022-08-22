@@ -26,18 +26,6 @@ app.use((req, res, next)=>{
 app.use('/users', usersRouter);
 app.use('/vendors', vendorsRouter);
 
-
-// home page - does not require authentication
-/*app.get('/', async function (request, response){
-  let indexPath = path.join(__dirname, "views/home.ejs");
-
-  const queryObject = url.parse(request.url, true).query;
-
-  let payload = await prepareHomePayload(queryObject);
-  response.render(indexPath, payload);
-});*/
-
-
 // home page - does not require authentication
 app.get('/home', async function (request, response){
     let indexPath = path.join(__dirname, "views/home.ejs");

@@ -449,15 +449,15 @@
                           <p>Status: <%= product.status %> </p>
                           <% if(product.status == 'pending vendor confirmation'){ %>
                             <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn">Cancel</button>
-                          <% } else{ %>
-                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.product_id %>').modal('show');" class="btn">Review</button>
+                          <% } else if(product.status == 'confirmed'){ %>
+                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn">Review</button>
                           <% } %>
                         </div>
                       </div>
-                      <input input type="hidden" id="first" type="text" name="product_id"
-                        value="<%= product.product_id %>" />
+                      <input input type="hidden" id="first" type="text" name="order_id"
+                        value="<%= product.order_id %>" />
                     </div>
-                    <div id="reviewProduct_<%= product.product_id %>" class="modal" tabindex="-1" role="dialog">
+                    <div id="reviewProduct_<%= product.order_id %>" class="modal" tabindex="-1" role="dialog">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">
                           <div class="modal-header">
@@ -469,7 +469,7 @@
                           <div class="modal-body">
                             <div>
                               <p>Product Quality:</p>
-                              <select name="quality_rating" id="quality_rating_<%= product.product_id %>">
+                              <select name="quality_rating" id="quality_rating_<%= product.order_id %>" required>
                                 <option value="5" selected>5</option>
                                 <option value="4" selected>4</option>
                                 <option value="3" selected>3</option>
@@ -479,7 +479,7 @@
                             </div>
                             <div>
                               <p>Vendor quality:</p>
-                              <select name="vendor_quality_rating" id="vendor_quality_rating_<%= product.product_id %>">
+                              <select name="vendor_quality_rating" id="vendor_quality_rating_<%= product.order_id %>" required>
                                 <option value="5" selected>5</option>
                                 <option value="4" selected>4</option>
                                 <option value="3" selected>3</option>
@@ -489,7 +489,7 @@
                             </div>
                             <div>
                               <p>Product Description:</p>
-                              <select name="product_description_rating" id="product_description_rating_<%= product.product_id %>">
+                              <select name="product_description_rating" id="product_description_rating_<%= product.order_id %>" required>
                                 <option value="5" selected>5</option>
                                 <option value="4" selected>4</option>
                                 <option value="3" selected>3</option>
@@ -498,16 +498,17 @@
                               </select>
                             </div>
                             <label>Comments:</label>
-                            <textarea id="review_free_text_<%= product.product_id %>" class="review_free_text" rows="4" cols="50"></textarea>
+                            <textarea maxlength="100" id="review_free_text_<%= product.order_id %>"></textarea>
                           </div> <!-- end modal body-->
-                          <div class="modal-footer">
-                            <button type="button" value="<%= product.product_id %>" class="btn btn-secondary" 
+                          <div class="modal-review">
+                            <button type="button" value="<%= product.order_id %>" class="btn btn-secondary" 
                               onclick="reviewProduct(
-                                value, 
-                                $('#quality_rating_<%= product.product_id %>').find(':selected').text(), 
-                                $('#vendor_quality_rating_<%= product.product_id %>').find(':selected').text(),
-                                $('#product_description_rating_<%= product.product_id %>').find(':selected').text(),
-                                $('textarea#review_free_text_<%= product.product_id %>').val()
+                                '<%= product.product_id %>', 
+                                '<%= product.order_id %>',
+                                $('#quality_rating_<%= product.order_id %>').find(':selected').text(), 
+                                $('#vendor_quality_rating_<%= product.order_id %>').find(':selected').text(),
+                                $('#product_description_rating_<%= product.order_id %>').find(':selected').text(),
+                                $('#review_free_text_<%= product.order_id %>').val()
                               )" 
                               data-dismiss="modal">Save</button>
                           </div>

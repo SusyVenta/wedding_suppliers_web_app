@@ -77,17 +77,56 @@ async function cancelOrder(order_id) {
 };
 
 // Once the order has been confirmed by the vendor, users can review the product
-async function reviewProduct(product_id, quality_rating, vendor_quality_rating, product_description_rating) {
-  console.log(product_id, quality_rating, vendor_quality_rating, product_description_rating);
-
+async function reviewProduct(product_id, order_id, quality_rating, vendor_quality_rating, 
+  product_description_rating, free_text) {
   let user_id = document.getElementById("user_id_navbar").innerHTML;
+  let now = new Date();
 
-}
+  let newReviewData = {
+    firstName: user_id, // TODO change - TODO set up username for users
+    lastName: user_id,
+    date: now,
+    overall_rating: (Number(quality_rating) + Number(vendor_quality_rating) + Number(product_description_rating)) / 3,
+    product_quality_rating: Number(quality_rating),
+    vendor_quality_rating: Number(vendor_quality_rating),
+    product_description_rating: Number(product_description_rating),
+    comment: free_text
+  };
 
-function getStarValue(radios) {
-  for (var i = 0, length = radios.length; i < length; i++) {
-    if (radios[i].checked) {
-      return radios[i].value;
-    }
+  const productsTableGet = await db.collection('products').doc(product_id).get();
+  let targetProduct = productsTableGet.data(); 
+  let existingReviews = targetProduct.reviews;
+
+  if (existingReviews == null){
+    existingReviews = [newReviewData];
+  }else{
+    existingReviews.push(newReviewData);
   }
+
+  // Update product overall stars
+  let overallStarsAvg = 0;
+  let countReviews = 0;
+  for (let review of existingReviews){
+    overallStarsAvg += review.overall_rating;
+    countReviews += 1;
+  }
+  overallStarsAvg = parseFloat((overallStarsAvg / countReviews).toFixed(1));
+
+  const productsTableSet = await db.collection('products').doc(product_id);
+  productsTableSet.set(
+    {reviews: existingReviews,
+     stars: overallStarsAvg},
+    { merge: true }
+  );
+
+  // hides review button when review's already submitted
+  const userOrdersSet = await db.collection('users').doc(user_id).collection('orders').doc(order_id);
+  userOrdersSet.set(
+    {status: "reviewed"},
+    { merge: true }
+  );
+  
+  // reload page to refresh orders
+  location.reload();
+
 }
