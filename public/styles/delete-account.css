@@ -1,0 +1,33 @@
+/* Authentication modal */
+#delete-account-modal{
+    display: none;
+    position: fixed;
+    z-index: 10000; 
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#delete-account-content{
+    background-color: #fefefe;
+    margin: 4% auto;
+    border: 1px solid #888888;
+    max-width: 350px;
+}
+
+#delete-account-close{
+    float: right;
+    margin-right: -15px;
+    margin-top: -15px;
+    font-weight: bold;
+    padding: 0px 7px 5px 7px;
+    border-radius: 100%;
+}
+
+#delete-account-close:hover, #delete-account-close:focus{
+    text-decoration: none;
+    cursor: pointer;
+}
