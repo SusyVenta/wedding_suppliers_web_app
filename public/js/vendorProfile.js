@@ -67,29 +67,29 @@ const setProfile = () => {
     // set profile picture, if user has set an image themselves then use that image from storage otherwise use default image
 
     // vendor has set profile picture
-    if (vendorDetails.profile_image) $('#profile-pic').attr('src', vendorDetails.profile_image);
+    if (vendorDetails && vendorDetails.profile_image) $('#profile-pic').attr('src', vendorDetails.profile_image);
     // set business name
-    if (vendorDetails.business_name) $('#business-name').html(vendorDetails.business_name);
+    if (vendorDetails && vendorDetails.business_name) $('#business-name').html(vendorDetails.business_name);
     // set email
-    if (vendorDetails.email) $('#email').html(vendorDetails.email);
+    if (vendorDetails && vendorDetails.email) $('#email').html(vendorDetails.email);
     //set phone number
-    if (vendorDetails.phone_number) $('#phone-number').html(vendorDetails.phone_number);
+    if (vendorDetails && vendorDetails.phone_number) $('#phone-number').html(vendorDetails.phone_number);
     //set address 1
-    if (vendorDetails.address_1) $('#address-1').html(vendorDetails.address_1);
+    if (vendorDetails && vendorDetails.address_1) $('#address-1').html(vendorDetails.address_1);
     // set address 2
-    if (vendorDetails.address_2) $('#address-2').html(vendorDetails.address_2);
+    if (vendorDetails && vendorDetails.address_2) $('#address-2').html(vendorDetails.address_2);
     // set post code
-    if (vendorDetails.post_code) $('#post-code').html(vendorDetails.post_code);
+    if (vendorDetails && vendorDetails.post_code) $('#post-code').html(vendorDetails.post_code);
     // set city
-    if (vendorDetails.city) $('#city').html(vendorDetails.city);
+    if (vendorDetails && vendorDetails.city) $('#city').html(vendorDetails.city);
     // set country
-    if (vendorDetails.country) $('#country').html(vendorDetails.country);
+    if (vendorDetails && vendorDetails.country) $('#country').html(vendorDetails.country);
 }
 
 function setCatalogue() {
     // If the vendor has products then display them in the catalogue container
     // Otherwise display a message
-    if (vendorDetails.catalogue.length > 0) {
+    if (vendorDetails.catalogue && vendorDetails.catalogue.length) {
         getProductDetails(vendorDetails.catalogue);
     } else {
         $('#catalogue-container').html(
@@ -318,7 +318,6 @@ function populateProductEdit(productID) {
 }
 
 // Save changes
-// // Save changes
 $('#save-product-edit').click(event => {
     event.preventDefault();
     const inputs = {}
