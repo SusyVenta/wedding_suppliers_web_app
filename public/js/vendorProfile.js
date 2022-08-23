@@ -564,9 +564,19 @@ function getOrders(orders) {
         })
 }
 
-function sendEmail(user_email){
+function sendEmail(){
+    var user_email = this.getAttribute("data-user_email");
     window.location.href = "mailto:"+user_email+"?subject=You And Me - Message from vendor &body= ";
 };
+
+function addSendEmailEventListener(){
+    var buttons = document.querySelectorAll("[class^='sendEmailButton']");
+
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].addEventListener('click', sendEmail, false);
+    }
+ }
+
 
 function renderOrders(orders, products) {
     orders.forEach(order => {
@@ -661,11 +671,11 @@ function renderOrders(orders, products) {
                                 'class': 'col'
                             }).append(
                                 $('<button/>', {
-                                    'class': 'btn btn-light message-customer',
+                                    'class': 'sendEmailButton btn btn-light message-customer',
                                     text: 'Message Customer',
                                     'data-userID': `${order.user_id}`,
                                     'data-orderID': `${order.order_id}`,
-                                    onclick: sendEmail(order.user_email)
+                                    'data-user_email': `${order.user_email}`
                                 })
                             )
                         )
@@ -674,6 +684,8 @@ function renderOrders(orders, products) {
             )
         )
     })
+
+    addSendEmailEventListener()
 }
 
 
