@@ -7,6 +7,7 @@ async function prepareProductPagePayload(targetProduct_id) {
   // get product with given ID
   const productsTable = await firestore.collection('products').doc(targetProduct_id).get();
   let targetProduct = productsTable.data();
+
   targetProduct.product_id = targetProduct_id;
 
   // format review dates 
@@ -31,7 +32,6 @@ async function prepareProductPagePayload(targetProduct_id) {
   targetProduct.address = vendor_data.address_1;
   targetProduct.vendor = vendor_data.business_name;
   targetProduct.vendor_email = vendor_data.email;
-
 
   payload = {
     product: targetProduct

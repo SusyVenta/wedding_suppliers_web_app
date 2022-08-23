@@ -53,7 +53,6 @@
               Information</button>
             <button class="tablinks" onclick="openUserProfile(event, 'catalogue')">My catalogue</button>
             <button class="tablinks" onclick="openUserProfile(event, 'orders')">Orders</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'Messages')">Messages</button>
           </div>
 
           <div id="Profile" class="tabcontent">
@@ -144,87 +143,6 @@
               </div>
             </div>
           </div> <!-- end id="orders" class="tabcontent" -->
-
-
-          <div id="Messages" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Your Messages</h3>
-                <div id="chat-container">
-
-                  <section class="discussions">
-                    <div class="discussion search">
-                      <div class="searchbar">
-                        <i class="fa fa-search" aria-hidden="true"></i>
-                        <input type="text" placeholder="Search..."></input>
-                      </div>
-                    </div>
-                    <div class="discussion message-active" id="userId1"
-                      ontouchstart="touchAvailable=true; openChat(this);" onclick="if(!touchAvailable) openChat(this);">
-
-                      <div class="chat-list-photo-name">
-                        <div>
-                          <div class="photo"
-                            style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
-                          </div>
-                        </div>
-                        <div class="desc-contact">
-                          <p class="name">Belfiore</p>
-                          <p class="message">Works great!</p>
-                        </div>
-                      </div>
-                      <div class="timer">12 sec</div>
-                    </div>
-                    <div class="discussion">
-                      <div class="chat-list-photo-name">
-                        <div>
-                          <div class="photo"
-                            style="background-image: url(https://card.thomasdaubenton.com/img/photo.jpg);">
-                          </div>
-                        </div>
-                        <div class="desc-contact">
-                          <p class="name">Thomas Dbtn</p>
-                          <p class="message">Are you available at that time?</p>
-                        </div>
-                      </div>
-                      <div class="timer">42 min</div>
-                    </div>
-
-                  </section>
-                  <section class="chat">
-                    <div class="header-chat">
-                      <a id="go-back-to-chat-list" ontouchstart="touchAvailable=true; listChats();"
-                        onclick="if(!touchAvailable) listChats();"> <i class="fa fa-arrow-left"
-                          aria-hidden="true"></i></a>
-                      <div class="photo"
-                        style="background-image: url(https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
-                      </div>
-                      <p class="name">Belfiore</p>
-                    </div>
-                    <div class="messages-chat">
-                      <div class="message text-only">
-                        <div class="from-sender">
-                          <p class="text"> Hello, I received your order of 2000 white roses for May 16th. We will be
-                            able to deliver them at around 10am. Does that work for you? </p>
-                          <p class="time"> 14h58</p>
-                        </div>
-                      </div>
-                      <div class="message text-only">
-                        <div class="response">
-                          <p class="response-time time"> 15h04</p>
-                          <p class="text"> Hi, that works great thank you 😃</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="footer-chat">
-                      <input type="text" class="write-message" placeholder="Type your message here"></input>
-                      <i id="chat-send-btn" class="fa fa-paper-plane clickable" aria-hidden="true"></i>
-                    </div>
-                  </section>
-                </div>
-              </div>
-            </div>
-          </div> <!-- end messages tab -->
         </div>
       </main>
 
