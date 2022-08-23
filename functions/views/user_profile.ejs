@@ -36,8 +36,8 @@
               </div>
 
               <div class="tab-content" id="profile-pic-container">
-                <% if(user.profile_picture == null){ %>
-                  <img id="profile-pic" src="https://media.istockphoto.com/photos/newlyweds-on-the-beach-at-sunset-picture-id1124826836?k=20&m=1124826836&s=612x612&w=0&h=SEGhu2KC1D6zJW1JXymeN7_3tDT2rFXlsiRVKubnYs0=" alt="User profile picture">
+                <% if(!user.profile_picture){ %>
+                  <img id="profile-pic" src="/assets/blank-profile-picture-png.png" alt="User profile picture">
                 <% } else{ %>
                   <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
                 <% }%>
