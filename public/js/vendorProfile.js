@@ -564,6 +564,10 @@ function getOrders(orders) {
         })
 }
 
+function sendEmail(user_email){
+    window.location.href = "mailto:"+user_email+"?subject=You And Me - Message from vendor &body= ";
+};
+
 function renderOrders(orders, products) {
     orders.forEach(order => {
         // get the correct product from the products array
@@ -660,7 +664,8 @@ function renderOrders(orders, products) {
                                     'class': 'btn btn-light message-customer',
                                     text: 'Message Customer',
                                     'data-userID': `${order.user_id}`,
-                                    'data-orderID': `${order.order_id}`
+                                    'data-orderID': `${order.order_id}`,
+                                    onclick: sendEmail(order.user_email)
                                 })
                             )
                         )
@@ -670,6 +675,7 @@ function renderOrders(orders, products) {
         )
     })
 }
+
 
 function getTotalPrice(quantity, price) {
     return quantity * price;
@@ -696,12 +702,14 @@ $('.orders-container').on('click', '.decline-order', e => {
 // Change the status of an order in db when an order is declined or accepted by the vendor
 function alterOrderStatus(status, orderID, userID) {
     // change status of order in customer doc
-    db.collection('users').doc(userID).collection('orders').doc(orderID).update({
-        status: `${status}`
-    })
+    db.collection('users').doc(userID).collection('orders').doc(orderID).update(
+        {status: `${status}`},
+        { merge: true }
+        )
 
     // change order status in vendor doc
-    db.collection('users').doc(vendorID).collection(`orders_to_confirm`).doc(orderID).update({
-        status: `${status}`
-    })
+    db.collection('users').doc(vendorID).collection(`orders_to_confirm`).doc(orderID).update(
+        {status: `${status}`},
+        { merge: true }
+        )
 }

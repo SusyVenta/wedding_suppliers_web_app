@@ -82,9 +82,12 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
   let user_id = document.getElementById("user_id_navbar").innerHTML;
   let now = new Date();
 
+  const usersTableGet = await db.collection('users').doc(user_id).get();
+  let userData = usersTableGet.data(); 
+
   let newReviewData = {
-    firstName: user_id, // TODO change - TODO set up username for users
-    lastName: user_id,
+    firstName: userData.username, 
+    lastName: "",
     date: now,
     overall_rating: (Number(quality_rating) + Number(vendor_quality_rating) + Number(product_description_rating)) / 3,
     product_quality_rating: Number(quality_rating),

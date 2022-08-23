@@ -62,15 +62,19 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     return payload;
   }
 
+  docIdOfUser = await getDocIdOfUserID(request.body.user_id);
+  const usersTableGet = await firestore.collection('users').doc(docIdOfUser).get();
+  let userData = usersTableGet.data(); 
+
   let productFields = {
-    user_id: await getDocIdOfUserID(request.body.user_id),
+    user_id: docIdOfUser,
     vendor_id: payload.product.vendor_id,
     chosenProductId: chosenProductId,
     quantity_chosen: request.body.quantity,
     preferred_delivery_chosen: request.body.preferred_delivery,
-    color_chosen: request.body.color
+    color_chosen: request.body.color,
+    user_email: userData.email
   }
-  console.log(action);
 
   if (action === "confirm_availability") {
     /* 
@@ -86,7 +90,8 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       quantity_chosen: productFields.quantity_chosen,
       preferred_delivery_chosen: productFields.preferred_delivery_chosen,
       color_chosen: productFields.color_chosen,
-      order_id: uniqueOrderID
+      order_id: uniqueOrderID,
+      user_email: productFields.user_email
     };
     // adds order to vendor DB, so they can confirm or decline
     await firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);

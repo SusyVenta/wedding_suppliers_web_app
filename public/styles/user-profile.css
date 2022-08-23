@@ -349,7 +349,7 @@ input {
   height: 20vh;
 
   /* Position and center the image to scale nicely on all screens */
-  background-position: bottom;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;
@@ -366,7 +366,7 @@ input {
   height: 20vh;
 
   /* Position and center the image to scale nicely on all screens */
-  background-position: bottom;
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   position: relative;

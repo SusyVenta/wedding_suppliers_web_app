@@ -10,11 +10,13 @@ createUserInDB = (data) => {
             country: "",
             phone_number: "",
             post_code: "",
+            profile_picture: "",
             user_id: data.user_id,
             is_vendor: false,
             orders: [],
             todo: [],
-            wishlist: []
+            wishlist: [],
+            username: data.username
         }).then(() => {
             console.log('User added to database');
         })

@@ -169,7 +169,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 }).then(() => {
                     createUserInDB({
                         email: email,
-                        user_id: auth.currentUser.uid
+                        user_id: auth.currentUser.uid,
+                        username: userName
                     })
                 })
                 .catch(error => {
