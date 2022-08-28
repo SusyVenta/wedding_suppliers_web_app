@@ -2,7 +2,30 @@ const firebase = require('../db')
 const firestore = firebase.firestore();
 const Views = '../views/';
 const url = require('url');
-const {filterProductsBy} = require('../db_utils/db_utils.js');
+
+function filterProductsBy(productsList, targetAttribute, targetValue) {
+  let products = productsList;
+  let filteredProducts = [];
+  
+  for (let product of products){
+      let tmp_attributes = product[targetAttribute];
+
+      if(Array.isArray(tmp_attributes) | (tmp_attributes instanceof Set)){
+          for (let tmp_attribute of tmp_attributes){
+              if(tmp_attribute == targetValue){
+                  filteredProducts.push(product);
+              }
+          }
+      }else{
+          if(tmp_attributes == targetValue){
+              filteredProducts.push(product);
+          }
+      }
+      
+  }
+
+  return filteredProducts;
+};  
 
 
 async function prepareHomePayload(queryObject) {
