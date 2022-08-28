@@ -4,7 +4,7 @@ const usersRouter = require('./routes/users.js');
 const path = require('path');
 const url = require('url');
 const productsRouter = require('./routes/product_details.js');
-const {prepareHomePayload} = require('./controllers/HomeController');
+const { prepareHomePayload } = require('./controllers/HomeController');
 const app = express();
 
 // enable to use ejs
@@ -21,7 +21,7 @@ app.use('/product_details', productsRouter);
 
 
 // home page - does not require authentication
-app.get('/home', async function (request, response){
+app.get('/home', async function (request, response) {
   let indexPath = path.join(__dirname, "views/home.ejs");
 
   const queryObject = url.parse(request.url, true).query;
@@ -36,5 +36,10 @@ app.get('/vendor_profile', (request, response) => {
   response.render(indexPath);
 });
 
+// Error handler for 404 errors. Must be last middleware
+app.use((req, res, next) => {
+  let indexPath = path.join(__dirname, "views/404.ejs");
+  res.status(404).render(indexPath);
+})
 
 exports.app = functions.https.onRequest(app);

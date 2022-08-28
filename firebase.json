@@ -3,6 +3,12 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "rewrites": [
+    {
+      "source": "!{/bower_components,/src}/**",
+      "destination": "/index.html"
+    }
+  ],
   "hosting": {
     "public": "public",
     "rewrites": [
