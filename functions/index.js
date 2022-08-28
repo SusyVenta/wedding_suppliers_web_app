@@ -17,7 +17,7 @@ app.use('/my_js', express.static(__dirname + '/node_modules/jquery/dist'));
 // load routes. Routes are defined in separate files to keep index.js clean
 app.use('/users', usersRouter);
 app.use('/product_details', productsRouter);
-app.use('/home', homeRouter);
-app.use('/vendor_profile', vendorRouter);
+app.use(homeRouter);
+app.use(vendorRouter);
 
 exports.app = functions.https.onRequest(app);
