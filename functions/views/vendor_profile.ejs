@@ -49,10 +49,10 @@
       <main>
         <div class="main-container">
           <div class="tab">
-            <button class="tablinks" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
+            <button id="openProfileTab" class="tablinks active" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
               Information</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'catalogue')">My catalogue</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'orders')">Orders</button>
+            <button id="openCatalogueTab" class="tablinks" onclick="openUserProfile(event, 'catalogue')">My catalogue</button>
+            <button id="openOrdersTab" class="tablinks" onclick="openUserProfile(event, 'orders')">Orders</button>
           </div>
 
           <div id="Profile" class="tabcontent">

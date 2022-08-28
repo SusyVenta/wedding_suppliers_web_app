@@ -7,22 +7,30 @@ function openUserProfile(evt, cityName) {
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
   }
-  tablinks = document.getElementsByClassName("tablinks");
+
+  // unselect non clicked tabs 
+  // get all elements that have a class name starting with 
+  tablinks = document.querySelectorAll("[class^=tablinks]");
   for (i = 0; i < tablinks.length; i++) {
-    tablinks[i].className = tablinks[i].className.replace(" active", "");
+    tablinks[i].className = tablinks[i].className = "tablinks";
   }
+
   document.getElementById(cityName).style.display = "block";
   evt.currentTarget.className += " active";
 }
 
 /* Determine which tab to open */
 function determineTabToOpenAndOpenIt(){
-  let tabsIds = ["openProfileTab", "openWishlistTab", "openOrdersTab"];
+  let tabsIds = ["openProfileTab", "openWishlistTab", "openOrdersTab", "openCatalogueTab"];
   let tabClass;
   for (let tab of tabsIds){
-    tabClass = document.getElementById(tab).className;
-    if(tabClass == 'tablinks active'){
-      document.getElementById(tab).click();
+    try {
+      tabClass = document.getElementById(tab).className;
+      if(tabClass == 'tablinks active'){
+        document.getElementById(tab).click();
+      }
+    } catch{
+      // we're here if there is no element with such id. Nothing to do. This script is run both by user and vendor profiles.
     }
   }
 }

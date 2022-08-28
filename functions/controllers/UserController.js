@@ -70,8 +70,8 @@ const getUserProfile = async (req, res) => {
 
   // decide what tab to open
   user.openProfileTabClass = "tablinks active";
-  user.openWishlistTab = "tablinks";
-  user.openOrdersTab = "tablinks";
+  user.openWishlistTabClass = "tablinks";
+  user.openOrdersTabClass = "tablinks";
 
   res.render(Views + 'user_profile.ejs', user)
 }
