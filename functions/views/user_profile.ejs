@@ -60,10 +60,10 @@
                           <!-- Phone number -->
                           <label>Phone number</label>
                           <% if(user.phone_number == null | user.phone_number == ""){ %>
-                            <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
+                            <input disabled type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
                             placeholder="Phone Number" value="" required>
                           <% } else{ %>
-                            <input type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
+                            <input disabled type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
                             placeholder="Phone Number" value="<%= user.phone_number %>" required>
                           <% }%>
                         </div>
@@ -71,10 +71,10 @@
                           <!-- Address 1 -->
                           <label>Address of your wedding location</label>
                           <% if(user.address_1 == null){ %>
-                            <input type="text" id="address_1" class="form-control"
+                            <input disabled type="text" id="address_1" class="form-control"
                             placeholder="Address of your wedding location" value="" %>" required>
                           <% } else{ %>
-                            <input type="text" id="address_1" class="form-control"
+                            <input disabled type="text" id="address_1" class="form-control"
                             placeholder="Address of your wedding location" value="<%= user.address_1 %>" required>
                           <% }%>
                           
@@ -82,17 +82,17 @@
                         <div class="row">
                           <!-- Postal Code -->
                           <label>Postal code</label>
-                          <input type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
+                          <input disabled type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
                         </div>
                         <div class="row">
                           <!-- City -->
                           <label>City</label>
-                          <input type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
+                          <input disabled type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
                         </div>
                         <div class="row">
                           <!-- Country -->
                           <label>Country</label>
-                          <select id="country" name="country" class="form-control" required>
+                          <select disabled id="country" name="country" class="form-control" required>
                             <option value="" disabled selected hidden>Country</option>
                             <option selected value="<%= user.country %>"><%= user.country %></option>
                             <option value="AF">Afghanistan</option>
@@ -349,7 +349,8 @@
                       </div>
                     </div>
                   </div>
-                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Save" />
+                  <input type="hidden" id="saveOrEdit" name="saveOrEdit" value="Edit">
+                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Edit" />
                 </form>
               </div>
             </div>

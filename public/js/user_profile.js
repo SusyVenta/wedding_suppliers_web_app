@@ -21,21 +21,53 @@ document.getElementById("defaultOpen").click();
 
 /* When user updates personal details, save updated details to the database */
 const updateProfileForm = async () => {
-  let user_id = document.getElementById("user_id_navbar").innerHTML;
-  userProfile = db.collection('users').doc(user_id);
+  // determine user action
+  let saveOrEdit = document.getElementById("saveOrEdit").value;
+  if (saveOrEdit == "Edit"){
+    // enable inputs
+    document.getElementById("phone_number").disabled = false;
+    document.getElementById("address_1").disabled = false;
+    document.getElementById("post_code").disabled = false;
+    document.getElementById("city").disabled = false;
+    document.getElementById("country").disabled = false;
 
-  const data = {
-    address_1: document.getElementById("address_1").value,
-    phone_number: document.getElementById("phone_number").value,
-    country: document.getElementById("country").value,
-    city: document.getElementById("city").value,
-    post_code: document.getElementById("post_code").value,
+    // change current state of edit / save
+    document.getElementById("saveOrEdit").value = "Save";
+
+    // change text of save / edit button
+    document.getElementById("edit-user-details").value = "Save";
+  } else {
+    // user is saving personal details modifications
+    let user_id = document.getElementById("user_id_navbar").innerHTML;
+    userProfile = db.collection('users').doc(user_id);
+
+    const data = {
+      address_1: document.getElementById("address_1").value,
+      phone_number: document.getElementById("phone_number").value,
+      country: document.getElementById("country").value,
+      city: document.getElementById("city").value,
+      post_code: document.getElementById("post_code").value,
+    }
+
+    userProfile.set(
+      data,
+      { merge: true }
+    );
+
+    // disable inputs
+    document.getElementById("phone_number").disabled = true;
+    document.getElementById("address_1").disabled = true;
+    document.getElementById("post_code").disabled = true;
+    document.getElementById("city").disabled = true;
+    document.getElementById("country").disabled = true;
+
+    // change current state of edit / save
+    document.getElementById("saveOrEdit").value = "Edit";
+
+    // change text of save / edit button
+    document.getElementById("edit-user-details").value = "Edit";
   }
-
-  userProfile.set(
-    data,
-    { merge: true }
-  );
+  
 }
 
 /* When user clicks on 'Update profile picture', activates the upload */
