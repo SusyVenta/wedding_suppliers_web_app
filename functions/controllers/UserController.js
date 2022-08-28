@@ -1,11 +1,9 @@
-const express = require('express');
 const Views = '../views/'
 const firebase = require('../db')
 
 const firestore = firebase.firestore();
 
-let storage = firebase.storage().ref();
-
+// called when user clicks on Profile from navbar
 const getUserProfile = async (req, res) => {
 
   const userTable = await firestore.collection('users').get();
@@ -67,58 +65,7 @@ const getUserProfile = async (req, res) => {
   res.render(Views + 'user_profile.ejs', user)
 }
 
-const getUserLogin = ((req, res) => {
-  res.render(Views + 'customer_login.ejs')
-})
-
-const getUserRegistration = ((req, res) => {
-  res.render(Views + 'customer_reg.ejs')
-})
-
-
-const postComment = async (req, res) => {
-  try {
-    const id = req.params.user_id || req.query.user_id || req.body.user_id;
-    let user = await firestore.collection('users').doc(id).get();
-    let product = await firestore.collection('products').doc(req.body.product_id).get();
-    let comment = {
-      user_id: id,
-      comment: req.body.comment,
-      firstName: user.data().first_name,
-      lastName: user.data().last_name,
-      date: new Date(Date.now()),
-      overall_rating: Number(req.body.overall_rating),
-      product_description_rating: Number(req.body.product_description_rating),
-      product_quality_rating: Number(req.body.product_quality_rating),
-      vendor_quality_rating: Number(req.body.vendor_quality_rating)
-    }
-    // get data from body
-    if (user.exists && product.exists) {
-        //push comment to product's review 
-        let productData = product.data();
-        productData.reviews.push(comment);
-        await firestore.collection('products').doc(req.body.product_id).set(productData);
-        res.status(200).send({
-          message: 'Comment added successfully'
-        });
-    } else {
-      res.status(404).send({
-        message: 'User or product not found'
-      });
-    }
-  }
-  catch (error) {
-    res.status(500).send({
-      message: error.message
-    });
-  }
-}
-
-
 module.exports = {
-    getUserProfile,
-    getUserLogin,
-    getUserRegistration,
-    postComment
+    getUserProfile
   }
 

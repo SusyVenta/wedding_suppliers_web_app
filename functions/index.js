@@ -3,7 +3,6 @@ const express = require('express');
 const path = require('path');
 const url = require('url');
 const usersRouter = require('./routes/users.js')
-const vendorsRouter = require('./routes/vendors.js');
 const moment = require('moment');
 const {prepareHomePayload} = require('./controllers/HomeController');
 const {prepareProductPagePayload, confirmProductRequestSubmit} = require('./controllers/ProductPageController');
@@ -23,8 +22,8 @@ app.use((req, res, next)=>{
   next();
 });
 
+// loads user profile route
 app.use('/users', usersRouter);
-app.use('/vendors', vendorsRouter);
 
 // home page - does not require authentication
 app.get('/home', async function (request, response){
@@ -62,7 +61,7 @@ app.post("/product_details/:product_id", async function (request, response) {
   let user_id = request.body.user_id;
   let is_authenticated;
 
-  if(user_id == "unauthenticated"){
+  if(user_id == "unauthenticated" || user_id == null || user_id == '' || user_id == undefined){
     is_authenticated = false;
     orderRequestSubmitted = false;
     addedToBasket = false;
@@ -81,7 +80,6 @@ app.post("/product_details/:product_id", async function (request, response) {
     }
   }
 
-
   let payload = await confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated);
   
   response.render(indexPath, {
@@ -93,40 +91,10 @@ app.post("/product_details/:product_id", async function (request, response) {
   });
 });
 
-
-// TODO move to routes/vendor.js
+// vendor profile
 app.get('/vendor_profile', (request, response) => {
   let indexPath = path.join(__dirname, "views/vendor_profile.ejs");
   response.render(indexPath);
 });
-
-app.get('/user_profile', async (request, response) => {
-  let indexPath = path.join(__dirname, "views/user_profile.ejs");
-
-  const queryObject = url.parse(request.url, true).query;
-  let payload = await prepareHomePayload(queryObject);
-  console.log(payload);
-  let params = {email: "....", todo: []};
-  response.render(indexPath, {
-    products: payload.products,
-    params: params
-  });
-})
-
-app.get('/vendor_login', (request, response) => {
-  let indexPath = path.join(__dirname, "views/vendor_login.ejs");
-  response.render(indexPath);
-})
-
-app.get('/admin_routes', (request, response) => {
-  let routes = [
-    " /, => home.ejs ",
-    " users/login, => customer_login.ejs ", " users/:userId/profile => user_profile.ejs ",
-    " /vendor_login => vendor_login.html ", " /vendor_profile => vendor_profile.ejs",
-    " vendors/reg => vendor_reg.ejs "
-  ]
-  response.send(`${routes}`);
-})
-
 
 exports.app = functions.https.onRequest(app);
