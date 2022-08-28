@@ -84,7 +84,6 @@ const postUserProfile = async (req, res) => {
   user.openProfileTabClass = "tablinks";
   user.openWishlistTabClass = "tablinks";
   user.openOrdersTabClass = "tablinks active";
-  console.log(user);
 
   res.render(Views + 'user_profile.ejs', user)
 }

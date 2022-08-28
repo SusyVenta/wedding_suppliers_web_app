@@ -177,7 +177,8 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
      stars: overallStarsAvg,
      overall_product_quality_rating: overall_product_quality_rating,
      overall_vendor_quality_rating: overall_vendor_quality_rating,
-     overall_product_description_rating: overall_product_description_rating
+     overall_product_description_rating: overall_product_description_rating,
+     number_reviews: countReviews + 1
     },
     { merge: true }
   );
