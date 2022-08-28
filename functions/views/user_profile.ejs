@@ -26,7 +26,9 @@
             <!-- The first tab is open by default when the user loads the page -->
             <button id="openProfileTab" class="<%= user.openProfileTabClass %>" onclick="openUserProfile(event, 'Profile')">Personal
               Information</button>
-            <button id="openWishlistTab" class="<%= user.openWishlistTabClass %>" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
+            <% if (user.is_vendor === false) { %>
+              <button id="openWishlistTab" class="<%= user.openWishlistTabClass %>" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
+            <% }%>
             <button id="openOrdersTab" class="<%= user.openOrdersTabClass %>" onclick="openUserProfile(event, 'Orders')">My Orders</button>
           </div>
 
@@ -52,6 +54,13 @@
                   <div class="container user-details">
                     <div class="row">
                       <div class="col">
+                        <% if (user.is_vendor === true) { %>
+                          <div class="row">
+                            <!-- Email -->
+                            <label>Business name</label>
+                            <input disabled type="text" id="business_name" class="form-control form-control" placeholder="" value="<%= user.business_name %>" required>
+                          </div>
+                        <% }%>
                         <div class="row">
                           <!-- Email -->
                           <label>Email</label>
@@ -352,10 +361,13 @@
                   </div>
                   <input type="hidden" id="saveOrEdit" name="saveOrEdit" value="Edit">
                   <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Edit" />
+                  <!--button id="delete-account-button" class="btn btn-danger">Delete Account</button-->
                 </form>
               </div>
             </div>
           </div>
+
+          <% if (user.is_vendor === false) { %>
           <div id="Wishlist" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
@@ -429,6 +441,8 @@
               </div>
             </div>
           </div>
+          <% } %>
+
           <!-- orders tab -->
           <div id="Orders" class="tabcontent">
             <div class="tab-content-container">
@@ -444,22 +458,42 @@
                         </div>
                       </div>
                       <div class="product-to-right-boxes-small">
-                        <div class="rightest-box">
-                          <h4><%= product.product.title %></h4>
-                          <p>Order Details:</p>
-                          <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
-                          <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
-                          <p>Status: <%= product.status %> </p>
-                          <% if(product.status == 'pending vendor confirmation'){ %>
-                            <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn">Cancel</button>
-                          <% } else if(product.status == 'confirmed'){ %>
-                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn">Review</button>
-                          <% } %>
-                        </div>
+                        <% if (user.is_vendor === false) { %>
+                          <div class="rightest-box">
+                            <h4><%= product.product.title %></h4>
+                            <p>Order Details:</p>
+                            <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
+                            <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
+                            <p>Status: <%= product.status %> </p>
+                            <% if(product.status == 'pending vendor confirmation'){ %>
+                              <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn">Cancel</button>
+                            <% } else if(product.status == 'confirmed'){ %>
+                              <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn">Review</button>
+                            <% } %>
+                          </div>
+                        <% } else { %>
+                          <div class="rightest-box">
+                            <h4>Order No. <%= product.order_id %></h4>
+                            <p>Product name: <%= product.product.title %></p>
+                            <p>Quantity: <%= product.quantity_chosen %> </p>
+                            <p>Chosen color: <%= product.color_chosen %></p>
+                            <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
+                            <p>Status: <%= product.status %></p>
+                            <div>
+                              <% if (product.status == null || product.status == "pending vendor confirmation") { %>
+                                <button value="<%= product.order_id %>" onclick="alterOrderStatus('confirmed', '<%= product.order_id %>', '<%= product.user_id %>', '<%= user.user_id %>')" class="btn">Accept</button>
+                                <button value="<%= product.order_id %>" onclick="alterOrderStatus('declined', '<%= product.order_id %>', '<%= product.user_id %>', '<%= user.user_id %>')" class="btn">Decline</button>
+                              <% } %>
+                              <button value="<%= product.order_id %>" onclick="sendEmail('<%= product.user_email %>')" class="sendEmailButton btn">Message Customer</button>
+                            </div>
+                          </div>
+                        <% } %>
                       </div>
                       <input input type="hidden" id="first" type="text" name="order_id"
                         value="<%= product.order_id %>" />
                     </div>
+
+                    <!-- Modal to review products - only for customer users -->
                     <div id="reviewProduct_<%= product.order_id %>" class="modal" tabindex="-1" role="dialog">
                       <div class="modal-dialog" role="document">
                         <div class="modal-content">

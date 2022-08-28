@@ -42,14 +42,6 @@ determineTabToOpenAndOpenIt();
 const updateProfileForm = async () => {
   // determine user action
   let saveOrEdit = document.getElementById("saveOrEdit").value;
-
-  let is_vendor = document.getElementById("business_name");
-  if (is_vendor == undefined){
-    is_vendor = false;
-  } else {
-    is_vendor = true;
-  }
-
   if (saveOrEdit == "Edit"){
     // enable inputs
     document.getElementById("phone_number").disabled = false;
@@ -57,9 +49,6 @@ const updateProfileForm = async () => {
     document.getElementById("post_code").disabled = false;
     document.getElementById("city").disabled = false;
     document.getElementById("country").disabled = false;
-    if (is_vendor === true){
-      document.getElementById("business_name").disabled = false;
-    }
 
     // change current state of edit / save
     document.getElementById("saveOrEdit").value = "Save";
@@ -79,10 +68,6 @@ const updateProfileForm = async () => {
       post_code: document.getElementById("post_code").value,
     }
 
-    if (is_vendor === true){
-      data.business_name = document.getElementById("business_name").value;
-    }
-
     userProfile.set(
       data,
       { merge: true }
@@ -94,10 +79,6 @@ const updateProfileForm = async () => {
     document.getElementById("post_code").disabled = true;
     document.getElementById("city").disabled = true;
     document.getElementById("country").disabled = true;
-
-    if (is_vendor === true){
-      document.getElementById("business_name").disabled = true;
-    }
 
     // change current state of edit / save
     document.getElementById("saveOrEdit").value = "Edit";
@@ -221,26 +202,3 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
    $('form#user-details').submit();
 
 }
-
-/* --------------------------------------- For vendors --------------------------------------*/
-// Change the status of an order in db when an order is declined or accepted by the vendor
-async function alterOrderStatus(status, orderID, customerID, vendorID) {
-  // change status of order in customer doc
-  await db.collection('users').doc(customerID).collection('orders').doc(orderID).update(
-      {status: `${status}`},
-      { merge: true }
-      );
-
-  // change order status in vendor doc
-  await db.collection('users').doc(vendorID).collection(`orders_to_confirm`).doc(orderID).update(
-      {status: `${status}`},
-      { merge: true }
-      );
-
-  // post form to reload page with updated orders
-  $('form#user-details').submit();
-};
-
-function sendEmail(user_email){
-  window.location.href = "mailto:"+user_email+"?subject=You And Me - Message from vendor &body= ";
-};

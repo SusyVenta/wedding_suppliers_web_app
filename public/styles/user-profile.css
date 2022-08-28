@@ -135,6 +135,10 @@
   flex-direction: column;
 }
 
+#delete-account-button{
+  margin-top: 10px;
+}
+
 
 
 /* ----------- phone view ------ */

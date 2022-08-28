@@ -92,7 +92,8 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       preferred_delivery_chosen: productFields.preferred_delivery_chosen,
       color_chosen: productFields.color_chosen,
       order_id: uniqueOrderID,
-      user_email: productFields.user_email
+      user_email: productFields.user_email,
+      status: "pending vendor confirmation"
     };
     // adds order to vendor DB, so they can confirm or decline
     await firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);
