@@ -35,7 +35,7 @@ async function prepareHomePayload(queryObject) {
 
   // product categories
   const productCategoriesTable = await firestore.collection('product_categories').doc('AJQHqaXZpE5hfR1etKss').get();
-  console.log(productCategoriesTable.data());
+
   let product_categories = productCategoriesTable.data().product_categories;
 
   // colors
