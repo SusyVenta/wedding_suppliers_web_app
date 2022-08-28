@@ -3,9 +3,9 @@ const express = require('express');
 const path = require('path');
 const url = require('url');
 const usersRouter = require('./routes/users.js')
+const productsRouter = require('./routes/product_details.js')
 const moment = require('moment');
 const {prepareHomePayload} = require('./controllers/HomeController');
-const {prepareProductPagePayload, confirmProductRequestSubmit} = require('./controllers/ProductPageController');
 const app = express();
 
 // enable to use ejs
@@ -25,6 +25,9 @@ app.use((req, res, next)=>{
 // loads user profile route
 app.use('/users', usersRouter);
 
+// loads user profile route
+app.use('/product_details', productsRouter);
+
 // home page - does not require authentication
 app.get('/home', async function (request, response){
     let indexPath = path.join(__dirname, "views/home.ejs");
@@ -35,61 +38,6 @@ app.get('/home', async function (request, response){
     response.render(indexPath, payload);
   });
 
-// product details - does not require authentication
-app.get("/product_details/:product_id", async function (request, response) {
-  let indexPath = path.join(__dirname, "views/product_details.ejs");
-  let chosenProductId = request.params.product_id;
-  
-  let payload = await prepareProductPagePayload(chosenProductId);
-
-  response.render(indexPath, {
-    product: payload.product,
-    moment: moment,
-    orderRequestSubmitted: false,
-    addedToBasket: false,
-    is_authenticated: true
-  });
-});
-
-// product details post - when user clicks 'confirm availability' or 'add to basket' - requires auth
-app.post("/product_details/:product_id", async function (request, response) {
-  let indexPath = path.join(__dirname, "views/product_details.ejs");
-  let chosenProductId = request.params.product_id;
-  let orderRequestSubmitted;
-  let addedToBasket;
-  let action;
-  let user_id = request.body.user_id;
-  let is_authenticated;
-
-  if(user_id == "unauthenticated" || user_id == null || user_id == '' || user_id == undefined){
-    is_authenticated = false;
-    orderRequestSubmitted = false;
-    addedToBasket = false;
-  }else{
-    is_authenticated = true;
-    if("add_to_basket" in request.body){
-      addedToBasket = true;
-      action = "add_to_basket";
-    }
-    if("confirm_availability" in request.body){
-      orderRequestSubmitted = true;
-      action = "confirm_availability";
-    }
-    if (action === undefined) {
-      action = request.body.action;
-    }
-  }
-
-  let payload = await confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated);
-  
-  response.render(indexPath, {
-    product: payload.product,
-    moment: moment,
-    orderRequestSubmitted: orderRequestSubmitted,
-    addedToBasket: addedToBasket,
-    is_authenticated: is_authenticated
-  });
-});
 
 // vendor profile
 app.get('/vendor_profile', (request, response) => {

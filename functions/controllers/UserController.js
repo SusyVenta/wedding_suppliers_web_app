@@ -1,5 +1,5 @@
-const Views = '../views/'
-const firebase = require('../db')
+const Views = '../views/';
+const firebase = require('../db');
 
 const firestore = firebase.firestore();
 

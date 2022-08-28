@@ -1,7 +1,8 @@
 const firebase = require('../db')
 const firestore = firebase.firestore();
 const { v4: uuidv4 } = require('uuid');
-
+const Views = '../views/';
+const moment = require('moment');
 
 async function prepareProductPagePayload(targetProduct_id) {
   // get product with given ID
@@ -140,8 +141,63 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
   return payload;
 };
 
+// get product details - does not require authentication
+const getProductDetails = async (request, response) => {
+  let indexPath = Views + "product_details.ejs";
+  let chosenProductId = request.params.product_id;
+  
+  let payload = await prepareProductPagePayload(chosenProductId);
+
+  response.render(indexPath, {
+    product: payload.product,
+    moment: moment,
+    orderRequestSubmitted: false,
+    addedToBasket: false,
+    is_authenticated: true
+  });
+}
+
+// product details post - when user clicks 'confirm availability' or 'add to basket' - requires auth
+const postProductDetails = async (request, response) => {
+  let indexPath = Views + "product_details.ejs";
+  let chosenProductId = request.params.product_id;
+  let orderRequestSubmitted;
+  let addedToBasket;
+  let action;
+  let user_id = request.body.user_id;
+  let is_authenticated;
+
+  if(user_id == "unauthenticated" || user_id == null || user_id == '' || user_id == undefined){
+    is_authenticated = false;
+    orderRequestSubmitted = false;
+    addedToBasket = false;
+  }else{
+    is_authenticated = true;
+    if("add_to_basket" in request.body){
+      addedToBasket = true;
+      action = "add_to_basket";
+    }
+    if("confirm_availability" in request.body){
+      orderRequestSubmitted = true;
+      action = "confirm_availability";
+    }
+    if (action === undefined) {
+      action = request.body.action;
+    }
+  }
+
+  let payload = await confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated);
+  
+  response.render(indexPath, {
+    product: payload.product,
+    moment: moment,
+    orderRequestSubmitted: orderRequestSubmitted,
+    addedToBasket: addedToBasket,
+    is_authenticated: is_authenticated
+  });
+}
 
 module.exports = {
-  prepareProductPagePayload: prepareProductPagePayload,
-  confirmProductRequestSubmit: confirmProductRequestSubmit
+  getProductDetails,
+  postProductDetails
 }
