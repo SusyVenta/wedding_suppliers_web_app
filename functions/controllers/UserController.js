@@ -3,9 +3,8 @@ const firebase = require('../db')
 
 const firestore = firebase.firestore();
 
-// called when user clicks on Profile from navbar
-const getUserProfile = async (req, res) => {
 
+const getUserProfileCommonData = async (req, res) => {
   const userTable = await firestore.collection('users').get();
 
   const id = req.params.userId || req.query.userId || req.body.userId;
@@ -62,10 +61,36 @@ const getUserProfile = async (req, res) => {
     user.orders = [];
   }
 
+  return user;
+
+}
+// called when user clicks on Profile from navbar
+const getUserProfile = async (req, res) => {
+  user = await getUserProfileCommonData(req, res);
+
+  // decide what tab to open
+  user.openProfileTabClass = "tablinks active";
+  user.openWishlistTab = "tablinks";
+  user.openOrdersTab = "tablinks";
+
+  res.render(Views + 'user_profile.ejs', user)
+}
+
+// called when user clicks on cancel order or review from profile Orders tab
+const postUserProfile = async (req, res) => {
+  user = await getUserProfileCommonData(req, res);
+
+  // decide what tab to open
+  user.openProfileTabClass = "tablinks";
+  user.openWishlistTabClass = "tablinks";
+  user.openOrdersTabClass = "tablinks active";
+  console.log(user);
+
   res.render(Views + 'user_profile.ejs', user)
 }
 
 module.exports = {
-    getUserProfile
+    getUserProfile,
+    postUserProfile
   }
 

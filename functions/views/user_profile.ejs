@@ -23,10 +23,11 @@
       <main>
         <div class="main-container">
           <div class="tab">
-            <button class="tablinks" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
+            <!-- The first tab is open by default when the user loads the page -->
+            <button id="openProfileTab" class="<%= user.openProfileTabClass %>" onclick="openUserProfile(event, 'Profile')">Personal
               Information</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
-            <button class="tablinks" onclick="openUserProfile(event, 'Orders')">My Orders</button>
+            <button id="openWishlistTab" class="<%= user.openWishlistTabClass %>" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
+            <button id="openOrdersTab" class="<%= user.openOrdersTabClass %>" onclick="openUserProfile(event, 'Orders')">My Orders</button>
           </div>
 
           <div id="Profile" class="tabcontent">
@@ -47,7 +48,7 @@
                 <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picture</button>
               </div>
               <div class="tab-content" id="user-details">
-                <form id="user-details">
+                <form id="user-details" method="POST" action="/users/<%= user.user_id %>/profile">
                   <div class="container user-details">
                     <div class="row">
                       <div class="col">
@@ -537,5 +538,5 @@
       <%- include('partials/firebaseInteraction') %> 
   </div>
 </body>
-
+<script src="/js/user_profile.js" type="text/javascript" defer></script>
 </html>

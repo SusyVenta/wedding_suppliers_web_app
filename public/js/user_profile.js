@@ -15,8 +15,19 @@ function openUserProfile(evt, cityName) {
   evt.currentTarget.className += " active";
 }
 
+/* Determine which tab to open */
+function determineTabToOpenAndOpenIt(){
+  let tabsIds = ["openProfileTab", "openWishlistTab", "openOrdersTab"];
+  let tabClass;
+  for (let tab of tabsIds){
+    tabClass = document.getElementById(tab).className;
+    if(tabClass == 'tablinks active'){
+      document.getElementById(tab).click();
+    }
+  }
+}
 /* By default, when user loads the customer profile page, the personal information section tab is open. */
-document.getElementById("defaultOpen").click();
+determineTabToOpenAndOpenIt();
 
 
 /* When user updates personal details, save updated details to the database */
@@ -104,8 +115,10 @@ async function updateProfilePic() {
 async function cancelOrder(order_id) {
   let user_id = document.getElementById("user_id_navbar").innerHTML;
   await db.collection('users').doc(user_id).collection('orders').doc(order_id).delete();
-  // reload page to refresh orders
-  location.reload();
+
+  // post form to reload page with updated orders
+  $('form#user-details').submit();
+  
 };
 
 // Once the order has been confirmed by the vendor, users can review the product
@@ -176,7 +189,7 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
     { merge: true }
   );
 
-  // reload page to refresh orders
-  location.reload();
+   // post form to reload page with updated orders
+   $('form#user-details').submit();
 
 }
