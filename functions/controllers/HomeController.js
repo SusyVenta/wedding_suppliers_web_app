@@ -1,5 +1,7 @@
 const firebase = require('../db')
 const firestore = firebase.firestore();
+const Views = '../views/';
+const url = require('url');
 const {filterProductsBy} = require('../db_utils/db_utils.js');
 
 
@@ -136,7 +138,16 @@ async function prepareHomePayload(queryObject) {
     }
 };
 
+// home page - does not require authentication
+const getHome = async (request, response) => {
+  let indexPath = Views + 'home.ejs';
+
+  const queryObject = url.parse(request.url, true).query;
+
+  let payload = await prepareHomePayload(queryObject);
+  response.render(indexPath, payload);
+};
 
 module.exports = {
-    prepareHomePayload: prepareHomePayload
+  getHome
 }

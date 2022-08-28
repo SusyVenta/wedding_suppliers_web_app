@@ -1,11 +1,11 @@
 const functions = require('firebase-functions');
 const express = require('express');
 const path = require('path');
-const url = require('url');
-const usersRouter = require('./routes/users.js')
-const productsRouter = require('./routes/product_details.js')
+const usersRouter = require('./routes/users.js');
+const homeRouter = require('./routes/home.js');
+const vendorRouter = require('./routes/vendor.js');
+const productsRouter = require('./routes/product_details.js');
 const moment = require('moment');
-const {prepareHomePayload} = require('./controllers/HomeController');
 const app = express();
 
 // enable to use ejs
@@ -22,27 +22,10 @@ app.use((req, res, next)=>{
   next();
 });
 
-// loads user profile route
+// load routes. Routes are defined in separate files to keep index.js clean
 app.use('/users', usersRouter);
-
-// loads user profile route
 app.use('/product_details', productsRouter);
-
-// home page - does not require authentication
-app.get('/home', async function (request, response){
-    let indexPath = path.join(__dirname, "views/home.ejs");
-  
-    const queryObject = url.parse(request.url, true).query;
-  
-    let payload = await prepareHomePayload(queryObject);
-    response.render(indexPath, payload);
-  });
-
-
-// vendor profile
-app.get('/vendor_profile', (request, response) => {
-  let indexPath = path.join(__dirname, "views/vendor_profile.ejs");
-  response.render(indexPath);
-});
+app.use('/home', homeRouter);
+app.use('/vendor_profile', vendorRouter);
 
 exports.app = functions.https.onRequest(app);
