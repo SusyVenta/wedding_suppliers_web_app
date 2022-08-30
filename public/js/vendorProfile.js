@@ -181,7 +181,7 @@ const renderCatalogue = (product) => {
                     // product image
                 }).append(
                     $('<img/>', {
-                        'class': 'img-fluid rounded-start',
+                        'class': 'img-fluid rounded-start cata-prod-img',
                         alt: 'product image',
                         src: `${productImage}`
                     })
@@ -199,7 +199,7 @@ const renderCatalogue = (product) => {
                     // list of details
                 ).append(
                     $('<ul/>', {
-                        'class': 'list-group list-group-flush',
+                        'class': 'list-group list-group-flush cata-list',
                         // description
                     }).append(
                         $('<li/>', {
@@ -239,20 +239,20 @@ const renderCatalogue = (product) => {
                         // reviews
                     ).append(
                         $('<a/>', {
-                            'class': 'btn btn-primary see-product',
+                            'class': 'btn btn-secondary see-product cata-button',
                             'data-productID': `${product.product_id}`,
                             text: 'See Reviews'
                         })
                         // delete
                     ).append(
                         $('<a/>', {
-                            'class': 'btn btn-primary delete-product',
+                            'class': 'btn btn-secondary delete-product cata-button',
                             'data-productID': `${product.product_id}`,
                             text: 'Delete Product'
                         })
                     ).append(
                         $('<a/>', {
-                            'class': 'btn btn btn-primary edit-product',
+                            'class': 'btn btn btn-secondary edit-product cata-button',
                             'data-productid': `${product.product_id}`,
                             text: `Edit ${product.title}`
                         })
@@ -564,18 +564,18 @@ function getOrders(orders) {
         })
 }
 
-function sendEmail(){
+function sendEmail() {
     var user_email = this.getAttribute("data-user_email");
-    window.location.href = "mailto:"+user_email+"?subject=You And Me - Message from vendor &body= ";
+    window.location.href = "mailto:" + user_email + "?subject=You And Me - Message from vendor &body= ";
 };
 
-function addSendEmailEventListener(){
+function addSendEmailEventListener() {
     var buttons = document.querySelectorAll("[class^='sendEmailButton']");
 
     for (var i = 0; i < buttons.length; i++) {
         buttons[i].addEventListener('click', sendEmail, false);
     }
- }
+}
 
 
 function renderOrders(orders, products) {
@@ -715,13 +715,13 @@ $('.orders-container').on('click', '.decline-order', e => {
 function alterOrderStatus(status, orderID, userID) {
     // change status of order in customer doc
     db.collection('users').doc(userID).collection('orders').doc(orderID).update(
-        {status: `${status}`},
+        { status: `${status}` },
         { merge: true }
-        )
+    )
 
     // change order status in vendor doc
     db.collection('users').doc(vendorID).collection(`orders_to_confirm`).doc(orderID).update(
-        {status: `${status}`},
+        { status: `${status}` },
         { merge: true }
-        )
+    )
 }

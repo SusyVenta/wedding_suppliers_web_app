@@ -4,8 +4,14 @@
   min-height: 70vh;
 }
 
+.main-container{
+  width: 80%;
+  margin: 0 auto;
+}
+
 #add-to-catalogue-button{
   max-width: 20%;
+  margin-bottom: 3rem;
 }
 
 /* Profile Picture edit button */
@@ -18,10 +24,9 @@ input[type="file"]{
 }
 
 .vendor-profile-edit{
-  border: 1px solid #ccc;
   display: inline-block;
   padding: 6px 12px;
-  margin-top: 5px;
+  margin-top: 1rem;
 }
 
 .create-product-image:hover{
@@ -61,6 +66,37 @@ input[type="file"]{
   text-decoration: none;
   cursor: pointer;
 }
+
+#edit-user-details{
+  margin: 0.5rem;
+}
+
+.cata-button{
+  margin: 0.5rem auto;
+  width: 60%;
+}
+
+.cata-list{
+  margin: 0 auto;
+  width: 90%;
+}
+
+.cata-prod-img{
+  margin: 0.5rem auto;
+}
+
+
+#edit-details, #create-product-form, #product-edit-details{
+  margin: 0.2rem auto;
+  width: 90%;
+}
+
+#save-edit, #save-product-edit, #create-product-button{
+  margin: 0 auto;
+  width: 70%;
+}
+
+
 
  /* ----------- phone view ------ */
  @media only screen and (min-width: 800px) {
