@@ -4,11 +4,13 @@ const { v4: uuidv4 } = require('uuid');
 const Views = '../views/';
 const moment = require('moment');
 
+const userDb = require('../database/usersDB');
+const prodDb = require('../database/productsDB');
+
+
 async function prepareProductPagePayload(targetProduct_id) {
   // get product with given ID
-  const productsTable = await firestore.collection('products').doc(targetProduct_id).get();
-  let targetProduct = productsTable.data();
-
+  let targetProduct = await prodDb.getSingleProduct(targetProduct_id);
   targetProduct.product_id = targetProduct_id;
 
   // format review dates 
@@ -27,8 +29,7 @@ async function prepareProductPagePayload(targetProduct_id) {
   let vendor_id = targetProduct.vendor_id;
 
   // add product details based on vendor id
-  let vendor_data_snap = await firestore.collection('users').doc(vendor_id).get();
-  let vendor_data = vendor_data_snap.data();
+  let vendor_data = await userDb.getVendorData(vendor_id);
 
   targetProduct.address = vendor_data.address_1;
   targetProduct.vendor = vendor_data.business_name;
@@ -40,21 +41,22 @@ async function prepareProductPagePayload(targetProduct_id) {
   return payload;
 };
 
-async function getDocIdOfUserID(userID) {
-  // uid != ID of the document containing the user ID, which we need to find
-  const productsTable = await firestore.collection('users').get();
+// I think this can be removed, we changed how the db worked and the uid == userId now
+// async function getDocIdOfUserID(userID) {
+//   // uid != ID of the document containing the user ID, which we need to find
+//   const productsTable = await firestore.collection('users').get();
 
-  let outputUserId;
+//   let outputUserId;
 
-  productsTable.forEach(doc => {
-    let data = doc.data();
-    if (data.user_id == userID) {
-      outputUserId = doc.id;
-    }
-  });
+//   productsTable.forEach(doc => {
+//     let data = doc.data();
+//     if (data.user_id == userID) {
+//       outputUserId = doc.id;
+//     }
+//   });
 
-  return outputUserId;
-}
+//   return outputUserId;
+// }
 
 async function confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated) {
   let payload = await prepareProductPagePayload(chosenProductId);
@@ -63,9 +65,10 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     return payload;
   }
 
-  docIdOfUser = await getDocIdOfUserID(request.body.user_id);
-  const usersTableGet = await firestore.collection('users').doc(docIdOfUser).get();
-  let userData = usersTableGet.data(); 
+  const docIdOfUser = request.body.user_id;
+  // docIdOfUser = await getDocIdOfUserID(request.body.user_id);
+  // const usersTableGet = await firestore.collection('users').doc(docIdOfUser).get();
+  let userData = await userDb.getVendorData(docIdOfUser);
 
   let productFields = {
     user_id: docIdOfUser,
@@ -94,8 +97,13 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
       order_id: uniqueOrderID,
       user_email: productFields.user_email
     };
+
     // adds order to vendor DB, so they can confirm or decline
-    await firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);
+    await prodDb.addOrderToVendor(
+      productFields.vendor_id,
+      uniqueOrderID,
+      new_entry_for_vendor);
+    // await firestore.collection('users').doc(productFields.vendor_id).collection('orders_to_confirm').doc(uniqueOrderID).set(new_entry_for_vendor);
 
     let new_entry_for_user = {
       user_id: productFields.user_id,
@@ -108,13 +116,19 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     };
 
     // adds order to customer profile 'My orders page' 
-    await firestore.collection('users').doc(productFields.user_id).collection('orders').doc(uniqueOrderID).set(new_entry_for_user);
+    await prodDb.addOrderToCustomer(
+      productFields.user_id,
+      uniqueOrderID,
+      new_entry_for_user
+    )
+
+    // await firestore.collection('users').doc(productFields.user_id).collection('orders').doc(uniqueOrderID).set(new_entry_for_user);
   }
 
   if (action === "add_to_basket") {
     /* Update user's  wishlist */
-    let user_data_snap = await firestore.collection('users').doc(productFields.user_id).get();
-    let user_data = user_data_snap.data();
+    // let user_data_snap = await firestore.collection('users').doc(productFields.user_id).get();
+    let user_data = userDb.getVendorData(productFields.user_id);
     let new_entry_for_user = {
       user_id: productFields.user_id,
       product_id: productFields.chosenProductId,
@@ -129,15 +143,14 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
     } else {
       wishlist = [new_entry_for_user];
     }
-    const userEntry = firestore.collection('users').doc(productFields.user_id);
+    userDb.addToUserWishlist(productFields.user_id, wishlist);
+    // const userEntry = firestore.collection('users').doc(productFields.user_id);
 
-    userEntry.set(
-      { wishlist: wishlist },
-      { merge: true }
-    );
+    // userEntry.set(
+    //   { wishlist: wishlist },
+    //   { merge: true }
+    // );
   }
-
-
   return payload;
 };
 
@@ -145,7 +158,7 @@ async function confirmProductRequestSubmit(chosenProductId, request, action, is_
 const getProductDetails = async (request, response) => {
   let indexPath = Views + "product_details.ejs";
   let chosenProductId = request.params.product_id;
-  
+
   let payload = await prepareProductPagePayload(chosenProductId);
 
   response.render(indexPath, {
@@ -167,17 +180,17 @@ const postProductDetails = async (request, response) => {
   let user_id = request.body.user_id;
   let is_authenticated;
 
-  if(user_id == "unauthenticated" || user_id == null || user_id == '' || user_id == undefined){
+  if (user_id == "unauthenticated" || user_id == null || user_id == '' || user_id == undefined) {
     is_authenticated = false;
     orderRequestSubmitted = false;
     addedToBasket = false;
-  }else{
+  } else {
     is_authenticated = true;
-    if("add_to_basket" in request.body){
+    if ("add_to_basket" in request.body) {
       addedToBasket = true;
       action = "add_to_basket";
     }
-    if("confirm_availability" in request.body){
+    if ("confirm_availability" in request.body) {
       orderRequestSubmitted = true;
       action = "confirm_availability";
     }
@@ -187,7 +200,7 @@ const postProductDetails = async (request, response) => {
   }
 
   let payload = await confirmProductRequestSubmit(chosenProductId, request, action, is_authenticated);
-  
+
   response.render(indexPath, {
     product: payload.product,
     moment: moment,

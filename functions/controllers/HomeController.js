@@ -1,10 +1,11 @@
 const firebase = require('../db')
 const firestore = firebase.firestore();
 
-const homeDb = require('../database/homeDB');
 const categoriesDb = require('../database/productCategories');
 const colorsDb = require('../database/productColors');
 const weddingTypeDb = require('../database/weddingTypes');
+const userDb = require('../database/usersDB');
+const prodDb = require('../database/productsDB');
 
 function filterProductsBy(productsList, targetAttribute, targetValue) {
   let products = productsList;
@@ -33,15 +34,7 @@ function filterProductsBy(productsList, targetAttribute, targetValue) {
 
 async function prepareHomePayload(queryObject) {
   // get all entries from products table
-  let tmp_products = await homeDb.getProductsTable();
-  // const productsTable = await firestore.collection('products').get();
-
-  // productsTable.forEach(doc => {
-  //   let product_data = doc.data();
-  //   let product_id = doc.id;
-  //   product_data.product_id = product_id;
-  //   tmp_products.push(product_data);
-  // });
+  let tmp_products = await prodDb.getProductsTable();
 
   // products with all info (added address and vendor name)
   let products = [];
@@ -50,8 +43,7 @@ async function prepareHomePayload(queryObject) {
     // add missing information from vendor info (users table), based on vendor_id
     let vendor_id = product.vendor_id;
 
-    // let vendor_data_snap = await firestore.collection('users').doc(vendor_id).get();
-    let vendor_data = await homeDb.getVendorData(vendor_id);
+    let vendor_data = await userDb.getVendorData(vendor_id);
 
     product.address = vendor_data.address_1;
     product.vendor = vendor_data.business_name;
@@ -59,16 +51,8 @@ async function prepareHomePayload(queryObject) {
     products.push(product);
   }
 
-  // product categories
-  // const productCategoriesTable = await firestore.collection('product_categories').doc('AJQHqaXZpE5hfR1etKss').get();
   let product_categories = await categoriesDb.getProductCategories();
-
-  // colors
-  // const colorsTable = await firestore.collection('colors').doc('P3v7lMdnyvZ0JiFKVrC4').get();
   let colors = await colorsDb.getProductColors();
-
-  // wedding types
-  // const weddingTypesTable = await firestore.collection('wedding_types').doc('nw6eDIwkVqPjrTBbxsac').get();
   let weddingTypes = await weddingTypeDb.getWeddingTypes();
 
   // distinct countries
@@ -158,7 +142,6 @@ async function prepareHomePayload(queryObject) {
         chosenWeddingType: chosenWeddingType
       }
     }
-
     return payload;
   }
 };
