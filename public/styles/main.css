@@ -81,18 +81,18 @@ footer-component{
 }
 
 
-.btn{
+/* .btn{
     border-radius: 0%; 
     background-color: #637289;
     border-color: #637289;
     box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
-}
+} */
 
-.btn:hover{
+/* .btn:hover{
     background-color: #7188ab;
     border-color: #637289;
     box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
-}
+} */
 
   
 /* ----------- phone view - 1 column only ------ */

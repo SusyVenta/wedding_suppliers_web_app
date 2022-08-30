@@ -1,0 +1,1025 @@
+commit 8a612a17b2d05119d89613bb87cfd7595f044314
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Aug 28 20:31:51 2022 +0200
+
+    added 404 handler
+
+commit d7a2bb608b3ed2a7d11951199b4feab7d9e898ea
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 19:05:00 2022 +0200
+
+    Rolling back as deployment fails if routes are empty (home, vendor profile)
+
+commit a4c1588b08740df5d0bc6dd1b97aee96fe41f23e
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 18:33:49 2022 +0200
+
+    Fixed vendor and home routes import
+
+commit 60661d78bf74cc875f16a036cd985d77fb442be3
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 18:24:08 2022 +0200
+
+    Removed mock db object
+
+commit 95bcde80d65f475622c8a161f4979d53b5709e9d
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 18:20:50 2022 +0200
+
+    Removed unused imports and print statements
+
+commit ede9dd7322d53c8c51ca2ab9943be4fbffd2ebe0
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 18:11:38 2022 +0200
+
+    Refactored all routes into separate files
+
+commit f152a6854fa5517b27533ae7ce11ab9e57b26bed
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 17:48:41 2022 +0200
+
+    Moved product routes in separate route logic
+
+commit d3ae4b62ff3ffc05748860f3a8058a42d9e0dc5a
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 17:22:46 2022 +0200
+
+    Fixed home button in navbar not showing text completely from user profile
+
+commit 8cb8f42de0c5a205532092168314869fd9945de7
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 17:04:46 2022 +0200
+
+    Corrected behavior of tab switching for user and vendor profile
+
+commit acf9bf0eb76ecceee42bf96c973cf599758ba46b
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 16:42:44 2022 +0200
+
+    Fixed display number of reviews per product on home page
+
+commit 5b12ecb9042022dd5750dca8d480daa35d4a1a09
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 16:34:40 2022 +0200
+
+    When user cancels product or reviews a product from user profile, the profile page reloads on the correct tab, updating the page content
+
+commit 7f9a43854ba0b7f1ec35fe16e048313ac2ed80be
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 14:27:53 2022 +0200
+
+    Making inputs for user profile information disabled by default and switch between edit and save actions to clearly communicate status of users to adhere to UI heuristics
+
+commit e1e0c54e25041d6eb6e3b7ffde7aeddcfafa8407
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 28 13:46:43 2022 +0200
+
+    Removed unused routes and legacy code. Fixed product page post action when user is not authenticated
+
+commit b253e995c6dd0a864c70ad9ea6ea3c47baac827d
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 23 21:50:26 2022 +0200
+
+    Vendors can send emails to customers
+
+commit 2bd767dc5e6350316696fa91853a800183a2a175
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 23 21:12:16 2022 +0200
+
+    Removed chat from vendor profile, enabled sending email on click to user. Fixed typo in product page that was not displaying product category
+
+commit 330971e1238cfe71f75eec4333cd566173fde141
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 23 20:59:45 2022 +0200
+
+    Centering pictures, saving username to DB on user creation, saving username in reviews
+
+commit 87756f216a39c30e701dca20c0ba4dac24103beb
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 23 15:46:53 2022 +0200
+
+    use default profile picture from assets instead of pulling from storage
+
+commit 987c2e215ffb98589fa532c7ed69e106dd604433
+Merge: 49a83c6 622cfae
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 23 15:29:46 2022 +0200
+
+    iMerge branch 'deleteAccount'
+
+commit 622cfaef9714b33c523add7e58c657893808ba36
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 23 15:29:04 2022 +0200
+
+    can now delete a user account from profile
+
+commit 49a83c6d81902e551d48cd208a01f01bf6a51b02
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 23 00:13:52 2022 +0200
+
+    All ratings are updated in product page when a review is left by a user.
+
+commit 5fa47c97e38d907c997152c70f63169711d52a3e
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 23 00:01:25 2022 +0200
+
+    Users can now leave reviews
+
+commit cdc2236e8e93eee95e1b1265e7e3a1f867e3081f
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 22 21:14:39 2022 +0200
+
+    Fixed user profile wishlist and  orders layout behavior with many orders
+
+commit a76d8b6e254f117b68134f339208ce837335d52f
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 22 19:38:38 2022 +0200
+
+    Fixed home route get request to correctly filter products
+
+commit 9d681c2c3597a104d56a1bc9aff4efb05d5e77cd
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 22 17:33:57 2022 +0200
+
+    can now edit products on the vendor profile
+
+commit b450ff23c008b3d39b935c330d8f16c0ff33e2a7
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 22 01:45:25 2022 +0200
+
+    Temporarily modified firestore rules for development emulator to work
+
+commit eff8478ed08aec8a6acc447c0ad7d6676f4b2883
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 22 01:08:10 2022 +0200
+
+    Fixed home redirection
+
+commit 211cb9b25089420f3526feb92d3ac491d638f7e3
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 21 21:06:51 2022 +0200
+
+    Test init
+
+commit d7c45aedc028a94cb9dbe6b4af8e812886d626e7
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 21 19:05:41 2022 +0200
+
+    Fixed user profile picture upload, user details saving, started fixing products reviewing capability
+
+commit 94352d597deec730ef8ba0e70741373142f8dba7
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 21 18:55:47 2022 +0200
+
+    test
+
+commit bd156f3cb6b30621e4fe4920bb1fe83cce57bc90
+Merge: 9f3261e 0b68439
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 21 18:51:29 2022 +0200
+
+    Fixed merge conflicts
+
+commit 9f3261ea33f322fb5b15b934770ad77789a07c1e
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Sun Aug 21 18:40:45 2022 +0200
+
+    Initial commit
+
+commit 0b684392f4ce60d60dbfe0ac382c0293a879acf6
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 20 17:15:10 2022 +0200
+
+    redirects to the product details page when vendor clicks see reviews in their catalogue
+
+commit b3f629739f5aff828f7b78e99aec24b51c34c394
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 20 17:02:52 2022 +0200
+
+    Completed order product deletion from vendor catalogue
+
+commit 03e9ef912b3dbefa908ff0d54db6f1f2be657e8f
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Fri Aug 19 15:32:51 2022 +0200
+
+    can delete products whichi in turns deletes all orders for that product
+
+commit da58615d48bb028f7aba56d599025a141e3503d9
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Tue Aug 16 22:06:31 2022 +0800
+
+    User can now comment!
+
+commit 75eee9028b6d550df0a7a7b0ade369d192c25969
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 16 13:52:13 2022 +0200
+
+    order confirmation/decline complete
+
+commit d8597cf7dc999662fc0cb2452e36b26a195c3820
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 16 11:34:28 2022 +0200
+
+    update customer order status on vendor confirm
+
+commit 70fe66dbb8393a3b3cd1137a1f8a2adc87539356
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Tue Aug 16 17:10:36 2022 +0800
+
+    Whistlist -> add to basket
+
+commit 0c85b894a5b19f5d70d680d5180d73fe1c4b2054
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Tue Aug 16 12:50:13 2022 +0800
+
+    Update User Profile (Whistlist + Order)
+
+commit bbf469f72bb00d7b36a2f9343e7104ca9ef92499
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Mon Aug 15 23:40:14 2022 +0800
+
+    User profile pic upload
+
+commit e5327114b13eac602ff187848339c92e5752c5d0
+Merge: 3bd0fbd f6f6abd
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Mon Aug 15 22:42:37 2022 +0800
+
+    Merge branch 'main' of https://github.com/SusyVenta/WeddingSuppliersWebApp
+
+commit 3bd0fbd778c6da4d86f4a70cdeb42e1cb0333fd5
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Mon Aug 15 22:19:00 2022 +0800
+
+    User Profile (update info and add + del todo)
+    
+    User Profile (update info and add todo)
+
+commit f6f6abd3cdfa7dfe9af95032de0aa419197af331
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 15 16:33:36 2022 +0200
+
+    made changes to how orders are stored in the db, changed product_details and user_profile controller logic to handle this change
+
+commit bcbc64eb67ffea3d3e05220e0d5831d47f7f06fc
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 15 14:03:00 2022 +0200
+
+    make the document ID the same as userID
+
+commit 025669807a47484b661e8b4a0fd6e72a3ced642d
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 15 11:59:21 2022 +0200
+
+    card for each order to confirm for vendor
+
+commit f98c8c19207798cf4b5c420c485c6408f0eec7d9
+Merge: 849c2e4 9fb4591
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Aug 14 13:57:46 2022 +0200
+
+    Merge branch 'main' of github.com:SusyVenta/WeddingSuppliersWebApp
+
+commit 9fb4591a872f5d04a901249c63f8272d7a8bb576
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 14 11:13:27 2022 +0200
+
+    Corrected location of rfirebaseConfig to comply with readme instructions
+
+commit 849c2e4e3835c3325243c3bd4144d5a9962641bb
+Merge: b0db15b 477a89e
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Aug 14 04:22:23 2022 +0200
+
+    Merge branch 'main' of github.com:SusyVenta/WeddingSuppliersWebApp
+    Merge
+
+commit b0db15b724a951733d88d3f10a5d03b9cf246d21
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Aug 14 04:22:18 2022 +0200
+
+    deleted unnecessary files
+
+commit 477a89e07b0b4a8419acfd283bb0b1dee8ca39cb
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sat Aug 13 19:45:02 2022 +0200
+
+    Fixed loading of user profile when user is new and has no wishlist nor
+    orders nor todo items
+
+commit 9e3deb6f86c44d6c970bca59945b07fe11807915
+Merge: 6755b05 64d8a46
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 13 18:34:57 2022 +0200
+
+    fixed issue with vendor not being created in database on vendor creation
+
+commit 6755b05edbb19d61a99dc49082d1a7b345b5e605
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 13 18:20:52 2022 +0200
+
+    Fixed issue where vendor was not being added to database on vendor creation
+
+commit 64d8a464b8b24f4382119b3fd98ffe4917291126
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Sat Aug 13 23:43:56 2022 +0800
+
+    Updated user profile
+
+commit a09523a15b8b574a7536bd34e432c260f723b93c
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 13 17:30:22 2022 +0200
+
+    reverted change that broke product page
+
+commit e35bb3480a63898de76c9dd1f0631f307f7c97ed
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 13 16:39:54 2022 +0200
+
+    allows vendors to update their business details
+
+commit d09110a25466474fba18c5b97a4593e1e7c6aec1
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Fri Aug 12 17:24:31 2022 +0200
+
+    changed header to user jquery
+
+commit 0b99ea897749fa71fdc3733b0889f85ee31700b1
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Fri Aug 12 17:16:17 2022 +0200
+
+    finished changing auth to use jquery
+
+commit 72e7e0e88279bf2a25ef2964619224a45be723a3
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 11 13:06:39 2022 +0200
+
+    converting to jquery
+
+commit be323730632a4077a0ff234da20839fae94e63bb
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 9 20:26:35 2022 +0200
+
+    Fixed behavior when no reviews availeble - home and product page + forced long description to fit inside divs
+
+commit 20e3d19ff6b99b836882ef1333cdbf1bdcd2f181
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 9 20:03:48 2022 +0200
+
+    altered catalogue to use bootstrap cards
+
+commit 2c9a6d028fb107eac7957cdc1cba67c1f732aa5a
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 9 19:46:40 2022 +0200
+
+    From product details page, a pop up appears if user tries to confirm availability or add to wishlist when not authenticated - prompt to log in or sign up. Otherwise a success modal is triggered, telling the user to check their order history or wishlist in profile
+
+commit a13232d60ce87412b1f2a365363108fbe688e4a8
+Merge: d0e0777 12d68ae
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 9 18:31:00 2022 +0200
+
+    merged
+
+commit d0e07770a9f1901b31862f1009c6f8a7d2145ae9
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 9 18:27:59 2022 +0200
+
+    allows user to create products through their profile
+
+commit 12d68aea1cb67646be363f779d91e6580cbe253b
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Aug 9 18:24:43 2022 +0200
+
+    Added detection of user id - product page saves products to wishlist/orders of logged in user
+
+commit add95c1750afd450050ef54131414c691091869a
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 9 16:13:52 2022 +0200
+
+    can update vendor profile image, will auto change image, sotre to firebase storage and update database
+
+commit de2f0c30cdac6ef6bb35b0bf0a2598b58467ea56
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 8 22:29:14 2022 +0200
+
+    populate vendor catalogue on profile page
+
+commit 7e596e659fdbdb6884286bd61702b5eeeeae67ad
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 8 18:08:57 2022 +0200
+
+    change catalogue based on database
+
+commit 4de5a86bd6d81bb9b0b22ed03c1e65d0328c48eb
+Merge: a1c1088 cab41fb
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 8 16:04:43 2022 +0200
+
+    readme changes
+
+commit a1c108845520006d59c31939db8e0b1164c48ae1
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 8 15:55:24 2022 +0200
+
+    vendor profile shows correct information on load
+
+commit cab41fb4588551238c2b23ef9c7f966d24964680
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 8 13:43:21 2022 +0200
+
+    Updated readme with required config to develop locally
+
+commit 3f30861ef195878882cbdd9d018a3b5cdf79f62c
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 8 13:27:17 2022 +0200
+
+    Updated routes comments
+
+commit c5fcee38edb976b1d59f6cc7599fb269cd5da79d
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Aug 8 09:42:24 2022 +0200
+
+    Reading product pictures from database
+
+commit 9d3db73f8a988882a924b62868ec934efa442fb7
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Aug 7 21:09:35 2022 +0200
+
+    fixed account creation database interaction
+
+commit fd061b7a471ede2e8bef5ae283b1df61bf62003e
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 7 18:58:53 2022 +0200
+
+    Added button to add product to wishlist
+
+commit bd720014332dbabd10953c82f8b438f3b0d65d96
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 7 18:14:22 2022 +0200
+
+    Removed actions on product from home page. Only available from product details page.
+
+commit 55442560ab2f21170ae71811b76b6c1f0bb06dfb
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 7 16:32:55 2022 +0200
+
+    Completed product page
+
+commit fa5fb889962b39656f73bc9a7d0743a33d7d52d3
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Sun Aug 7 20:27:02 2022 +0800
+
+    Update user profile page
+
+commit 5b77715db1fa7b7072e9ff7fd360bf1c116eb92c
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 7 12:03:26 2022 +0200
+
+    Product page responsive on phone and tablet
+
+commit 1f7a2978420c7d620172cfbf41b417dc9a773f03
+Merge: e9605f8 b971926
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Sun Aug 7 16:52:09 2022 +0800
+
+    Merge branch 'main' of https://github.com/SusyVenta/WeddingSuppliersWebApp
+
+commit e9605f87bef12d3531748abd3197e9ad5254190b
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Sun Aug 7 16:51:33 2022 +0800
+
+    Updated getUserProfile function and  show the user  data (personal info + todo list)  in the user profile page
+
+commit b97192696a826dadb7a30ce3b9f0f1491bd79b5b
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Aug 7 10:41:19 2022 +0200
+
+    Working product page on normal screens
+
+commit 12bfe796fe6395d53f1d51a56818bfaa48a977ed
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sat Aug 6 15:11:54 2022 +0200
+
+    Added db connection config retrieval from local file when testing and integrated connection to DB for home page.
+
+commit aeb7c09d90e3936f4332ef2f009886f749cdae74
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Aug 6 00:03:33 2022 +0200
+
+    profile button in header now redirects to user_profile or vendor_profile depending on user type logged in
+
+commit 040b9153b9060ffbb92434113acb692e2824a239
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 23:10:20 2022 +0200
+
+    add customers and vendors to database when signing up
+
+commit c562ccb1ce3a068f5aca59ed1c94f315b4959a09
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 22:07:21 2022 +0200
+
+    allow vendor registration
+
+commit 2892257ea8bdf6d0b950c47f37b2b5f5a738d031
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 20:07:23 2022 +0200
+
+    removed unnecessary files
+
+commit 310a521004a2a307acda15de73ae6f4d55de8b98
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 17:17:21 2022 +0200
+
+    added user error messages on auth fail/success
+
+commit b3cb1a3d31b99901ed89e295139bff6f2d5f6e2f
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 16:44:01 2022 +0200
+
+    added password matching check on create user
+
+commit bca62bea3897c7c55da2e4c6c1da161becfef239
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 15:45:04 2022 +0200
+
+    toggle sign in/create account buttons to profile/sign out buttons on sign in and vice versa
+
+commit 081062bf2ed02207e6f5d5e79d2c567cd9b97f8c
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 15:30:54 2022 +0200
+
+    fixed sign in
+
+commit 58892c093cf5a1873bc70b5b881c896e7bb51b42
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 14:09:48 2022 +0200
+
+    moved
+
+commit 4c89e29092826ac43d338c051a9b0b4f9e8df173
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Thu Aug 4 13:44:09 2022 +0200
+
+    moved shared header elements into ejs partial
+
+commit 6791d93d233e94b4b17c6953c2cc8e48d221b564
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Wed Aug 3 20:10:38 2022 +0200
+
+    revert prev commit
+
+commit 57cfb0dda35b5338eb32899b778d628a4133472d
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Wed Aug 3 16:39:47 2022 +0200
+
+    moved all shared head to a shared partial
+
+commit 00f890f14c2bbb71e862f0a6faf887a6bcd0f4bc
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Wed Aug 3 16:19:19 2022 +0200
+
+    removed all js components, replaced with ejs partials
+
+commit 03d87c5e965c8fe0690620bb93e6d3de80db4e31
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Wed Aug 3 15:41:29 2022 +0200
+
+    moved firebase config
+
+commit 189568203eb399e0c0ff911cde5fff6e3162b76a
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Wed Aug 3 14:39:49 2022 +0200
+
+    auth
+
+commit dab20cf65a8818cd978d0f9c06ce946420945bcb
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 2 12:34:09 2022 +0200
+
+    added autocomplete attribute for auth forms
+
+commit 2737da6fac1dfdc4e4dc1b4ef54dfb3744897f48
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Tue Aug 2 12:26:41 2022 +0200
+
+    added firebase to home
+
+commit 992198c41f0a72389ea98b551f042e77e4b3a648
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Aug 1 14:11:02 2022 +0200
+
+    toggle between auth modals, sign in/create user/forgot password
+
+commit 73e0e1d95744841a31a4e30ccff7145291b6b5ca
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Jul 30 19:23:01 2022 +0200
+
+    open?close auth modal from buttons
+
+commit 0a19ab4d31bb3b5bcab26d9699e6d9e0ce365a05
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sat Jul 30 18:12:36 2022 +0200
+
+    created modal for login/registration
+
+commit 829f1518e6b27a9f47333362cb908800b137b400
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 16:01:56 2022 +0200
+
+    Vendor profile responsive
+
+commit a87fc88d07d15421198d4ffc841c6c7b92ae7375
+Merge: a8c0cf5 e25b30e
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Tue Jul 19 13:13:09 2022 +0200
+
+    Merge pull request #12 from SusyVenta/test
+    
+    Revert "Test integrated deployments with git"
+
+commit e25b30ee064adcc0b3cda6e0ccdd148af3ee0a03
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 13:10:19 2022 +0200
+
+    Revert "Test integrated deployments with git"
+    
+    This reverts commit 87ac2488cc7db43a8fcfe7e17222b4159e094fab.
+
+commit a8c0cf532252023af7221491f102f4bb2e0fe653
+Merge: 2e3d50c f16b96d
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Tue Jul 19 12:41:57 2022 +0200
+
+    Merge pull request #11 from SusyVenta/test
+    
+    Removed run statement from yml
+
+commit f16b96dc1ecb920008995bcdde6ed05e8f21245a
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 12:39:21 2022 +0200
+
+    Redirect to app
+
+commit 97d674489e5415c00a43a37b0e6de7290adc96ab
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 12:11:09 2022 +0200
+
+    Removed run statement from yml
+
+commit 2e3d50c24a2692ae1c78d8981a998751624a9b12
+Merge: 12afd15 b768374
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Tue Jul 19 12:02:05 2022 +0200
+
+    Merge pull request #10 from SusyVenta/test
+    
+    Removed failing '- run: npm ci && npm run build' after first 'uses key'
+
+commit b7683745cdc6f50916754da2c4104503870ed2cf
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 12:00:53 2022 +0200
+
+    npm ci && npm run build to npm run build
+
+commit db72758bfd37c172a05f927247c9f2144c033220
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 11:56:32 2022 +0200
+
+    Removed failing '- run: npm ci && npm run build' after first 'uses key'
+
+commit 12afd159ff8f855bcb80ec885e3a57ff75a7d30e
+Merge: 1065b97 87ac248
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Tue Jul 19 11:45:19 2022 +0200
+
+    Merge pull request #9 from SusyVenta/test
+    
+    Test integrated deployments with git
+
+commit 87ac2488cc7db43a8fcfe7e17222b4159e094fab
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 11:43:05 2022 +0200
+
+    Test integrated deployments with git
+
+commit 1065b977972e68928193c47e2428c024d0ed3ad9
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 19 11:35:22 2022 +0200
+
+    moved home route logic to separate file
+
+commit 2ada34c0be04f376cb7ffb0d2a29fc039d708824
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Jul 17 20:06:53 2022 +0200
+
+    Completed implementation of filters on home page - working with mock db data
+
+commit 64987baee627c2769a12e0ffb43baebf9c3a0af8
+Merge: 8f54915 b78d984
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Mon Jul 18 01:34:59 2022 +0900
+
+    Merge pull request #8 from SusyVenta/integrate_firebase_database
+    
+    Integrate firestore
+
+commit b78d9845f0e2fed52f56a0f5c395e5df6725c805
+Merge: 42695da 8f54915
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Mon Jul 18 01:32:32 2022 +0900
+
+    Merge branch 'main' into integrate_firebase_database
+
+commit 42695dae1de06419fccf0bca01f039799d552140
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Mon Jul 18 01:31:40 2022 +0900
+
+    update
+
+commit 07a286110a8341d0b73c0392790ce53e8a03348e
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Mon Jul 18 01:28:48 2022 +0900
+
+    integrate firestore
+
+commit 8f54915b5eb3690c852e3812cb4f1c82820ce653
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Jul 17 15:02:58 2022 +0200
+
+    Made user profile responsive
+
+commit 57ed41a79c87bcfd9bce0657d1a85f1eccfe7eaf
+Author: Tin Po CHAN <ericchantinpo@hotmail.com>
+Date:   Sun Jul 17 18:24:43 2022 +0800
+
+    Created customer reg + css
+
+commit 775687747f07923baac9e2d1b1c2968599e5291b
+Merge: a218acd 6e4812f
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sat Jul 16 23:26:04 2022 +0900
+
+    Merge pull request #7 from SusyVenta/hotfix_fix_home_time_out_error
+    
+    hotfix_fix_home_time_out_error
+
+commit 6e4812f41b61e43f4974c00059a4209b33a34de2
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sat Jul 16 23:24:08 2022 +0900
+
+    hotfix_fix_home_time_out_error
+
+commit a218acda90f44d4de9b452b9760f636d4ccb6c89
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Wed Jul 13 21:50:33 2022 +0200
+
+    Implemented home page filters content
+
+commit 74bec9a3cd443548ebd0a923579069824e4de7eb
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 12 21:30:11 2022 +0200
+
+    Home is responsive + created mock db and dynamically filling home template + licking on product redirects to product page
+
+commit a25f0d0f08dc7605157558426efe6c5e0ddc1a6c
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Mon Jul 11 21:54:18 2022 +0200
+
+    Home page is responsive on small screens - tablet + smartphones
+
+commit d272f2c2b8e05c75ae99f8b4ad09f854097a01dc
+Merge: 084014d f93470c
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 20:31:29 2022 +0900
+
+    Merge pull request #6 from SusyVenta/implement_controller_router
+    
+    Implement controller router
+
+commit f93470c74b12e88e6b769ac270ef1edc3212cb2f
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 20:25:23 2022 +0900
+
+    update README
+
+commit 04a156caa2b1b8964e5c9c17c2c4bf28e91b5892
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 20:19:25 2022 +0900
+
+    rename files extension to use ejs
+
+commit 10ac73ec0de8313d1e2b86c14f82b4d822a51737
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 20:18:58 2022 +0900
+
+    modify index.js to use router
+
+commit c9fa0da920c06fe410bca06daf94c357fd830c48
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 20:18:44 2022 +0900
+
+    install ejs
+
+commit d46a9cc08c87c426c1dfc12274da502690d39da1
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 20:18:21 2022 +0900
+
+    implment controller router
+
+commit 084014d73cea9e1ec5b6f40b3f329f7bcecd0a86
+Merge: 6871042 7ab553c
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 06:00:07 2022 +0900
+
+    Merge pull request #5 from SusyVenta/integrate_firestore_with_cloudFunction
+    
+    Integrate firestore and cloud function
+
+commit 7ab553cf1bcec43c2e3beac7aa000b5d9c013a27
+Merge: 64f5648 6871042
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 05:54:34 2022 +0900
+
+    Merge branch 'main' into integrate_firestore_with_cloudFunction
+
+commit 64f5648f33c92e58789404527cd64aa87a7a2ad7
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 05:47:53 2022 +0900
+
+    Move static files
+
+commit 1f75d02edd51a6a732c51689eb3dc5264830cff2
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 05:47:31 2022 +0900
+
+    update README
+
+commit 7a996394ec1cb64d37d70471cea0bde917cff7e9
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 05:47:15 2022 +0900
+
+    Add public folder
+
+commit 61a448d38b4d0b32ef94b9af9ac3c8033a94c265
+Author: Narachii <naoya706oxford@gmail.com>
+Date:   Sun Jul 10 05:46:19 2022 +0900
+
+    integrate firebase
+
+commit 6871042b89a11d5355609c2437b1c59740e2db24
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sat Jul 9 16:51:34 2022 +0200
+
+    Added product description
+
+commit 40b4c76a56cfa75c133d3a3d7d3340a2b3988de0
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sat Jul 9 16:17:18 2022 +0200
+
+    Completed vendor profile
+
+commit 465a0f4670ef785faa3b4b9694e42355b86d10c3
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sat Jul 9 14:33:36 2022 +0200
+
+    Fixed margin top and scrolling in user profile products cards
+
+commit 9e4f4a6f44a5197090fd8ff3bac9b1a46d347ffb
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Thu Jul 7 10:38:42 2022 +0200
+
+    Completed home
+
+commit 06189fc9867b7380c92abe826dc0b4024c00ec83
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Wed Jul 6 19:21:27 2022 +0200
+
+    Fixed input field within div and image rescaling
+
+commit ac4b8c31ffc2f559cc7401208c9f1510ba8452b1
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Wed Jul 6 19:09:59 2022 +0200
+
+    Started working on home. Products added. Filters and page nav WIP
+
+commit 0f322610577cfa00a5570d53ba0cd8d68006e8b8
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Wed Jul 6 18:48:58 2022 +0200
+
+    Completed user profile
+
+commit 52e5babce4cdf5710637e767ccee6f75d2dce484
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Wed Jul 6 13:56:04 2022 +0200
+
+    Implemented user profile chat view
+
+commit 151cf20c309f81822a436931e4d5500b83dc0494
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Wed Jul 6 12:16:37 2022 +0200
+
+    Added to do list to user profile and header to vendor registration. Fixed footer sticking to bottom
+
+commit d947b3f9371f0e7a6664804b0a8a802f667426ae
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Wed Jul 6 12:04:29 2022 +0200
+
+    Added header to vendor registration page
+
+commit 768a57c15e5c5f3069f4db9d473fb5caaa368168
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Tue Jul 5 22:21:53 2022 +0200
+
+    Created header + hero image, and user profile - personal information section only - WIP
+
+commit f02a2774e46ab670e4ed188ad571ba93dc338b36
+Merge: 6661697 fbba494
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Tue Jul 5 16:57:46 2022 +0200
+
+    Merge pull request #4 from NateNorton/main
+    
+    vendor/customer login
+
+commit fbba494a60ce76fc75e636defa5350973440cc78
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Jul 4 18:02:49 2022 +0200
+
+    vendor/customer login
+
+commit 6661697827752349d87b4b9bec55299bab7af977
+Merge: 392febd be7884d
+Author: Nathan <66780228+NateNorton@users.noreply.github.com>
+Date:   Mon Jul 4 16:51:41 2022 +0200
+
+    Merge pull request #3 from NateNorton/main
+    
+    css for vendor registration
+
+commit be7884dc80a31b330e4bc70c012779081f2bb164
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Jul 4 16:45:02 2022 +0200
+
+    css for vendor registration
+
+commit 392febdd3390e10574e3b717a41848ac0ec0828e
+Merge: 2060b62 10adce6
+Author: Nathan <66780228+NateNorton@users.noreply.github.com>
+Date:   Mon Jul 4 14:23:07 2022 +0200
+
+    Merge pull request #2 from NateNorton/main
+    
+    Vendor registration html
+
+commit 10adce635a663e5e05940c7f1b50f741da6717b7
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Jul 4 14:21:16 2022 +0200
+
+    Created footer component
+
+commit 1b4702eb7fd2336999ca7befacdae2bb6b0a898d
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Mon Jul 4 13:25:55 2022 +0200
+
+    vendor registration html
+
+commit b5a031490a92df369663a3f7db9e1071692500ff
+Merge: 394e515 2060b62
+Author: Nathan <66780228+NateNorton@users.noreply.github.com>
+Date:   Mon Jul 4 12:37:51 2022 +0200
+
+    Merge branch 'SusyVenta:main' into main
+
+commit 2060b6279ff31f17501e2618dfa6c8249e0be78b
+Merge: 6cd65e2 77a4791
+Author: Nathan <66780228+NateNorton@users.noreply.github.com>
+Date:   Sun Jul 3 22:30:57 2022 +0200
+
+    Merge pull request #1 from NateNorton/main
+    
+    Removed old unnecessary files
+
+commit 394e515f29ca66a942f6385e1d4f525824c133bf
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Jul 3 20:49:36 2022 +0200
+
+    vendor-reg form html
+
+commit 77a47918700beb3e09a4ea1a9a1820ea22a2d44a
+Author: Nathan Norton <nathangnorton@gmail.com>
+Date:   Sun Jul 3 19:05:35 2022 +0200
+
+    Removed old unnecessary files
+
+commit 6cd65e28faed2706d0c7cf5963d229274aae73ce
+Author: Susanna Ventafridda <ventafri@amazon.com>
+Date:   Sun Jul 3 14:56:47 2022 +0200
+
+    Initialized project
+
+commit 183baf68c72aac062eaca957836772fdf031ea9f
+Author: SusyVenta <38073635+SusyVenta@users.noreply.github.com>
+Date:   Sun Jul 3 13:36:36 2022 +0200
+
+    Initial commit

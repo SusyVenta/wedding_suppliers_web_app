@@ -19,10 +19,7 @@
 }
 
 #submit-search-filters{
-  border-radius: 0%; 
-  background-color: #637289;
-  border-color: #637289;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+  vertical-align: baseline;
 }
 
 .no-results{
@@ -110,11 +107,12 @@
 .orders-container{
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto;
   min-height: 900px;
   margin-top: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23);
+  /* box-shadow: 0 10px 20px rgba(0,0,0,0.23), 0 6px 6px rgba(0,0,0,0.23); */
 }
 
 .orders-container * button{

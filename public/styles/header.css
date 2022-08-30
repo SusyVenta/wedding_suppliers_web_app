@@ -4,6 +4,12 @@
   cursor: pointer;
 }
 
+#topNavbar {
+  margin-right: 1.5rem;
+  display: inline-block;
+  vertical-align: middle;
+}
+
 
   /* --------------------------------- Hero image and overlayed content -------------------------------- */
 .hero-image {
