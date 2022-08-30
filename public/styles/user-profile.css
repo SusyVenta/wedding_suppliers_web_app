@@ -4,6 +4,16 @@
   min-height: 70vh;
 }
 
+.main-container{
+  width: 80%;
+  margin: 0 auto;
+}
+
+.picture-and-description{
+  margin: 0 auto;
+  width: 90%;
+}
+
  /* ----------- phone view ------ */
  @media only screen and (min-width: 800px) {
   .main-container{

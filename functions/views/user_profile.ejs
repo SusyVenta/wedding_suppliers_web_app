@@ -45,7 +45,7 @@
                 <% }%>
 
                 <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
-                <button type="button" id="change-picture" class="btn btn-primary" onclick="uploadTrigger()">Update profile picture</button>
+                <button type="button" id="change-picture" class="btn btn-secondary" onclick="uploadTrigger()">Update profile picture</button>
               </div>
               <div class="tab-content" id="user-details">
                 <form id="user-details" method="POST" action="/users/<%= user.user_id %>/profile">
@@ -351,11 +351,13 @@
                     </div>
                   </div>
                   <input type="hidden" id="saveOrEdit" name="saveOrEdit" value="Edit">
-                  <input type="button" id="edit-user-details" class="btn btn-primary" onclick="updateProfileForm()" value="Edit" />
+                  <input type="button" id="edit-user-details" class="btn btn-secondary" onclick="updateProfileForm()" value="Edit" />
                 </form>
               </div>
             </div>
           </div>
+
+
           <div id="Wishlist" class="tabcontent">
             <div class="tab-content-container">
               <div class="tab-content">
@@ -415,7 +417,7 @@
                                     </div>
                                 <% } %>
                                 <p>Price per unit: <%= product.currency %> <%= product.price %></p>
-                                <button onclick="" class="btn">See Product Details</button>
+                                <button onclick="" class="btn btn-secondary">See Product Details</button>
                             </div>
                         </div>
                         <input input type="hidden" type="text" name="product_id"
@@ -451,9 +453,9 @@
                           <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
                           <p>Status: <%= product.status %> </p>
                           <% if(product.status == 'pending vendor confirmation'){ %>
-                            <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn">Cancel</button>
+                            <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn btn-secondary">Cancel</button>
                           <% } else if(product.status == 'confirmed'){ %>
-                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn">Review</button>
+                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn btn-secondary">Review</button>
                           <% } %>
                         </div>
                       </div>
