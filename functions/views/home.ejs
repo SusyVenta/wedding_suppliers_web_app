@@ -31,11 +31,14 @@
         <!-- header partial -->
         <%- include('partials/header'); %>
 
+            <!-- Filter options -->
             <div id="first-level-filters">
                 <form method="GET" id="dropdown-filters-form" action="/home">
                     <div id="country-select-div">
+
+                        <!-- Country select -->
                         <label for="country-select">Country:</label>
-                        <select name="country" id="country-select">
+                        <select name="country" class="form-select form-select-sm" id="country-select">
                             <% if(appliedFilters.chosenCountry !='All' ){ %>
                                 <option value='All'>All</option>
                                 <% } %>
@@ -50,9 +53,11 @@
                                                 <% }) %>
                         </select>
                     </div>
+
+                    <!-- City select -->
                     <div id="city-select-div">
                         <label for="city-select">City:</label>
-                        <select name="city" id="city-select">
+                        <select name="city" class="form-select form-select-sm" id="city-select">
                             <% if(appliedFilters.chosenCity !='All' ){ %>
                                 <option value='All'>All</option>
                                 <% } %>
@@ -67,9 +72,11 @@
                                                 <% }) %>
                         </select>
                     </div>
+
+                    <!-- Wedding category select -->
                     <div id="category-select-div">
                         <label for="category-select">Category:</label>
-                        <select name="category" id="category-select">
+                        <select name="category" class="form-select form-select-sm" id="category-select">
                             <% if(appliedFilters.chosenCategory !='All' ){ %>
                                 <option value='All'>All</option>
                                 <% } %>
@@ -84,9 +91,11 @@
                                                 <% }) %>
                         </select>
                     </div>
+
+                    <!-- Colour select -->
                     <div id="color-select-div">
                         <label for="color-select">Color:</label>
-                        <select name="color" id="color-select">
+                        <select name="color" class="form-select form-select-sm" id="color-select">
                             <% if(appliedFilters.chosenColor !='All' ){ %>
                                 <option value='All'>All</option>
                                 <% } %>
@@ -101,9 +110,11 @@
                                                 <% }) %>
                         </select>
                     </div>
+
+                    <!-- Wedding type select -->
                     <div id="weddingType-select-div">
                         <label for="weddingType-select">Wedding Type:</label>
-                        <select name="weddingType" id="weddingType-select">
+                        <select name="weddingType" class="form-select form-select-sm" id="weddingType-select">
                             <% if(appliedFilters.chosenWeddingType !='All' ){ %>
                                 <option value='All'>All</option>
                             <% } %>
@@ -122,6 +133,8 @@
                 </form>
             </div>
     </div>
+
+
     <div class="orders-container">
         <% if(products.length==0){ %>
             <div class="no-results">
@@ -184,7 +197,7 @@
                             </div>
                         <% } %>
                         <p>Price per unit: <%= product.currency %> <%= product.price %></p>
-                        <button class="btn btn-light btn-outline-secondary">See Product Details</button>
+                        <button class="btn btn-light ">See Product Details</button>
                     </div>
                 </div>
                 <input input type="hidden" id="first" type="text" name="product_id"
