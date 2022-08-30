@@ -16,8 +16,22 @@ async function addToUserWishlist(userId, wishlist) {
     return;
 }
 
+async function getAllUserOrders(userId) {
+    const orders = [];
+    const allOrders = await firestore
+        .collection('users')
+        .doc(userId)
+        .collection('orders')
+        .get();
+    allOrders.forEach(order => {
+        orders.push(order.data());
+    })
+    return orders;
+}
+
 
 module.exports = {
     getVendorData,
     addToUserWishlist,
+    getAllUserOrders,
 }

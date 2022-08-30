@@ -1,39 +1,25 @@
 const Views = '../views/';
-const firebase = require('../db');
-
-const firestore = firebase.firestore();
+const prodDb = require('../database/productsDB');
+const userDb = require('../database/usersDB');
 
 
 const getUserProfileCommonData = async (req, res) => {
-  const userTable = await firestore.collection('users').get();
 
-  const id = req.params.userId || req.query.userId || req.body.userId;
+  const real_id = req.params.userId || req.query.userId || req.body.userId;
 
-  let real_id;
-
-  userTable.forEach(doc => {
-    let data = doc.data();
-    if (data.user_id == id) {
-      real_id = doc.id;
-    }
-  });
-
-  // Get the user from the database
-  const result = await firestore.collection('users').doc(real_id).get();
-
-  user = result.data();
-
-  wishlist = user.wishlist
+  const user = await userDb.getVendorData(real_id);
+  const wishlist = user.wishlist
 
   // Get the products from the database
   if (wishlist != null) {
     for (let i = 0; i < wishlist.length; i++) {
-      const product = await firestore.collection('products').doc(wishlist[i].product_id).get();
-      wishlist[i] = product.data();
+      const product = await prodDb.getSingleProduct(wishlist[i].product_id);
+      wishlist[i] = product;
 
       //Get the vender from the database
-      const vendor = await firestore.collection('users').doc(wishlist[i].vendor_id).get();
-      wishlist[i].vendor = vendor.data();
+      const vendor = userDb.getVendorData(wishlist[i].vendor_id);
+
+      wishlist[i].vendor = vendor;
     }
     // Assign the product details to the user
     user.wishlist = wishlist;
@@ -41,29 +27,23 @@ const getUserProfileCommonData = async (req, res) => {
     user.wishlist = [];
   }
 
-  const allOrders = await firestore.collection('users').doc(real_id).collection('orders').get();
-  let orders = [];
-  allOrders.forEach(order => {
-    orders.push(order.data());
-  })
+  const orders = await userDb.getAllUserOrders(real_id);
   user.orders = orders;
 
   if (orders != null) {
     for (let i = 0; i < orders.length; i++) {
-      const product = await firestore.collection('products').doc(orders[i].product_id).get();
-      orders[i].product = product.data();
-
-      const vendor = await firestore.collection('users').doc(orders[i].product.vendor_id).get();
-      orders[i].vendor = vendor.data();
+      const product = await prodDb.getSingleProduct(orders[i].product_id);
+      orders[i].product = product;
+      const vendor = userDb.getVendorData(orders[i].product.vendor_id);
+      orders[i].vendor = vendor;
     }
     user.orders = orders;
   } else {
     user.orders = [];
   }
-
   return user;
-
 }
+
 // called when user clicks on Profile from navbar
 const getUserProfile = async (req, res) => {
   user = await getUserProfileCommonData(req, res);
@@ -72,7 +52,6 @@ const getUserProfile = async (req, res) => {
   user.openProfileTabClass = "tablinks active";
   user.openWishlistTabClass = "tablinks";
   user.openOrdersTabClass = "tablinks";
-
   res.render(Views + 'user_profile.ejs', user)
 }
 
@@ -89,7 +68,7 @@ const postUserProfile = async (req, res) => {
 }
 
 module.exports = {
-    getUserProfile,
-    postUserProfile
-  }
+  getUserProfile,
+  postUserProfile
+}
 
