@@ -4,7 +4,6 @@ body {
     font-family: "Lato", sans-serif;
 }
 
-
 /* Authentication modal */
 #modal{
     display: none;
@@ -53,6 +52,12 @@ body {
     position: relative;
     margin: 40px 20px 20px 20px;
     padding: 10px;
+}
+
+/* Change Bootsrap button styling used throughout */
+.btn-secondary {
+    background-color: #637289 !important;
+    border-color: #637289 !important;
 }
 
   /* ----------- phone view - 1 column only ------ */

@@ -575,7 +575,7 @@ function renderOrders(orders, products) {
 
         $('.orders-container').append(
             $('<div/>', {
-                'class': 'card mx-auto text-center text-dark bg-light',
+                'class': 'card mx-auto text-center text-dark bg-light order-card',
                 'style': 'width: 80%'
             }).append(
                 $('<div/>', {
@@ -638,7 +638,7 @@ function renderOrders(orders, products) {
                                 'class': 'col'
                             }).append(
                                 $('<button/>', {
-                                    'class': 'btn btn-success confirm-order',
+                                    'class': 'btn btn-secondary confirm-order',
                                     text: 'Confirm',
                                     'data-userID': `${order.user_id}`,
                                     'data-orderID': `${order.order_id}`
@@ -649,7 +649,7 @@ function renderOrders(orders, products) {
                                 'class': 'col'
                             }).append(
                                 $('<button/>', {
-                                    'class': 'btn btn-danger decline-order',
+                                    'class': 'btn btn-secondary decline-order',
                                     text: 'Decline',
                                     'data-userID': `${order.user_id}`,
                                     'data-orderID': `${order.order_id}`
@@ -660,7 +660,7 @@ function renderOrders(orders, products) {
                                 'class': 'col'
                             }).append(
                                 $('<button/>', {
-                                    'class': 'sendEmailButton btn btn-light message-customer',
+                                    'class': 'sendEmailButton btn btn-secondary message-customer',
                                     text: 'Message Customer',
                                     'data-userID': `${order.user_id}`,
                                     'data-orderID': `${order.order_id}`,
