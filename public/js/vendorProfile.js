@@ -627,7 +627,7 @@ function renderOrders(orders, products) {
                         ).append(
                             $('<li/>', {
                                 'class': 'list-group-item',
-                                text: `Order Status: ${order.status}`
+                                text: `Order Status: ${order.status ? order.status : "Not Confirmed"}`
                             })
                         )
                     ).append(

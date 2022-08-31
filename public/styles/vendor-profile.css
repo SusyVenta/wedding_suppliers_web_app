@@ -119,15 +119,15 @@ input[type="file"]{
   width: 80%;
   padding-bottom: 100px;
   height: 1000px;
+  overflow-y: scroll;
 }
-
-
 
 .tab-content-container{
   display: flex;
   flex-direction: column;
   width: 100%;
   flex-wrap: wrap;
+  overflow-y: hidden;
 }
 
 .tab-content{
@@ -141,6 +141,7 @@ input[type="file"]{
 .tab-title{
   align-self: center;
 }
+
 
  /* ----------- phone view ------ */
  @media only screen and (max-width: 800px) {
