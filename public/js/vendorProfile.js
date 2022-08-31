@@ -124,12 +124,6 @@ $('#edit-close').click(() => {
     $('#edit-modal').hide();
 })
 
-$(window).on('click', '#edit-modal', () => {
-    $('#edit-modal').hide();
-})
-
-
-
 function populateEditModal() {
     $('#edit-name').val(vendorDetails.business_name);
     $('#edit-email').val(vendorDetails.email);
@@ -551,6 +545,11 @@ $('#create-product-button').click(event => {
 const productImageEdit = document.getElementById('create-product-image');
 $('#create-product-image').change(event => {
     productImageChosen = event.target.files[0];
+})
+
+// Close product edit
+$('#product-edit-close').click(() => {
+    $('#product-edit-modal').hide();
 })
 
 
