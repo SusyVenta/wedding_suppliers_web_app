@@ -35,6 +35,11 @@ firebase.auth().onAuthStateChanged(user => {
     }
 })
 
+// Modals
+const editDetailsModal = new bootstrap.Modal(document.getElementById('edit-modal'));
+const productEditModal = new bootstrap.Modal(document.getElementById('product-edit-modal'));
+const addToCatalgoueModal = new bootstrap.Modal(document.getElementById('add-to-catalogue-modal'));
+
 // when edit picture button pressed, open file loader
 //when vendor has chosen picture, upload image to firebase storage
 // get link for that image and then update vendor db with link to storage
@@ -111,18 +116,12 @@ function setOrders(orders) {
     }
 }
 
-const editModal = $('#edit-modal');
-
 // open edit modal on click
 $('#edit-user-details').click(() => {
     populateEditModal();
     $('#edit-modal').show();
 })
 
-// close modal on close or click away
-$('#edit-close').click(() => {
-    $('#edit-modal').hide();
-})
 
 function populateEditModal() {
     $('#edit-name').val(vendorDetails.business_name);
@@ -143,7 +142,7 @@ $('#save-edit').click(event => {
         inputs[field.id] = field.value;
     })
     saveEditsToDatabase(inputs);
-    $('#edit-modal').hide()
+    editDetailsModal.hide();
 })
 
 function saveEditsToDatabase(inputs) {
@@ -253,8 +252,11 @@ function renderCatalogue(product) {
                             text: 'Delete Product'
                         })
                     ).append(
-                        $('<a/>', {
-                            'class': 'btn btn btn-secondary edit-product cata-button',
+                        $('<button/>', {
+                            type: 'button',
+                            'class': 'btn btn-secondary edit-product cata-button',
+                            'data-bs-toggle': 'modal',
+                            'data-bs-target': '#product-edit-modal',
                             'data-productid': `${product.product_id}`,
                             text: `Edit ${product.title}`
                         })
@@ -291,7 +293,6 @@ $('#catalogue-container').on('click', '.edit-product', event => {
     // Fill the modal with the current data for the product clicked
     populateProductEdit(productID);
     // Open the modal to edit the details for that modal;
-    $('#product-edit-modal').show();
 })
 
 $('#save-product-edit').click(() => {
@@ -309,7 +310,6 @@ function populateProductEdit(productID) {
                 const price = productDetails.price;
                 const description = productDetails.description;
                 const currency = productDetails.currency;
-                const availableCountries = productDetails.available_countries
                 $(`#edit-product-currenct option[value='${currency}']`).attr('selected', 'selected');
                 $(`#product-edit-title`).val(title);
                 $(`#product-edit-price`).val(price);
@@ -352,7 +352,7 @@ $('#save-product-edit').click(event => {
     }
     const productID = $('#product-edit-details').data('product-id');
     saveProductEditsToDb(inputs, productID);
-    $('#product-edit-modal').hide()
+    productEditModal.hide();
 })
 
 function saveProductEditsToDb(inputs, productID) {
@@ -457,28 +457,6 @@ $('#add-to-catalogue-button').click(() => {
         })
 })
 
-//close the modal
-$('#catalogue-close').click(() => {
-    $('#add-to-catalogue-modal').hide();
-})
-
-// $(window).click(event => {
-//     console.log($('#edit-modal'))
-//     console.log(event.target)
-//     console.log(event.target == $('#edit-modal'))
-//     if (event.target == $('#add-to-catalogue-modal') ||
-//         event.target == $('#product-edit-modal') ||
-//         event.target == $('#edit-modal')) {
-//         hideModals();
-//     }
-// })
-
-function hideModals() {
-    $('#add-to-catalogue-modal').hide();
-    $('#edit-modal').hide();
-    $('#product-edit-modal').hide();
-}
-
 // when vendor clicks create product, add the product to the product table in the database
 // add the product to the vendors array of products
 let productImageChosen;
@@ -537,7 +515,7 @@ $('#create-product-button').click(event => {
         })
     }).then(() => {
         $('#create-product-form').trigger('reset');
-        $('#add-to-catalogue-modal').hide();
+        addToCatalgoueModal.hide();
     })
 })
 
