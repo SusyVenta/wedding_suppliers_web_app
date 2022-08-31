@@ -111,6 +111,8 @@ function setOrders(orders) {
     }
 }
 
+const editModal = $('#edit-modal');
+
 // open edit modal on click
 $('#edit-user-details').click(() => {
     populateEditModal();
@@ -121,6 +123,12 @@ $('#edit-user-details').click(() => {
 $('#edit-close').click(() => {
     $('#edit-modal').hide();
 })
+
+$(window).on('click', '#edit-modal', () => {
+    $('#edit-modal').hide();
+})
+
+
 
 function populateEditModal() {
     $('#edit-name').val(vendorDetails.business_name);
@@ -164,7 +172,7 @@ function saveEditsToDatabase(inputs) {
 
 // -------------- Catalogue ----------------------
 
-const renderCatalogue = (product) => {
+function renderCatalogue(product) {
     const productImage = product.pictures[0];
     $('#catalogue-container').append(
         $('<div/>', {
@@ -460,12 +468,16 @@ $('#catalogue-close').click(() => {
     $('#add-to-catalogue-modal').hide();
 })
 
-$('window').click(event => {
-    if (event.target == $('#add-to-catalogue-modal') ||
-        event.target == $('#product-edit-modal')) {
-        hideModals();
-    }
-})
+// $(window).click(event => {
+//     console.log($('#edit-modal'))
+//     console.log(event.target)
+//     console.log(event.target == $('#edit-modal'))
+//     if (event.target == $('#add-to-catalogue-modal') ||
+//         event.target == $('#product-edit-modal') ||
+//         event.target == $('#edit-modal')) {
+//         hideModals();
+//     }
+// })
 
 function hideModals() {
     $('#add-to-catalogue-modal').hide();
