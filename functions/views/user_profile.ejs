@@ -455,7 +455,7 @@
                           <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
                           <p>Status: <%= product.status %> </p>
                           <% if(product.status == 'pending vendor confirmation'){ %>
-                            <button value="<%= product.order_id %>" onclick="cancelOrder(value)" class="btn btn-secondary">Cancel</button>
+                            <button value="<%= product.order_id %>" onclick="cancelOrder(value, '<%= product.product.vendor_id %>')" class="btn btn-secondary">Cancel</button>
                           <% } else if(product.status == 'confirmed'){ %>
                             <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn btn-secondary">Review</button>
                           <% } %>

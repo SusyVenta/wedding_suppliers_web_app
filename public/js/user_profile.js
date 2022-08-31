@@ -20,16 +20,16 @@ function openUserProfile(evt, cityName) {
 }
 
 /* Determine which tab to open */
-function determineTabToOpenAndOpenIt(){
+function determineTabToOpenAndOpenIt() {
   let tabsIds = ["openProfileTab", "openWishlistTab", "openOrdersTab", "openCatalogueTab"];
   let tabClass;
-  for (let tab of tabsIds){
+  for (let tab of tabsIds) {
     try {
       tabClass = document.getElementById(tab).className;
-      if(tabClass == 'tablinks active'){
+      if (tabClass == 'tablinks active') {
         document.getElementById(tab).click();
       }
-    } catch{
+    } catch {
       // we're here if there is no element with such id. Nothing to do. This script is run both by user and vendor profiles.
     }
   }
@@ -42,7 +42,7 @@ determineTabToOpenAndOpenIt();
 const updateProfileForm = async () => {
   // determine user action
   let saveOrEdit = document.getElementById("saveOrEdit").value;
-  if (saveOrEdit == "Edit"){
+  if (saveOrEdit == "Edit") {
     // enable inputs
     document.getElementById("phone_number").disabled = false;
     document.getElementById("address_1").disabled = false;
@@ -86,7 +86,7 @@ const updateProfileForm = async () => {
     // change text of save / edit button
     document.getElementById("edit-user-details").value = "Edit";
   }
-  
+
 }
 
 /* When user clicks on 'Update profile picture', activates the upload */
@@ -101,7 +101,7 @@ async function updateProfilePic() {
   var input = document.getElementById('profile-pic-input');
 
   var file = input.files[0];
-  var storageRef = firebase.storage().ref('customer_profiles/' + user_id + "/" + file.name );
+  var storageRef = firebase.storage().ref('customer_profiles/' + user_id + "/" + file.name);
 
   storageRef.put(file).then(async () => {
     storageRef.getDownloadURL().then(async url => {
@@ -109,10 +109,10 @@ async function updateProfilePic() {
       userProfile = await db.collection('users').doc(user_id);
 
       userProfile.update({
-          profile_picture: imgURL,
+        profile_picture: imgURL,
       })
     })
-    
+
   }).catch(error => {
     console.log(error.message);
   }
@@ -120,26 +120,28 @@ async function updateProfilePic() {
 }
 
 // customers can cancel orders if they are still pending confirmation
-async function cancelOrder(order_id) {
+async function cancelOrder(order_id, vendorID) {
   let user_id = document.getElementById("user_id_navbar").innerHTML;
+  // delete from user order
   await db.collection('users').doc(user_id).collection('orders').doc(order_id).delete();
-
-  // post form to reload page with updated orders
+  // delete from vendor orders_to_confirm
+  await db.collection('users').doc(vendorID).collection('orders_to_confirm').doc(order_id).delete();
+  // // post form to reload page with updated orders
   $('form#user-details').submit();
-  
+
 };
 
 // Once the order has been confirmed by the vendor, users can review the product
-async function reviewProduct(product_id, order_id, quality_rating, vendor_quality_rating, 
+async function reviewProduct(product_id, order_id, quality_rating, vendor_quality_rating,
   product_description_rating, free_text) {
   let user_id = document.getElementById("user_id_navbar").innerHTML;
   let now = new Date();
 
   const usersTableGet = await db.collection('users').doc(user_id).get();
-  let userData = usersTableGet.data(); 
+  let userData = usersTableGet.data();
 
   let newReviewData = {
-    firstName: userData.username, 
+    firstName: userData.username,
     lastName: "",
     date: now,
     overall_rating: (Number(quality_rating) + Number(vendor_quality_rating) + Number(product_description_rating)) / 3,
@@ -150,12 +152,12 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
   };
 
   const productsTableGet = await db.collection('products').doc(product_id).get();
-  let targetProduct = productsTableGet.data(); 
+  let targetProduct = productsTableGet.data();
   let existingReviews = targetProduct.reviews;
 
-  if (existingReviews == null){
+  if (existingReviews == null) {
     existingReviews = [newReviewData];
-  }else{
+  } else {
     existingReviews.push(newReviewData);
   }
 
@@ -166,7 +168,7 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
   let overall_product_description_rating = 0;
 
   let countReviews = 0;
-  for (let review of existingReviews){
+  for (let review of existingReviews) {
     overallStarsAvg += review.overall_rating;
     overall_product_quality_rating += review.product_quality_rating;
     overall_vendor_quality_rating += review.vendor_quality_rating;
@@ -181,12 +183,13 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
 
   const productsTableSet = await db.collection('products').doc(product_id);
   productsTableSet.set(
-    {reviews: existingReviews,
-     stars: overallStarsAvg,
-     overall_product_quality_rating: overall_product_quality_rating,
-     overall_vendor_quality_rating: overall_vendor_quality_rating,
-     overall_product_description_rating: overall_product_description_rating,
-     number_reviews: countReviews + 1
+    {
+      reviews: existingReviews,
+      stars: overallStarsAvg,
+      overall_product_quality_rating: overall_product_quality_rating,
+      overall_vendor_quality_rating: overall_vendor_quality_rating,
+      overall_product_description_rating: overall_product_description_rating,
+      number_reviews: countReviews + 1
     },
     { merge: true }
   );
@@ -194,11 +197,11 @@ async function reviewProduct(product_id, order_id, quality_rating, vendor_qualit
   // hides review button when review's already submitted
   const userOrdersSet = await db.collection('users').doc(user_id).collection('orders').doc(order_id);
   userOrdersSet.set(
-    {status: "reviewed"},
+    { status: "reviewed" },
     { merge: true }
   );
 
-   // post form to reload page with updated orders
-   $('form#user-details').submit();
+  // post form to reload page with updated orders
+  $('form#user-details').submit();
 
 }
