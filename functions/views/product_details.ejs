@@ -74,14 +74,14 @@
                 });
             </script>
         <% } %>
+
+        <!-- Modal for Login required -->
         <div id="loginRequiredModal" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">Log in required</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                   <p>Please log in or register to complete this action.</p>
@@ -99,14 +99,14 @@
                 });
             </script>
         <% } %>
+
+        <!-- Action success modal -->
         <div id="actionSuccess" class="modal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">Thank you!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <% if (addedToBasket === true) { %>
@@ -123,6 +123,8 @@
               </div>
             </div>
         </div>
+
+        <!-- Product page container -->
         <div class="page-container">
             <div class="text-container">
                 <h1 id="product-title"><%= product.title %></h1>
