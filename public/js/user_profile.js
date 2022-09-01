@@ -128,7 +128,6 @@ async function cancelOrder(order_id, vendorID) {
   await db.collection('users').doc(vendorID).collection('orders_to_confirm').doc(order_id).delete();
   // // post form to reload page with updated orders
   $('form#user-details').submit();
-
 };
 
 // Once the order has been confirmed by the vendor, users can review the product
