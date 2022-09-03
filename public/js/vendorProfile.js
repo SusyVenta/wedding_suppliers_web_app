@@ -2,11 +2,12 @@ let docRef;
 let vendorID;
 let vendorDetails;
 
+// Set globals on authentication state change
 firebase.auth().onAuthStateChanged(user => {
-    let vendorData;
     if (user) {
         uid = user.uid;
         vendorID = user.uid;
+        // get all user data based on their id from DB and set relevant items on profile
         db.collection('users')
             .where('user_id', '==', user.uid)
             .get()
@@ -35,7 +36,7 @@ firebase.auth().onAuthStateChanged(user => {
     }
 })
 
-// Modals
+// Modals for user details, add/edit products
 const editDetailsModal = new bootstrap.Modal(document.getElementById('edit-modal'));
 const productEditModal = new bootstrap.Modal(document.getElementById('product-edit-modal'));
 const addToCatalgoueModal = new bootstrap.Modal(document.getElementById('add-to-catalogue-modal'));
@@ -70,7 +71,6 @@ $('#profile-pic-edit-button').change(event => {
 
 const setProfile = () => {
     // set profile picture, if user has set an image themselves then use that image from storage otherwise use default image
-
     // vendor has set profile picture
     if (vendorDetails && vendorDetails.profile_image) $('#profile-pic').attr('src', vendorDetails.profile_image);
     // set business name
@@ -117,12 +117,12 @@ function setOrders(orders) {
 }
 
 // open edit modal on click
-$('#edit-user-details').click(() => {
+$('#edit-user-details').on('click', () => {
     populateEditModal();
     $('#edit-modal').show();
 })
 
-
+// populate the edit details modal with the correct current user details
 function populateEditModal() {
     $('#edit-name').val(vendorDetails.business_name);
     $('#edit-email').val(vendorDetails.email);
@@ -145,6 +145,7 @@ $('#save-edit').click(event => {
     editDetailsModal.hide();
 })
 
+// update the new user iformation in the database
 function saveEditsToDatabase(inputs) {
     vendorRef = db.collection('users').doc(docRef);
     vendorRef.update({
@@ -165,6 +166,7 @@ function saveEditsToDatabase(inputs) {
 
 // -------------- Catalogue ----------------------
 
+// Create a node for each product in th vendors catalogue and add to the DOM
 function renderCatalogue(product) {
     const productImage = product.pictures[0];
     $('#catalogue-container').append(
@@ -355,6 +357,7 @@ $('#save-product-edit').click(event => {
     productEditModal.hide();
 })
 
+// update the new product details in the database
 function saveProductEditsToDb(inputs, productID) {
     productRef = db.collection('products').doc(productID);
     productRef.update(inputs)
@@ -375,8 +378,9 @@ $('#catalogue-container').on('click', '.delete-product', event => {
 
 })
 
+// When deleteing a product it get removed from the vendors products, their orders_to_confirm
+// from the products collection and any users that have it in the current orders.
 async function deleteProduct(productID) {
-    // TODO: don't allow orders that have been confirmed be deleted from orders
     // check to see if there are any current orders
     db.collectionGroup('orders')
         .where('product_id', '==', productID)
@@ -426,7 +430,6 @@ async function deleteProduct(productID) {
         catalogue: firebase.firestore.FieldValue.arrayRemove(productID)
     })
 }
-// See reviews click event
 
 
 $('#add-to-catalogue-button').click(() => {
@@ -566,7 +569,7 @@ function addSendEmailEventListener() {
     }
 }
 
-
+// creates a node for each item in the orders_to_confirm collection and adds to DOM
 function renderOrders(orders, products) {
     orders.forEach(order => {
         // get the correct product from the products array
