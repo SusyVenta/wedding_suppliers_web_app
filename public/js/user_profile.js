@@ -97,11 +97,11 @@ function uploadTrigger() {
 
 // upload the image to firebase storage and update the profile picture
 async function updateProfilePic() {
-  let user_id = document.getElementById("user_id_navbar").innerHTML;
-  var input = document.getElementById('profile-pic-input');
+  const user_id = document.getElementById("user_id_navbar").innerHTML;
+  const input = document.getElementById('profile-pic-input');
 
-  var file = input.files[0];
-  var storageRef = firebase.storage().ref('customer_profiles/' + user_id + "/" + file.name);
+  const file = input.files[0];
+  const storageRef = firebase.storage().ref('customer_profiles/' + user_id + "/" + file.name);
 
   storageRef.put(file).then(async () => {
     storageRef.getDownloadURL().then(async url => {

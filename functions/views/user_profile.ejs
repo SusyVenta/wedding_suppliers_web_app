@@ -6,13 +6,13 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>User Profile</title>
-    <!-- SHARED HEAD -->
-    <%- include('partials/sharedHead') %> 
+  <!-- SHARED HEAD -->
+  <%- include('partials/sharedHead') %>
 
 
-    <!-- PAGE HEAD -->
-    <link rel="stylesheet" href="/styles/user-profile.css">
-    <script src="/js/user_profile.js" type="text/javascript" defer></script>
+  <!-- PAGE HEAD -->
+  <link rel="stylesheet" href="/styles/user-profile.css">
+  <script src="/js/user_profile.js" type="text/javascript" defer></script>
 </head>
 
 <body>
@@ -20,529 +20,523 @@
     <!-- header partial -->
     <%- include('partials/header') %>
 
-      <main>
-        <div class="main-container">
-          <div class="tab">
-            <!-- The first tab is open by default when the user loads the page -->
-            <button id="openProfileTab" class="<%= user.openProfileTabClass %>" onclick="openUserProfile(event, 'Profile')">Personal
-              Information</button>
-            <button id="openWishlistTab" class="<%= user.openWishlistTabClass %>" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
-            <button id="openOrdersTab" class="<%= user.openOrdersTabClass %>" onclick="openUserProfile(event, 'Orders')">My Orders</button>
-          </div>
+    <main>
+      <div class="main-container">
+        <div class="tab">
+          <!-- The first tab is open by default when the user loads the page -->
+          <button id="openProfileTab" class="<%= user.openProfileTabClass %>" onclick="openUserProfile(event, 'Profile')">Personal
+            Information</button>
+          <button id="openWishlistTab" class="<%= user.openWishlistTabClass %>" onclick="openUserProfile(event, 'Wishlist')">Wishlist</button>
+          <button id="openOrdersTab" class="<%= user.openOrdersTabClass %>" onclick="openUserProfile(event, 'Orders')">My Orders</button>
+        </div>
 
-          <div id="Profile" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Personal Information</h3>
-              </div>
+        <div id="Profile" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content">
+              <h3 class="tab-title">Personal Information</h3>
+            </div>
 
-              <div class="tab-content" id="profile-pic-container">
+            <div class="tab-content" id="profile-pic-container">
 
-                <% if(user.profile_picture == null || user.profile_picture == ""){ %>
-                  <img id="profile-pic" src="/assets/blank-profile-picture-png.png" alt="User profile picture">
-                <% } else{ %>
-                  <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
-                <% }%>
+              <% if(user.profile_picture == null || user.profile_picture == ""){ %>
+              <img id="profile-pic" src="/assets/blank-profile-picture-png.png" alt="User profile picture">
+              <% } else{ %>
+              <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
+              <% }%>
 
-                <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
-                <button type="button" id="change-picture" class="btn btn-secondary" onclick="uploadTrigger()">Update profile picture</button>
-              </div>
-              <div class="tab-content" id="user-details">
-                <form id="user-details" method="POST" action="/users/<%= user.user_id %>/profile">
-                  <div class="container user-details">
-                    <div class="row">
-                      <div class="col">
-                        <div class="row">
-                          <!-- Email -->
-                          <label>Email</label>
-                          <input disabled type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
-                        </div>
-                        <div class="row">
-                          <!-- Phone number -->
-                          <label>Phone number</label>
-                          <% if(user.phone_number == null | user.phone_number == ""){ %>
-                            <input disabled type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
-                            placeholder="Phone Number" value="" required>
-                          <% } else{ %>
-                            <input disabled type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control"
-                            placeholder="Phone Number" value="<%= user.phone_number %>" required>
-                          <% }%>
-                        </div>
-                        <div class="row">
-                          <!-- Address 1 -->
-                          <label>Address of your wedding location</label>
-                          <% if(user.address_1 == null){ %>
-                            <input disabled type="text" id="address_1" class="form-control"
-                            placeholder="Address of your wedding location" value="" %>" required>
-                          <% } else{ %>
-                            <input disabled type="text" id="address_1" class="form-control"
-                            placeholder="Address of your wedding location" value="<%= user.address_1 %>" required>
-                          <% }%>
-                          
-                        </div>
-                        <div class="row">
-                          <!-- Postal Code -->
-                          <label>Postal code</label>
-                          <input disabled type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
-                        </div>
-                        <div class="row">
-                          <!-- City -->
-                          <label>City</label>
-                          <input disabled type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
-                        </div>
-                        <div class="row">
-                          <!-- Country -->
-                          <label>Country</label>
-                          <select disabled id="country" name="country" class="form-control" required>
-                            <option value="" disabled selected hidden>Country</option>
-                            <option selected value="<%= user.country %>"><%= user.country %></option>
-                            <option value="AF">Afghanistan</option>
-                            <option value="AX">Åland Islands</option>
-                            <option value="AL">Albania</option>
-                            <option value="DZ">Algeria</option>
-                            <option value="AS">American Samoa</option>
-                            <option value="AD">Andorra</option>
-                            <option value="AO">Angola</option>
-                            <option value="AI">Anguilla</option>
-                            <option value="AQ">Antarctica</option>
-                            <option value="AG">Antigua &amp; Barbuda</option>
-                            <option value="AR">Argentina</option>
-                            <option value="AM">Armenia</option>
-                            <option value="AW">Aruba</option>
-                            <option value="AC">Ascension Island</option>
-                            <option value="AU">Australia</option>
-                            <option value="AT">Austria</option>
-                            <option value="AZ">Azerbaijan</option>
-                            <option value="BS">Bahamas</option>
-                            <option value="BH">Bahrain</option>
-                            <option value="BD">Bangladesh</option>
-                            <option value="BB">Barbados</option>
-                            <option value="BY">Belarus</option>
-                            <option value="BE">Belgium</option>
-                            <option value="BZ">Belize</option>
-                            <option value="BJ">Benin</option>
-                            <option value="BM">Bermuda</option>
-                            <option value="BT">Bhutan</option>
-                            <option value="BO">Bolivia</option>
-                            <option value="BA">Bosnia &amp; Herzegovina</option>
-                            <option value="BW">Botswana</option>
-                            <option value="BV">Bouvet Island</option>
-                            <option value="BR">Brazil</option>
-                            <option value="IO">British Indian Ocean Territory</option>
-                            <option value="VG">British Virgin Islands</option>
-                            <option value="BN">Brunei</option>
-                            <option value="BG">Bulgaria</option>
-                            <option value="BF">Burkina Faso</option>
-                            <option value="BI">Burundi</option>
-                            <option value="KH">Cambodia</option>
-                            <option value="CM">Cameroon</option>
-                            <option value="CA">Canada</option>
-                            <option value="CV">Cape Verde</option>
-                            <option value="BQ">Caribbean Netherlands</option>
-                            <option value="KY">Cayman Islands</option>
-                            <option value="CF">Central African Republic</option>
-                            <option value="TD">Chad</option>
-                            <option value="CL">Chile</option>
-                            <option value="CN">China</option>
-                            <option value="CX">Christmas Island</option>
-                            <option value="CC">Cocos (Keeling) Islands</option>
-                            <option value="CO">Colombia</option>
-                            <option value="KM">Comoros</option>
-                            <option value="CG">Congo - Brazzaville</option>
-                            <option value="CD">Congo - Kinshasa</option>
-                            <option value="CK">Cook Islands</option>
-                            <option value="CR">Costa Rica</option>
-                            <option value="CI">Côte d’Ivoire</option>
-                            <option value="HR">Croatia</option>
-                            <option value="CW">Curaçao</option>
-                            <option value="CY">Cyprus</option>
-                            <option value="CZ">Czechia</option>
-                            <option value="DK">Denmark</option>
-                            <option value="DJ">Djibouti</option>
-                            <option value="DM">Dominica</option>
-                            <option value="DO">Dominican Republic</option>
-                            <option value="EC">Ecuador</option>
-                            <option value="EG">Egypt</option>
-                            <option value="SV">El Salvador</option>
-                            <option value="GQ">Equatorial Guinea</option>
-                            <option value="ER">Eritrea</option>
-                            <option value="EE">Estonia</option>
-                            <option value="SZ">Eswatini</option>
-                            <option value="ET">Ethiopia</option>
-                            <option value="FK">Falkland Islands (Islas Malvinas)</option>
-                            <option value="FO">Faroe Islands</option>
-                            <option value="FJ">Fiji</option>
-                            <option value="FI">Finland</option>
-                            <option value="FR">France</option>
-                            <option value="GF">French Guiana</option>
-                            <option value="PF">French Polynesia</option>
-                            <option value="TF">French Southern Territories</option>
-                            <option value="GA">Gabon</option>
-                            <option value="GM">Gambia</option>
-                            <option value="GE">Georgia</option>
-                            <option value="DE">Germany</option>
-                            <option value="GH">Ghana</option>
-                            <option value="GI">Gibraltar</option>
-                            <option value="GR">Greece</option>
-                            <option value="GL">Greenland</option>
-                            <option value="GD">Grenada</option>
-                            <option value="GP">Guadeloupe</option>
-                            <option value="GU">Guam</option>
-                            <option value="GT">Guatemala</option>
-                            <option value="GG">Guernsey</option>
-                            <option value="GN">Guinea</option>
-                            <option value="GW">Guinea-Bissau</option>
-                            <option value="GY">Guyana</option>
-                            <option value="HT">Haiti</option>
-                            <option value="HM">Heard &amp; McDonald Islands</option>
-                            <option value="HN">Honduras</option>
-                            <option value="HK">Hong Kong</option>
-                            <option value="HU">Hungary</option>
-                            <option value="IS">Iceland</option>
-                            <option value="IN">India</option>
-                            <option value="ID">Indonesia</option>
-                            <option value="IR">Iran</option>
-                            <option value="IQ">Iraq</option>
-                            <option value="IE">Ireland</option>
-                            <option value="IM">Isle of Man</option>
-                            <option value="IL">Israel</option>
-                            <option value="IT">Italy</option>
-                            <option value="JM">Jamaica</option>
-                            <option value="JP">Japan</option>
-                            <option value="JE">Jersey</option>
-                            <option value="JO">Jordan</option>
-                            <option value="KZ">Kazakhstan</option>
-                            <option value="KE">Kenya</option>
-                            <option value="KI">Kiribati</option>
-                            <option value="XK">Kosovo</option>
-                            <option value="KW">Kuwait</option>
-                            <option value="KG">Kyrgyzstan</option>
-                            <option value="LA">Laos</option>
-                            <option value="LV">Latvia</option>
-                            <option value="LB">Lebanon</option>
-                            <option value="LS">Lesotho</option>
-                            <option value="LR">Liberia</option>
-                            <option value="LY">Libya</option>
-                            <option value="LI">Liechtenstein</option>
-                            <option value="LT">Lithuania</option>
-                            <option value="LU">Luxembourg</option>
-                            <option value="MO">Macao</option>
-                            <option value="MG">Madagascar</option>
-                            <option value="MW">Malawi</option>
-                            <option value="MY">Malaysia</option>
-                            <option value="MV">Maldives</option>
-                            <option value="ML">Mali</option>
-                            <option value="MT">Malta</option>
-                            <option value="MH">Marshall Islands</option>
-                            <option value="MQ">Martinique</option>
-                            <option value="MR">Mauritania</option>
-                            <option value="MU">Mauritius</option>
-                            <option value="YT">Mayotte</option>
-                            <option value="MX">Mexico</option>
-                            <option value="FM">Micronesia</option>
-                            <option value="MD">Moldova</option>
-                            <option value="MC">Monaco</option>
-                            <option value="MN">Mongolia</option>
-                            <option value="ME">Montenegro</option>
-                            <option value="MS">Montserrat</option>
-                            <option value="MA">Morocco</option>
-                            <option value="MZ">Mozambique</option>
-                            <option value="MM">Myanmar (Burma)</option>
-                            <option value="NA">Namibia</option>
-                            <option value="NR">Nauru</option>
-                            <option value="NP">Nepal</option>
-                            <option value="NL">Netherlands</option>
-                            <option value="NC">New Caledonia</option>
-                            <option value="NZ">New Zealand</option>
-                            <option value="NI">Nicaragua</option>
-                            <option value="NE">Niger</option>
-                            <option value="NG">Nigeria</option>
-                            <option value="NU">Niue</option>
-                            <option value="NF">Norfolk Island</option>
-                            <option value="KP">North Korea</option>
-                            <option value="MK">North Macedonia</option>
-                            <option value="MP">Northern Mariana Islands</option>
-                            <option value="NO">Norway</option>
-                            <option value="OM">Oman</option>
-                            <option value="PK">Pakistan</option>
-                            <option value="PW">Palau</option>
-                            <option value="PS">Palestine</option>
-                            <option value="PA">Panama</option>
-                            <option value="PG">Papua New Guinea</option>
-                            <option value="PY">Paraguay</option>
-                            <option value="PE">Peru</option>
-                            <option value="PH">Philippines</option>
-                            <option value="PN">Pitcairn Islands</option>
-                            <option value="PL">Poland</option>
-                            <option value="PT">Portugal</option>
-                            <option value="PR">Puerto Rico</option>
-                            <option value="QA">Qatar</option>
-                            <option value="RE">Réunion</option>
-                            <option value="RO">Romania</option>
-                            <option value="RU">Russia</option>
-                            <option value="RW">Rwanda</option>
-                            <option value="WS">Samoa</option>
-                            <option value="SM">San Marino</option>
-                            <option value="ST">São Tomé &amp; Príncipe</option>
-                            <option value="SA">Saudi Arabia</option>
-                            <option value="SN">Senegal</option>
-                            <option value="RS">Serbia</option>
-                            <option value="SC">Seychelles</option>
-                            <option value="SL">Sierra Leone</option>
-                            <option value="SG">Singapore</option>
-                            <option value="SX">Sint Maarten</option>
-                            <option value="SK">Slovakia</option>
-                            <option value="SI">Slovenia</option>
-                            <option value="SB">Solomon Islands</option>
-                            <option value="SO">Somalia</option>
-                            <option value="ZA">South Africa</option>
-                            <option value="GS">South Georgia &amp; South Sandwich Islands</option>
-                            <option value="KR">South Korea</option>
-                            <option value="SS">South Sudan</option>
-                            <option value="ES">Spain</option>
-                            <option value="LK">Sri Lanka</option>
-                            <option value="BL">St Barthélemy</option>
-                            <option value="SH">St Helena</option>
-                            <option value="KN">St Kitts &amp; Nevis</option>
-                            <option value="LC">St Lucia</option>
-                            <option value="MF">St Martin</option>
-                            <option value="PM">St Pierre &amp; Miquelon</option>
-                            <option value="VC">St Vincent &amp; Grenadines</option>
-                            <option value="SR">Suriname</option>
-                            <option value="SJ">Svalbard &amp; Jan Mayen</option>
-                            <option value="SE">Sweden</option>
-                            <option value="CH">Switzerland</option>
-                            <option value="TW">Taiwan</option>
-                            <option value="TJ">Tajikistan</option>
-                            <option value="TZ">Tanzania</option>
-                            <option value="TH">Thailand</option>
-                            <option value="TL">Timor-Leste</option>
-                            <option value="TG">Togo</option>
-                            <option value="TK">Tokelau</option>
-                            <option value="TO">Tonga</option>
-                            <option value="TT">Trinidad &amp; Tobago</option>
-                            <option value="TA">Tristan da Cunha</option>
-                            <option value="TN">Tunisia</option>
-                            <option value="TR">Turkey</option>
-                            <option value="TM">Turkmenistan</option>
-                            <option value="TC">Turks &amp; Caicos Islands</option>
-                            <option value="TV">Tuvalu</option>
-                            <option value="UG">Uganda</option>
-                            <option value="UA">Ukraine</option>
-                            <option value="AE">United Arab Emirates</option>
-                            <option value="GB">United Kingdom</option>
-                            <option value="US">United States</option>
-                            <option value="UY">Uruguay</option>
-                            <option value="UM">US Outlying Islands</option>
-                            <option value="VI">US Virgin Islands</option>
-                            <option value="UZ">Uzbekistan</option>
-                            <option value="VU">Vanuatu</option>
-                            <option value="VA">Vatican City</option>
-                            <option value="VE">Venezuela</option>
-                            <option value="VN">Vietnam</option>
-                            <option value="WF">Wallis &amp; Futuna</option>
-                            <option value="EH">Western Sahara</option>
-                            <option value="YE">Yemen</option>
-                            <option value="ZM">Zambia</option>
-                            <option value="ZW">Zimbabwe</option>
-                          </select>
-                        </div>
+              <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
+              <button type="button" id="change-picture" class="btn btn-secondary" onclick="uploadTrigger()">Update profile picture</button>
+            </div>
+            <div class="tab-content" id="user-details">
+              <form id="user-details" method="POST" action="/users/<%= user.user_id %>/profile">
+                <div class="container user-details">
+                  <div class="row">
+                    <div class="col">
+                      <div class="row">
+                        <!-- Email -->
+                        <label>Email</label>
+                        <input disabled type="email" id="email" class="form-control form-control" placeholder="Email" value="<%= user.email %>" required>
+                      </div>
+                      <div class="row">
+                        <!-- Phone number -->
+                        <label>Phone number</label>
+                        <% if(user.phone_number == null | user.phone_number == ""){ %>
+                        <input disabled type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control" placeholder="Phone Number" value="" required>
+                        <% } else{ %>
+                        <input disabled type="text" inputmode="numeric" name="phone_number" id="phone_number" class="form-control form-control" placeholder="Phone Number" value="<%= user.phone_number %>" required>
+                        <% }%>
+                      </div>
+                      <div class="row">
+                        <!-- Address 1 -->
+                        <label>Address of your wedding location</label>
+                        <% if(user.address_1 == null){ %>
+                        <input disabled type="text" id="address_1" class="form-control" placeholder="Address of your wedding location" value="" %>" required>
+                        <% } else{ %>
+                        <input disabled type="text" id="address_1" class="form-control" placeholder="Address of your wedding location" value="<%= user.address_1 %>" required>
+                        <% }%>
+
+                      </div>
+                      <div class="row">
+                        <!-- Postal Code -->
+                        <label>Postal code</label>
+                        <input disabled type="text" name="post_code" id="post_code" class="form-control" placeholder="Postal Code" value="<%= user.post_code %>" required>
+                      </div>
+                      <div class="row">
+                        <!-- City -->
+                        <label>City</label>
+                        <input disabled type="text" name="city" id="city" class="form-control" placeholder="City" value="<%= user.city %>" required>
+                      </div>
+                      <div class="row">
+                        <!-- Country -->
+                        <label>Country</label>
+                        <select disabled id="country" name="country" class="form-control" required>
+                          <option value="" disabled selected hidden>Country</option>
+                          <option selected value="<%= user.country %>"><%= user.country %></option>
+                          <option value="AF">Afghanistan</option>
+                          <option value="AX">Åland Islands</option>
+                          <option value="AL">Albania</option>
+                          <option value="DZ">Algeria</option>
+                          <option value="AS">American Samoa</option>
+                          <option value="AD">Andorra</option>
+                          <option value="AO">Angola</option>
+                          <option value="AI">Anguilla</option>
+                          <option value="AQ">Antarctica</option>
+                          <option value="AG">Antigua &amp; Barbuda</option>
+                          <option value="AR">Argentina</option>
+                          <option value="AM">Armenia</option>
+                          <option value="AW">Aruba</option>
+                          <option value="AC">Ascension Island</option>
+                          <option value="AU">Australia</option>
+                          <option value="AT">Austria</option>
+                          <option value="AZ">Azerbaijan</option>
+                          <option value="BS">Bahamas</option>
+                          <option value="BH">Bahrain</option>
+                          <option value="BD">Bangladesh</option>
+                          <option value="BB">Barbados</option>
+                          <option value="BY">Belarus</option>
+                          <option value="BE">Belgium</option>
+                          <option value="BZ">Belize</option>
+                          <option value="BJ">Benin</option>
+                          <option value="BM">Bermuda</option>
+                          <option value="BT">Bhutan</option>
+                          <option value="BO">Bolivia</option>
+                          <option value="BA">Bosnia &amp; Herzegovina</option>
+                          <option value="BW">Botswana</option>
+                          <option value="BV">Bouvet Island</option>
+                          <option value="BR">Brazil</option>
+                          <option value="IO">British Indian Ocean Territory</option>
+                          <option value="VG">British Virgin Islands</option>
+                          <option value="BN">Brunei</option>
+                          <option value="BG">Bulgaria</option>
+                          <option value="BF">Burkina Faso</option>
+                          <option value="BI">Burundi</option>
+                          <option value="KH">Cambodia</option>
+                          <option value="CM">Cameroon</option>
+                          <option value="CA">Canada</option>
+                          <option value="CV">Cape Verde</option>
+                          <option value="BQ">Caribbean Netherlands</option>
+                          <option value="KY">Cayman Islands</option>
+                          <option value="CF">Central African Republic</option>
+                          <option value="TD">Chad</option>
+                          <option value="CL">Chile</option>
+                          <option value="CN">China</option>
+                          <option value="CX">Christmas Island</option>
+                          <option value="CC">Cocos (Keeling) Islands</option>
+                          <option value="CO">Colombia</option>
+                          <option value="KM">Comoros</option>
+                          <option value="CG">Congo - Brazzaville</option>
+                          <option value="CD">Congo - Kinshasa</option>
+                          <option value="CK">Cook Islands</option>
+                          <option value="CR">Costa Rica</option>
+                          <option value="CI">Côte d’Ivoire</option>
+                          <option value="HR">Croatia</option>
+                          <option value="CW">Curaçao</option>
+                          <option value="CY">Cyprus</option>
+                          <option value="CZ">Czechia</option>
+                          <option value="DK">Denmark</option>
+                          <option value="DJ">Djibouti</option>
+                          <option value="DM">Dominica</option>
+                          <option value="DO">Dominican Republic</option>
+                          <option value="EC">Ecuador</option>
+                          <option value="EG">Egypt</option>
+                          <option value="SV">El Salvador</option>
+                          <option value="GQ">Equatorial Guinea</option>
+                          <option value="ER">Eritrea</option>
+                          <option value="EE">Estonia</option>
+                          <option value="SZ">Eswatini</option>
+                          <option value="ET">Ethiopia</option>
+                          <option value="FK">Falkland Islands (Islas Malvinas)</option>
+                          <option value="FO">Faroe Islands</option>
+                          <option value="FJ">Fiji</option>
+                          <option value="FI">Finland</option>
+                          <option value="FR">France</option>
+                          <option value="GF">French Guiana</option>
+                          <option value="PF">French Polynesia</option>
+                          <option value="TF">French Southern Territories</option>
+                          <option value="GA">Gabon</option>
+                          <option value="GM">Gambia</option>
+                          <option value="GE">Georgia</option>
+                          <option value="DE">Germany</option>
+                          <option value="GH">Ghana</option>
+                          <option value="GI">Gibraltar</option>
+                          <option value="GR">Greece</option>
+                          <option value="GL">Greenland</option>
+                          <option value="GD">Grenada</option>
+                          <option value="GP">Guadeloupe</option>
+                          <option value="GU">Guam</option>
+                          <option value="GT">Guatemala</option>
+                          <option value="GG">Guernsey</option>
+                          <option value="GN">Guinea</option>
+                          <option value="GW">Guinea-Bissau</option>
+                          <option value="GY">Guyana</option>
+                          <option value="HT">Haiti</option>
+                          <option value="HM">Heard &amp; McDonald Islands</option>
+                          <option value="HN">Honduras</option>
+                          <option value="HK">Hong Kong</option>
+                          <option value="HU">Hungary</option>
+                          <option value="IS">Iceland</option>
+                          <option value="IN">India</option>
+                          <option value="ID">Indonesia</option>
+                          <option value="IR">Iran</option>
+                          <option value="IQ">Iraq</option>
+                          <option value="IE">Ireland</option>
+                          <option value="IM">Isle of Man</option>
+                          <option value="IL">Israel</option>
+                          <option value="IT">Italy</option>
+                          <option value="JM">Jamaica</option>
+                          <option value="JP">Japan</option>
+                          <option value="JE">Jersey</option>
+                          <option value="JO">Jordan</option>
+                          <option value="KZ">Kazakhstan</option>
+                          <option value="KE">Kenya</option>
+                          <option value="KI">Kiribati</option>
+                          <option value="XK">Kosovo</option>
+                          <option value="KW">Kuwait</option>
+                          <option value="KG">Kyrgyzstan</option>
+                          <option value="LA">Laos</option>
+                          <option value="LV">Latvia</option>
+                          <option value="LB">Lebanon</option>
+                          <option value="LS">Lesotho</option>
+                          <option value="LR">Liberia</option>
+                          <option value="LY">Libya</option>
+                          <option value="LI">Liechtenstein</option>
+                          <option value="LT">Lithuania</option>
+                          <option value="LU">Luxembourg</option>
+                          <option value="MO">Macao</option>
+                          <option value="MG">Madagascar</option>
+                          <option value="MW">Malawi</option>
+                          <option value="MY">Malaysia</option>
+                          <option value="MV">Maldives</option>
+                          <option value="ML">Mali</option>
+                          <option value="MT">Malta</option>
+                          <option value="MH">Marshall Islands</option>
+                          <option value="MQ">Martinique</option>
+                          <option value="MR">Mauritania</option>
+                          <option value="MU">Mauritius</option>
+                          <option value="YT">Mayotte</option>
+                          <option value="MX">Mexico</option>
+                          <option value="FM">Micronesia</option>
+                          <option value="MD">Moldova</option>
+                          <option value="MC">Monaco</option>
+                          <option value="MN">Mongolia</option>
+                          <option value="ME">Montenegro</option>
+                          <option value="MS">Montserrat</option>
+                          <option value="MA">Morocco</option>
+                          <option value="MZ">Mozambique</option>
+                          <option value="MM">Myanmar (Burma)</option>
+                          <option value="NA">Namibia</option>
+                          <option value="NR">Nauru</option>
+                          <option value="NP">Nepal</option>
+                          <option value="NL">Netherlands</option>
+                          <option value="NC">New Caledonia</option>
+                          <option value="NZ">New Zealand</option>
+                          <option value="NI">Nicaragua</option>
+                          <option value="NE">Niger</option>
+                          <option value="NG">Nigeria</option>
+                          <option value="NU">Niue</option>
+                          <option value="NF">Norfolk Island</option>
+                          <option value="KP">North Korea</option>
+                          <option value="MK">North Macedonia</option>
+                          <option value="MP">Northern Mariana Islands</option>
+                          <option value="NO">Norway</option>
+                          <option value="OM">Oman</option>
+                          <option value="PK">Pakistan</option>
+                          <option value="PW">Palau</option>
+                          <option value="PS">Palestine</option>
+                          <option value="PA">Panama</option>
+                          <option value="PG">Papua New Guinea</option>
+                          <option value="PY">Paraguay</option>
+                          <option value="PE">Peru</option>
+                          <option value="PH">Philippines</option>
+                          <option value="PN">Pitcairn Islands</option>
+                          <option value="PL">Poland</option>
+                          <option value="PT">Portugal</option>
+                          <option value="PR">Puerto Rico</option>
+                          <option value="QA">Qatar</option>
+                          <option value="RE">Réunion</option>
+                          <option value="RO">Romania</option>
+                          <option value="RU">Russia</option>
+                          <option value="RW">Rwanda</option>
+                          <option value="WS">Samoa</option>
+                          <option value="SM">San Marino</option>
+                          <option value="ST">São Tomé &amp; Príncipe</option>
+                          <option value="SA">Saudi Arabia</option>
+                          <option value="SN">Senegal</option>
+                          <option value="RS">Serbia</option>
+                          <option value="SC">Seychelles</option>
+                          <option value="SL">Sierra Leone</option>
+                          <option value="SG">Singapore</option>
+                          <option value="SX">Sint Maarten</option>
+                          <option value="SK">Slovakia</option>
+                          <option value="SI">Slovenia</option>
+                          <option value="SB">Solomon Islands</option>
+                          <option value="SO">Somalia</option>
+                          <option value="ZA">South Africa</option>
+                          <option value="GS">South Georgia &amp; South Sandwich Islands</option>
+                          <option value="KR">South Korea</option>
+                          <option value="SS">South Sudan</option>
+                          <option value="ES">Spain</option>
+                          <option value="LK">Sri Lanka</option>
+                          <option value="BL">St Barthélemy</option>
+                          <option value="SH">St Helena</option>
+                          <option value="KN">St Kitts &amp; Nevis</option>
+                          <option value="LC">St Lucia</option>
+                          <option value="MF">St Martin</option>
+                          <option value="PM">St Pierre &amp; Miquelon</option>
+                          <option value="VC">St Vincent &amp; Grenadines</option>
+                          <option value="SR">Suriname</option>
+                          <option value="SJ">Svalbard &amp; Jan Mayen</option>
+                          <option value="SE">Sweden</option>
+                          <option value="CH">Switzerland</option>
+                          <option value="TW">Taiwan</option>
+                          <option value="TJ">Tajikistan</option>
+                          <option value="TZ">Tanzania</option>
+                          <option value="TH">Thailand</option>
+                          <option value="TL">Timor-Leste</option>
+                          <option value="TG">Togo</option>
+                          <option value="TK">Tokelau</option>
+                          <option value="TO">Tonga</option>
+                          <option value="TT">Trinidad &amp; Tobago</option>
+                          <option value="TA">Tristan da Cunha</option>
+                          <option value="TN">Tunisia</option>
+                          <option value="TR">Turkey</option>
+                          <option value="TM">Turkmenistan</option>
+                          <option value="TC">Turks &amp; Caicos Islands</option>
+                          <option value="TV">Tuvalu</option>
+                          <option value="UG">Uganda</option>
+                          <option value="UA">Ukraine</option>
+                          <option value="AE">United Arab Emirates</option>
+                          <option value="GB">United Kingdom</option>
+                          <option value="US">United States</option>
+                          <option value="UY">Uruguay</option>
+                          <option value="UM">US Outlying Islands</option>
+                          <option value="VI">US Virgin Islands</option>
+                          <option value="UZ">Uzbekistan</option>
+                          <option value="VU">Vanuatu</option>
+                          <option value="VA">Vatican City</option>
+                          <option value="VE">Venezuela</option>
+                          <option value="VN">Vietnam</option>
+                          <option value="WF">Wallis &amp; Futuna</option>
+                          <option value="EH">Western Sahara</option>
+                          <option value="YE">Yemen</option>
+                          <option value="ZM">Zambia</option>
+                          <option value="ZW">Zimbabwe</option>
+                        </select>
                       </div>
                     </div>
                   </div>
-                  <input type="hidden" id="saveOrEdit" name="saveOrEdit" value="Edit">
-                  <input type="button" id="edit-user-details" class="btn btn-secondary" onclick="updateProfileForm()" value="Edit" />
-                </form>
-              </div>
-            </div>
-          </div>
-
-
-          <div id="Wishlist" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Your Wishlist</h3>
-                <div class="orders-container">
-                  <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
-                    <% user.wishlist.forEach(function(product, index){ %>
-                      <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
-                        <div class="picture-and-description">
-                            <div class="product-photo"
-                                style="background-image: url('<%= product.pictures[0]%>')" >
-                            </div>
-                            <div class="product-description">
-                                <h5 class="product-title">
-                                    <%= product.title %>
-                                </h5>
-                                <p class="product-description-text">
-                                    <%= product.description %>
-                                </p>
-                                <p class="colors-available-p">Colors available: <%= product.colors %>
-                                </p>
-                                <% if(product.stars == null){ %>
-                                    <p>No reviews yet</p>
-                                <% } else{ %>
-                                    <div class="stars-rating">
-                                        <% if (product.stars>= 1) { %>
-                                            <span class="fa fa-star checked"></span>
-                                            <% } else{ %>
-                                                <span class="fa fa-star"></span>
-                                                <% } %>
-                                                    <% if (product.stars>= 2) { %>
-                                                        <span class="fa fa-star checked"></span>
-                                                        <% } else{ %>
-                                                            <span class="fa fa-star"></span>
-                                                            <% } %>
-                                                                <% if (product.stars>= 3) { %>
-                                                                    <span class="fa fa-star checked"></span>
-                                                                    <% } else{ %>
-                                                                        <span class="fa fa-star"></span>
-                                                                        <% } %>
-                                                                            <% if (product.stars>= 4) { %>
-                                                                                <span class="fa fa-star checked"></span>
-                                                                                <% } else{ %>
-                                                                                    <span class="fa fa-star"></span>
-                                                                                    <% } %>
-                                                                                        <% if (product.stars>= 5) { %>
-                                                                                            <span
-                                                                                                class="fa fa-star checked"></span>
-                                                                                            <% } else{ %>
-                                                                                                <span
-                                                                                                    class="fa fa-star"></span>
-                                                                                                <% } %>
-                                    </div>
-                                    <div class="rating-and-reviews">
-                                        <p>Rating: <%= product.stars %>/5</p>
-                                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
-                                    </div>
-                                <% } %>
-                                <p>Price per unit: <%= product.currency %> <%= product.price %></p>
-                                <button onclick="" class="btn btn-secondary">See Product Details</button>
-                            </div>
-                        </div>
-                        <input input type="hidden" type="text" name="product_id"
-                            value="<%= product.product_id %>" />
-                      </form>
-                      <% }) %>
-                    <% } else { %>
-                      <p>Your wishlist is currently empty</p>
-                    <% } %> 
                 </div>
+                <input type="hidden" id="saveOrEdit" name="saveOrEdit" value="Edit">
+                <input type="button" id="edit-user-details" class="btn btn-secondary" onclick="updateProfileForm()" value="Edit" />
+              </form>
+            </div>
+          </div>
+        </div>
+
+
+        <div id="Wishlist" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content">
+              <h3 class="tab-title">Your Wishlist</h3>
+              <div class="orders-container">
+                <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
+                <% user.wishlist.forEach(function(product, index){ %>
+                <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
+                  <div class="picture-and-description">
+                    <div class="product-photo" style="background-image: url('<%= product.pictures[0]%>')">
+                    </div>
+                    <div class="product-description">
+                      <h5 class="product-title">
+                        <%= product.title %>
+                      </h5>
+                      <p class="product-description-text">
+                        <%= product.description %>
+                      </p>
+                      <p class="colors-available-p">Colors available: <%= product.colors %>
+                      </p>
+                      <% if(product.stars == null){ %>
+                      <p>No reviews yet</p>
+                      <% } else{ %>
+                      <div class="stars-rating">
+                        <% if (product.stars>= 1) { %>
+                        <span class="fa fa-star checked"></span>
+                        <% } else{ %>
+                        <span class="fa fa-star"></span>
+                        <% } %>
+                        <% if (product.stars>= 2) { %>
+                        <span class="fa fa-star checked"></span>
+                        <% } else{ %>
+                        <span class="fa fa-star"></span>
+                        <% } %>
+                        <% if (product.stars>= 3) { %>
+                        <span class="fa fa-star checked"></span>
+                        <% } else{ %>
+                        <span class="fa fa-star"></span>
+                        <% } %>
+                        <% if (product.stars>= 4) { %>
+                        <span class="fa fa-star checked"></span>
+                        <% } else{ %>
+                        <span class="fa fa-star"></span>
+                        <% } %>
+                        <% if (product.stars>= 5) { %>
+                        <span class="fa fa-star checked"></span>
+                        <% } else{ %>
+                        <span class="fa fa-star"></span>
+                        <% } %>
+                      </div>
+                      <div class="rating-and-reviews">
+                        <p>Rating: <%= product.stars %>/5</p>
+                        <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
+                      </div>
+                      <% } %>
+                      <p>Price per unit: <%= product.currency %> <%= product.price %></p>
+                      <button onclick="" class="btn btn-secondary">See Product Details</button>
+                    </div>
+                  </div>
+                  <input input type="hidden" type="text" name="product_id" value="<%= product.product_id %>" />
+                </form>
+                <% }) %>
+                <% } else { %>
+                <p>Your wishlist is currently empty</p>
+                <% } %>
               </div>
             </div>
           </div>
+        </div>
 
 
-          <!-- orders tab -->
-          <div id="Orders" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Your Orders</h3>
-                <div class="orders-container">
-                  <% if (user.orders.length > 0 & user.orders != null) { %> 
-                  <% user.orders.forEach(function(product){ %>
-                    <div class="product">
-                      <div class="picture-and-description-small">
-                        <div class="product-photo-orders"
-                          style="background-image: url('<%= product.product.pictures[0] %>');">
-                        </div>
-                      </div>
-                      <div class="product-to-right-boxes-small">
-                        <div class="rightest-box">
-                          <h4><%= product.product.title %></h4>
-                          <p>Order Details:</p>
-                          <p><%= product.quantity_chosen + " " +  product.color_chosen %>  </p>
-                          <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
-                          <p>Status: <%= product.status %> </p>
-                          <% if(product.status == 'pending vendor confirmation'){ %>
-                            <button value="<%= product.order_id %>" onclick="cancelOrder(value, '<%= product.product.vendor_id %>')" class="btn btn-secondary">Cancel</button>
-                          <% } else if(product.status == 'confirmed'){ %>
-                            <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn btn-secondary">Review</button>
-                          <% } %>
-                        </div>
-                      </div>
-                      <input input type="hidden" id="first" type="text" name="order_id"
-                        value="<%= product.order_id %>" />
+        <!-- orders tab -->
+        <div id="Orders" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content">
+              <h3 class="tab-title">Your Orders</h3>
+              <div class="orders-container">
+                <% if (user.orders.length > 0 & user.orders != null) { %>
+                <% user.orders.forEach(function(product){ %>
+                <div class="product">
+                  <div class="picture-and-description-small">
+                    <div class="product-photo-orders" style="background-image: url('<%= product.product.pictures[0] %>');">
                     </div>
+                  </div>
+                  <div class="product-to-right-boxes-small">
+                    <div class="rightest-box">
+                      <h4><%= product.product.title %></h4>
+                      <p>Order Details:</p>
+                      <p><%= product.quantity_chosen + " " +  product.color_chosen %> </p>
+                      <p>Total price: <%= product.product.currency  %> <%= Number(product.quantity_chosen) * Number(product.product.price) %> </p>
+                      <p>Status: <%= product.status %> </p>
+                      <% if(product.status == 'pending vendor confirmation'){ %>
+                      <button value="<%= product.order_id %>" onclick="cancelOrder(value, '<%= product.product.vendor_id %>')" class="btn btn-secondary">Cancel</button>
+                      <% } else if(product.status == 'confirmed'){ %>
+                      <button value="<%= product.product_id %>" onclick="$('#reviewProduct_<%= product.order_id %>').modal('show');" class="btn btn-secondary">Review</button>
+                      <% } %>
+                    </div>
+                  </div>
+                  <input input type="hidden" id="first" type="text" name="order_id" value="<%= product.order_id %>" />
+                </div>
 
-                    <!-- Review modal -->
-                    <div id="reviewProduct_<%= product.order_id %>" class="modal" tabindex="-1" role="dialog">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title">Review <%= product.product.title %></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                          </div>
-                          <div class="modal-body">
-                            <div>
-                              <p>Product Quality:</p>
-                              <select name="quality_rating" class="form-select form-select-sm" id="quality_rating_<%= product.order_id %>" required>
-                                <option value="5" selected>5</option>
-                                <option value="4" selected>4</option>
-                                <option value="3" selected>3</option>
-                                <option value="2" selected>2</option>
-                                <option value="1" selected>1</option>
-                              </select>
-                            </div>
-                            <div>
-                              <p>Vendor quality:</p>
-                              <select name="vendor_quality_rating" class="form-select form-select-sm" id="vendor_quality_rating_<%= product.order_id %>" required>
-                                <option value="5" selected>5</option>
-                                <option value="4" selected>4</option>
-                                <option value="3" selected>3</option>
-                                <option value="2" selected>2</option>
-                                <option value="1" selected>1</option>
-                              </select>
-                            </div>
-                            <div>
-                              <p>Product Description:</p>
-                              <select name="product_description_rating" class="form-select form-select-sm" id="product_description_rating_<%= product.order_id %>" required>
-                                <option value="5" selected>5</option>
-                                <option value="4" selected>4</option>
-                                <option value="3" selected>3</option>
-                                <option value="2" selected>2</option>
-                                <option value="1" selected>1</option>
-                              </select>
-                            </div>
-                            <label>Comments:</label>
-                            <textarea maxlength="100" class="form-control" id="review_free_text_<%= product.order_id %>"></textarea>
-                          </div> <!-- end modal body-->
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <div class="modal-review">
-                              <button type="button" value="<%= product.order_id %>" class="btn btn-secondary" 
-                                onclick="reviewProduct(
+                <!-- Review modal -->
+                <div id="reviewProduct_<%= product.order_id %>" class="modal" tabindex="-1" role="dialog">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Review <%= product.product.title %></h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div>
+                          <p>Product Quality:</p>
+                          <select name="quality_rating" class="form-select form-select-sm" id="quality_rating_<%= product.order_id %>" required>
+                            <option value="5" selected>5</option>
+                            <option value="4" selected>4</option>
+                            <option value="3" selected>3</option>
+                            <option value="2" selected>2</option>
+                            <option value="1" selected>1</option>
+                          </select>
+                        </div>
+                        <div>
+                          <p>Vendor quality:</p>
+                          <select name="vendor_quality_rating" class="form-select form-select-sm" id="vendor_quality_rating_<%= product.order_id %>" required>
+                            <option value="5" selected>5</option>
+                            <option value="4" selected>4</option>
+                            <option value="3" selected>3</option>
+                            <option value="2" selected>2</option>
+                            <option value="1" selected>1</option>
+                          </select>
+                        </div>
+                        <div>
+                          <p>Product Description:</p>
+                          <select name="product_description_rating" class="form-select form-select-sm" id="product_description_rating_<%= product.order_id %>" required>
+                            <option value="5" selected>5</option>
+                            <option value="4" selected>4</option>
+                            <option value="3" selected>3</option>
+                            <option value="2" selected>2</option>
+                            <option value="1" selected>1</option>
+                          </select>
+                        </div>
+                        <label>Comments:</label>
+                        <textarea maxlength="100" class="form-control" id="review_free_text_<%= product.order_id %>"></textarea>
+                      </div> <!-- end modal body-->
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <div class="modal-review">
+                          <button type="button" value="<%= product.order_id %>" class="btn btn-secondary" onclick="reviewProduct(
                                   '<%= product.product_id %>', 
                                   '<%= product.order_id %>',
                                   $('#quality_rating_<%= product.order_id %>').find(':selected').text(), 
                                   $('#vendor_quality_rating_<%= product.order_id %>').find(':selected').text(),
                                   $('#product_description_rating_<%= product.order_id %>').find(':selected').text(),
                                   $('#review_free_text_<%= product.order_id %>').val()
-                                )" 
-                                data-dismiss="modal">Save</button>
-                            </div>
-                          </div>
+                                )" data-dismiss="modal">Save</button>
                         </div>
                       </div>
                     </div>
-                    <% }) %>
-                    <% } else { %>
-                      <p>Your order list is currently empty</p>
-                    <% } %> 
-                </div> <!--end orders container-->
-              </div><!--end tab content-->
-            </div><!--end tab content container -->
-          </div><!--end #Orders -->
-        </div><!--end main container  -->
-      </main>
+                  </div>
+                </div>
+                <% }) %>
+                <% } else { %>
+                <p>Your order list is currently empty</p>
+                <% } %>
+              </div>
+              <!--end orders container-->
+            </div>
+            <!--end tab content-->
+          </div>
+          <!--end tab content container -->
+        </div>
+        <!--end #Orders -->
+      </div>
+      <!--end main container  -->
+    </main>
 
-      <!-- footer partial -->
-      <%- include('partials/footer') %>
+    <!-- footer partial -->
+    <%- include('partials/footer') %>
 
-      <!-- auth partial -->
-      <%- include('partials/authModal') %>
+    <!-- auth partial -->
+    <%- include('partials/authModal') %>
 
-      <%- include('partials/firebaseInteraction') %> 
+    <%- include('partials/firebaseInteraction') %>
   </div>
 </body>
+
 </html>

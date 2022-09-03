@@ -7,645 +7,615 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Vendor Registration</title>
   <!-- SHARED HEAD -->
-  <%- include('partials/sharedHead') %> 
- 
+  <%- include('partials/sharedHead') %>
+
   <!-- PAGE HEAD -->
   <link rel="stylesheet" href="/styles/vendor-profile.css">
- 
-  <script>
-    /* Chat view for phone display */
-    function listChats() {
-      var chatSections = document.getElementsByClassName('chat');
-      for (let chatSection of chatSections) {
-        chatSection.style.display = "none";
-      }
-
-      var chatsListSections = document.getElementsByClassName('discussions');
-      for (let chatsListSection of chatsListSections) {
-        chatsListSection.style.display = "flex";
-      }
-    };
-
-    function openChat(element) {
-      var user = this.id;
-
-      var chatSections = document.getElementsByClassName('chat');
-      for (let chatSection of chatSections) {
-        chatSection.style.display = "flex";
-      }
-
-      var chatsListSections = document.getElementsByClassName('discussions');
-      for (let chatsListSection of chatsListSections) {
-        chatsListSection.style.display = "none";
-      }
-    };
-  </script>
 </head>
 
 <body>
   <div class="page-container">
     <!-- header partial -->
     <%- include('partials/header') %>
-      <main>
-        <div class="main-container">
-          <div class="tab">
-            <button id="openProfileTab" class="tablinks active" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
-              Information</button>
-            <button id="openCatalogueTab" class="tablinks" onclick="openUserProfile(event, 'catalogue')">My catalogue</button>
-            <button id="openOrdersTab" class="tablinks" onclick="openUserProfile(event, 'orders')">Orders</button>
+    <main>
+      <div class="main-container">
+        <div class="tab">
+          <button id="openProfileTab" class="tablinks active" onclick="openUserProfile(event, 'Profile')" id="defaultOpen">Personal
+            Information</button>
+          <button id="openCatalogueTab" class="tablinks" onclick="openUserProfile(event, 'catalogue')">My catalogue</button>
+          <button id="openOrdersTab" class="tablinks" onclick="openUserProfile(event, 'orders')">Orders</button>
+        </div>
+
+        <div id="Profile" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content">
+              <h3 class="tab-title">Personal Information</h3>
+            </div>
+
+            <div class="tab-content" id="profile-pic-container">
+              <!-- Profile Picture -->
+              <img id="profile-pic" src="/assets/blank-profile-picture-png.png" alt="User profile picture">
+              <!-- Profile picture edit -->
+              <label class="vendor-profile-edit">
+                <input type="file" class="btn btn-secondary" id="profile-pic-edit-button" accept=".jpg, .jpeg, .png">
+                Edit Picture
+              </label>
+            </div>
+
+            <div class="tab-content" id="user-details">
+              <form action="#" method="post" id="user-details">
+                <div class="container user-details text-center">
+                  <div class="row">
+                    <div class="col">
+                      <div class="row">
+                        <!-- Business Name -->
+                        <p contenteditable="true" id="business-name"></p>
+                      </div>
+                      <div class="row">
+                        <!-- Email -->
+                        <p id="email">Email</p>
+                      </div>
+                      <div class="row">
+                        <!-- Phone number -->
+                        <p id="phone-number">Phone Number</p>
+                      </div>
+                      <div class="row">
+                        <!-- Address 1 -->
+                        <p id="address-1">Address 1</p>
+                      </div>
+                      <div class="row">
+                        <!-- address 2 -->
+                        <p id="address-2">Address 2</p>
+                      </div>
+                      <div class="row">
+                        <!-- Postal Code -->
+                        <p id="post-code">Post Code</p>
+                      </div>
+                      <div class="row">
+                        <!-- City -->
+                        <p id="city">City</p>
+                      </div>
+                      <div class="row">
+                        <!-- Country -->
+                        <p id="country">Country</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <button type="button" class="btn btn-secondary" id="edit-user-details" data-bs-toggle="modal" data-bs-target="#edit-modal">
+                Edit Details
+              </button>
+              <button id="delete-account-button" class="btn btn-secondary">Delete Account</button>
+            </div>
           </div>
+        </div>
 
-          <div id="Profile" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Personal Information</h3>
+        <!-- Catalogue tab -->
+        <div id="catalogue" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content" id="wishlist-tab-content">
+              <h3 class="tab-title">Catalogue</h3>
+              <!-- Add to catalogue button -->
+              <button type="button" class="btn btn-secondary" id="add-to-catalogue-button" data-bs-toggle="modal" data-bs-target="#add-to-catalogue-modal">
+                Add To Catalogue
+              </button>
+              <!-- Container for catalogue -->
+              <div id="catalogue-container"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order tab -->
+        <div id="orders" class="tabcontent">
+          <div class="tab-content-container">
+            <div class="tab-content">
+              <h3 class="tab-title">Orders</h3>
+              <!-- Orders container -->
+              <div class="orders-container"></div>
+            </div>
+          </div>
+        </div> <!-- end id="orders" class="tabcontent" -->
+      </div>
+    </main>
+
+    <!-- ------------MODALS-------------------- -->
+    <div class="modal fade" id="add-to-catalogue-modal" tabindex="-1" aria-labelledby="add-to-catalogue-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="add-to-catalogue-title">Create Product</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="create-product-form">
+              <!-- image upload -->
+              <div class="row align-items-center">
+                <label class="create-product-image">
+                  <input type="file" id="create-product-image" accept=".jpg, .jpeg, .png" required>
+                  Upload Image
+                </label>
+                <span class="create-product-error" id="error-image"></span>
               </div>
-
-              <div class="tab-content" id="profile-pic-container">
-                <!-- Profile Picture -->
-                <img id="profile-pic"
-                  src="/assets/blank-profile-picture-png.png"
-                  alt="User profile picture">
-                <!-- Profile picture edit -->
-                <label class="vendor-profile-edit">
-                  <input type="file" class="btn btn-secondary" id="profile-pic-edit-button" accept=".jpg, .jpeg, .png">
-                  Edit Picture
+              <!-- create name -->
+              <div class="row align-items-center">
+                <input type="text" id="create-product-name" placeholder="Product Name" required>
+              </div>
+              <!-- create description -->
+              <div class="row align-items-center">
+                <input type="text" id="create-product-description" placeholder="Item description" required>
+              </div>
+              <!-- create wedding type -->
+              <div class="row align-items-center">
+                <label for="wedding_type">
+                  Wedding type:
+                  <select name="wedding_type" id="create-wedding-type">
+                    <option disabled selected value> -- select an option -- </option>
+                  </select>
                 </label>
               </div>
-
-              <div class="tab-content" id="user-details">
-                <form action="#" method="post" id="user-details">
-                  <div class="container user-details text-center">
-                    <div class="row">
-                      <div class="col">
-                        <div class="row">
-                          <!-- Business Name -->
-                          <p contenteditable="true" id="business-name"></p>
-                        </div>
-                        <div class="row">
-                          <!-- Email -->
-                          <p id="email">Email</p>
-                        </div>
-                        <div class="row">
-                          <!-- Phone number -->
-                          <p id="phone-number">Phone Number</p>
-                        </div>
-                        <div class="row">
-                          <!-- Address 1 -->
-                          <p id="address-1">Address 1</p>
-                        </div>
-                        <div class="row">
-                          <!-- address 2 -->
-                          <p id="address-2">Address 2</p>
-                        </div>
-                        <div class="row">
-                          <!-- Postal Code -->
-                          <p id="post-code">Post Code</p>
-                        </div>
-                        <div class="row">
-                          <!-- City -->
-                          <p id="city">City</p>
-                        </div>
-                        <div class="row">
-                          <!-- Country -->
-                          <p id="country">Country</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </form>
-                <button type="button" class="btn btn-secondary" id="edit-user-details" data-bs-toggle="modal" data-bs-target="#edit-modal">
-                  Edit Details
-                </button>
-                <button id="delete-account-button" class="btn btn-secondary">Delete Account</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Catalogue tab -->
-          <div id="catalogue" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content" id="wishlist-tab-content">
-                <h3 class="tab-title">Catalogue</h3>
-                <!-- Add to catalogue button -->
-                <button type="button" class="btn btn-secondary" id="add-to-catalogue-button" data-bs-toggle="modal" data-bs-target="#add-to-catalogue-modal">
-                  Add To Catalogue
-                </button>
-                <!-- Container for catalogue -->
-                <div id="catalogue-container"></div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Order tab -->
-          <div id="orders" class="tabcontent">
-            <div class="tab-content-container">
-              <div class="tab-content">
-                <h3 class="tab-title">Orders</h3>
-                <!-- Orders container -->
-                <div class="orders-container"></div> 
-              </div>
-            </div>
-          </div> <!-- end id="orders" class="tabcontent" -->
-        </div>
-      </main>
-
-      <!-- ------------MODALS-------------------- -->
-      <div class="modal fade" id="add-to-catalogue-modal" tabindex="-1" aria-labelledby="add-to-catalogue-title" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="add-to-catalogue-title">Create Product</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="create-product-form">
-                <!-- image upload -->
-                  <div class="row align-items-center">
-                    <label class="create-product-image">
-                      <input type="file" id="create-product-image" accept=".jpg, .jpeg, .png" required>
-                      Upload Image
-                    </label>
-                    <span class="create-product-error" id="error-image"></span>
-                  </div>
-                  <!-- create name -->
-                  <div class="row align-items-center">
-                    <input type="text" id="create-product-name" placeholder="Product Name" required>
-                  </div>
-                  <!-- create description -->
-                  <div class="row align-items-center">
-                    <input type="text" id="create-product-description" placeholder="Item description" required>
-                  </div>
-                  <!-- create wedding type -->
-                  <div class="row align-items-center">
-                    <label for="wedding_type">
-                      Wedding type:
-                      <select name="wedding_type" id="create-wedding-type">
-                        <option disabled selected value> -- select an option -- </option>
-                      </select>
-                    </label>
-                  </div>
-                  <!-- product category -->
-                  <div class="row align-items-center">
-                    <label for="wedding-category">
-                      Wedding Category:
-                      <select name="wedding_category" id="create-wedding-category">
-                        <option disabled selected value> -- select an option -- </option>
-                      </select>
-                    </label>
-                  </div>
-                  <!-- Available Countries -->
-                  <fieldset>
-                    <legend>Available Countries</legend>
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" name="countryCheck" id="uk" value="UK">
-                        <label for="uk">UK</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" name="countryCheck" id="italy" value="Italy">
-                        <label for="italy">Italy</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" name="countryCheck" id="india" value="India">
-                        <label for="india">India</label>
-                      </div>
-                      
-                      <div class="row">
-                        <div class="col">
-                          <input type="checkbox" name="countryCheck" id="japan" value="Japan">
-                          <label for="japan">Japan</label>
-                        </div>
-                        <div class="col">
-                          <input type="checkbox" name="countryCheck" id="hong-kong" value="Hong Kong">
-                          <label for="hong-kong">Hong Kong</label>
-                        </div>
-                        <div class="col">
-                          <input type="checkbox" name="countryCheck" id="norway" value="Norway">
-                        <label for="norway">Norway</label>
-                        </div>
-                      </div>
-                    </div>
-                  </fieldset>
-                  <!-- Price -->
-                  <div class="row align-items-center">
-                    <input type="number" id="create-product-price" placeholder="Price" required>
-                  </div>
-                  <!-- Currency -->
-                  <div class="row align-items-center">
-                    <select name="currency" id="create-product-currency">
-                      <option value="£" selected>GBP</option>
-                      <option value="$">USD</option>
-                      <option value="NOK">NOK</option>
-                      <option value="€">Euro</option>
-                      <option value="₹">INR</option>
-                      <option value="HK$">HKD</option>
-                      <option value="¥">JPY</option>
-                    </select>
-                  </div>
-                  <!-- Wedding colour available -->
-                  <fieldset>
-                    <legend>Available Colours:</legend>
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="black" name="colourCheck" value="black">
-                        <label for="black">Black</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="grey" name="colourCheck" value="grey">
-                        <label for="grey">grey</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="red" name="colourCheck" value="red">
-                        <label for="red">red</label>
-                      </div>
-                    </div>
-    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="orange" name="colourCheck" value="orange">
-                        <label for="orange">orange</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="yellow" name="colourCheck" value="yellow">                
-                        <label for="yellow">yellow</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="cyan" name="colourCheck" value="cyan">
-                        <label for="cyan">cyan</label>
-                      </div>
-                    </div>
-    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="blue" name="colourCheck" value="blue">
-                        <label for="blue">blue</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="magenta" name="colourCheck" value="magenta">
-                        <label for="magenta">magenta</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="purple" name="colourCheck" value="purple">
-                        <label for="purple">purple</label>
-                      </div>
-                    </div>
-    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="white" name="colourCheck" value="white">
-                        <label for="white">white</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="silver" name="colourCheck" value="silver">
-                        <label for="silver">silver</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="pink" name="colourCheck" value="pink">
-                        <label for="pink">pink</label>
-                      </div>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="maroon" name="colourCheck" value="maroon">
-                        <label for="maroon">maroon</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="brown" name="colourCheck" value="brown">
-                        <label for="brown">brown</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="beige" name="colourCheck" value="beige">
-                        <label for="beige">beige</label>
-                      </div>
-                    </div>
-    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="tan" name="colourCheck" value="tan">
-                        <label for="tan">tan</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="peach" name="colourCheck" value="peach">
-                        <label for="peach">peach</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="lime" name="colourCheck" value="lime">
-                        <label for="lime">lime</label>
-                      </div>
-                    </div>
-    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="olive" name="colourCheck" value="olive">
-                        <label for="olive">olive</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="turquoise" name="colourCheck" value="turquoise">
-                        <label for="turquoise">turquoise</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="teal" name="colourCheck" value="teal">
-                        <label for="teal">teal</label>
-                      </div>
-                    </div>
-    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="indigo" name="colourCheck" value="indigo">
-                        <label for="indigo">indigo</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="violet" name="colourCheck" value="violet">
-                        <label for="violet">violet</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" class="colour-checkbox" id="green" name="colourCheck" value="green">
-                        <label for="green">green</label>
-                      </div>
-                    </div>
-                </fieldset>
-                  <div class="row align-items-center">
-                    <button id="create-product-button" type="submit" class="btn btn-secondary mb-3">Create Product</button>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Edit vendor details modal -->
-      <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="edit-modal-title" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="edit-modal-title">Edit Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="edit-details">
-                <!-- name -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-name">
-                </div>
-                <!-- email -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-email">
-                </div>
-                <!-- number -->
-                <div class="row align-items-center">
-                  <input type="number" id="edit-number">
-                </div>
-                <!-- address 1 -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-address-1">
-                </div>
-                <!-- address 2 -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-address-2">
-                </div>
-                <!-- post code -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-post-code">
-                </div>
-                <!-- city -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-city">
-                </div>
-                <!-- country -->
-                <div class="row align-items-center">
-                  <input type="text" id="edit-country">
-                </div>
-                <div class="row align-items-center">
-                  <button id="save-edit" type="submit" class="btn btn-secondary mb-3">Save Changes</button>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Modal for editing a product -->
-      <div class="modal fade" id="product-edit-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="modal-title text-center">Edit product Details</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <form id="product-edit-details">
-                <!-- product-title -->
-                <div class="row align-items-center">
-                  <input type="text" id="product-edit-title">
-                </div>
-                <div class="row align-items-center">
-                  <input type="text" id="product-edit-description">
-                </div>
-                <!-- price -->
-                <div class="row align-items-center">
-                  <input type="text" id="product-edit-price">
-                </div>
-                <!-- Currency -->
-                <div class="row align-items-center">
-                  <select name="currency" id="edit-product-currency">
-                    <option class="currency-edit" value="£">GBP</option>
-                    <option class="currency-edit" value="$">USD</option>
-                    <option class="currency-edit" value="NOK">NOK</option>
-                    <option class="currency-edit" value="€">Euro</option>
-                    <option class="currency-edit" value="₹">INR</option>
-                    <option class="currency-edit" value="HK$">HKD</option>
-                    <option class="currency-edit" value="¥">JPY</option>
+              <!-- product category -->
+              <div class="row align-items-center">
+                <label for="wedding-category">
+                  Wedding Category:
+                  <select name="wedding_category" id="create-wedding-category">
+                    <option disabled selected value> -- select an option -- </option>
                   </select>
-                </div>
-                <!-- Available Countries -->
-                <fieldset>
-                  <legend>Available Countries</legend>
+                </label>
+              </div>
+              <!-- Available Countries -->
+              <fieldset>
+                <legend>Available Countries</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" name="countryCheck" id="uk" value="UK">
+                    <label for="uk">UK</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" name="countryCheck" id="italy" value="Italy">
+                    <label for="italy">Italy</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" name="countryCheck" id="india" value="India">
+                    <label for="india">India</label>
+                  </div>
+
                   <div class="row">
                     <div class="col">
-                      <input type="checkbox" name="countryCheckEdit" id="uk-Edit" value="UK">
-                      <label for="uk">UK</label>
+                      <input type="checkbox" name="countryCheck" id="japan" value="Japan">
+                      <label for="japan">Japan</label>
                     </div>
                     <div class="col">
-                      <input type="checkbox" name="countryCheckEdit" id="italy-Edit" value="Italy">
-                      <label for="italy">Italy</label>
+                      <input type="checkbox" name="countryCheck" id="hong-kong" value="Hong Kong">
+                      <label for="hong-kong">Hong Kong</label>
                     </div>
                     <div class="col">
-                      <input type="checkbox" name="countryCheckEdit" id="india-Edit" value="India">
-                      <label for="india">India</label>
-                    </div>
-                    
-                    <div class="row">
-                      <div class="col">
-                        <input type="checkbox" name="countryCheckEdit" id="japan-Edit" value="Japan">
-                        <label for="japan">Japan</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" name="countryCheckEdit" id="hong-kong-Edit" value="Hong Kong">
-                        <label for="hong-kong">Hong Kong</label>
-                      </div>
-                      <div class="col">
-                        <input type="checkbox" name="countryCheckEdit" id="norway-Edit" value="Norway">
+                      <input type="checkbox" name="countryCheck" id="norway" value="Norway">
                       <label for="norway">Norway</label>
-                      </div>
                     </div>
                   </div>
-                </fieldset>
-                <!-- Colours -->
-                <fieldset>
-                  <legend>Available Colours:</legend>
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="black-edit" name="colourCheck" value="black">
-                      <label for="black">Black</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="grey-edit" name="colourCheck" value="grey">
-                      <label for="grey">grey</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="red-edit" name="colourCheck" value="red">
-                      <label for="red">red</label>
-                    </div>
-                  </div>
-    
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="orange-edit" name="colourCheck" value="orange">
-                      <label for="orange">orange</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="yellow-edit" name="colourCheck" value="yellow">                
-                      <label for="yellow">yellow</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="cyan-edit" name="colourCheck" value="cyan">
-                      <label for="cyan">cyan</label>
-                    </div>
-                  </div>
-    
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="blue-edit" name="colourCheck" value="blue">
-                      <label for="blue">blue</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="magenta-edit" name="colourCheck" value="magenta">
-                      <label for="magenta">magenta</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="purple-edit" name="colourCheck" value="purple">
-                      <label for="purple">purple</label>
-                    </div>
-                  </div>
-    
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="white-edit" name="colourCheck" value="white">
-                      <label for="white">white</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="silver-edit" name="colourCheck" value="silver">
-                      <label for="silver">silver</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="pink-edit" name="colourCheck" value="pink">
-                      <label for="pink">pink</label>
-                    </div>
-                  </div>
-                  
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="maroon-edit" name="colourCheck" value="maroon">
-                      <label for="maroon">maroon</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="brown-edit" name="colourCheck" value="brown">
-                      <label for="brown">brown</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="beige-edit" name="colourCheck" value="beige">
-                      <label for="beige">beige</label>
-                    </div>
-                  </div>
-    
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="tan-edit" name="colourCheck" value="tan">
-                      <label for="tan">tan</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="peach-edit" name="colourCheck" value="peach">
-                      <label for="peach">peach</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="lime-edit" name="colourCheck" value="lime">
-                      <label for="lime">lime</label>
-                    </div>
-                  </div>
-    
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="olive-edit" name="colourCheck" value="olive">
-                      <label for="olive">olive</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="turquoise-edit" name="colourCheck" value="turquoise">
-                      <label for="turquoise">turquoise</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="teal-edit" name="colourCheck" value="teal">
-                      <label for="teal">teal</label>
-                    </div>
-                  </div>
-    
-                  <div class="row">
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="indigo-edit" name="colourCheck" value="indigo">
-                      <label for="indigo">indigo</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="violet-edit" name="colourCheck" value="violet">
-                      <label for="violet">violet</label>
-                    </div>
-                    <div class="col">
-                      <input type="checkbox" class="colour-checkbox" id="green-edit" name="colourCheck" value="green">
-                      <label for="green">green</label>
-                    </div>
-                  </div>
-              </fieldset>               
-                <!-- Save changes -->
-                <div class="row align-items-center">
-                  <button id="save-product-edit" type="submit" class="btn btn-secondary">Save Product Changes</button>
                 </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
+              </fieldset>
+              <!-- Price -->
+              <div class="row align-items-center">
+                <input type="number" id="create-product-price" placeholder="Price" required>
+              </div>
+              <!-- Currency -->
+              <div class="row align-items-center">
+                <select name="currency" id="create-product-currency">
+                  <option value="£" selected>GBP</option>
+                  <option value="$">USD</option>
+                  <option value="NOK">NOK</option>
+                  <option value="€">Euro</option>
+                  <option value="₹">INR</option>
+                  <option value="HK$">HKD</option>
+                  <option value="¥">JPY</option>
+                </select>
+              </div>
+              <!-- Wedding colour available -->
+              <fieldset>
+                <legend>Available Colours:</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="black" name="colourCheck" value="black">
+                    <label for="black">Black</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="grey" name="colourCheck" value="grey">
+                    <label for="grey">grey</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="red" name="colourCheck" value="red">
+                    <label for="red">red</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="orange" name="colourCheck" value="orange">
+                    <label for="orange">orange</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="yellow" name="colourCheck" value="yellow">
+                    <label for="yellow">yellow</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="cyan" name="colourCheck" value="cyan">
+                    <label for="cyan">cyan</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="blue" name="colourCheck" value="blue">
+                    <label for="blue">blue</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="magenta" name="colourCheck" value="magenta">
+                    <label for="magenta">magenta</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="purple" name="colourCheck" value="purple">
+                    <label for="purple">purple</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="white" name="colourCheck" value="white">
+                    <label for="white">white</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="silver" name="colourCheck" value="silver">
+                    <label for="silver">silver</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="pink" name="colourCheck" value="pink">
+                    <label for="pink">pink</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="maroon" name="colourCheck" value="maroon">
+                    <label for="maroon">maroon</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="brown" name="colourCheck" value="brown">
+                    <label for="brown">brown</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="beige" name="colourCheck" value="beige">
+                    <label for="beige">beige</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="tan" name="colourCheck" value="tan">
+                    <label for="tan">tan</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="peach" name="colourCheck" value="peach">
+                    <label for="peach">peach</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="lime" name="colourCheck" value="lime">
+                    <label for="lime">lime</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="olive" name="colourCheck" value="olive">
+                    <label for="olive">olive</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="turquoise" name="colourCheck" value="turquoise">
+                    <label for="turquoise">turquoise</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="teal" name="colourCheck" value="teal">
+                    <label for="teal">teal</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="indigo" name="colourCheck" value="indigo">
+                    <label for="indigo">indigo</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="violet" name="colourCheck" value="violet">
+                    <label for="violet">violet</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="green" name="colourCheck" value="green">
+                    <label for="green">green</label>
+                  </div>
+                </div>
+              </fieldset>
+              <div class="row align-items-center">
+                <button id="create-product-button" type="submit" class="btn btn-secondary mb-3">Create Product</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
+    </div>
 
-      <!-- delete account partial -->
-      <%- include('partials/deleteAccountModal') %> 
+    <!-- Edit vendor details modal -->
+    <div class="modal fade" id="edit-modal" tabindex="-1" aria-labelledby="edit-modal-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="edit-modal-title">Edit Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="edit-details">
+              <!-- name -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-name">
+              </div>
+              <!-- email -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-email">
+              </div>
+              <!-- number -->
+              <div class="row align-items-center">
+                <input type="number" id="edit-number">
+              </div>
+              <!-- address 1 -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-address-1">
+              </div>
+              <!-- address 2 -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-address-2">
+              </div>
+              <!-- post code -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-post-code">
+              </div>
+              <!-- city -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-city">
+              </div>
+              <!-- country -->
+              <div class="row align-items-center">
+                <input type="text" id="edit-country">
+              </div>
+              <div class="row align-items-center">
+                <button id="save-edit" type="submit" class="btn btn-secondary mb-3">Save Changes</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-      <!-- footer partial -->
-      <%- include('partials/footer') %>
+    <!-- Modal for editing a product -->
+    <div class="modal fade" id="product-edit-modal" tabindex="-1" aria-labelledby="modal-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title text-center">Edit product Details</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="product-edit-details">
+              <!-- product-title -->
+              <div class="row align-items-center">
+                <input type="text" id="product-edit-title">
+              </div>
+              <div class="row align-items-center">
+                <input type="text" id="product-edit-description">
+              </div>
+              <!-- price -->
+              <div class="row align-items-center">
+                <input type="text" id="product-edit-price">
+              </div>
+              <!-- Currency -->
+              <div class="row align-items-center">
+                <select name="currency" id="edit-product-currency">
+                  <option class="currency-edit" value="£">GBP</option>
+                  <option class="currency-edit" value="$">USD</option>
+                  <option class="currency-edit" value="NOK">NOK</option>
+                  <option class="currency-edit" value="€">Euro</option>
+                  <option class="currency-edit" value="₹">INR</option>
+                  <option class="currency-edit" value="HK$">HKD</option>
+                  <option class="currency-edit" value="¥">JPY</option>
+                </select>
+              </div>
+              <!-- Available Countries -->
+              <fieldset>
+                <legend>Available Countries</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" name="countryCheckEdit" id="uk-Edit" value="UK">
+                    <label for="uk">UK</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" name="countryCheckEdit" id="italy-Edit" value="Italy">
+                    <label for="italy">Italy</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" name="countryCheckEdit" id="india-Edit" value="India">
+                    <label for="india">India</label>
+                  </div>
 
-      <!-- auth partial -->
-      <%- include('partials/authModal') %>
+                  <div class="row">
+                    <div class="col">
+                      <input type="checkbox" name="countryCheckEdit" id="japan-Edit" value="Japan">
+                      <label for="japan">Japan</label>
+                    </div>
+                    <div class="col">
+                      <input type="checkbox" name="countryCheckEdit" id="hong-kong-Edit" value="Hong Kong">
+                      <label for="hong-kong">Hong Kong</label>
+                    </div>
+                    <div class="col">
+                      <input type="checkbox" name="countryCheckEdit" id="norway-Edit" value="Norway">
+                      <label for="norway">Norway</label>
+                    </div>
+                  </div>
+                </div>
+              </fieldset>
+              <!-- Colours -->
+              <fieldset>
+                <legend>Available Colours:</legend>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="black-edit" name="colourCheck" value="black">
+                    <label for="black">Black</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="grey-edit" name="colourCheck" value="grey">
+                    <label for="grey">grey</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="red-edit" name="colourCheck" value="red">
+                    <label for="red">red</label>
+                  </div>
+                </div>
 
-      <!-- firebase interaction scrips -->
-      <%- include('partials/firebaseInteraction') %> 
-      <script src="/js/user_profile.js" type="text/javascript" defer></script>
-      <script src="/js/vendorProfile.js" type="text/javascript" defer></script>
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="orange-edit" name="colourCheck" value="orange">
+                    <label for="orange">orange</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="yellow-edit" name="colourCheck" value="yellow">
+                    <label for="yellow">yellow</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="cyan-edit" name="colourCheck" value="cyan">
+                    <label for="cyan">cyan</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="blue-edit" name="colourCheck" value="blue">
+                    <label for="blue">blue</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="magenta-edit" name="colourCheck" value="magenta">
+                    <label for="magenta">magenta</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="purple-edit" name="colourCheck" value="purple">
+                    <label for="purple">purple</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="white-edit" name="colourCheck" value="white">
+                    <label for="white">white</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="silver-edit" name="colourCheck" value="silver">
+                    <label for="silver">silver</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="pink-edit" name="colourCheck" value="pink">
+                    <label for="pink">pink</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="maroon-edit" name="colourCheck" value="maroon">
+                    <label for="maroon">maroon</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="brown-edit" name="colourCheck" value="brown">
+                    <label for="brown">brown</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="beige-edit" name="colourCheck" value="beige">
+                    <label for="beige">beige</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="tan-edit" name="colourCheck" value="tan">
+                    <label for="tan">tan</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="peach-edit" name="colourCheck" value="peach">
+                    <label for="peach">peach</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="lime-edit" name="colourCheck" value="lime">
+                    <label for="lime">lime</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="olive-edit" name="colourCheck" value="olive">
+                    <label for="olive">olive</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="turquoise-edit" name="colourCheck" value="turquoise">
+                    <label for="turquoise">turquoise</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="teal-edit" name="colourCheck" value="teal">
+                    <label for="teal">teal</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="indigo-edit" name="colourCheck" value="indigo">
+                    <label for="indigo">indigo</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="violet-edit" name="colourCheck" value="violet">
+                    <label for="violet">violet</label>
+                  </div>
+                  <div class="col">
+                    <input type="checkbox" class="colour-checkbox" id="green-edit" name="colourCheck" value="green">
+                    <label for="green">green</label>
+                  </div>
+                </div>
+              </fieldset>
+              <!-- Save changes -->
+              <div class="row align-items-center">
+                <button id="save-product-edit" type="submit" class="btn btn-secondary">Save Product Changes</button>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- delete account partial -->
+    <%- include('partials/deleteAccountModal') %>
+
+    <!-- footer partial -->
+    <%- include('partials/footer') %>
+
+    <!-- auth partial -->
+    <%- include('partials/authModal') %>
+
+    <!-- firebase interaction scrips -->
+    <%- include('partials/firebaseInteraction') %>
+    <script src="/js/user_profile.js" type="text/javascript" defer></script>
+    <script src="/js/vendorProfile.js" type="text/javascript" defer></script>
 </body>
+
 </html>
