@@ -36,6 +36,7 @@
         <div id="country-select-div">
 
           <!-- Country select -->
+          <!-- Populate all countries from the products in db -->
           <label for="country-select">Country:</label>
           <select name="country" class="form-select form-select-sm" id="country-select">
             <% if(appliedFilters.chosenCountry !='All' ){ %>
@@ -54,6 +55,7 @@
         </div>
 
         <!-- City select -->
+        <!-- populate select from all cities in the db -->
         <div id="city-select-div">
           <label for="city-select">City:</label>
           <select name="city" class="form-select form-select-sm" id="city-select">
@@ -133,7 +135,7 @@
     </div>
   </div>
 
-
+  <!-- Display search results -->
   <div class="orders-container">
     <% if(products.length==0){ %>
     <div class="no-results">
