@@ -30,23 +30,24 @@
           <button id="openOrdersTab" class="<%= user.openOrdersTabClass %>" onclick="openUserProfile(event, 'Orders')">My Orders</button>
         </div>
 
+        <!-- PROFILE TAB -->
         <div id="Profile" class="tabcontent">
           <div class="tab-content-container">
             <div class="tab-content">
               <h3 class="tab-title">Personal Information</h3>
             </div>
-
+            <!-- Profile Picture -->
             <div class="tab-content" id="profile-pic-container">
-
               <% if(user.profile_picture == null || user.profile_picture == ""){ %>
               <img id="profile-pic" src="/assets/blank-profile-picture-png.png" alt="User profile picture">
               <% } else{ %>
               <img id="profile-pic" src="<%= user.profile_picture %>" alt="User profile picture">
               <% }%>
-
+              <!-- Profile picture edit button -->
               <input type="file" style="display: none;" id="profile-pic-input" name="profile-pic-input" accept="image/*" onchange="updateProfilePic()">
               <button type="button" id="change-picture" class="btn btn-secondary" onclick="uploadTrigger()">Update profile picture</button>
             </div>
+            <!-- If the details exists for the user insert into template, otherwise leave blank -->
             <div class="tab-content" id="user-details">
               <form id="user-details" method="POST" action="/users/<%= user.user_id %>/profile">
                 <div class="container user-details">
@@ -353,12 +354,13 @@
           </div>
         </div>
 
-
+        <!-- WISHLIST TAB -->
         <div id="Wishlist" class="tabcontent">
           <div class="tab-content-container">
             <div class="tab-content">
               <h3 class="tab-title">Your Wishlist</h3>
               <div class="orders-container">
+                <!-- If the wishlist isnt empty, insert all items into the tab -->
                 <% if (user.wishlist.length > 0 & user.wishlist != null) { %>
                 <% user.wishlist.forEach(function(product, index){ %>
                 <form method="GET" class="product" action="/product_details/<%= product.product_id %>">
@@ -366,14 +368,18 @@
                     <div class="product-photo" style="background-image: url('<%= product.pictures[0]%>')">
                     </div>
                     <div class="product-description">
+                      <!-- title -->
                       <h5 class="product-title">
                         <%= product.title %>
                       </h5>
+                      <!-- description -->
                       <p class="product-description-text">
                         <%= product.description %>
                       </p>
+                      <!-- available colours -->
                       <p class="colors-available-p">Colors available: <%= product.colors %>
                       </p>
+                      <!-- Star rating, taken from reviews -->
                       <% if(product.stars == null){ %>
                       <p>No reviews yet</p>
                       <% } else{ %>
@@ -409,6 +415,7 @@
                         <p>&nbsp;&nbsp;&nbsp;&nbsp;<%= product.number_reviews %> Reviews</p>
                       </div>
                       <% } %>
+                      <!-- price -->
                       <p>Price per unit: <%= product.currency %> <%= product.price %></p>
                       <button onclick="" class="btn btn-secondary">See Product Details</button>
                     </div>
@@ -416,6 +423,7 @@
                   <input input type="hidden" type="text" name="product_id" value="<%= product.product_id %>" />
                 </form>
                 <% }) %>
+                <!-- If no items in the users wishlist display this -->
                 <% } else { %>
                 <p>Your wishlist is currently empty</p>
                 <% } %>
@@ -424,8 +432,7 @@
           </div>
         </div>
 
-
-        <!-- orders tab -->
+        <!-- ORDERS TAB -->
         <div id="Orders" class="tabcontent">
           <div class="tab-content-container">
             <div class="tab-content">

@@ -571,113 +571,129 @@ function addSendEmailEventListener() {
 
 // creates a node for each item in the orders_to_confirm collection and adds to DOM
 function renderOrders(orders, products) {
-    orders.forEach(order => {
+    orders.forEach((order) => {
         // get the correct product from the products array
-        const product = products.find(obj => obj.product_id === order.product_id);
+        const product = products.find((obj) => obj.product_id === order.product_id);
         const totalPrice = getTotalPrice(order.quantity_chosen, product.price);
 
-        $('.orders-container').append(
-            $('<div/>', {
-                'class': 'card mx-auto text-center text-dark bg-light order-card',
-                'style': 'width: 80%'
+        $(".orders-container").append(
+            $("<div/>", {
+                class: "card mx-auto text-center text-dark bg-light order-card",
+                style: "width: 80%",
             }).append(
-                $('<div/>', {
-                    'class': 'row g-0'
-                }).append(
-                    $('<div/>', {
-                        'class': 'col-md-4'
-                    }).append(
-                        $('<img/>', {
-                            'src': `${product.pictures[0]}`,
-                            'class': 'img-fluid rounded-start'
-                        })
-                    )
-                ).append(
-                    $('<div/>', {
-                        'class': 'col-md-8'
-                    }).append(
-                        $('</h5>', {
-                            'class': 'card-title',
-                            text: `${product.title}`,
-                        })
-                    ).append(
-                        $('<p/>', {
-                            'class': 'card-text',
-                            text: `${product.description}`
-                        })
-                    ).append(
-                        $('<p/>', {
-                            text: 'Order Details: '
-                        })
-                    ).append(
-                        $('<ul/>', {
-                            'class': 'list-group list-group-flush'
+                $("<div/>", {
+                    class: "row g-0",
+                })
+                    .append(
+                        $("<div/>", {
+                            class: "col-md-4",
                         }).append(
-                            $('<li/>', {
-                                'class': 'list-group-item',
-                                text: `Quantity: ${order.quantity_chosen}`
-                            })
-                        ).append(
-                            $('<li/>', {
-                                'class': 'list-group-item',
-                                text: `Total price: ${totalPrice}`
-                            })
-                        ).append(
-                            $('<li/>', {
-                                'class': 'list-group-item',
-                                text: `Requested deliver date:: ${order.preferred_delivery_chosen}`
-                            })
-                        ).append(
-                            $('<li/>', {
-                                'class': 'list-group-item',
-                                text: `Order Status: ${order.status ? order.status : "Not Confirmed"}`
+                            $("<img/>", {
+                                src: `${product.pictures[0]}`,
+                                class: "img-fluid rounded-start",
                             })
                         )
-                    ).append(
-                        $('<div/>', {
-                            'class': 'row'
-                        }).append(
-                            $('<div/>', {
-                                'class': 'col'
-                            }).append(
-                                $('<button/>', {
-                                    'class': 'btn btn-secondary confirm-order',
-                                    text: 'Confirm',
-                                    'data-userID': `${order.user_id}`,
-                                    'data-orderID': `${order.order_id}`
-                                })
-                            )
-                        ).append(
-                            $('<div/>', {
-                                'class': 'col'
-                            }).append(
-                                $('<button/>', {
-                                    'class': 'btn btn-secondary decline-order',
-                                    text: 'Decline',
-                                    'data-userID': `${order.user_id}`,
-                                    'data-orderID': `${order.order_id}`
-                                })
-                            )
-                        ).append(
-                            $('<div/>', {
-                                'class': 'col'
-                            }).append(
-                                $('<button/>', {
-                                    'class': 'sendEmailButton btn btn-secondary message-customer',
-                                    text: 'Message Customer',
-                                    'data-userID': `${order.user_id}`,
-                                    'data-orderID': `${order.order_id}`,
-                                    'data-user_email': `${order.user_email}`
-                                })
-                            )
-                        )
                     )
-                )
+                    .append(
+                        $("<div/>", {
+                            class: "col-md-8",
+                        })
+                            .append(
+                                $("</h5>", {
+                                    class: "card-title",
+                                    text: `${product.title}`,
+                                })
+                            )
+                            .append(
+                                $("<p/>", {
+                                    class: "card-text",
+                                    text: `${product.description}`,
+                                })
+                            )
+                            .append(
+                                $("<p/>", {
+                                    text: "Order Details: ",
+                                })
+                            )
+                            .append(
+                                $("<ul/>", {
+                                    class: "list-group list-group-flush",
+                                })
+                                    .append(
+                                        $("<li/>", {
+                                            class: "list-group-item",
+                                            text: `Quantity: ${order.quantity_chosen}`,
+                                        })
+                                    )
+                                    .append(
+                                        $("<li/>", {
+                                            class: "list-group-item",
+                                            text: `Total price: ${totalPrice}`,
+                                        })
+                                    )
+                                    .append(
+                                        $("<li/>", {
+                                            class: "list-group-item",
+                                            text: `Requested deliver date:: ${order.preferred_delivery_chosen}`,
+                                        })
+                                    )
+                                    .append(
+                                        $("<li/>", {
+                                            class: "list-group-item",
+                                            text: `Order Status: ${order.status ? order.status : "Not Confirmed"
+                                                }`,
+                                        })
+                                    )
+                            )
+                            .append(
+                                $("<div/>", {
+                                    class: "row",
+                                })
+                                    .append(
+                                        $("<div/>", {
+                                            class: "col",
+                                        }).append(
+                                            $("<button/>", {
+                                                class: "btn btn-secondary confirm-order",
+                                                text: "Confirm",
+                                                "data-userID": `${order.user_id}`,
+                                                "data-orderID": `${order.order_id}`,
+                                            })
+                                        )
+                                    )
+                                    .append(
+                                        $("<div/>", {
+                                            class: "col",
+                                        }).append(
+                                            $("<button/>", {
+                                                class: "btn btn-secondary decline-order",
+                                                text: "Decline",
+                                                "data-userID": `${order.user_id}`,
+                                                "data-orderID": `${order.order_id}`,
+                                            })
+                                        )
+                                    )
+                                    .append(
+                                        $("<div/>", {
+                                            class: "col",
+                                        }).append(
+                                            $("<button/>", {
+                                                class:
+                                                    "sendEmailButton btn btn-secondary message-customer",
+                                                text: "Message Customer",
+                                                "data-userID": `${order.user_id}`,
+                                                "data-orderID": `${order.order_id}`,
+                                                "data-user_email": `${order.user_email}`,
+                                            })
+                                        )
+                                    )
+                            )
+                    )
             )
-        )
-    })
+        );
+    });
 
-    addSendEmailEventListener()
+    addSendEmailEventListener();
 }
 
 

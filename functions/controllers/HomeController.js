@@ -1,11 +1,8 @@
-const firebase = require('../db')
-const firestore = firebase.firestore();
-
-const categoriesDb = require('../database/productCategories');
-const colorsDb = require('../database/productColors');
-const weddingTypeDb = require('../database/weddingTypes');
-const userDb = require('../database/usersDB');
-const prodDb = require('../database/productsDB');
+const categoriesDb = require("../database/productCategories");
+const colorsDb = require("../database/productColors");
+const weddingTypeDb = require("../database/weddingTypes");
+const userDb = require("../database/usersDB");
+const prodDb = require("../database/productsDB");
 
 function filterProductsBy(productsList, targetAttribute, targetValue) {
   let products = productsList;
@@ -25,12 +22,10 @@ function filterProductsBy(productsList, targetAttribute, targetValue) {
         filteredProducts.push(product);
       }
     }
-
   }
 
   return filteredProducts;
-};
-
+}
 
 async function prepareHomePayload(queryObject) {
   // get all entries from products table
@@ -89,41 +84,55 @@ async function prepareHomePayload(queryObject) {
         chosenCity: "All",
         chosenCategory: "All",
         chosenColor: "All",
-        chosenWeddingType: "All"
-      }
-    }
+        chosenWeddingType: "All",
+      },
+    };
     return payload;
   } else {
     let chosenCountry = queryObject.country;
     // validate input
-    if (chosenCountry == "All" | distinctCountries.has(chosenCountry)) {
+    if ((chosenCountry == "All") | distinctCountries.has(chosenCountry)) {
       if (chosenCountry != "All") {
-        products = filterProductsBy(products, "available_countries", chosenCountry);
+        products = filterProductsBy(
+          products,
+          "available_countries",
+          chosenCountry
+        );
       }
     }
     let chosenCity = queryObject.city;
-    if (chosenCity == "All" | distinctCities.has(chosenCity)) {
+    if ((chosenCity == "All") | distinctCities.has(chosenCity)) {
       if (chosenCity != "All") {
         products = filterProductsBy(products, "available_cities", chosenCity);
       }
     }
 
     let chosenCategory = queryObject.category;
-    if (chosenCategory == "All" | product_categories.includes(chosenCategory)) {
+    if (
+      (chosenCategory == "All") |
+      product_categories.includes(chosenCategory)
+    ) {
       if (chosenCategory != "All") {
         products = filterProductsBy(products, "category", chosenCategory);
       }
     }
     let chosenColor = queryObject.color;
-    if (chosenColor == "All" | colors.includes(chosenColor)) {
+    if ((chosenColor == "All") | colors.includes(chosenColor)) {
       if (chosenColor != "All") {
         products = filterProductsBy(products, "colors", chosenColor);
       }
     }
     let chosenWeddingType = queryObject.weddingType;
-    if (chosenWeddingType == "All" | weddingTypes.includes(chosenWeddingType)) {
+    if (
+      (chosenWeddingType == "All") |
+      weddingTypes.includes(chosenWeddingType)
+    ) {
       if (chosenWeddingType != "All") {
-        products = filterProductsBy(products, "wedding_types", chosenWeddingType);
+        products = filterProductsBy(
+          products,
+          "wedding_types",
+          chosenWeddingType
+        );
       }
     }
 
@@ -139,13 +148,13 @@ async function prepareHomePayload(queryObject) {
         chosenCity: chosenCity,
         chosenCategory: chosenCategory,
         chosenColor: chosenColor,
-        chosenWeddingType: chosenWeddingType
-      }
-    }
+        chosenWeddingType: chosenWeddingType,
+      },
+    };
     return payload;
   }
-};
+}
 
 module.exports = {
-  prepareHomePayload: prepareHomePayload
-}
+  prepareHomePayload: prepareHomePayload,
+};

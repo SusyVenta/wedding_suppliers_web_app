@@ -1,5 +1,5 @@
-const dotenv = require('dotenv');
-const { testConfig } = require('./firebaseConfig');
+const dotenv = require("dotenv");
+const { testConfig } = require("./firebaseConfig");
 dotenv.config();
 
 const {
@@ -9,7 +9,7 @@ const {
   MESSAGING_SENDER,
   PROJECT_ID,
   APP_ID,
-  MEASUREMENT_ID
+  MEASUREMENT_ID,
 } = process.env;
 
 if (API_KEY != null) {
@@ -20,8 +20,8 @@ if (API_KEY != null) {
     storageBucket: STORAGE_BUCKET,
     messagingSenderId: MESSAGING_SENDER,
     appId: APP_ID,
-    measurementId: MEASUREMENT_ID
-  }
+    measurementId: MEASUREMENT_ID,
+  };
 } else {
   if (API_KEY == null) {
     const API_KEY = testConfig.apiKey;
@@ -39,7 +39,7 @@ if (API_KEY != null) {
       storageBucket: STORAGE_BUCKET,
       messagingSenderId: MESSAGING_SENDER,
       appId: APP_ID,
-      measurementId: MEASUREMENT_ID
-    }
+      measurementId: MEASUREMENT_ID,
+    };
   }
 }

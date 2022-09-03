@@ -1,14 +1,13 @@
-const Views = '../views/';
-const prodDb = require('../database/productsDB');
-const userDb = require('../database/usersDB');
-
+const Views = "../views/";
+const prodDb = require("../database/productsDB");
+const userDb = require("../database/usersDB");
 
 const getUserProfileCommonData = async (req, res) => {
-
+  // user ID
   const real_id = req.params.userId || req.query.userId || req.body.userId;
-
+  // users data
   const user = await userDb.getVendorData(real_id);
-  const wishlist = user.wishlist
+  const wishlist = user.wishlist;
 
   // Get the products from the database
   if (wishlist != null) {
@@ -42,7 +41,7 @@ const getUserProfileCommonData = async (req, res) => {
     user.orders = [];
   }
   return user;
-}
+};
 
 // called when user clicks on Profile from navbar
 const getUserProfile = async (req, res) => {
@@ -52,8 +51,8 @@ const getUserProfile = async (req, res) => {
   user.openProfileTabClass = "tablinks active";
   user.openWishlistTabClass = "tablinks";
   user.openOrdersTabClass = "tablinks";
-  res.render(Views + 'user_profile.ejs', user)
-}
+  res.render(Views + "user_profile.ejs", user);
+};
 
 // called when user clicks on cancel order or review from profile Orders tab
 const postUserProfile = async (req, res) => {
@@ -64,11 +63,10 @@ const postUserProfile = async (req, res) => {
   user.openWishlistTabClass = "tablinks";
   user.openOrdersTabClass = "tablinks active";
 
-  res.render(Views + 'user_profile.ejs', user)
-}
+  res.render(Views + "user_profile.ejs", user);
+};
 
 module.exports = {
   getUserProfile,
-  postUserProfile
-}
-
+  postUserProfile,
+};

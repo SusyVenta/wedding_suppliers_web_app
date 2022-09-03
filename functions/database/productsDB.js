@@ -1,6 +1,7 @@
 const firebase = require('../db')
 const firestore = firebase.firestore();
 
+// get all the products currently in db
 async function getProductsTable() {
     const products = [];
     const productsTable = await firestore.collection('products').get();
@@ -13,6 +14,7 @@ async function getProductsTable() {
     return products;
 }
 
+// get a single product from db
 async function getSingleProduct(productId) {
     const productSnap = await firestore
         .collection('products')
@@ -20,6 +22,7 @@ async function getSingleProduct(productId) {
         .get();
     return productSnap.data();
 }
+
 
 async function addOrderToVendor(vendorId, orderId, entry) {
     await firestore.collection('users')
